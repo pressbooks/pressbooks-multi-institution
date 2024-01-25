@@ -1,0 +1,27 @@
+{
+  "name": "pressbooks-plugin-scaffold",
+  "version": "1.0.0",
+  "description": "",
+  "main": "resources/assets/js/pressbooks-plugin-scaffold.js",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/pressbooks/pressbooks-plugin-scaffold.git"
+  },
+  "keywords": [
+    "wordpress-plugin"
+  ],
+  "author": "Pressbooks (Book Oven Inc.)",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/pressbooks/pressbooks-plugin-scaffold/issues"
+  },
+  "homepage": "https://github.com/pressbooks/pressbooks-plugin-scaffold#readme",
+  "devDependencies": {
+    "@kucrut/vite-for-wp": "^0.5.2",
+    "cross-env": "^7.0.3"
+  }
+}
