@@ -1,6 +1,6 @@
 <?php
 
-namespace PressbooksPluginScaffold\Controllers;
+namespace PressbooksMultiInstitution\Controllers;
 
 class DemoController extends BaseController
 {

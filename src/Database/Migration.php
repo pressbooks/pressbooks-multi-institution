@@ -1,10 +1,10 @@
 <?php
 
-namespace PressbooksPluginScaffold\Database;
+namespace PressbooksMultiInstitution\Database;
 
 use FilesystemIterator;
 use Illuminate\Support\Collection;
-use PressbooksPluginScaffold\Interfaces\MigrationInterface;
+use PressbooksMultiInstitution\Interfaces\MigrationInterface;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use SplFileInfo;

@@ -1,6 +1,6 @@
 <?php
 
-namespace PressbooksPluginScaffold\Interfaces;
+namespace PressbooksMultiInstitution\Interfaces;
 
 interface MigrationInterface
 {

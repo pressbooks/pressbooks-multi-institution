@@ -1,9 +1,9 @@
 {
-  "name": "pressbooks/pressbooks-plugin-scaffold",
+  "name": "pressbooks/pressbooks-multi-institution",
   "license": "GPL-3.0-or-later",
   "type": "wordpress-plugin",
-  "description": "A scaffold for Pressbooks plugins.",
-  "homepage": "https://github.com/pressbooks/%PLUGIN_SLUG%",
+  "description": "Tools for managing Pressbooks networks shared by multiple institutions.",
+  "homepage": "https://github.com/pressbooks/pressbooks-multi-institution",
   "authors": [
     {
       "name": "Book Oven Inc.",
@@ -14,8 +14,8 @@
   "keywords": ["ebooks", "publishing", "webbooks"],
   "support": {
     "email": "code@pressbooks.com",
-    "issues": "https://github.com/pressbooks/pressbooks-plugin-scaffold/issues/",
-    "source": "https://github.com/pressbooks/pressbooks-plugin-scaffold/"
+    "issues": "https://github.com/pressbooks/pressbooks-multi-institution/issues/",
+    "source": "https://github.com/pressbooks/pressbooks-multi-institution/"
   },
   "config": {
     "preferred-install": {
@@ -27,7 +27,7 @@
   },
   "autoload": {
     "psr-4": {
-      "PressbooksPluginScaffold\\": "src/"
+      "PressbooksMultiInstitution\\": "src/"
     }
   },
   "autoload-dev": {

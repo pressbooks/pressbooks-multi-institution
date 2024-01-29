@@ -2,8 +2,8 @@
 
 namespace Tests;
 
-use PressbooksPluginScaffold\Bootstrap;
-use PressbooksPluginScaffold\Database\Migration;
+use PressbooksMultiInstitution\Bootstrap;
+use PressbooksMultiInstitution\Database\Migration;
 use WP_UnitTestCase;
 
 class TestCase extends WP_UnitTestCase

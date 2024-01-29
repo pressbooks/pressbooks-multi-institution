@@ -1,7 +1,7 @@
 # Pressbooks Multi Institution
 
 **Contributors:** arzola, fdalcin \
-**Tags:** pressbooks, plugin, scaffolding \
+**Tags:** pressbooks, plugin \
 **Requires at least:** 6.4.2 \
 **Tested up to:** 6.4.2 \
 **Stable tag:** 0.1.0 \

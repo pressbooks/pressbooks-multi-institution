@@ -1,6 +1,6 @@
 <?php
 
-use PressbooksPluginScaffold\Interfaces\MigrationInterface;
+use PressbooksMultiInstitution\Interfaces\MigrationInterface;
 
 return new class implements MigrationInterface {
     public function up(): void

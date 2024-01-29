@@ -1,12 +1,12 @@
 <?php
 
-namespace PressbooksPluginScaffold;
+namespace PressbooksMultiInstitution;
 
 use Pressbooks\Container;
 
 /**
  * Class Bootstrap
- * @package PressbooksPluginScaffold
+ * @package PressbooksMultiInstitution
  *
  */
 final class Bootstrap
@@ -42,7 +42,7 @@ final class Bootstrap
     private function registerBlade(): void
     {
         Container::get('Blade')->addNamespace(
-            'PressbooksPluginScaffold',
+            'PressbooksMultiInstitution',
             dirname(__DIR__).'/resources/views'
         );
     }
@@ -55,12 +55,12 @@ final class Bootstrap
     private function enqueueScripts(): void
     {
         //TODO: Enqueue scripts here.
-        $handle = 'pressbooks-plugin-scaffold';
+        $handle = 'pressbooks-multi-institution';
 
         add_action('wp_enqueue_scripts', function () use ($handle) {
             Vite\enqueue_asset(
                 plugin_dir_path(__DIR__).'dist',
-                'resources/assets/js/pressbooks-plugin-scaffold.js',
+                'resources/assets/js/pressbooks-multi-institution.js',
                 ['handle' => $handle]
             );
         });
