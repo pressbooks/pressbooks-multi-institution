@@ -1,6 +1,6 @@
 <?php
 
-namespace PressbooksPluginScaffold\Controllers;
+namespace PressbooksMultiInstitution\Controllers;
 
 use Pressbooks\Container;
 
@@ -16,7 +16,7 @@ class BaseController
     protected function renderView(string $view, array $data = []): string
     {
         return $this->view->render(
-            "PressbooksPluginScaffold::{$view}",
+            "PressbooksMultiInstitution::{$view}",
             $data
         );
     }
