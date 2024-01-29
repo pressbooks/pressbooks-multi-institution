@@ -7,13 +7,12 @@ return new class implements MigrationInterface {
     {
         global $wpdb;
 
-        // TODO: add the required fields
         $sql = <<<SQL
 CREATE TABLE IF NOT EXISTS {$wpdb->base_prefix}institutions (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
-    book_limit SMALLINT UNSIGNED NULL,
-    user_limit SMALLINT UNSIGNED NULL,
+    book_limit INT UNSIGNED NULL,
+    user_limit INT UNSIGNED NULL,
     PRIMARY KEY (id)
 ) {$wpdb->get_charset_collate()}
 SQL;
