@@ -10,4 +10,9 @@
 	<a class="page-title-action" href="{{ $add_new_url }}">{{ __('Add new', 'pressbooks-multi-institution') }}</a>
 
 	<hr class="wp-header-end">
+
+	<form id="pressbooks-multi-institution-admin" method="GET">
+		<input type="hidden" name="page" value="{{ $page }}" />
+		{!! $table->display() !!}
+	</form>
 </div>

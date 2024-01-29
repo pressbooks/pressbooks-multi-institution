@@ -54,7 +54,7 @@ final class Bootstrap
             capability: 'manage_network',
             menu_slug: 'pb_multi_institution',
             callback: function () {
-                echo Container::get(InstitutionsController::class)->index();
+                echo app(InstitutionsController::class)->index();
             },
         );
     }
@@ -67,7 +67,7 @@ final class Bootstrap
 
     private function registerBlade(): void
     {
-        Container::get('Blade')->addNamespace(
+        app()->Blade->addNamespace(
             'PressbooksMultiInstitution',
             dirname(__DIR__).'/resources/views'
         );
