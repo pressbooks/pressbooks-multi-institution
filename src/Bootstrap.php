@@ -52,7 +52,7 @@ final class Bootstrap
             page_title: __('Institution List', 'pressbooks-multi-institution'),
             menu_title: __('Institution List', 'pressbooks-multi-institution'),
             capability: 'manage_network',
-            menu_slug: 'shrug_institutions',
+            menu_slug: 'pb_multi_institution',
             callback: function () {
                 echo Container::get(InstitutionsController::class)->index();
             },
