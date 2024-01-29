@@ -3,6 +3,7 @@
 namespace PressbooksMultiInstitution;
 
 use Pressbooks\Container;
+use PressbooksMultiInstitution\Controllers\InstitutionsController;
 
 /**
  * Class Bootstrap
@@ -30,13 +31,38 @@ final class Bootstrap
 
     public function registerMenus(): void
     {
-        //TODO: Register menus here.
-        add_action('network_admin_menu', [$this, 'registerMenus'], 11);
+        $slug = is_network_admin() ? 'pb_multi_institution' : network_admin_url('admin.php?page=pb_multi_institution');
+
+        add_menu_page(
+            __('Institutions', 'pressbooks-multi-institution'),
+            __('Institutions', 'pressbooks-multi-institution'),
+            'manage_network',
+            $slug,
+            '',
+            'dashicons-unknown',
+        );
+
+        add_action(
+            'admin_bar_init',
+            fn () => remove_submenu_page('pb_multi_institution', 'pb_multi_institution')
+        );
+
+        add_submenu_page(
+            parent_slug: $slug,
+            page_title: __('Institution List', 'pressbooks-multi-institution'),
+            menu_title: __('Institution List', 'pressbooks-multi-institution'),
+            capability: 'manage_network',
+            menu_slug: 'shrug_institutions',
+            callback: function () {
+                echo Container::get(InstitutionsController::class)->index();
+            },
+        );
     }
 
     private function registerActions(): void
     {
         //TODO: Register actions here.
+        add_action('network_admin_menu', [$this, 'registerMenus'], 11);
     }
 
     private function registerBlade(): void
@@ -49,7 +75,8 @@ final class Bootstrap
 
     private function registerServices(): void
     {
-        Container::getInstance()->bind(DemoController::class, fn () => new DemoController);
+        // TODO: I don't think we need to register controllers here unless they need to be singletons or require some special config
+        // Container should be able to handle it by itself.
     }
 
     private function enqueueScripts(): void

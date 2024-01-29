@@ -13,6 +13,8 @@ CREATE TABLE IF NOT EXISTS {$wpdb->base_prefix}institutions (
     name VARCHAR(255) NOT NULL,
     book_limit INT UNSIGNED NULL,
     user_limit INT UNSIGNED NULL,
+    created_at datetime NOT NULL,
+    updated_at datetime NOT NULL,
     PRIMARY KEY (id)
 ) {$wpdb->get_charset_collate()}
 SQL;

@@ -12,6 +12,8 @@ CREATE TABLE IF NOT EXISTS {$wpdb->base_prefix}institutions_email_domains (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     institution_id BIGINT UNSIGNED NOT NULL,
     domain VARCHAR(255) NOT NULL,
+    created_at datetime NOT NULL,
+    updated_at datetime NOT NULL,
     PRIMARY KEY (id),
     UNIQUE (institution_id, domain),
     FOREIGN KEY (institution_id) REFERENCES {$wpdb->base_prefix}institutions(id) ON DELETE CASCADE
