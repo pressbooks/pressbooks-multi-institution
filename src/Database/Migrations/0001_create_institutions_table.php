@@ -3,22 +3,15 @@
 use PressbooksPluginScaffold\Interfaces\MigrationInterface;
 
 return new class implements MigrationInterface {
-    private readonly string $table;
-
-    public function __construct()
-    {
-        global $wpdb;
-
-        $this->table = "{$wpdb->base_prefix}table_name";
-    }
-
     public function up(): void
     {
         global $wpdb;
 
+        // TODO: add the required fields
         $sql = <<<SQL
-CREATE TABLE IF NOT EXISTS {$this->table} (
+CREATE TABLE IF NOT EXISTS {$wpdb->base_prefix}institutions (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 ) {$wpdb->get_charset_collate()}
 SQL;
