@@ -7,14 +7,14 @@ return new class implements MigrationInterface {
     {
         global $wpdb;
 
-        // TODO: add the required fields
         $sql = <<<SQL
-CREATE TABLE IF NOT EXISTS {$wpdb->base_prefix}institutions (
+CREATE TABLE IF NOT EXISTS {$wpdb->base_prefix}institutions_email_domains (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL,
-    book_limit SMALLINT UNSIGNED NULL,
-    user_limit SMALLINT UNSIGNED NULL,
-    PRIMARY KEY (id)
+    institution_id BIGINT UNSIGNED NOT NULL,
+    domain VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE (institution_id, domain),
+    FOREIGN KEY (institution_id) REFERENCES {$wpdb->base_prefix}institutions(id) ON DELETE CASCADE
 ) {$wpdb->get_charset_collate()}
 SQL;
 
@@ -26,7 +26,7 @@ SQL;
         global $wpdb;
 
         $sql = <<<SQL
-DROP TABLE IF EXISTS {$wpdb->base_prefix}institutions
+DROP TABLE IF EXISTS {$wpdb->base_prefix}institutions_email_domains
 SQL;
 
         $wpdb->query($sql);

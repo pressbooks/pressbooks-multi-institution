@@ -32,5 +32,6 @@ if (!class_exists('Pressbooks\Book')) {
 }
 
 register_activation_hook(__FILE__, [Migration::class, 'migrate']);
+register_deactivation_hook(__FILE__, [Migration::class, 'rollback']);
 
 add_action('plugins_loaded', [Bootstrap::class, 'run']);

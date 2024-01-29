@@ -21,6 +21,16 @@ class Migration
         return true;
     }
 
+    public static function rollback(): bool
+    {
+        (new static)
+            ->getMigrationFiles()
+            ->sortKeysDesc()
+            ->each(fn (MigrationInterface $class) => $class->down());
+
+        return true;
+    }
+
     private function getMigrationFiles(): Collection
     {
         $iterator = new RecursiveIteratorIterator(

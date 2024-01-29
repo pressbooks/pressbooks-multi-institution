@@ -21,4 +21,15 @@ SQL;
 
         $wpdb->query($sql);
     }
+
+    public function down(): void
+    {
+        global $wpdb;
+
+        $sql = <<<SQL
+DROP TABLE IF EXISTS {$wpdb->base_prefix}institutions_blogs
+SQL;
+
+        $wpdb->query($sql);
+    }
 };
