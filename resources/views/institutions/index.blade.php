@@ -12,10 +12,10 @@
 	@if( !empty($params['searchQuery']) && !empty($params['orderBy']))
 	<div class="filtering">
 		<ul>
-			<li>{{ sprintf( __( 'Showing results for: %s', 'pressbooks-multi-institution' ), $params['searchQuery'] ) }}</li>
-			<li>{{ sprintf( __( 'Ordering by: %s', 'pressbooks-multi-institution' ), $params['orderBy'] ) }}</li>
+			<li>{!! sprintf( __( '<strong>Showing results for:</strong> %s', 'pressbooks-multi-institution' ), $params['searchQuery'] ) !!}</li>
+			<li>{!! sprintf( __( '<strong>Ordering by:</strong> %s', 'pressbooks-multi-institution' ), $params['orderBy'] ) !!}</li>
 		</ul>
-		<a href="{{ $list_url }}">{{ __('Clear', 'pressbooks-multi-institution') }}</a>
+		<a href="{{ $list_url }}">{{ __('Clear filters', 'pressbooks-multi-institution') }}</a>
 	</div>
 	@endif
 

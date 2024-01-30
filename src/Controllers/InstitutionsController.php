@@ -47,7 +47,35 @@ class InstitutionsController extends BaseController
 
     protected function processBulkActions(): array
     {
-        return [];
+        $action = $this->table->current_action();
+
+        $actions = ['delete'];
+
+        if (!in_array($action, $actions)) {
+            return [];
+        }
+
+        check_admin_referer('bulk-institutions');
+
+        $items = $_REQUEST['ID'] ?? [];
+
+        if (!$items) {
+            return [];
+        }
+
+        $base = Institution::query()->whereIn('id', $items);
+
+        match($action) {
+            'delete' => $base->delete(),
+            default => null,
+        };
+
+        return [
+            'success' => true,
+            'message' => __('Action completed.', 'pressbooks-multi-institution'),
+        ];
+
+
     }
 
     protected function form(): string

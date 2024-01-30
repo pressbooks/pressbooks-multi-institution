@@ -13,8 +13,7 @@ class InstitutionsTable extends WP_List_Table
     {
         parent::__construct([
             'singular' => 'institution',
-            'plural' => 'instutitions', // Parent will create bulk nonce: "bulk-{$plural}"
-            'ajax' => true,
+            'plural' => 'institutions', // Parent will create bulk nonce: "bulk-{$plural}"
         ]);
     }
 
@@ -24,12 +23,12 @@ class InstitutionsTable extends WP_List_Table
      * named 'title', it would first see if a method named $this->column_title()
      * exists. If it doesn't this one will be used.
      *
-     * @see WP_List_Table::single_row_columns()
-     *
      * @param object $item A singular item (one full row's worth of data)
      * @param string $column_name The name/slug of the column to be processed
      *
      * @return string Text or HTML to be placed inside the column <td>
+     * @see WP_List_Table::single_row_columns()
+     *
      */
     public function column_default($item, $column_name): string
     {
@@ -44,7 +43,7 @@ class InstitutionsTable extends WP_List_Table
     }
 
     /**
-     * @param  array  $item A singular item (one full row's worth of data)
+     * @param array $item A singular item (one full row's worth of data)
      *
      * @return string Text to be placed inside the column <td>
      */
@@ -65,7 +64,7 @@ class InstitutionsTable extends WP_List_Table
         $delete_url = network_admin_url(
             sprintf('/admin.php?page=%s&action=%s&ID[]=%s', $_REQUEST['page'], 'delete', $item['ID'])
         );
-        $delete_url = esc_url(add_query_arg('_wpnonce', wp_create_nonce('bulk-platforms'), $delete_url));
+        $delete_url = esc_url(add_query_arg('_wpnonce', wp_create_nonce('bulk-institutions'), $delete_url));
 
         $onclick = 'onclick="if ( !confirm(\'' . esc_attr(__('Are you sure you want to delete this?', 'pressbooks')) . '\') ) { return false }"';
 
@@ -167,8 +166,6 @@ class InstitutionsTable extends WP_List_Table
     {
         return [
             'delete' => 'Delete',
-            'activate' => 'Activate',
-            'deactivate' => 'Deactivate',
         ];
     }
 
@@ -203,6 +200,17 @@ class InstitutionsTable extends WP_List_Table
         })->toArray();
 
         $this->items[] = [
+            'unassigned' => true,
+            'ID' => 'total_items', // this is a dummy ID, it won't be used for anything
+            'name' => __('Total Items', 'pressbooks-multi-institution'),
+            'email_domains' => $total_items,
+            'institutional_managers' => '',
+            'book_limit' => '',
+            'user_limit' => '',
+        ];
+
+        $this->items[] = [
+            'totals' => true,
             'ID' => 'total_items', // this is a dummy ID, it won't be used for anything
             'name' => __('Total Items', 'pressbooks-multi-institution'),
             'email_domains' => $total_items,
@@ -216,5 +224,24 @@ class InstitutionsTable extends WP_List_Table
             'per_page' => $this->paginationSize,
             'total_pages' => $institutions->lastPage(),
         ]);
+    }
+
+    public function single_row($item): void
+    {
+        if (isset($item['unassigned'])) {
+            // Display your custom total row
+            echo "<tr>";
+            // Assuming your total is in item 'total'
+            echo "<td colspan=6>Unassigned:</td>";
+            echo "</tr>";
+        } elseif (isset($item['totals'])) {
+            // Display your custom sum row
+            echo "<tr>";
+            // Assuming your sum is in item 'sum'
+            echo "<td colspan=6	>Network totals:</td>";
+            echo "</tr>";
+        } else {
+            parent::single_row($item);
+        }
     }
 }

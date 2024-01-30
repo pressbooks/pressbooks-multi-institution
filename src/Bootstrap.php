@@ -2,7 +2,6 @@
 
 namespace PressbooksMultiInstitution;
 
-use Pressbooks\Container;
 use PressbooksMultiInstitution\Controllers\InstitutionsController;
 
 /**
@@ -73,15 +72,8 @@ final class Bootstrap
         );
     }
 
-    private function registerServices(): void
-    {
-        // TODO: I don't think we need to register controllers here unless they need to be singletons or require some special config
-        // Container should be able to handle it by itself.
-    }
-
     private function enqueueScripts(): void
     {
-        //TODO: Enqueue scripts here.
         $handle = 'pressbooks-multi-institution';
 
         add_action('wp_enqueue_scripts', function () use ($handle) {
