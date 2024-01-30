@@ -39,7 +39,7 @@ final class Bootstrap
             'manage_network',
             $slug,
             '',
-            'dashicons-unknown',
+            'dashicons-building',
         );
 
         add_action(

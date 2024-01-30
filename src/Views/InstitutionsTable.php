@@ -110,6 +110,56 @@ class InstitutionsTable extends WP_List_Table
         ];
     }
 
+    public function get_sortable_columns()
+    {
+        return [
+            'name' => ['name', false],
+            'email_domains' => ['email_domains', false],
+            'book_limit' => ['book_limit', false],
+            'user_limit' => ['user_limit', false],
+        ];
+    }
+
+    /**
+     * @param array $item
+     *
+     * @return string
+     */
+    public function column_email_domains(array $item): string
+    {
+        return $item['email_domains'];
+    }
+
+    /**
+     * @param array $item
+     *
+     * @return string
+     */
+    public function column_institutional_managers(array $item): string
+    {
+        return $item['institutional_managers'];
+    }
+
+    /**
+     * @param array $item
+     *
+     * @return string
+     */
+    public function column_book_limit(array $item): string
+    {
+        return $item['book_limit'];
+    }
+
+    /**
+     * @param array $item
+     *
+     * @return string
+     */
+    public function column_user_limit(array $item): string
+    {
+        return $item['user_limit'];
+    }
+
     /**
      * @return array
      */
@@ -128,7 +178,8 @@ class InstitutionsTable extends WP_List_Table
     public function prepare_items(): void
     {
         // Retrieve the paginated data using Eloquent
-        $institutions = Institution::paginate($this->paginationSize, ['*'], 'paged', $this->get_pagenum());
+        $institutions = Institution::query()->searchAndOrder($_REQUEST)->
+        paginate($this->paginationSize, ['*'], 'paged', $this->get_pagenum());
 
         // Define Columns
         $columns = $this->get_columns();

@@ -33,9 +33,15 @@ class InstitutionsController extends BaseController
 
         return $this->renderView('institutions.index', [
             'page' => 'pb_multi_institution',
+            'list_url' => network_admin_url('admin.php?page=pb_multi_institution'),
             'add_new_url' => network_admin_url('admin.php?page=pb_multi_institution&action=new'),
             'table' => $this->table,
             'result' => $result,
+            'params' => [
+                'searchQuery' => $_REQUEST['s'] ?? '',
+                'orderBy' => $_REQUEST['orderby'] ?? 'ID',
+                'order' => $_REQUEST['order'] ?? 'ASC',
+            ]
         ]);
     }
 
