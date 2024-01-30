@@ -94,8 +94,8 @@ class InstitutionsController extends BaseController
         return [
             'success' => true,
             'message' => $institution->wasRecentlyCreated
-                ? __('Institution created.', 'pressbooks-multi-institution')
-                : __('Institution updated.', 'pressbooks-multi-institution'),
+                ? __('Institution has been added.', 'pressbooks-multi-institution')
+                : __('Institution has been updated.', 'pressbooks-multi-institution'),
         ];
     }
 
