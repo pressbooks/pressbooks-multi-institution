@@ -1,0 +1,12 @@
+{
+  "node_modules/@pressbooks/multiselect/pressbooks-multiselect.js": {
+    "file": "assets/multiselect-3a2b21c2.js",
+    "isEntry": true,
+    "src": "node_modules/@pressbooks/multiselect/pressbooks-multiselect.js"
+  },
+  "resources/assets/js/pressbooks-multi-institution.js": {
+    "file": "assets/app-4ed993c7.js",
+    "isEntry": true,
+    "src": "resources/assets/js/pressbooks-multi-institution.js"
+  }
+}
