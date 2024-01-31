@@ -203,14 +203,14 @@ class InstitutionsTable extends WP_List_Table
 
         // Get total books and users from the database
         $totalBooks = (new Book)->getTotalBooks();
-        $totalUsers = app()->db->table('users')->count();
-        $assigned = app()->db->table('blogs')
+        $totalUsers = app('db')->table('users')->count();
+        $assigned = app('db')->table('blogs')
             ->whereIn('blog_id', function ($query) {
                 $query->select('blog_id')->from('institutions_blogs');
             })
             ->where('blog_id', '<>', 1) // Exclude the main blog
             ->count();
-        $totalUsersAssigned = app()->db->table('users')
+        $totalUsersAssigned = app('db')->table('users')
             ->whereNotIn('ID', function ($query) {
                 $query->select('user_id')->from('institutions_users');
             })
@@ -247,7 +247,7 @@ class InstitutionsTable extends WP_List_Table
     {
 
         if (isset($item['unassigned']) || isset($item['totals'])) {
-            echo app()->Blade->render('PressbooksMultiInstitution::institutions.rows.totals', $item);
+            echo app('Blade')->render('PressbooksMultiInstitution::institutions.rows.totals', $item);
         } else {
             parent::single_row($item);
         }

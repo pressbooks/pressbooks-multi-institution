@@ -28,8 +28,10 @@
 
         @if(isset($result['errors']))
             <ul>
-                @foreach($result['errors'] as $error)
-                    <li>{{ $error }}</li>
+                @foreach($result['errors'] as $fieldErrors)
+                    @foreach($fieldErrors as $error)
+                        <li>{!! $error !!}</li>
+                    @endforeach
                 @endforeach
             </ul>
         @endif
@@ -70,7 +72,7 @@
                     </label>
                 </th>
                 <td>
-                    <input name="name" id="name" type="text" value="{{ $institution->name }}" class="regular-text" />
+                    <input name="name" id="name" type="text" value="{{ $old['name'] ?? $institution->name }}" class="regular-text" />
                 </td>
             </tr>
 
@@ -98,12 +100,12 @@
                             }
                         }"
                     >
-                        @forelse($institution->domains as $key => $domain)
+                        @forelse($old['domains'] ?? $institution->domains as $key => $domain)
                             <input
                                 id="domains-{{ $key + 1 }}"
                                 name="domains[]"
                                 type="text"
-                                value="{{ $domain->domain }}"
+                                value="{{ is_string($domain) ? $domain : $domain->domain }}"
                                 class="regular-text"
                                 aria-labelledby="domains-label"
                                 aria-describedby="domains-description"
@@ -157,7 +159,12 @@
                             aria-describedby="managers-description"
                         >
                             @foreach($users as $user)
-                                <option value="{{ $user->ID }}" @if(in_array($user->ID, $institution->managers)) selected @endif>
+                                <option
+                                    value="{{ $user->ID }}"
+                                    @if($old['managers'] ? in_array($user->ID, $old['managers']) : $institution->managers->contains($user->ID))
+                                        selected
+                                    @endif
+                                >
                                     {{ $user->display_name }} ({{ $user->user_email }})
                                 </option>
                             @endforeach
@@ -176,7 +183,16 @@
                     </p>
                 </th>
                 <td>
-                    <input name="book_limit" id="book_limit" type="number" min="0" value="{{ $institution->book_limit }}" />
+                    <input
+                        name="book_limit"
+                        id="book_limit"
+                        type="number"
+                        min="0"
+                        value="{{ $old['book_limit'] ?? $institution->book_limit }}"
+                        @if(! $canUpdateLimits)
+                            disabled
+                        @endif
+                    />
                 </td>
             </tr>
 
@@ -190,7 +206,16 @@
                     </p>
                 </th>
                 <td>
-                    <input name="user_limit" id="user_limit" type="number" min="0" value="{{ $institution->user_limit }}" />
+                    <input
+                        name="user_limit"
+                        id="user_limit"
+                        type="number"
+                        min="0"
+                        value="{{ $old['user_limit'] ?? $institution->user_limit }}"
+                        @if(! $canUpdateLimits)
+                            disabled
+                        @endif
+                    />
                 </td>
             </tr>
         </table>

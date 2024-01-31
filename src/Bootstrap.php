@@ -68,7 +68,7 @@ final class Bootstrap
 
     private function registerBlade(): void
     {
-        app()->Blade->addNamespace(
+        app('Blade')->addNamespace(
             'PressbooksMultiInstitution',
             dirname(__DIR__).'/resources/views'
         );

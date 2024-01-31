@@ -97,8 +97,7 @@ class Institution extends Model
 
     public function getInstitutionalManagersAttribute(): string
     {
-        return app()
-            ->db
+        return app('db')
             ->table('institutions_users')
             ->join('users', 'institutions_users.user_id', '=', 'users.ID')
             ->where('institution_id', $this->id)
@@ -110,6 +109,6 @@ class Institution extends Model
 
     private function render(string $view, array $data = []): string
     {
-        return app()->Blade->render("PressbooksMultiInstitution::institutions.{$view}", $data);
+        return app('Blade')->render("PressbooksMultiInstitution::institutions.{$view}", $data);
     }
 }

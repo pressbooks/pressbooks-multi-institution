@@ -2,15 +2,13 @@
 
 namespace PressbooksMultiInstitution\Controllers;
 
-use Pressbooks\Container;
-
 class BaseController
 {
     protected mixed $view;
 
     public function __construct()
     {
-        $this->view = Container::get('Blade');
+        $this->view = app('Blade');
     }
 
     protected function renderView(string $view, array $data = []): string

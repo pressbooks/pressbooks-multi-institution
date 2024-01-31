@@ -2,10 +2,14 @@
 
 namespace PressbooksMultiInstitution\Controllers;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use PressbooksMultiInstitution\Models\Institution;
 use PressbooksMultiInstitution\Views\InstitutionsTable;
 use PressbooksMultiInstitution\Support\ConvertEmptyStringsToNull;
+
+use function Pressbooks\Admin\NetworkManagers\is_restricted;
 
 class InstitutionsController extends BaseController
 {
@@ -82,36 +86,45 @@ class InstitutionsController extends BaseController
 
     protected function form(): string
     {
-        $result = $this->save();
+        $canUpdateLimits = is_super_admin() && ! is_restricted();
+
+        $result = $this->save($canUpdateLimits);
 
         return $this->renderView('institutions.form', [
-            'result' => $result,
+            'back_url' => network_admin_url('/admin.php?page=pb_multi_institution'),
+            'canUpdateLimits' =>  $canUpdateLimits,
             'institution' => $this->fetchInstitution(),
+            'old' => $result['success'] ? [] : $_POST,
+            'result' => $result,
             'users' => get_users([
                 'blog_id' => 0,
                 'orderby' => [
                     'display_name',
                     'email',
                     'name'
-                ]
+                ],
+                'login__not_in' => get_super_admins()
             ]),
-            'back_url' => network_admin_url('/admin.php?page=pb_multi_institution'),
         ]);
     }
 
-    protected function save(): array
+    protected function save(bool $canUpdateLimits): array
     {
         if (! $_POST) {
-            return [];
+            return [
+                'success' => true
+            ];
         }
 
         check_admin_referer('pb_multi_institution');
 
-        $data = collect($this->sanitize($_POST))->only(
-            ['name', 'domains', 'managers', 'book_limit', 'user_limit']
-        );
+        $data = Arr::only($this->sanitize($_POST), [
+            'name', 'domains', 'managers', 'book_limit', 'user_limit'
+        ]);
 
-        $errors = $this->validate($data);
+        $id = $_POST['ID'] ?? null;
+
+        $errors = $this->validate($data, $id);
 
         if ($errors) {
             return [
@@ -121,23 +134,26 @@ class InstitutionsController extends BaseController
             ];
         }
 
-        $id = $_POST['ID'] ?? null;
-
-        if ($id) {
-            $institution = Institution::query()->find($id);
-
-            $institution->update(
-                $data->except('domains', 'managers')->all()
-            );
-        } else {
-            /** @var Institution $institution */
-            $institution = Institution::query()->create(
-                $data->except('domains', 'managers')->all(),
-            );
-        }
-
         $domains = array_filter($data['domains'] ?? []);
         $managers = array_filter($data['managers'] ?? []);
+        $data = Arr::except($data, [
+            'domains',
+            'managers',
+            ...$canUpdateLimits ? [] : [
+                'book_limit',
+                'user_limit',
+            ],
+        ]);
+
+        if ($id) {
+            /** @var Institution $institution */
+            $institution = Institution::query()->find($id);
+
+            $institution->update($data);
+        } else {
+            /** @var Institution $institution */
+            $institution = Institution::query()->create($data);
+        }
 
         $institution
             ->updateDomains(
@@ -171,28 +187,28 @@ class InstitutionsController extends BaseController
         return (new ConvertEmptyStringsToNull)->handle($data);
     }
 
-    protected function validate(Collection $data): array
+    protected function validate(array $data, ?int $id): array
     {
         $errors = [];
 
         if (is_null($data['name'])) {
-            $errors['name'] = __('The name field is required.', 'pressbooks-multi-institution');
-        }
-
-        if (! is_array($data['domains']) && ! is_null($data['domains'])) {
-            $errors['domains'] = __('The domains field should be an array.', 'pressbooks-multi-institution');
-        }
-
-        if (! is_array($data['managers']) && ! is_null($data['managers'])) {
-            $errors['managers'] = __('The managers field should be an array.', 'pressbooks-multi-institution');
+            $errors['name'][] = __('The name field is required.', 'pressbooks-multi-institution');
         }
 
         if (! is_numeric($data['book_limit']) && ! is_null($data['book_limit'])) {
-            $errors['book_limit'] = __('The book limit field should be numeric.', 'pressbooks-multi-institution');
+            $errors['book_limit'][] = __('The book limit field should be numeric.', 'pressbooks-multi-institution');
         }
 
         if (! is_numeric($data['user_limit']) && ! is_null($data['user_limit'])) {
-            $errors['user_limit'] = __('The user limit field should be numeric.', 'pressbooks-multi-institution');
+            $errors['user_limit'][] = __('The user limit field should be numeric.', 'pressbooks-multi-institution');
+        }
+
+        if ($domainErrors = $this->checkForDuplicateDomains($data['domains'] ?? [], $id)) {
+            $errors['domains'] = $domainErrors;
+        }
+
+        if ($managerErrors = $this->checkForDuplicateManagers($data['managers'] ?? [], $id)) {
+            $errors['managers'] = $managerErrors;
         }
 
         return $errors;
@@ -208,20 +224,74 @@ class InstitutionsController extends BaseController
             $institution = Institution::query()->make();
 
             return $institution
-                ->setRelation('domains', [])
-                ->setRelation('managers', []);
+                ->setRelation('domains', collect())
+                ->setRelation('managers', collect());
         }
 
-        global $wpdb;
+        /** @var Collection $ids */
+        $ids = app('db')
+            ->table('institutions_users')
+            ->where('institution_id', $institution->id)
+            ->get('user_id');
 
-        // TODO: update this when we have eloquent on user model
-        $ids = $wpdb->get_col(
-            $wpdb->prepare(
-                "SELECT user_id FROM {$wpdb->base_prefix}institutions_users WHERE institution_id = %d",
-                $institution->id
-            )
-        );
+        return $institution->setRelation('managers', $ids->map(fn (object $id) => $id->user_id));
+    }
 
-        return $institution->setRelation('managers', array_map(fn (string $id) => (int) $id, $ids));
+    protected function checkForDuplicateDomains(array $domains, ?int $id): array
+    {
+        $domains = array_filter($domains);
+
+        if (! $domains) {
+            return [];
+        }
+
+        /** @var Collection $duplicates */
+        $duplicates = Institution::query()
+            ->select('institutions.name as institution', 'institutions_email_domains.domain')
+            ->join('institutions_email_domains', 'institutions.id', '=', 'institutions_email_domains.institution_id')
+            ->whereIn('institutions_email_domains.domain', $domains)
+            ->when($id, fn (Builder $query) => $query->where('institutions.id', '<>', $id))
+            ->get();
+
+        return $duplicates->map(function (object $duplicate) {
+            $message = __(
+                'Email domain %s is already in use with %s. Please use a different address.',
+                'pressbooks-multi-institution',
+            );
+
+            return sprintf($message, "<strong>{$duplicate->domain}</strong>", "<strong>{$duplicate->institution}</strong>");
+        })->toArray();
+    }
+
+    protected function checkForDuplicateManagers(array $managers, ?int $id): array
+    {
+        $managers = array_filter($managers);
+
+        if (! $managers) {
+            return [];
+        }
+
+        /** @var Collection $duplicates */
+        $duplicates = Institution::query()
+            ->select('institutions.name as institution')
+            ->addSelect([
+                'user' => app('db')
+                    ->table('users')
+                    ->select('user_login')
+                    ->whereColumn('user_id', 'users.ID')
+            ])
+            ->join('institutions_users', 'institutions.id', '=', 'institutions_users.institution_id')
+            ->whereIn('institutions_users.user_id', $managers)
+            ->when($id, fn (Builder $query) => $query->where('institutions.id', '<>', $id))
+            ->get();
+
+        return $duplicates->map(function (object $duplicate) {
+            $message = __(
+                "%s is already assigned as an institutional manager for %s. They cannot be assigned to manage two institutions at the same time.",
+                'pressbooks-multi-institution'
+            );
+
+            return sprintf($message, "<strong>{$duplicate->user}</strong>", "<strong>{$duplicate->institution}</strong>");
+        })->toArray();
     }
 }
