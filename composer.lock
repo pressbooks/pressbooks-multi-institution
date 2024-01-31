@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d8a6ed5988f8cdc1b6e417d0ae7890a5",
+    "content-hash": "9a7c1269a7bc73cc6154f3c3e2280d10",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -434,21 +434,20 @@
         },
         {
             "name": "kucrut/vite-for-wp",
-            "version": "v0.5.2",
+            "version": "v0.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kucrut/vite-for-wp.git",
-                "reference": "850e04b16b7bebfe6b1a276845d20bd99874fd56"
+                "reference": "bce4607bb57f4892da93492908caeb75ce2782a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kucrut/vite-for-wp/zipball/850e04b16b7bebfe6b1a276845d20bd99874fd56",
-                "reference": "850e04b16b7bebfe6b1a276845d20bd99874fd56",
+                "url": "https://api.github.com/repos/kucrut/vite-for-wp/zipball/bce4607bb57f4892da93492908caeb75ce2782a2",
+                "reference": "bce4607bb57f4892da93492908caeb75ce2782a2",
                 "shasum": ""
             },
             "require-dev": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
-                "wp-coding-standards/wpcs": "^2.3"
+                "wp-coding-standards/wpcs": "^3.0"
             },
             "type": "library",
             "autoload": {
@@ -468,9 +467,9 @@
             "description": "Vite integration for WordPress plugins and themes development.",
             "support": {
                 "issues": "https://github.com/kucrut/vite-for-wp/issues",
-                "source": "https://github.com/kucrut/vite-for-wp/tree/v0.5.2"
+                "source": "https://github.com/kucrut/vite-for-wp/tree/v0.8.0"
             },
-            "time": "2022-12-14T14:07:54+00:00"
+            "time": "2023-11-15T04:30:52+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -7655,5 +7654,5 @@
         "php": "^8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.6.0"
 }
