@@ -161,7 +161,7 @@
                             @foreach($users as $user)
                                 <option
                                     value="{{ $user->ID }}"
-                                    @if($old['managers'] ? in_array($user->ID, $old['managers']) : $institution->managers->contains($user->ID))
+                                    @if(isset($old['managers']) ? in_array($user->ID, $old['managers']) : $institution->managers->contains($user->ID))
                                         selected
                                     @endif
                                 >
