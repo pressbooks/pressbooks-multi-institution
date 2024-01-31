@@ -2,6 +2,7 @@
 
 namespace PressbooksMultiInstitution;
 
+use Kucrut\Vite;
 use PressbooksMultiInstitution\Controllers\InstitutionsController;
 
 /**
@@ -26,6 +27,7 @@ final class Bootstrap
     {
         $this->registerActions();
         $this->registerBlade();
+        $this->enqueueScripts();
     }
 
     public function registerMenus(): void
@@ -74,13 +76,17 @@ final class Bootstrap
 
     private function enqueueScripts(): void
     {
-        $handle = 'pressbooks-multi-institution';
-
-        add_action('wp_enqueue_scripts', function () use ($handle) {
+        add_action('admin_enqueue_scripts', function () {
             Vite\enqueue_asset(
                 plugin_dir_path(__DIR__).'dist',
                 'resources/assets/js/pressbooks-multi-institution.js',
-                ['handle' => $handle]
+                ['handle' => 'pressbooks-multi-institution']
+            );
+
+            Vite\enqueue_asset(
+                plugin_dir_path(__DIR__).'dist',
+                'node_modules/@pressbooks/multiselect/pressbooks-multiselect.js',
+                ['handle' => 'pressbooks-multi-select'],
             );
         });
     }

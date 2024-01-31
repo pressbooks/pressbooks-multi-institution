@@ -2,6 +2,7 @@
 
 namespace PressbooksMultiInstitution\Views;
 
+use Pressbooks\DataCollector\Book;
 use PressbooksMultiInstitution\Models\Institution;
 use WP_List_Table;
 
@@ -188,35 +189,51 @@ class InstitutionsTable extends WP_List_Table
         $total_items = $institutions->total();
 
         // Extract the data from the Eloquent paginator object
+        // TODO: calculate totals using subqueries in the model
         $this->items = $institutions->map(function ($institution) {
             return [
                 'ID' => $institution->id,
                 'name' => $institution->name,
                 'email_domains' => $institution->email_domains,
                 'institutional_managers' => $institution->institutional_managers,
-                'book_limit' => $institution->book_limit,
-                'user_limit' => $institution->user_limit,
+                'book_limit' => "{$institution->books->count()}/$institution->book_limit",
+                'user_limit' => "{$institution->managers->count()}/$institution->user_limit",
             ];
         })->toArray();
 
+        // Get total books and users from the database
+        $totalBooks = (new Book)->getTotalBooks();
+        $totalUsers = app()->db->table('users')->count();
+        $assigned = app()->db->table('blogs')
+            ->whereIn('blog_id', function ($query) {
+                $query->select('blog_id')->from('institutions_blogs');
+            })
+            ->where('blog_id', '<>', 1) // Exclude the main blog
+            ->count();
+        $totalUsersAssigned = app()->db->table('users')
+            ->whereNotIn('ID', function ($query) {
+                $query->select('user_id')->from('institutions_users');
+            })
+            ->count();
+
         $this->items[] = [
             'unassigned' => true,
-            'ID' => 'total_items', // this is a dummy ID, it won't be used for anything
-            'name' => __('Total Items', 'pressbooks-multi-institution'),
-            'email_domains' => $total_items,
-            'institutional_managers' => '',
-            'book_limit' => '',
-            'user_limit' => '',
+            'ID' => 'unassigned_items',
+            'name' => __('Unassigned', 'pressbooks-multi-institution'),
+            'email_domains' => __('none', 'pressbooks-multi-institution'),
+            'institutional_managers' => __('none', 'pressbooks-multi-institution'),
+            'book_total' => $totalBooks - $assigned,
+            'user_total' => $totalUsers - $totalUsersAssigned,
         ];
 
         $this->items[] = [
             'totals' => true,
-            'ID' => 'total_items', // this is a dummy ID, it won't be used for anything
+            'ID' => 'total_items',
             'name' => __('Total Items', 'pressbooks-multi-institution'),
-            'email_domains' => $total_items,
-            'institutional_managers' => '',
-            'book_limit' => '',
-            'user_limit' => '',
+            'email_domains' => __('none', 'pressbooks-multi-institution'),
+            'institutional_managers' => __('none', 'pressbooks-multi-institution'),
+            'book_total' => $totalBooks,
+            'user_total' => $totalUsers,
         ];
 
         $this->set_pagination_args([
@@ -228,18 +245,9 @@ class InstitutionsTable extends WP_List_Table
 
     public function single_row($item): void
     {
-        if (isset($item['unassigned'])) {
-            // Display your custom total row
-            echo "<tr>";
-            // Assuming your total is in item 'total'
-            echo "<td colspan=6>Unassigned:</td>";
-            echo "</tr>";
-        } elseif (isset($item['totals'])) {
-            // Display your custom sum row
-            echo "<tr>";
-            // Assuming your sum is in item 'sum'
-            echo "<td colspan=6	>Network totals:</td>";
-            echo "</tr>";
+
+        if (isset($item['unassigned']) || isset($item['totals'])) {
+            echo app()->Blade->render('PressbooksMultiInstitution::institutions.rows.totals', $item);
         } else {
             parent::single_row($item);
         }
