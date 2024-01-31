@@ -29,6 +29,10 @@ class ConvertEmptyStringsToNull
 
     protected function transform(mixed $value): ?string
     {
+        if (! is_string($value)) {
+            return $value;
+        }
+
         return $value === '' ? null : sanitize_text_field($value);
     }
 }
