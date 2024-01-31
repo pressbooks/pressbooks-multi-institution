@@ -3,7 +3,6 @@
 namespace PressbooksMultiInstitution;
 
 use Kucrut\Vite;
-use Pressbooks\Container;
 use PressbooksMultiInstitution\Controllers\InstitutionsController;
 
 /**
@@ -41,7 +40,7 @@ final class Bootstrap
             'manage_network',
             $slug,
             '',
-            'dashicons-unknown',
+            'dashicons-building',
         );
 
         add_action(
@@ -56,7 +55,7 @@ final class Bootstrap
             capability: 'manage_network',
             menu_slug: 'pb_multi_institution',
             callback: function () {
-                echo Container::get(InstitutionsController::class)->index();
+                echo app(InstitutionsController::class)->index();
             },
         );
     }
@@ -69,26 +68,20 @@ final class Bootstrap
 
     private function registerBlade(): void
     {
-        Container::get('Blade')->addNamespace(
+        app()->Blade->addNamespace(
             'PressbooksMultiInstitution',
             dirname(__DIR__).'/resources/views'
         );
     }
 
-    private function registerServices(): void
-    {
-        // TODO: I don't think we need to register controllers here unless they need to be singletons or require some special config
-        // Container should be able to handle it by itself.
-    }
-
     private function enqueueScripts(): void
     {
         add_action('admin_enqueue_scripts', function () {
-            //            Vite\enqueue_asset(
-            //                plugin_dir_path(__DIR__).'dist',
-            //                'resources/assets/js/pressbooks-multi-institution.js',
-            //                ['handle' => 'pressbooks-multi-institution']
-            //            );
+            Vite\enqueue_asset(
+                plugin_dir_path(__DIR__).'dist',
+                'resources/assets/js/pressbooks-multi-institution.js',
+                ['handle' => 'pressbooks-multi-institution']
+            );
 
             Vite\enqueue_asset(
                 plugin_dir_path(__DIR__).'dist',

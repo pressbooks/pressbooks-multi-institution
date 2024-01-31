@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Plugin Name: Pressbooks Multi Institution
  * Plugin URI: https://pressbooks.org
@@ -18,8 +19,8 @@ use PressbooksMultiInstitution\Database\Migration;
 
 // TODO: Check if this is the best way to check for Pressbooks.
 if (!class_exists('Pressbooks\Book')) {
-    if (file_exists(__DIR__.'/vendor/autoload.php')) {
-        require_once __DIR__.'/vendor/autoload.php';
+    if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+        require_once __DIR__ . '/vendor/autoload.php';
     } else {
         $title = __('Missing dependencies', 'PressbooksMultiInstitution');
         $body = __(
