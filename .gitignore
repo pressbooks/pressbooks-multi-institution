@@ -1,0 +1,11 @@
+.idea/
+vendor/
+node_modules/
+/wp-content/
+.php-cs-fixer.cache
+.phpunit.result.cache
+tx
+.transifexrc
+LICENSE
+.DS_Store
+*.log

@@ -1,0 +1,62 @@
+{
+  "name": "pressbooks/pressbooks-multi-institution",
+  "license": "GPL-3.0-or-later",
+  "type": "wordpress-plugin",
+  "description": "Tools for managing Pressbooks networks shared by multiple institutions.",
+  "homepage": "https://github.com/pressbooks/pressbooks-multi-institution",
+  "authors": [
+    {
+      "name": "Book Oven Inc.",
+      "email": "code@pressbooks.com",
+      "homepage": "https://pressbooks.org"
+    }
+  ],
+  "keywords": ["ebooks", "publishing", "webbooks"],
+  "support": {
+    "email": "code@pressbooks.com",
+    "issues": "https://github.com/pressbooks/pressbooks-multi-institution/issues/",
+    "source": "https://github.com/pressbooks/pressbooks-multi-institution/"
+  },
+  "config": {
+    "preferred-install": {
+      "pressbooks/pressbooks": "source"
+    },
+    "allow-plugins": {
+      "composer/installers": true
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "PressbooksMultiInstitution\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "require": {
+    "php": "^8.1",
+    "kucrut/vite-for-wp": "^0.5.2",
+    "illuminate/pagination": "^8.83"
+  },
+  "require-dev": {
+    "laravel/pint": "^1.10.6",
+    "yoast/phpunit-polyfills": "^1.0.5",
+    "pressbooks/pressbooks": "dev-dev"
+  },
+  "scripts": {
+    "fix": [
+      "./vendor/bin/pint"
+    ],
+    "standards": [
+      "./vendor/bin/pint --test"
+    ],
+    "test": [
+      "./vendor/bin/phpunit --configuration phpunit.xml"
+    ],
+    "test-coverage": [
+      "./vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml"
+    ]
+  }
+}

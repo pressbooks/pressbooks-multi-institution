@@ -1,0 +1,30 @@
+{
+  "name": "pressbooks-multi-institution",
+  "version": "0.1.0",
+  "description": "",
+  "main": "resources/assets/js/pressbooks-multi-institution.js",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/pressbooks/pressbooks-multi-institution.git"
+  },
+  "keywords": [
+    "wordpress-plugin"
+  ],
+  "author": "Pressbooks (Book Oven Inc.)",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/pressbooks/pressbooks--multi-institution/issues"
+  },
+  "homepage": "https://github.com/pressbooks/pressbooks--multi-institution#readme",
+  "devDependencies": {
+    "@kucrut/vite-for-wp": "^0.5.2",
+    "cross-env": "^7.0.3"
+  },
+  "dependencies": {
+    "@pressbooks/multiselect": "^2.1.3"
+  }
+}
