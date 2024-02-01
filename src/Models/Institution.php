@@ -18,6 +18,7 @@ class Institution extends Model
 {
     protected $casts = [
         'id' => 'integer',
+        'name' => 'string',
         'book_limit' => 'integer',
         'user_limit' => 'integer',
         'created_at' => 'datetime',
@@ -94,10 +95,21 @@ class Institution extends Model
                     ->orWhere('users.display_name', 'like', "%{$search}%")
                     ->orWhere('users.user_email', 'like', "%{$search}%");
             });
-        if(isset($request['orderby']) && $request['orderby'] !== 'email_domains') {
-            $builder->orderBy($request['orderby'], $request['order'] === 'asc' ? 'asc' : 'desc');
+
+        if(!isset($request['orderby']) && !isset($request['order'])) {
+            return $builder;
         }
-        return $builder;
+
+        // only order by the fields that are present in the table
+        if(!in_array($request['orderby'], array_keys($this->casts))) {
+            return $builder;
+        }
+
+        if($request['orderby'] === 'email_domains') {
+            return $builder;
+        }
+
+        return $builder->orderBy($request['orderby'] ?? 'name', $request['order'] === 'asc' ? 'asc' : 'desc');
     }
 
     public function getEmailDomainsAttribute(): string
