@@ -39,6 +39,7 @@ body.institutions_page_pb_multi_institutions .filtering a {
 
 .institutions_page_pb_multi_institution_form {
 	--pb-input-width: 25em;
+	--pb-selected-options-flex-direction: column;
 }
 
 .institutions_page_pb_multi_institution_form .description {
