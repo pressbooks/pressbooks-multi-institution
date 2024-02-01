@@ -28,7 +28,14 @@ class Institution extends Model
 
     public function domains(): HasMany
     {
-        return $this->hasMany(EmailDomain::class);
+        // TODO: move this to the scopeSearchAndOrder method
+        // Probably we would want to improve the filtering sort with this kind of nested fields
+        $order = (isset($_REQUEST['order']) && $_REQUEST['order'] === 'asc') ? 'asc' : 'desc';
+        $relation = $this->hasMany(EmailDomain::class);
+        if(isset($_REQUEST['orderby']) && $_REQUEST['orderby'] === 'email_domains') {
+            $relation->orderBy('domain', $order);
+        }
+        return $relation;
     }
 
     public function updateDomains(array $domains): self
@@ -75,10 +82,10 @@ class Institution extends Model
     public function scopeSearchAndOrder($query, $request)
     {
         $search = $request['s'] ?? '';
-        return $query->where('name', 'like', "%{$search}%")
+        $builder = $query->where('name', 'like', "%{$search}%")
             ->orWhere('book_limit', 'like', "%{$search}%")
             ->orWhere('user_limit', 'like', "%{$search}%")
-            ->orWhereHas('domains', function ($query) use ($search) {
+            ->orWhereHas('domains', function ($query) use ($search, $request) {
                 $query->where('domain', 'like', "%{$search}%");
             })
             ->orWhereHas('managers', function ($query) use ($search) {
@@ -86,8 +93,11 @@ class Institution extends Model
                     ->where('users.user_login', 'like', "%{$search}%")
                     ->orWhere('users.display_name', 'like', "%{$search}%")
                     ->orWhere('users.user_email', 'like', "%{$search}%");
-            })
-            ->orderBy($request['orderby'] ?? 'name', $request['order'] ?? 'asc');
+            });
+        if(isset($request['orderby']) && $request['orderby'] !== 'email_domains') {
+            $builder->orderBy($request['orderby'], $request['order'] === 'asc' ? 'asc' : 'desc');
+        }
+        return $builder;
     }
 
     public function getEmailDomainsAttribute(): string
