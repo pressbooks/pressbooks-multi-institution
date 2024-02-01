@@ -74,7 +74,7 @@ class InstitutionsTable extends WP_List_Table
             $delete_url,
             /* translators: %s: post title */
             esc_attr(sprintf(__('Move &#8220;%s&#8221; to the Trash'), $item['name'])),
-            _x('Trash', 'verb')
+            _x('Delete', 'verb')
         );
 
         return sprintf(
@@ -114,7 +114,6 @@ class InstitutionsTable extends WP_List_Table
     {
         return [
             'name' => ['name', false],
-            'email_domains' => ['email_domains', false],
             'book_limit' => ['book_limit', false],
             'user_limit' => ['user_limit', false],
         ];
@@ -220,8 +219,8 @@ class InstitutionsTable extends WP_List_Table
             'unassigned' => true,
             'ID' => 'unassigned_items',
             'name' => __('Unassigned', 'pressbooks-multi-institution'),
-            'email_domains' => __('none', 'pressbooks-multi-institution'),
-            'institutional_managers' => __('none', 'pressbooks-multi-institution'),
+            'email_domains' => '',
+            'institutional_managers' => '',
             'book_total' => $totalBooks - $assigned,
             'user_total' => $totalUsers - $totalUsersAssigned,
         ];
@@ -230,8 +229,8 @@ class InstitutionsTable extends WP_List_Table
             'totals' => true,
             'ID' => 'total_items',
             'name' => __('Total Items', 'pressbooks-multi-institution'),
-            'email_domains' => __('none', 'pressbooks-multi-institution'),
-            'institutional_managers' => __('none', 'pressbooks-multi-institution'),
+            'email_domains' => '',
+            'institutional_managers' => '',
             'book_total' => $totalBooks,
             'user_total' => $totalUsers,
         ];

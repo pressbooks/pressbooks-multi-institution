@@ -29,14 +29,7 @@ class Institution extends Model
 
     public function domains(): HasMany
     {
-        // TODO: move this to the scopeSearchAndOrder method
-        // Probably we would want to improve the filtering sort with this kind of nested fields
-        $order = (isset($_REQUEST['order']) && $_REQUEST['order'] === 'asc') ? 'asc' : 'desc';
-        $relation = $this->hasMany(EmailDomain::class);
-        if(isset($_REQUEST['orderby']) && $_REQUEST['orderby'] === 'email_domains') {
-            $relation->orderBy('domain', $order);
-        }
-        return $relation;
+        return $this->hasMany(EmailDomain::class);
     }
 
     public function updateDomains(array $domains): self
@@ -102,10 +95,6 @@ class Institution extends Model
 
         // only order by the fields that are present in the table
         if(!in_array($request['orderby'], array_keys($this->casts))) {
-            return $builder;
-        }
-
-        if($request['orderby'] === 'email_domains') {
             return $builder;
         }
 
