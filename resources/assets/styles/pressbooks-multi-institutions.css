@@ -11,7 +11,7 @@ table.institutions #the-list tr td,th {
 }
 
 table.institutions #the-list tr td p {
-	margin: 0;
+	margin: 0 0 10px;
 }
 
 .striped .totals-row {
