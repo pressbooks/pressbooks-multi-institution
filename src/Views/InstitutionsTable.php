@@ -211,7 +211,7 @@ class InstitutionsTable extends WP_List_Table
             ->where('blog_id', '<>', 1) // Exclude the main blog
             ->count();
         $totalUsersAssigned = app('db')->table('users')
-            ->whereNotIn('ID', function ($query) {
+            ->whereIn('ID', function ($query) {
                 $query->select('user_id')->from('institutions_users');
             })
             ->count();
