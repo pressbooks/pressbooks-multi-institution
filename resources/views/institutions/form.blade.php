@@ -41,9 +41,9 @@
 <div class="wrap">
     <h1>
         @if ($institution->exists)
-            {{ __( 'Editing', 'pressbooks-multi-institution') }}
+            {{ __( 'Edit', 'pressbooks-multi-institution') }}
         @else
-            {{ __( 'Adding', 'pressbooks-multi-institution') }}
+            {{ __( 'Add', 'pressbooks-multi-institution') }}
         @endif
 
         {{ __( 'Institution', 'pressbooks-multi-institution') }}
