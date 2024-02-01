@@ -1,0 +1,1 @@
+{"version":3,"file":"app-1e83eeed.js","sources":["../../resources/assets/js/pressbooks-multi-institution.js"],"sourcesContent":["import \"../styles/pressbooks-multi-institutions.css\";\n\nconsole.log('Pressbooks Multi-Institution JS loaded')\n"],"names":[],"mappings":"AAEA,QAAQ,IAAI,wCAAwC"}

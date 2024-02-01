@@ -1,24 +1,3 @@
-{{-- TODO: extract css to file --}}
-<style>
-    :root {
-        --pb-input-width: 25em;
-    }
-
-    .description {
-        font-weight: normal;
-    }
-
-    .form-table td select[hidden] {
-        display: none;
-    }
-
-    .multiple-text-input {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: .5rem;
-    }
-</style>
-
 @if (!empty($_POST) && isset($result['success']) && isset($result['message']))
     <div id="message" role="status" class="updated {{ $result['success'] ? 'notice' : 'error' }} is-dismissible">
         <p>

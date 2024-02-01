@@ -10,3 +10,20 @@ table.institutions #the-list tr:not(.totals-row) {
 	padding-left: 40px;
 }
 
+.institutions_page_pb_multi_institution_form {
+	--pb-input-width: 25em;
+}
+
+.institutions_page_pb_multi_institution_form .description {
+	font-weight: normal;
+}
+
+.institutions_page_pb_multi_institution_form .form-table td select[hidden] {
+	display: none;
+}
+
+.institutions_page_pb_multi_institution_form .multiple-text-input {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: .5rem;
+}
