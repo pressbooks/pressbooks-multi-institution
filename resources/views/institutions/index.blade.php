@@ -13,9 +13,8 @@
 	<div class="filtering">
 		<ul>
 			<li>{!! sprintf( __( '<strong>Showing results for:</strong> %s', 'pressbooks-multi-institution' ), $params['searchQuery'] ) !!}</li>
-			<li>{!! sprintf( __( '<strong>Ordering by:</strong> %s', 'pressbooks-multi-institution' ), $params['orderBy'] ) !!}</li>
 		</ul>
-		<a href="{{ $list_url }}">{{ __('Clear filters', 'pressbooks-multi-institution') }}</a>
+		<a href="{{ $list_url }}" class="button">{{ __('Clear filters', 'pressbooks-multi-institution') }}</a>
 	</div>
 	@endif
 
