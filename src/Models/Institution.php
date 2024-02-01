@@ -86,7 +86,7 @@ class Institution extends Model
         $builder = $query->where('name', 'like', "%{$search}%")
             ->orWhere('book_limit', 'like', "%{$search}%")
             ->orWhere('user_limit', 'like', "%{$search}%")
-            ->orWhereHas('domains', function ($query) use ($search, $request) {
+            ->orWhereHas('domains', function ($query) use ($search) {
                 $query->where('domain', 'like', "%{$search}%");
             })
             ->orWhereHas('managers', function ($query) use ($search) {
