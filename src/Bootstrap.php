@@ -33,38 +33,45 @@ final class Bootstrap
 
     public function registerMenus(): void
     {
-        $slug = is_network_admin() ? 'pb_multi_institution' : network_admin_url('admin.php?page=pb_multi_institution');
+        $slug = 'pb_multi_institution';
 
         add_menu_page(
-            __('Institutions', 'pressbooks-multi-institution'),
-            __('Institutions', 'pressbooks-multi-institution'),
-            'manage_network',
-            $slug,
-            '',
-            'dashicons-building',
+            page_title: __('Institutions', 'pressbooks-multi-institution'),
+            menu_title: __('Institutions', 'pressbooks-multi-institution'),
+            capability: 'manage_network',
+            menu_slug: $slug,
+            icon_url: 'dashicons-building',
         );
 
-        add_action(
-            'admin_bar_init',
-            fn () => remove_submenu_page('pb_multi_institution', 'pb_multi_institution')
-        );
+        add_action('admin_bar_init', fn () => remove_submenu_page($slug, $slug));
 
         add_submenu_page(
             parent_slug: $slug,
             page_title: __('Institution List', 'pressbooks-multi-institution'),
             menu_title: __('Institution List', 'pressbooks-multi-institution'),
             capability: 'manage_network',
-            menu_slug: 'pb_multi_institution',
+            menu_slug: 'pb_multi_institutions',
             callback: function () {
                 echo app(InstitutionsController::class)->index();
+            },
+        );
+
+        add_submenu_page(
+            parent_slug: $slug,
+            page_title: __('Add Institution', 'pressbooks-multi-institution'),
+            menu_title: __('Add Institution', 'pressbooks-multi-institution'),
+            capability: 'manage_network',
+            menu_slug: 'pb_multi_institution_form',
+            callback: function () {
+                echo app(InstitutionsController::class)->form();
             },
         );
     }
 
     private function registerActions(): void
     {
-        //TODO: Register actions here.
         add_action('network_admin_menu', [$this, 'registerMenus'], 11);
+        // TODO: register menu at the main site level
     }
 
     private function registerBlade(): void

@@ -58,7 +58,7 @@
     </p>
 
     <form method="post">
-        {!! wp_nonce_field( 'pb_multi_institution' ) !!}
+        {!! wp_nonce_field( 'pb_multi_institution_form' ) !!}
 
         @if($institution->exists)
             <input type="hidden" name="ID" value="{{ $institution->id }}"/>

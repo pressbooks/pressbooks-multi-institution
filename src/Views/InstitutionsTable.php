@@ -51,7 +51,7 @@ class InstitutionsTable extends WP_List_Table
     public function column_name(array $item): string
     {
         $edit_url = network_admin_url(
-            sprintf('/admin.php?page=%s&action=%s&ID=%s', $_REQUEST['page'], 'edit', $item['ID'])
+            sprintf('/admin.php?page=%s&action=%s&ID=%s', 'pb_multi_institution_form', 'edit', $item['ID'])
         );
 
         $actions['edit'] = sprintf(
