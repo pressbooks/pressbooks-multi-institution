@@ -23,24 +23,14 @@ class InstitutionsController extends BaseController
 
     public function index(): string
     {
-        $action = $_GET['action'] ?? 'list';
-
-        return match($action) {
-            'new', 'edit' => $this->form(),
-            default => $this->list(),
-        };
-    }
-
-    protected function list(): string
-    {
         $result = $this->processBulkActions();
 
         $this->table->prepare_items();
 
         return $this->renderView('institutions.index', [
-            'page' => 'pb_multi_institution',
-            'list_url' => network_admin_url('admin.php?page=pb_multi_institution'),
-            'add_new_url' => network_admin_url('admin.php?page=pb_multi_institution&action=new'),
+            'page' => 'pb_multi_institutions',
+            'list_url' => network_admin_url('admin.php?page=pb_multi_institutions'),
+            'add_new_url' => network_admin_url('admin.php?page=pb_multi_institution_form&action=new'),
             'table' => $this->table,
             'result' => $result,
             'params' => [
@@ -48,6 +38,30 @@ class InstitutionsController extends BaseController
                 'orderBy' => $_REQUEST['orderby'] ?? 'ID',
                 'order' => $_REQUEST['order'] ?? 'ASC',
             ]
+        ]);
+    }
+
+    public function form(): string
+    {
+        $canUpdateLimits = is_super_admin() && ! is_restricted();
+
+        $result = $this->save($canUpdateLimits);
+
+        return $this->renderView('institutions.form', [
+            'back_url' => network_admin_url('admin.php?page=pb_multi_institutions'),
+            'canUpdateLimits' =>  $canUpdateLimits,
+            'institution' => $this->fetchInstitution(),
+            'old' => $result['success'] ? [] : $_POST,
+            'result' => $result,
+            'users' => get_users([
+                'blog_id' => 0,
+                'orderby' => [
+                    'display_name',
+                    'email',
+                    'name'
+                ],
+                'login__not_in' => get_super_admins()
+            ]),
         ]);
     }
 
@@ -84,30 +98,6 @@ class InstitutionsController extends BaseController
 
     }
 
-    protected function form(): string
-    {
-        $canUpdateLimits = is_super_admin() && ! is_restricted();
-
-        $result = $this->save($canUpdateLimits);
-
-        return $this->renderView('institutions.form', [
-            'back_url' => network_admin_url('/admin.php?page=pb_multi_institution'),
-            'canUpdateLimits' =>  $canUpdateLimits,
-            'institution' => $this->fetchInstitution(),
-            'old' => $result['success'] ? [] : $_POST,
-            'result' => $result,
-            'users' => get_users([
-                'blog_id' => 0,
-                'orderby' => [
-                    'display_name',
-                    'email',
-                    'name'
-                ],
-                'login__not_in' => get_super_admins()
-            ]),
-        ]);
-    }
-
     protected function save(bool $canUpdateLimits): array
     {
         if (! $_POST) {
@@ -116,7 +106,7 @@ class InstitutionsController extends BaseController
             ];
         }
 
-        check_admin_referer('pb_multi_institution');
+        check_admin_referer('pb_multi_institution_form');
 
         $data = Arr::only($this->sanitize($_POST), [
             'name', 'domains', 'managers', 'book_limit', 'user_limit'

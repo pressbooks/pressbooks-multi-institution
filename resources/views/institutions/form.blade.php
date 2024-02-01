@@ -1,24 +1,3 @@
-{{-- TODO: extract css to file --}}
-<style>
-    :root {
-        --pb-input-width: 25em;
-    }
-
-    .description {
-        font-weight: normal;
-    }
-
-    .form-table td select[hidden] {
-        display: none;
-    }
-
-    .multiple-text-input {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: .5rem;
-    }
-</style>
-
 @if (!empty($_POST) && isset($result['success']) && isset($result['message']))
     <div id="message" role="status" class="updated {{ $result['success'] ? 'notice' : 'error' }} is-dismissible">
         <p>
@@ -41,9 +20,9 @@
 <div class="wrap">
     <h1>
         @if ($institution->exists)
-            {{ __( 'Editing', 'pressbooks-multi-institution') }}
+            {{ __( 'Edit', 'pressbooks-multi-institution') }}
         @else
-            {{ __( 'Adding', 'pressbooks-multi-institution') }}
+            {{ __( 'Add', 'pressbooks-multi-institution') }}
         @endif
 
         {{ __( 'Institution', 'pressbooks-multi-institution') }}
@@ -58,7 +37,7 @@
     </p>
 
     <form method="post">
-        {!! wp_nonce_field( 'pb_multi_institution' ) !!}
+        {!! wp_nonce_field( 'pb_multi_institution_form' ) !!}
 
         @if($institution->exists)
             <input type="hidden" name="ID" value="{{ $institution->id }}"/>
