@@ -8,11 +8,23 @@ use WP_UnitTestCase;
 
 class TestCase extends WP_UnitTestCase
 {
+    public function setUp(): void
+    {
+        Migration::migrate();
+
+        parent::setUp();
+    }
+
+    public function tearDown(): void
+    {
+        parent::tearDown();
+
+        Migration::rollback();
+    }
+
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
-
-        Migration::migrate();
 
         (new Bootstrap)->setUp();
     }

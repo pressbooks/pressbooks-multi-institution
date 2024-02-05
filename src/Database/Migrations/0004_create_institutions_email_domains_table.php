@@ -1,36 +1,35 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Schema\Builder;
 use PressbooksMultiInstitution\Interfaces\MigrationInterface;
 
 return new class implements MigrationInterface {
     public function up(): void
     {
-        global $wpdb;
+        /** @var Builder $schema */
+        $schema = app('db')->schema();
 
-        $sql = <<<SQL
-CREATE TABLE IF NOT EXISTS {$wpdb->base_prefix}institutions_email_domains (
-    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    institution_id BIGINT UNSIGNED NOT NULL,
-    domain VARCHAR(255) NOT NULL,
-    created_at datetime NOT NULL,
-    updated_at datetime NOT NULL,
-    PRIMARY KEY (id),
-    UNIQUE (institution_id, domain),
-    FOREIGN KEY (institution_id) REFERENCES {$wpdb->base_prefix}institutions(id) ON DELETE CASCADE
-) {$wpdb->get_charset_collate()}
-SQL;
+        $schema->create('institutions_email_domains', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('institution_id');
+            $table->string('domain');
+            $table->timestamps();
 
-        $wpdb->query($sql);
+            $table->foreign('institution_id')
+                ->references('id')
+                ->on('institutions')
+                ->cascadeOnDelete();
+
+            $table->unique(['institution_id', 'domain']);
+        });
     }
 
     public function down(): void
     {
-        global $wpdb;
+        /** @var Builder $schema */
+        $schema = app('db')->schema();
 
-        $sql = <<<SQL
-DROP TABLE IF EXISTS {$wpdb->base_prefix}institutions_email_domains
-SQL;
-
-        $wpdb->query($sql);
+        $schema->dropIfExists('institutions_email_domains');
     }
 };

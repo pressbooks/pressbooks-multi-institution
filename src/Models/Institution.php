@@ -2,6 +2,7 @@
 
 namespace PressbooksMultiInstitution\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
@@ -73,32 +74,34 @@ class Institution extends Model
         return $this->hasMany(Book::class);
     }
 
-    public function scopeSearchAndOrder($query, $request)
+    public function scopeSearchAndOrder(Builder $query, $request)
     {
-        $search = $request['s'] ?? '';
-        $builder = $query->where('name', 'like', "%{$search}%")
-            ->orWhere('book_limit', 'like', "%{$search}%")
-            ->orWhere('user_limit', 'like', "%{$search}%")
-            ->orWhereHas('domains', function ($query) use ($search) {
-                $query->where('domain', 'like', "%{$search}%");
+        $search = $request['s'] ?? null;
+
+        $direction = $request['order'] ?? 'asc';
+        $orderBy = $request['orderby'] ?? null;
+
+        if (! array_key_exists($orderBy, $this->casts)) {
+            $orderBy = 'name';
+        }
+
+        return $query
+            ->when($search, function (Builder $query, $search) {
+                $query
+                    ->where('name', 'like', "%{$search}%")
+                    ->orWhere('book_limit', 'like', "%{$search}%")
+                    ->orWhere('user_limit', 'like', "%{$search}%")
+                    ->orWhereRelation('domains', 'domain', 'like', "%{$search}%")
+                    ->orWhereHas('managers', function ($query) use ($search) {
+                        $query->join('users', 'institutions_users.user_id', '=', 'users.ID')
+                            ->where('users.user_login', 'like', "%{$search}%")
+                            ->orWhere('users.display_name', 'like', "%{$search}%")
+                            ->orWhere('users.user_email', 'like', "%{$search}%");
+                    });
             })
-            ->orWhereHas('managers', function ($query) use ($search) {
-                $query->join('users', 'institutions_users.user_id', '=', 'users.ID')
-                    ->where('users.user_login', 'like', "%{$search}%")
-                    ->orWhere('users.display_name', 'like', "%{$search}%")
-                    ->orWhere('users.user_email', 'like', "%{$search}%");
+            ->when($orderBy && $direction, function (Builder $query) use ($orderBy, $direction) {
+                $query->orderBy($orderBy, $direction);
             });
-
-        if(!isset($request['orderby']) && !isset($request['order'])) {
-            return $builder;
-        }
-
-        // only order by the fields that are present in the table
-        if(!in_array($request['orderby'], array_keys($this->casts))) {
-            return $builder;
-        }
-
-        return $builder->orderBy($request['orderby'] ?? 'name', $request['order'] === 'asc' ? 'asc' : 'desc');
     }
 
     public function getEmailDomainsAttribute(): string
