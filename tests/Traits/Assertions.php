@@ -20,13 +20,15 @@ trait Assertions
         $this->assertDatabaseCount($table, 0);
     }
 
-    protected function assertHasCallbackAction(string $hook, string $expectedClass): bool
+    protected function assertHasCallbackAction(string $hook, string $expectedClass): void
     {
         global $wp_filter;
 
         $this->assertTrue(has_action($hook));
 
-        foreach ($wp_filter[$hook] ?? [] as $callbacks) {
+        $hasHandler = false;
+
+        foreach ($wp_filter[$hook] as $callbacks) {
             foreach ($callbacks as $callback) {
                 if (is_array($callback['function'])) {
                     continue;
@@ -35,11 +37,13 @@ trait Assertions
                 $closure = new ReflectionFunction($callback['function']);
 
                 if($closure->getClosureScopeClass()?->getName() === $expectedClass) {
-                    return true;
+                    $hasHandler = true;
+
+                    break;
                 }
             }
         }
 
-        return false;
+        $this->assertTrue($hasHandler);
     }
 }

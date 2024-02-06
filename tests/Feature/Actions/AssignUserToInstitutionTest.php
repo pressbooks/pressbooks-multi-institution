@@ -20,9 +20,7 @@ class AssignUserToInstitutionTest extends TestCase
      */
     public function it_registers_hook_action(): void
     {
-        $this->assertTrue(
-            $this->assertHasCallbackAction('user_register', Bootstrap::class)
-        );
+        $this->assertHasCallbackAction('user_register', Bootstrap::class);
     }
 
     /**
