@@ -138,14 +138,25 @@
                             aria-describedby="managers-description"
                         >
                             @foreach($users as $user)
-                                <option
-                                    value="{{ $user->ID }}"
-                                    @if(isset($old['managers']) ? in_array($user->ID, $old['managers']) : $institution->managers->contains($user->ID))
+                                @isset($old['managers'])
+                                    <option
+                                        value="{{ $user->ID }}"
+                                        @if(in_array($user->ID, $old['managers']))
                                         selected
-                                    @endif
-                                >
-                                    {{ $user->display_name }} ({{ $user->user_email }})
-                                </option>
+                                        @endif
+                                    >
+                                        {{ $user->display_name }} ({{ $user->user_email }})
+                                    </option>
+                                @else
+                                    <option
+                                        value="{{ $user->ID }}"
+                                        @if($institution->managers->contains(fn (object $institutionUser) => $institutionUser->user_id === $user->ID)))
+                                        selected
+                                        @endif
+                                    >
+                                        {{ $user->display_name }} ({{ $user->user_email }})
+                                    </option>
+                                @endisset
                             @endforeach
                         </select>
                     </pressbooks-multiselect>

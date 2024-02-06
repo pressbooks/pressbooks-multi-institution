@@ -43,29 +43,22 @@ class Institution extends Model
 
     public function updateManagers(array $managers): self
     {
-        global $wpdb;
+        $this->managers()->delete();
 
-        $table = "{$wpdb->base_prefix}institutions_users";
-
-        $wpdb->delete($table, [
-            'institution_id' => $this->id,
-        ]);
-
-        foreach ($managers as $manager) {
-            $wpdb->insert("{$wpdb->base_prefix}institutions_users", [
-                'institution_id' => $this->id,
-                'user_id' => (int) $manager,
-                'manager' => true,
-            ]);
-        }
+        $this->managers()->createMany($managers);
 
         return $this;
     }
 
+    public function users(): HasMany
+    {
+        return $this
+            ->hasMany(InstitutionUser::class, 'institution_id', 'id');
+    }
+
     public function managers(): HasMany
     {
-        return $this->hasMany(Manager::class, 'institution_id', 'id')
-            ->where('manager', 1);
+        return $this->users()->where('manager', true);
     }
 
     public function books(): HasMany
@@ -103,11 +96,13 @@ class Institution extends Model
 
     public function getEmailDomainsAttribute(): string
     {
+        // TODO: rethink this
         return $this->render('domains', ['domains' => $this->domains->pluck('domain')]);
     }
 
     public function getInstitutionalManagersAttribute(): string
     {
+        // TODO: rethink this
         return app('db')
             ->table('institutions_users')
             ->join('users', 'institutions_users.user_id', '=', 'users.ID')

@@ -149,7 +149,9 @@ class InstitutionsController extends BaseController
             ->updateDomains(
                 array_map(fn (string $domain) => ['domain' => $domain], $domains)
             )
-            ->updateManagers($managers);
+            ->updateManagers(
+                array_map(fn (string $id) => ['user_id' => (int) $id, 'manager' => true], $managers)
+            );
 
 
         return [
@@ -207,7 +209,7 @@ class InstitutionsController extends BaseController
     protected function fetchInstitution(): Institution
     {
         /** @var Institution|null $institution */
-        $institution = Institution::query()->with('domains')->find($_GET['ID'] ?? null);
+        $institution = Institution::query()->with('domains', 'managers')->find($_GET['ID'] ?? null);
 
         if (! $institution) {
             /** @var Institution $institution */
@@ -218,13 +220,7 @@ class InstitutionsController extends BaseController
                 ->setRelation('managers', collect());
         }
 
-        /** @var Collection $ids */
-        $ids = app('db')
-            ->table('institutions_users')
-            ->where('institution_id', $institution->id)
-            ->get('user_id');
-
-        return $institution->setRelation('managers', $ids->map(fn (object $id) => $id->user_id));
+        return $institution;
     }
 
     protected function checkForDuplicateDomains(array $domains, ?int $id): array
