@@ -110,7 +110,7 @@ class InstitutionsTable extends WP_List_Table
         ];
     }
 
-    public function get_sortable_columns()
+    public function get_sortable_columns(): array
     {
         return [
             'name' => ['name', false],

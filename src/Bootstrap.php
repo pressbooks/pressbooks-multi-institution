@@ -5,6 +5,7 @@ namespace PressbooksMultiInstitution;
 use Kucrut\Vite;
 use PressbooksMultiInstitution\Actions\AssignUserToInstitution;
 use PressbooksMultiInstitution\Controllers\InstitutionsController;
+use PressbooksMultiInstitution\Controllers\InstitutionsUsersController;
 
 /**
  * Class Bootstrap
@@ -67,7 +68,19 @@ final class Bootstrap
                 echo app(InstitutionsController::class)->form();
             },
         );
-    }
+
+		add_submenu_page(
+			parent_slug: $slug,
+			page_title: __('Assign Users', 'pressbooks-multi-institution'),
+			menu_title: __('Assign Users', 'pressbooks-multi-institution'),
+			capability: 'manage_network',
+			menu_slug: 'pb_multi_institutions_users',
+			callback: function () {
+				echo app(InstitutionsUsersController::class)->index();
+			},
+		);
+
+	}
 
     private function registerActions(): void
     {
@@ -93,6 +106,18 @@ final class Bootstrap
                 'resources/assets/js/pressbooks-multi-institution.js',
                 ['handle' => 'pressbooks-multi-institution']
             );
+
+			wp_localize_script(
+				'pressbooks-multi-institution-users', 'Msg', [
+					'text' => __('Are you sure you want to assign the selected users to this institution?', 'pressbooks-multi-institution'),
+				]
+			);
+
+			Vite\enqueue_asset(
+				plugin_dir_path(__DIR__).'dist',
+				'resources/assets/js/pressbooks-multi-institution-users.js',
+				['handle' => 'pressbooks-multi-institution-users']
+			);
 
             Vite\enqueue_asset(
                 plugin_dir_path(__DIR__).'dist',
