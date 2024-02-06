@@ -133,6 +133,8 @@ class AssignUserToInstitutionTest extends TestCase
 
     protected function assertDatabaseCount(string $table, int $count): void
     {
+        // TODO: we could extract this methods to a assertions trait
+
         /** @var Manager $db */
         $db = app('db');
 
@@ -141,11 +143,14 @@ class AssignUserToInstitutionTest extends TestCase
 
     protected function assertDatabaseEmpty(string $table): void
     {
+        // TODO: we could extract this methods to a assertions trait
+
         $this->assertDatabaseCount($table, 0);
     }
 
     protected function assertHasCallbackAction(string $hook, string $class): bool
     {
+        // TODO: should we improve this method and have it in a trait for other methods to use?
         global $wp_filter;
 
         foreach ($wp_filter[$hook] ?? [] as $callbacks) {
@@ -167,6 +172,8 @@ class AssignUserToInstitutionTest extends TestCase
 
     protected function newUser(array $properties = []): int
     {
+        // TODO: we will probably make use of this in other places as well
+
         global $wpdb;
 
         $wpdb->query('START TRANSACTION');
