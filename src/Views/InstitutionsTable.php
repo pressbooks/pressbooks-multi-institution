@@ -175,8 +175,10 @@ class InstitutionsTable extends WP_List_Table
     public function prepare_items(): void
     {
         // Retrieve the paginated data using Eloquent
-        $institutions = Institution::query()->searchAndOrder($_REQUEST)->
-        paginate($this->paginationSize, ['*'], 'paged', $this->get_pagenum());
+        $institutions = Institution::query()
+            ->withCount('books', 'users')
+            ->searchAndOrder($_REQUEST)
+            ->paginate($this->paginationSize, ['*'], 'paged', $this->get_pagenum());
 
         // Define Columns
         $columns = $this->get_columns();
@@ -195,8 +197,8 @@ class InstitutionsTable extends WP_List_Table
                 'name' => $institution->name,
                 'email_domains' => $institution->email_domains,
                 'institutional_managers' => $institution->institutional_managers,
-                'book_limit' => "{$institution->books->count()}/$institution->book_limit",
-                'user_limit' => "{$institution->managers->count()}/$institution->user_limit",
+                'book_limit' => "{$institution->books_count}/$institution->book_limit",
+                'user_limit' => "{$institution->users_count}/$institution->user_limit",
             ];
         })->toArray();
 

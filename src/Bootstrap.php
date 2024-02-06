@@ -3,6 +3,7 @@
 namespace PressbooksMultiInstitution;
 
 use Kucrut\Vite;
+use PressbooksMultiInstitution\Actions\AssignUserToInstitution;
 use PressbooksMultiInstitution\Controllers\InstitutionsController;
 
 /**
@@ -72,6 +73,8 @@ final class Bootstrap
     {
         add_action('network_admin_menu', [$this, 'registerMenus'], 11);
         // TODO: register menu at the main site level
+
+        add_action('user_register', fn (int $id) => app(AssignUserToInstitution::class)->handle($id));
     }
 
     private function registerBlade(): void
