@@ -149,8 +149,8 @@ class InstitutionsController extends BaseController
             ->updateDomains(
                 array_map(fn (string $domain) => ['domain' => $domain], $domains)
             )
-            ->updateManagers(
-                array_map(fn (string $id) => ['user_id' => (int) $id, 'manager' => true], $managers)
+            ->syncManagers(
+                array_map(fn (string $id) => (int) $id, $managers),
             );
 
 
