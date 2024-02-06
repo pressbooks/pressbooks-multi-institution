@@ -52,8 +52,7 @@ class Institution extends Model
 
     public function users(): HasMany
     {
-        return $this
-            ->hasMany(InstitutionUser::class, 'institution_id', 'id');
+        return $this->hasMany(InstitutionUser::class, 'institution_id', 'id');
     }
 
     public function managers(): HasMany
