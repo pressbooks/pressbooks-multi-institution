@@ -5,6 +5,7 @@ namespace PressbooksMultiInstitution\Controllers;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use PressbooksMultiInstitution\Models\EmailDomain;
 use PressbooksMultiInstitution\Models\Institution;
 use PressbooksMultiInstitution\Views\InstitutionsTable;
 use PressbooksMultiInstitution\Support\ConvertEmptyStringsToNull;
@@ -149,8 +150,8 @@ class InstitutionsController extends BaseController
             ->updateDomains(
                 array_map(fn (string $domain) => ['domain' => $domain], $domains)
             )
-            ->updateManagers(
-                array_map(fn (string $id) => ['user_id' => (int) $id, 'manager' => true], $managers)
+            ->syncManagers(
+                array_map(fn (string $id) => (int) $id, $managers),
             );
 
 
@@ -231,21 +232,20 @@ class InstitutionsController extends BaseController
             return [];
         }
 
-        /** @var Collection $duplicates */
-        $duplicates = Institution::query()
-            ->select('institutions.name as institution', 'institutions_email_domains.domain')
-            ->join('institutions_email_domains', 'institutions.id', '=', 'institutions_email_domains.institution_id')
-            ->whereIn('institutions_email_domains.domain', $domains)
-            ->when($id, fn (Builder $query) => $query->where('institutions.id', '<>', $id))
+        /** @var Collection<EmailDomain> $duplicates */
+        $duplicates = EmailDomain::query()
+            ->with('institution:id,name')
+            ->whereIn('domain', $domains)
+            ->when($id, fn (Builder $query) => $query->where('institution_id', '<>', $id))
             ->get();
 
-        return $duplicates->map(function (object $duplicate) {
+        return $duplicates->map(function (EmailDomain $duplicate) {
             $message = __(
                 'Email domain %s is already in use with %s. Please use a different address.',
                 'pressbooks-multi-institution',
             );
 
-            return sprintf($message, "<strong>{$duplicate->domain}</strong>", "<strong>{$duplicate->institution}</strong>");
+            return sprintf($message, "<strong>{$duplicate->domain}</strong>", "<strong>{$duplicate->institution->name}</strong>");
         })->toArray();
     }
 
@@ -268,6 +268,7 @@ class InstitutionsController extends BaseController
             ])
             ->join('institutions_users', 'institutions.id', '=', 'institutions_users.institution_id')
             ->whereIn('institutions_users.user_id', $managers)
+            ->where('institutions_users.manager', true)
             ->when($id, fn (Builder $query) => $query->where('institutions.id', '<>', $id))
             ->get();
 

@@ -41,11 +41,38 @@ class Institution extends Model
         return $this;
     }
 
-    public function updateManagers(array $managers): self
+    public function syncManagers(array $ids): self
     {
-        $this->managers()->delete();
+        // TODO: if a user is assigned to a different institution, we should remove
+        // them from the old institution and assign them to the new one instead.
+        $current = $this->users()->pluck('manager', 'user_id')->all();
 
-        $this->managers()->createMany($managers);
+        $managers = array_keys(
+            array_filter($current, fn (bool $isManager) => $isManager)
+        );
+
+        $detach = array_diff($managers, $ids);
+
+        $this->managers()->whereIn('user_id', $detach)->update([
+            'manager' => false,
+        ]);
+
+        $users = array_keys($current);
+
+        foreach ($ids as $id) {
+            if (in_array($id, $users)) {
+                $this->users()->where('user_id', $id)->update([
+                    'manager' => true,
+                ]);
+
+                continue;
+            }
+
+            $this->users()->create([
+                'user_id' => $id,
+                'manager' => true,
+            ]);
+        }
 
         return $this;
     }
