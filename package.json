@@ -7,7 +7,6 @@
     "build": "vite build",
     "dev": "vite"
   },
-	"type": "module",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/pressbooks/pressbooks-multi-institution.git"
