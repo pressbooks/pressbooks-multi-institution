@@ -32,29 +32,29 @@ class InstitutionUser extends Model
         return $this->belongsTo('WP_User', 'user_id');
     }
 
-	public function scopeSearchAndOrder($query, $request)
-	{
-		$search = $request['s'] ?? '';
-		$builder = $query->where('name', 'like', "%{$search}%")
-			->orWhereHas('domains', function ($query) use ($search) {
-				$query->where('domain', 'like', "%{$search}%");
-			})
-			->orWhereHas('managers', function ($query) use ($search) {
-				$query->join('users', 'institutions_users.user_id', '=', 'users.ID')
-					->where('users.user_login', 'like', "%{$search}%")
-					->orWhere('users.display_name', 'like', "%{$search}%")
-					->orWhere('users.user_email', 'like', "%{$search}%");
-			});
+    public function scopeSearchAndOrder($query, $request)
+    {
+        $search = $request['s'] ?? '';
+        $builder = $query->where('name', 'like', "%{$search}%")
+            ->orWhereHas('domains', function ($query) use ($search) {
+                $query->where('domain', 'like', "%{$search}%");
+            })
+            ->orWhereHas('managers', function ($query) use ($search) {
+                $query->join('users', 'institutions_users.user_id', '=', 'users.ID')
+                    ->where('users.user_login', 'like', "%{$search}%")
+                    ->orWhere('users.display_name', 'like', "%{$search}%")
+                    ->orWhere('users.user_email', 'like', "%{$search}%");
+            });
 
-		if(!isset($request['orderby']) && !isset($request['order'])) {
-			return $builder;
-		}
+        if(!isset($request['orderby']) && !isset($request['order'])) {
+            return $builder;
+        }
 
-		// only order by the fields that are present in the table
-		if(!in_array($request['orderby'], array_keys($this->casts))) {
-			return $builder;
-		}
+        // only order by the fields that are present in the table
+        if(!in_array($request['orderby'], array_keys($this->casts))) {
+            return $builder;
+        }
 
-		return $builder->orderBy($request['orderby'] ?? 'name', $request['order'] === 'asc' ? 'asc' : 'desc');
-	}
+        return $builder->orderBy($request['orderby'] ?? 'name', $request['order'] === 'asc' ? 'asc' : 'desc');
+    }
 }

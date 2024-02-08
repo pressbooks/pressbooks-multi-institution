@@ -4,16 +4,24 @@
     "isEntry": true,
     "src": "node_modules/@pressbooks/multiselect/pressbooks-multiselect.js"
   },
-  "resources/assets/js/pressbooks-multi-institution.css": {
-    "file": "assets/pressbooks-multi-institution-3db8464b.css",
-    "src": "resources/assets/js/pressbooks-multi-institution.css"
+  "pressbooks-multi-institutions.css": {
+    "file": "assets/pressbooks-multi-institutions-3db8464b.css",
+    "src": "pressbooks-multi-institutions.css"
   },
   "resources/assets/js/pressbooks-multi-institution.js": {
     "css": [
-      "assets/pressbooks-multi-institution-3db8464b.css"
+      "assets/pressbooks-multi-institutions-3db8464b.css"
     ],
-    "file": "assets/app-26ea47fb.js",
+    "file": "assets/institutions-16d3c4ad.js",
     "isEntry": true,
     "src": "resources/assets/js/pressbooks-multi-institution.js"
+  },
+  "resources/assets/js/pressbooks-multi-institutions-users.js": {
+    "css": [
+      "assets/pressbooks-multi-institutions-3db8464b.css"
+    ],
+    "file": "assets/users-221d59e9.js",
+    "isEntry": true,
+    "src": "resources/assets/js/pressbooks-multi-institutions-users.js"
   }
 }

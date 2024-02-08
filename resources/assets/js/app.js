@@ -1,2 +1,2 @@
-import './pressbooks-multi-instituion.js';
-import './pressbooks-multi-instituions-users.js';
+import 'pressbooks-multi-instituion';
+import 'pressbooks-multi-instituions-users';

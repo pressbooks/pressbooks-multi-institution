@@ -7,6 +7,7 @@
     "build": "vite build",
     "dev": "vite"
   },
+	"type": "module",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/pressbooks/pressbooks-multi-institution.git"
@@ -21,7 +22,7 @@
   },
   "homepage": "https://github.com/pressbooks/pressbooks--multi-institution#readme",
   "devDependencies": {
-    "@kucrut/vite-for-wp": "^0.5.2",
+    "@kucrut/vite-for-wp": "^0.8.0",
     "cross-env": "^7.0.3"
   },
   "dependencies": {
