@@ -5,6 +5,7 @@ namespace PressbooksMultiInstitution;
 use Kucrut\Vite;
 use PressbooksMultiInstitution\Actions\AssignBookToInstitution;
 use PressbooksMultiInstitution\Actions\AssignUserToInstitution;
+use PressbooksMultiInstitution\Controllers\AssignBooksController;
 use PressbooksMultiInstitution\Controllers\InstitutionsController;
 
 /**
@@ -67,6 +68,17 @@ final class Bootstrap
             callback: function () {
                 echo app(InstitutionsController::class)->form();
             },
+        );
+
+        add_submenu_page(
+            parent_slug: $slug,
+            page_title: __('Assign Books', 'pressbooks-multi-institution'),
+            menu_title: __('Assign Books', 'pressbooks-multi-institution'),
+            capability: 'manage_network',
+            menu_slug: 'pb_multi_institution_assign_book',
+            callback: function () {
+                echo app(AssignBooksController::class)->index();
+            }
         );
     }
 
