@@ -3,9 +3,7 @@
 namespace PressbooksMultiInstitution\Views;
 
 use PressbooksMultiInstitution\Models\Institution;
-use PressbooksMultiInstitution\Models\InstitutionUser;
 use WP_List_Table;
-use WP_User_Query;
 
 class InstitutionsUsersTable extends WP_List_Table
 {
@@ -21,7 +19,7 @@ class InstitutionsUsersTable extends WP_List_Table
 
     public function column_default($item, $column_name): string
     {
-        return $item[$column_name];
+        return $item[$column_name] ?? '';
     }
 
     public function column_name(array $item): string
@@ -48,10 +46,10 @@ class InstitutionsUsersTable extends WP_List_Table
     public function get_sortable_columns(): array
     {
         return [
-            'username' => ['user_login', false],
+            'username' => ['username', false],
             'name' => ['name', false],
-            'email' => ['user_email', false],
-            'institution' => ['institutions.name', false],
+            'email' => ['email', false],
+            'institution' => ['institution', false],
         ];
     }
 
@@ -66,154 +64,76 @@ class InstitutionsUsersTable extends WP_List_Table
 
     public function prepare_items(): void
     {
-        $users = $this->getUsers();
+        $users = $this->getUsers($_REQUEST);
 
         $columns = $this->get_columns();
         $sortable = $this->get_sortable_columns();
         $this->_column_headers = [$columns, [], $sortable];
 
         $this->items = array_map(function ($user) {
-            return [
-                'ID' => $user['ID'],
-                'username' => $user['user_login'],
-                'name' => $user['name'],
-                'email' => $user['user_email'],
-                'institution' => $user['institution'],
-            ];
-        }, $users['users']);
+            $user = (array) $user;
+            $user['name'] = $user['first_name'] . ' ' . $user['last_name'];
+            unset($user['first_name'], $user['last_name']);
+            $user['institution'] = $user['institution'] ?? '';
+            return $user;
+        }, $users->items());
 
         $this->set_pagination_args([
-            'total_items' => $users['total'],
+            'total_items' => $users->total(),
             'per_page' => $this->paginationSize,
-            'total_pages' => ceil($users['total'] / $this->paginationSize),
+            'total_pages' => $users->lastPage(),
         ]);
     }
 
-    private function getUsers(): array
+    private function getUsers(array $request)
     {
-        $args = $this->getWPUserArgs($_REQUEST);
+        $search = $request['s'] ?? '';
+        $orderBy = $request['orderby'] ?? 'ID';
+        $order = $request['order'] ?? 'ASC';
 
-        add_action('pre_user_query', [$this, 'modifyUserQuery']);
+        $search = sanitize_text_field($search);
 
-        $wpUsers = new WP_User_Query($args);
+        $db = app('db');
 
-        $user_ids = array_map(function ($user) {
-            return $user->ID;
-        }, $wpUsers->results);
+        return $db
+            ->table('users')
+            ->select('users.ID', 'users.user_login AS username', 'users.user_email AS email', 'institutions.name as institution')
+            ->addSelect([
+                'first_name' => $db
+                    ->table('usermeta')
+                    ->select('meta_value')
+                    ->where('meta_key', 'last_name')
+                    ->whereColumn('usermeta.user_id', 'users.ID'),
+                'last_name' => $db
+                    ->table('usermeta')
+                    ->select('meta_value')
+                    ->where('meta_key', 'first_name')
+                    ->whereColumn('usermeta.user_id', 'users.ID'),
+            ])
+            ->leftJoin('institutions_users', 'users.ID', '=', 'institutions_users.user_id')
+            ->leftJoin('institutions', 'institutions_users.institution_id', '=', 'institutions.id')
+            ->when($search, function ($query, $search) {
+                return $query->where('users.user_login', 'like', "%$search%")
+                    ->orWhere('users.user_email', 'like', "%$search%")
+                    ->orWhere('institutions.name', 'like', "%$search%")
+                    ->orWhereExists(function ($query) use ($search) {
+                        $query->select('meta_value')
+                            ->from('usermeta')
+                            ->whereColumn('usermeta.user_id', 'users.ID')
+                            ->where(function ($query) {
+                                $query->where('meta_key', 'first_name')
+                                ->orWhere('meta_key', 'last_name');
+                            })
+                            ->where('meta_value', 'like', "%$search%");
+                    });
+            })
+            ->when($orderBy === 'name', function ($query) use ($order) {
+                return $query->orderBy('first_name', $order)
+                    ->orderBy('last_name', $order);
+            }, function ($query) use ($orderBy, $order) {
+                return $query->orderBy($orderBy, $order);
+            })
+            ->paginate($this->paginationSize, ['*'], 'page', $request['paged'] ?? 1);
 
-        $institutionsUsers = InstitutionUser::query()
-            ->join('institutions', 'institutions_users.institution_id', '=', 'institutions.id')
-            ->whereIn('user_id', $user_ids)
-            ->select('institutions_users.user_id', 'institutions.name')
-            ->get();
-
-        $users = [];
-
-        foreach ($wpUsers->results as $wpUser) {
-            $institutionsUser = $institutionsUsers->firstWhere('user_id', $wpUser->ID);
-
-            $usermeta = get_user_meta($wpUser->ID);
-
-            $users[] = [
-                'ID' => $wpUser->ID,
-                'user_login' => $wpUser->user_login,
-                'name' => $usermeta['first_name'][0] . ' ' . $usermeta['last_name'][0],
-                'user_email' => $wpUser->user_email,
-                'institution' => $institutionsUser?->name ?? '',
-            ];
-        }
-
-        return [
-            'total' => $wpUsers->total_users,
-            'users' => $users,
-        ];
-    }
-
-    private function getWPUserArgs(array $request): array
-    {
-        $args = [
-            'fields' => 'all',
-            'number' => $this->paginationSize,
-            'orderby' => 'ID',
-            'count_total' => true,
-            'offset' => ($this->get_pagenum() - 1) * $this->paginationSize,
-            'meta_query' => [
-                'relation' => 'AND',
-                'query_first_name' => [
-                    'key' => 'first_name',
-                ],
-                'query_last_name' => [
-                    'key' => 'last_name',
-                ],
-            ],
-        ];
-
-        $searchTerm = $request['s'] ?? '';
-
-        if ($searchTerm) {
-            $searchTerm = sanitize_text_field($searchTerm);
-            $args['search'] = '*' . $searchTerm . '*';
-            $args['meta_query'] = [
-                'relation' => 'OR',
-                'query_first_name' => [
-                    'key' => 'first_name',
-                    'value' => $searchTerm,
-                    'compare' => 'LIKE',
-                ],
-                'query_last_name' => [
-                    'key' => 'last_name',
-                    'value' => $searchTerm,
-                    'compare' => 'LIKE',
-                ],
-            ];
-        }
-
-        $orderby = $request['orderby'] ?? '';
-
-        if ($orderby && in_array($orderby, ['user_login', 'name', 'user_email', 'institutions.name'])) {
-            $order = $request['order'] ?? 'ASC';
-
-            if ($orderby === 'name') {
-                $args['orderby'] = [
-                    'query_first_name' => $order,
-                    'query_last_name' => $order,
-                ];
-            } else {
-                $args['orderby'] = [$orderby => $order];
-                $args['order'] = $order;
-            }
-        }
-
-        return $args;
-    }
-
-    public function modifyUserQuery(WP_User_Query $query): void
-    {
-        $search = $query->query_vars['search'] ?? '';
-        if (! empty($search)) {
-            $query->query_where = str_replace(
-                ') AND (user_login LIKE',
-                ') OR (user_login LIKE',
-                $query->query_where
-            );
-        }
-
-        $orderby = $query->query_vars['orderby'] ?? '';
-        if ($orderby && is_array($orderby) && key($orderby) === 'institutions.name') {
-            global $wpdb;
-
-            $prefix = $wpdb->base_prefix;
-
-            $order = $query->query_vars['order'] ?? 'ASC';
-
-            $query->query_from .= " LEFT JOIN {$prefix}institutions_users AS iu ON {$prefix}users.ID = iu.user_id "
-                . "LEFT JOIN {$prefix}institutions AS ins ON iu.institution_id = ins.id";
-
-            if ($order === 'ASC') {
-                $query->query_orderby = "ORDER BY CASE WHEN ins.name IS NULL THEN 1 ELSE ins.name END, user_login ASC";
-            } else {
-                $query->query_orderby = "ORDER BY CASE WHEN ins.name IS NULL THEN 1 ELSE ins.name END DESC, user_login DESC";
-            }
-        }
     }
 }

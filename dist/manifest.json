@@ -12,7 +12,7 @@
     "css": [
       "assets/pressbooks-multi-institutions-3db8464b.css"
     ],
-    "file": "assets/institutions-16d3c4ad.js",
+    "file": "assets/institution-16d3c4ad.js",
     "isEntry": true,
     "src": "resources/assets/js/pressbooks-multi-institution.js"
   },
@@ -20,7 +20,7 @@
     "css": [
       "assets/pressbooks-multi-institutions-3db8464b.css"
     ],
-    "file": "assets/users-221d59e9.js",
+    "file": "assets/user-221d59e9.js",
     "isEntry": true,
     "src": "resources/assets/js/pressbooks-multi-institutions-users.js"
   }
