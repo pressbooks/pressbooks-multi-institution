@@ -66,6 +66,12 @@ class InstitutionsUsersControllerTest extends TestCase
 
         $institutionUser = InstitutionUser::query()->where('user_id', $users[1])->first();
         $this->assertEquals($institution, $institutionUser->institution_id);
+
+        $_REQUEST['action'] = '0';
+        $this->institutionsUsersController->index();
+
+        $this->assertEquals(0, InstitutionUser::query()->where('user_id', $users[0])->count());
+        $this->assertEquals(0, InstitutionUser::query()->where('user_id', $users[1])->count());
     }
 
     public function tearDown(): void

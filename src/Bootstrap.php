@@ -130,7 +130,7 @@ final class Bootstrap
                     'pressbooks-multi-institutions-users',
                     'Custom',
                     [
-                        'text' => __('Are you sure you want to assign the selected users to this institution?', 'pressbooks-multi-institution'),
+                        'text' => __('Are you sure you want to re-assign the user/s?', 'pressbooks-multi-institution'),
                         'defaultOptionText' => __('- Set Institution -', 'pressbooks-multi-institution'),
                     ]
                 );

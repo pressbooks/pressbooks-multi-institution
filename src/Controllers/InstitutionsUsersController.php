@@ -39,7 +39,7 @@ class InstitutionsUsersController extends BaseController
     {
         $action = $this->table->current_action();
 
-        if (!$action) {
+        if ($action === false) {
             return [];
         }
 
@@ -49,8 +49,15 @@ class InstitutionsUsersController extends BaseController
             return [];
         }
 
-        $institution = Institution::find($action);
+        if ($action === '0') {
+            InstitutionUser::query()->whereIn('user_id', $items)->delete();
+            return [
+                'success' => true,
+                'message' => __('User/s unassigned.', 'pressbooks-multi-institution'),
+            ];
+        }
 
+        $institution = Institution::find($action);
         if (!$institution) {
             return [
                 'success' => false,
