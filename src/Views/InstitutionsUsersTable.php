@@ -95,6 +95,8 @@ class InstitutionsUsersTable extends WP_List_Table
 
         $search = sanitize_text_field($search);
 
+        $superAdmins = get_super_admins();
+
         $db = app('db');
 
         return $db
@@ -114,14 +116,20 @@ class InstitutionsUsersTable extends WP_List_Table
             ])
             ->leftJoin('institutions_users', 'users.ID', '=', 'institutions_users.user_id')
             ->leftJoin('institutions', 'institutions_users.institution_id', '=', 'institutions.id')
-            ->when($search, function ($query, $search) {
-                return $query->where('users.user_login', 'like', "%$search%")
-                    ->orWhere('users.user_email', 'like', "%$search%")
-                    ->orWhere('institutions.name', 'like', "%$search%")
-                    ->orWhereExists(function ($query) use ($search) {
+            ->whereNotIn('users.user_login', $superAdmins)
+            ->when($search, function ($query, $search) use ($superAdmins) {
+                return $query
+                    ->whereNotIn('users.user_login', $superAdmins)
+                    ->where(function ($query) use ($search, $superAdmins) {
+                        $query->where('users.user_login', 'like', "%$search%")
+                            ->orWhere('users.user_email', 'like', "%$search%")
+                            ->orWhere('institutions.name', 'like', "%$search%");
+                    })
+                    ->orWhereExists(function ($query) use ($search, $superAdmins) {
                         $query->select('meta_value')
                             ->from('usermeta')
                             ->whereColumn('usermeta.user_id', 'users.ID')
+                            ->whereNotIn('users.user_login', $superAdmins)
                             ->where(function ($query) {
                                 $query->where('meta_key', 'first_name')
                                 ->orWhere('meta_key', 'last_name');
