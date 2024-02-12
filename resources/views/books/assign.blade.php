@@ -7,18 +7,20 @@
 <div class="wrap">
     <h1 class="wp-heading-inline">{{ __('Assign Books', 'pressbooks-multi-institution') }}</h1>
 
-{{--    @if( !empty($params['searchQuery']) && !empty($params['orderBy']))--}}
-{{--        <div class="filtering">--}}
-{{--            <ul>--}}
-{{--                <li>{!! sprintf( __( '<strong>Showing results for:</strong> %s', 'pressbooks-multi-institution' ), $params['searchQuery'] ) !!}</li>--}}
-{{--            </ul>--}}
-{{--            <a href="{{ $list_url }}" class="button">{{ __('Clear filters', 'pressbooks-multi-institution') }}</a>--}}
-{{--        </div>--}}
-{{--    @endif--}}
+    @if(! empty($params['searchQuery']) && ! empty($params['orderBy']))
+        <div class="filtering">
+            <ul>
+                <li>
+                    <strong>{{ __('Showing results for:', 'pressbooks-multi-institution') }}</strong> {{ $params['searchQuery'] }}
+                </li>
+            </ul>
+            <a href="{{ $list_url }}" class="button">{{ __('Clear filters', 'pressbooks-multi-institution') }}</a>
+        </div>
+    @endif
 
     <hr class="wp-header-end">
 
-    <form id="pressbooks-multi-institution-admin" method="GET">
+    <form id="pressbooks-multi-institution-assign-books" method="GET">
         <p class="search-box">
             <label class="screen-reader-text" for="search-input">{{ __( 'Search', 'pressbooks-multi-institution') }}:</label>
             <input type="search" id="search-input" name="s" value="">

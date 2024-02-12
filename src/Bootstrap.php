@@ -82,16 +82,16 @@ final class Bootstrap
             },
         );
 
-		add_submenu_page(
-			parent_slug: $slug,
-			page_title: __('Assign Books', 'pressbooks-multi-institution'),
-			menu_title: __('Assign Books', 'pressbooks-multi-institution'),
-			capability: 'manage_network',
-			menu_slug: 'pb_multi_institution_assign_book',
-			callback: function () {
-				echo app(AssignBooksController::class)->index();
-			}
-		);
+        add_submenu_page(
+            parent_slug: $slug,
+            page_title: __('Assign Books', 'pressbooks-multi-institution'),
+            menu_title: __('Assign Books', 'pressbooks-multi-institution'),
+            capability: 'manage_network',
+            menu_slug: 'pb_multi_institution_assign_book',
+            callback: function () {
+                echo app(AssignBooksController::class)->index();
+            }
+        );
     }
 
     private function registerActions(): void

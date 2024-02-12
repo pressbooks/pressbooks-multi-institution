@@ -87,7 +87,7 @@ class Institution extends Model
 
     public function books(): HasMany
     {
-        return $this->hasMany(Book::class);
+        return $this->hasMany(InstitutionBook::class);
     }
 
     public function scopeSearchAndOrder($query, $request)

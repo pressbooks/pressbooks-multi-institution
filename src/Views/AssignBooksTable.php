@@ -2,9 +2,11 @@
 
 namespace PressbooksMultiInstitution\Views;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Capsule\Manager;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Str;
+use PressbooksMultiInstitution\Models\Institution;
 use WP_List_Table;
 
 use function Pressbooks\Image\default_cover_url;
@@ -18,7 +20,7 @@ class AssignBooksTable extends WP_List_Table
     {
         parent::__construct([
             'singular' => 'assign-book',
-            'plural' => 'assign-books', // Parent will create bulk nonce: "bulk-{$plural}"
+            'plural' => 'assign-books',
         ]);
     }
 
@@ -48,45 +50,41 @@ class AssignBooksTable extends WP_List_Table
      */
     public function column_default($item, $column_name): string
     {
-        $allowed_tags = [
-            'p' => [],
-            'a' => [
-                'href' => [],
-                'title' => []
-            ]
-        ];
-
-        return wp_kses($item->$column_name ?? null, $allowed_tags);
+        return $item->$column_name ?? '';
     }
 
-    public function column_cb($book): string
+    /**
+     * @param object $item
+     * @return string
+     */
+    public function column_cb($item): string
     {
         return app('Blade')->render('PressbooksMultiInstitution::table.checkbox', [
             'name' => 'id',
-            'value' => $book->id,
+            'value' => $item->id,
         ]);
     }
 
-    public function column_cover(object $book): string
+    public function column_cover(object $item): string
     {
         return app('Blade')->render('PressbooksMultiInstitution::table.cover', [
-            'url' => $book->cover ?? default_cover_url(),
-            'alt_text' => "{$book->title}'s cover",
+            'url' => $item->cover ?? default_cover_url(),
+            'alt_text' => "{$item->title}'s cover",
         ]);
     }
 
-    public function column_title(object $book): string
+    public function column_title(object $item): string
     {
         return app('Blade')->render('PressbooksMultiInstitution::table.book-title', [
-            'title' => $book->title,
-            'url' => $book->url,
+            'title' => $item->title,
+            'url' => $item->url,
         ]);
     }
 
-    public function column_book_administrators(object $book): string
+    public function column_book_administrators(object $item): string
     {
         return app('Blade')->render('PressbooksMultiInstitution::table.book-admins', [
-            'admins' => $book->admins,
+            'admins' => $item->admins,
         ]);
     }
 
@@ -100,24 +98,95 @@ class AssignBooksTable extends WP_List_Table
 
     public function get_bulk_actions(): array
     {
-        return [];
+        return Institution::query()
+            ->orderBy('name')
+            ->pluck('name', 'id')
+            ->prepend(__('Unassigned', 'pressbooks-multi-institution'), 0)
+            ->toArray();
     }
 
     public function prepare_items(): void
     {
+        $books = $this->getBooks($_REQUEST);
+
+        $books->map($this->getBookAdmins(...));
+
+        $this->_column_headers = [
+            $this->get_columns(), [], $this->get_sortable_columns()
+        ];
+
+        $this->items = $books;
+
+        $this->set_pagination_args([
+            'total_items' => $books->total(),
+            'per_page' => $this->paginationSize,
+            'total_pages' => $books->lastPage(),
+        ]);
+    }
+
+    /**
+     * Displays the bulk action dropdown.
+     * This has been overridden to customize the dropdown.
+     *
+     * @since 3.1.0
+     *
+     * @param string $which The location of the bulk actions: 'top' or 'bottom'.
+     *                      This is designated as optional for backward compatibility.
+     * @return void
+     */
+    protected function bulk_actions($which = '')
+    {
+        if (is_null($this->_actions)) {
+            $this->_actions = $this->get_bulk_actions();
+
+            /**
+             * Filters the items in the bulk actions menu of the list table.
+             *
+             * The dynamic portion of the hook name, `$this->screen->id`, refers
+             * to the ID of the current screen.
+             *
+             * @since 3.1.0
+             * @since 5.6.0 A bulk action can now contain an array of options in order to create an optgroup.
+             *
+             * @param array $actions An array of the available bulk actions.
+             */
+            $this->_actions = apply_filters("bulk_actions-{$this->screen->id}", $this->_actions);
+
+            $two = '';
+        } else {
+            $two = '2';
+        }
+
+        if (empty($this->_actions)) {
+            return;
+        }
+
+        echo app('Blade')->render('PressbooksMultiInstitution::table.bulk-actions', [
+            'actions' => $this->get_bulk_actions(),
+            'two' => $two,
+            'which' => $which,
+        ]);
+    }
+
+    /**
+     * Queries the paginated list of books in the network matching the search parameters.
+     *
+     * @param  array  $request
+     * @return LengthAwarePaginator
+     */
+    protected function getBooks(array $request): LengthAwarePaginator
+    {
+        $search = sanitize_text_field($request['s'] ?? '');
+        $order = sanitize_string($request['orderby'] ?? 'title');
+        $direction = in_array($request['order'] ?? '', ['asc', 'desc']) ? $request['order'] : 'asc';
+
         /** @var Manager $db */
         $db = app('db');
 
-        $search = sanitize_text_field($_REQUEST['s'] ?? '');
-        $order = sanitize_string($_REQUEST['orderby'] ?? 'title');
-        $direction = in_array($_REQUEST['order'] ?? '', ['asc', 'desc']) ? $_REQUEST['order'] : 'asc';
-
-        $books = $db
+        return $db
             ->table('blogs')
             ->select(
                 'blogs.blog_id as id',
-                'blogs.domain',
-                'blogs.path',
                 'institutions.name as institution'
             )
             ->addSelect([
@@ -147,6 +216,7 @@ class AssignBooksTable extends WP_List_Table
                 $query->where(function (Builder $query) use ($search) {
                     $query
                         ->where('blogs.path', 'like', "%{$search}%")
+                        ->orWhere('institutions.name', 'like', "%{$search}%")
                         ->orWhereExists(function (Builder $query) use ($search) {
                             $query
                                 ->selectRaw(1)
@@ -195,7 +265,12 @@ class AssignBooksTable extends WP_List_Table
                                             $query
                                                 ->selectRaw(1)
                                                 ->from('institutions')
-                                                ->join('institutions_users', 'institutions.id', '=', 'institutions_users.institution_id')
+                                                ->join(
+                                                    'institutions_users',
+                                                    'institutions.id',
+                                                    '=',
+                                                    'institutions_users.institution_id'
+                                                )
                                                 ->whereColumn('u.ID', 'institutions_users.user_id')
                                                 ->where('institutions.name', 'like', "%{$search}%");
                                         });
@@ -217,72 +292,59 @@ class AssignBooksTable extends WP_List_Table
                 pageName: 'paged',
                 page: $this->get_pagenum(),
             );
-
-        $books->map(function (object $book) use ($db) {
-            global $wpdb;
-
-            switch_to_blog($book->id);
-
-            $book->admins = $db
-                ->table('users')
-                ->select('users.user_login', 'users.user_email', 'institutions.name as institution')
-                ->addSelect([
-                    'first_name' => $db
-                        ->table('usermeta')
-                        ->select('meta_value')
-                        ->where('meta_key', 'first_name')
-                        ->whereColumn('usermeta.user_id', 'users.ID'),
-                    'last_name' => $db
-                        ->table('usermeta')
-                        ->select('meta_value')
-                        ->where('meta_key', 'last_name')
-                        ->whereColumn('usermeta.user_id', 'users.ID'),
-                ])
-                ->join('usermeta', 'users.ID', '=', 'usermeta.user_id')
-                ->leftJoin('institutions_users', 'users.ID', '=', 'institutions_users.user_id')
-                ->leftJoin('institutions', 'institutions_users.institution_id', 'institutions.id')
-                ->where('usermeta.meta_key', "{$wpdb->base_prefix}{$book->id}_capabilities")
-                ->where('usermeta.meta_value', 'like', '%administrator%')
-                ->orderByRaw('institution IS NULL')
-                ->orderBy('institution')
-                ->orderBy('first_name')
-                ->orderBy('last_name')
-                ->orderBy('user_login')
-                ->get()
-                ->map(function (object $admin) {
-                    $admin->fullname = (string) Str::of($admin->first_name)
-                        ->append(" {$admin->last_name}")
-                        ->trim();
-
-                    return $admin;
-                });
-
-            restore_current_blog();
-
-            return $book;
-        });
-
-        $columns = $this->get_columns();
-        $hidden = [];
-        $sortable = $this->get_sortable_columns();
-        $this->_column_headers = [$columns, $hidden, $sortable];
-
-        $this->items = $books;
-
-        $this->set_pagination_args([
-            'total_items' => $books->total(),
-            'per_page' => $this->paginationSize,
-            'total_pages' => $books->lastPage(),
-        ]);
     }
 
-    //    public function single_row($item): void
-    //    {
-    //
-    //        if (isset($item['unassigned']) || isset($item['totals'])) {
-    //            echo app('Blade')->render('PressbooksMultiInstitution::institutions.rows.totals', $item);
-    //        } else {
-    //            parent::single_row($item);
-    //        }
-    //    }
+    /**
+     * Queries the book administrators for a given book.
+     *
+     * @param  object  $book
+     * @return object
+     */
+    protected function getBookAdmins(object $book): object
+    {
+        global $wpdb;
+
+        /** @var Manager $db */
+        $db = app('db');
+
+        switch_to_blog($book->id);
+
+        $book->admins = $db
+            ->table('users')
+            ->select('users.user_login', 'users.user_email', 'institutions.name as institution')
+            ->addSelect([
+                'first_name' => $db
+                    ->table('usermeta')
+                    ->select('meta_value')
+                    ->where('meta_key', 'first_name')
+                    ->whereColumn('usermeta.user_id', 'users.ID'),
+                'last_name' => $db
+                    ->table('usermeta')
+                    ->select('meta_value')
+                    ->where('meta_key', 'last_name')
+                    ->whereColumn('usermeta.user_id', 'users.ID'),
+            ])
+            ->join('usermeta', 'users.ID', '=', 'usermeta.user_id')
+            ->leftJoin('institutions_users', 'users.ID', '=', 'institutions_users.user_id')
+            ->leftJoin('institutions', 'institutions_users.institution_id', 'institutions.id')
+            ->where('usermeta.meta_key', "{$wpdb->base_prefix}{$book->id}_capabilities")
+            ->where('usermeta.meta_value', 'like', '%administrator%')
+            ->orderByRaw('institution IS NULL')
+            ->orderBy('institution')
+            ->orderBy('first_name')
+            ->orderBy('last_name')
+            ->orderBy('user_login')
+            ->get()
+            ->map(function (object $admin) {
+                $admin->fullname = (string) Str::of($admin->first_name)
+                    ->append(" {$admin->last_name}")
+                    ->trim();
+
+                return $admin;
+            });
+
+        restore_current_blog();
+
+        return $book;
+    }
 }

@@ -4,7 +4,7 @@ namespace Tests\Feature\Actions;
 
 use PressbooksMultiInstitution\Actions\AssignBookToInstitution;
 use PressbooksMultiInstitution\Bootstrap;
-use PressbooksMultiInstitution\Models\Book;
+use PressbooksMultiInstitution\Models\InstitutionBook;
 use PressbooksMultiInstitution\Models\Institution;
 use Tests\TestCase;
 use Tests\Traits\Assertions;
@@ -55,7 +55,7 @@ class AssignBookToInstitutionTest extends TestCase
         $this->assertDatabaseCount('institutions_blogs', 1);
 
         $this->assertTrue(
-            Book::query()
+            InstitutionBook::query()
                 ->where('blog_id', $bookId)
                 ->where('institution_id', $institution->id)
                 ->exists()
@@ -94,7 +94,7 @@ class AssignBookToInstitutionTest extends TestCase
         $this->assertDatabaseCount('institutions_blogs', 1);
 
         $this->assertTrue(
-            Book::query()
+            InstitutionBook::query()
                 ->where('blog_id', $bookId)
                 ->where('institution_id', $institution->id)
                 ->exists()
