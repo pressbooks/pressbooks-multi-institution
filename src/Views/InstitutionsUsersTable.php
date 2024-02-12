@@ -87,7 +87,7 @@ class InstitutionsUsersTable extends WP_List_Table
         ]);
     }
 
-    private function getUsers(array $request)
+    private function getUsers(array $request): object
     {
         $search = $request['s'] ?? '';
         $orderBy = $request['orderby'] ?? 'ID';
