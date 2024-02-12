@@ -71,11 +71,13 @@ class InstitutionsUsersTable extends WP_List_Table
         $this->_column_headers = [$columns, [], $sortable];
 
         $this->items = array_map(function ($user) {
-            $user = (array) $user;
-            $user['name'] = $user['first_name'] . ' ' . $user['last_name'];
-            unset($user['first_name'], $user['last_name']);
-            $user['institution'] = $user['institution'] ?? '';
-            return $user;
+            return [
+                'ID' => $user->ID,
+                'username' => $user->username,
+                'name' => $user->first_name . ' ' . $user->last_name,
+                'email' => $user->email,
+                'institution' => $user->institution ?? __('Unassigned', 'pressbooks-multi-institution'),
+            ];
         }, $users->items());
 
         $this->set_pagination_args([
@@ -102,12 +104,12 @@ class InstitutionsUsersTable extends WP_List_Table
                 'first_name' => $db
                     ->table('usermeta')
                     ->select('meta_value')
-                    ->where('meta_key', 'last_name')
+                    ->where('meta_key', 'first_name')
                     ->whereColumn('usermeta.user_id', 'users.ID'),
                 'last_name' => $db
                     ->table('usermeta')
                     ->select('meta_value')
-                    ->where('meta_key', 'first_name')
+                    ->where('meta_key', 'last_name')
                     ->whereColumn('usermeta.user_id', 'users.ID'),
             ])
             ->leftJoin('institutions_users', 'users.ID', '=', 'institutions_users.user_id')
@@ -134,6 +136,5 @@ class InstitutionsUsersTable extends WP_List_Table
                 return $query->orderBy($orderBy, $order);
             })
             ->paginate($this->paginationSize, ['*'], 'page', $request['paged'] ?? 1);
-
     }
 }
