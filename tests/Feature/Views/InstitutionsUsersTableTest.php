@@ -86,6 +86,7 @@ class InstitutionsUsersTableTest extends TestCase
         $this->createInstitution(['name' => 'Institution 2']);
 
         $this->assertEquals([
+            0 => __('Unassigned', 'pressbooks-multi-institution'),
             1 => 'Institution 1',
             2 => 'Institution 2',
         ], $this->institutionsUsersTable->get_bulk_actions());
