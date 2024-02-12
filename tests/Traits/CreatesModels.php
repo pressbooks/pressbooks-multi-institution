@@ -2,6 +2,9 @@
 
 namespace Tests\Traits;
 
+use PressbooksMultiInstitution\Models\Institution;
+use PressbooksMultiInstitution\Models\InstitutionUser;
+
 trait CreatesModels
 {
     protected function newUser(array $properties = []): int
@@ -51,5 +54,36 @@ trait CreatesModels
         switch_to_blog($blog);
 
         return $blog;
+    }
+
+    public function createInstitution(array $properties): Institution
+    {
+        return Institution::create([
+            'name' => $properties['name'] ?? 'Fake Institution',
+            'book_limit' => $properties['book_limit'] ?? 10,
+            'user_limit' => $properties['user_limit'] ?? 10,
+        ]);
+    }
+
+    public function createInstitutionsUsers(int $institutionsLimit, int $usersLimit): void
+    {
+        $institutions = [];
+        for ($i = 0; $i < $institutionsLimit; $i++) {
+            $institutions[] = $this->createInstitution(['name' => "Institution {$i}"]);
+        }
+
+        for ($i = 0; $i < $usersLimit; $i++) {
+            $user_id = $this->newUser([
+                'user_login' => "johndoe{$i}",
+                'user_email' => "j{$i}@fake.test",
+                'first_name' => "John{$i}",
+                'last_name' => "Doe{$i}",
+            ]);
+
+            InstitutionUser::query()->create([
+                'user_id' => $user_id,
+                'institution_id' => $institutions[array_rand($institutions)]->id,
+            ]);
+        }
     }
 }

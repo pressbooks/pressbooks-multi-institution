@@ -6,6 +6,7 @@ use Kucrut\Vite;
 use PressbooksMultiInstitution\Actions\AssignBookToInstitution;
 use PressbooksMultiInstitution\Actions\AssignUserToInstitution;
 use PressbooksMultiInstitution\Controllers\InstitutionsController;
+use PressbooksMultiInstitution\Controllers\InstitutionsUsersController;
 
 /**
  * Class Bootstrap
@@ -68,6 +69,18 @@ final class Bootstrap
                 echo app(InstitutionsController::class)->form();
             },
         );
+
+        add_submenu_page(
+            parent_slug: $slug,
+            page_title: __('Assign Users', 'pressbooks-multi-institution'),
+            menu_title: __('Assign Users', 'pressbooks-multi-institution'),
+            capability: 'manage_network',
+            menu_slug: 'pb_multi_institutions_users',
+            callback: function () {
+                echo app(InstitutionsUsersController::class)->assign();
+            },
+        );
+
     }
 
     private function registerActions(): void
@@ -89,12 +102,39 @@ final class Bootstrap
 
     private function enqueueScripts(): void
     {
-        add_action('admin_enqueue_scripts', function () {
-            Vite\enqueue_asset(
-                plugin_dir_path(__DIR__).'dist',
-                'resources/assets/js/pressbooks-multi-institution.js',
-                ['handle' => 'pressbooks-multi-institution']
-            );
+        add_action('admin_enqueue_scripts', function ($page) {
+            if ($page === 'institutions_page_pb_multi_institutions') {
+                Vite\enqueue_asset(
+                    plugin_dir_path(__DIR__).'dist',
+                    'resources/assets/js/pressbooks-multi-institution.js',
+                    ['handle' => 'pressbooks-multi-institution']
+                );
+
+                wp_localize_script(
+                    'pressbooks-multi-institution',
+                    'Msg',
+                    [
+                        'text' => __('Are you sure you want to delete these institutions?', 'pressbooks-multi-institution'),
+                    ]
+                );
+            }
+
+            if ($page === 'institutions_page_pb_multi_institutions_users') {
+                Vite\enqueue_asset(
+                    plugin_dir_path(__DIR__).'dist',
+                    'resources/assets/js/pressbooks-multi-institutions-users.js',
+                    ['handle' => 'pressbooks-multi-institutions-users']
+                );
+
+                wp_localize_script(
+                    'pressbooks-multi-institutions-users',
+                    'Custom',
+                    [
+                        'text' => __('Are you sure you want to re-assign the user/s?', 'pressbooks-multi-institution'),
+                        'defaultOptionText' => __('- Set Institution -', 'pressbooks-multi-institution'),
+                    ]
+                );
+            }
 
             Vite\enqueue_asset(
                 plugin_dir_path(__DIR__).'dist',
