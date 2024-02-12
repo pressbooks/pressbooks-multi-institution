@@ -55,17 +55,11 @@ class InstitutionsUsersTable extends WP_List_Table
 
     public function get_bulk_actions(): array
     {
-        $institutions = Institution::query()->get();
-
-        // Get an array of institutions where the key is the institution ID and the value is the institution name
-        $options = $institutions->reduce(function ($carry, $institution) {
-            $carry[$institution->id] = $institution->name;
-            return $carry;
-        }, []);
-
-        $options[0] = __('Unassigned', 'pressbooks-multi-institution');
-
-        return $options;
+        return Institution::query()
+            ->orderBy('name')
+            ->pluck('name', 'id')
+            ->prepend(__('Unassigned', 'pressbooks-multi-institution'), 0)
+            ->toArray();
     }
 
     public function prepare_items(): void
