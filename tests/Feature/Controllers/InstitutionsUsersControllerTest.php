@@ -35,13 +35,13 @@ class InstitutionsUsersControllerTest extends TestCase
     {
         $_REQUEST['orderby'] = 'username';
         $_REQUEST['order'] = 'ASC';
-        $index = $this->institutionsUsersController->index();
+        $index = $this->institutionsUsersController->assign();
 
         $this->assertMatchesRegularExpression('/johndoe0/', $index);
         $this->assertMatchesRegularExpression('/johndoe9/', $index);
 
         $_REQUEST['s'] = 'johndoe3';
-        $index = $this->institutionsUsersController->index();
+        $index = $this->institutionsUsersController->assign();
 
         $this->assertMatchesRegularExpression('/johndoe3/', $index);
     }
@@ -59,7 +59,7 @@ class InstitutionsUsersControllerTest extends TestCase
 
         $_REQUEST['ID'] = [$users[0], $users[1]];
         $_REQUEST['action'] = $institution;
-        $this->institutionsUsersController->index();
+        $this->institutionsUsersController->assign();
 
         $institutionUser = InstitutionUser::query()->where('user_id', $users[0])->first();
         $this->assertEquals($institution, $institutionUser->institution_id);
@@ -68,7 +68,7 @@ class InstitutionsUsersControllerTest extends TestCase
         $this->assertEquals($institution, $institutionUser->institution_id);
 
         $_REQUEST['action'] = '0';
-        $this->institutionsUsersController->index();
+        $this->institutionsUsersController->assign();
 
         $this->assertEquals(0, InstitutionUser::query()->where('user_id', $users[0])->count());
         $this->assertEquals(0, InstitutionUser::query()->where('user_id', $users[1])->count());

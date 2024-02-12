@@ -77,7 +77,7 @@ final class Bootstrap
             capability: 'manage_network',
             menu_slug: 'pb_multi_institutions_users',
             callback: function () {
-                echo app(InstitutionsUsersController::class)->index();
+                echo app(InstitutionsUsersController::class)->assign();
             },
         );
 

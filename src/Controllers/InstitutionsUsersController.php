@@ -16,13 +16,13 @@ class InstitutionsUsersController extends BaseController
         $this->table = new InstitutionsUsersTable;
     }
 
-    public function index(): string
+    public function assign(): string
     {
         $result = $this->processBulkActions();
 
         $this->table->prepare_items();
 
-        return $this->renderView('assignusers.index', [
+        return $this->renderView('users.assign', [
             'page' => 'pb_multi_institutions_users',
             'list_url' => network_admin_url('admin.php?page=pb_multi_institutions_users'),
             'table' => $this->table,
