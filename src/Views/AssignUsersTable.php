@@ -2,11 +2,13 @@
 
 namespace PressbooksMultiInstitution\Views;
 
-use PressbooksMultiInstitution\Models\Institution;
+use PressbooksMultiInstitution\Traits\OverridesBulkActions;
 use WP_List_Table;
 
 class AssignUsersTable extends WP_List_Table
 {
+    use OverridesBulkActions;
+
     protected int $paginationSize = 20;
 
     public function __construct()
@@ -51,15 +53,6 @@ class AssignUsersTable extends WP_List_Table
             'email' => ['email', false],
             'institution' => ['institution', false],
         ];
-    }
-
-    public function get_bulk_actions(): array
-    {
-        return Institution::query()
-            ->orderBy('name')
-            ->pluck('name', 'id')
-            ->prepend(__('Unassigned', 'pressbooks-multi-institution'), 0)
-            ->toArray();
     }
 
     public function prepare_items(): void
