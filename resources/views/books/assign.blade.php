@@ -7,11 +7,11 @@
 <div class="wrap">
     <h1 class="wp-heading-inline">{{ __('Assign Books', 'pressbooks-multi-institution') }}</h1>
 
-    @if(! empty($params['searchQuery']) && ! empty($params['orderBy']))
+    @if(! empty($params['s']) && ! empty($params['orderby']))
         <div class="filtering">
             <ul>
                 <li>
-                    <strong>{{ __('Showing results for:', 'pressbooks-multi-institution') }}</strong> {{ $params['searchQuery'] }}
+                    <strong>{{ __('Showing results for:', 'pressbooks-multi-institution') }}</strong> {{ $params['s'] }}
                 </li>
             </ul>
             <a href="{{ $list_url }}" class="button">{{ __('Clear filters', 'pressbooks-multi-institution') }}</a>
@@ -28,6 +28,9 @@
         </p>
 
         <input type="hidden" name="page" value="{{ $page }}" />
+        @foreach ($params as $name => $value)
+            <input type="hidden" name="{{ $name }}" value="{{ $value }}" />
+        @endforeach
 
         {!! $table->display()!!}
     </form>

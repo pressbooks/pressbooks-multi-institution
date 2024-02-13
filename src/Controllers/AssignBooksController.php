@@ -21,16 +21,22 @@ class AssignBooksController extends BaseController
     {
         $result = $this->processBulkActions($_REQUEST['id'] ?? []);
 
+        $filters = [
+            'order' => 'asc',
+            'orderby' => 'title',
+            'paged' => 1,
+            's' => '',
+        ];
+
         $this->table->prepare_items();
 
         return $this->renderView('books.assign', [
             'list_url' => network_admin_url('admin.php?page=pb_multi_institution_assign_book'),
             'page' => 'pb_multi_institution_assign_book',
-            'params' => [
-                'searchQuery' => $_REQUEST['s'] ?? '',
-                'orderBy' => $_REQUEST['orderby'] ?? 'title',
-                'order' => $_REQUEST['order'] ?? 'asc',
-            ],
+            'params' => collect($filters)
+                ->flatMap(fn (string $filter, string $key) => [$key => $_REQUEST[$key] ?? $filter])
+                ->filter()
+                ->toArray(),
             'result' => $result,
             'table' => $this->table,
         ]);
@@ -48,12 +54,14 @@ class AssignBooksController extends BaseController
             return [];
         }
 
-        if ($action === '0') {
+        check_admin_referer('bulk-assign-books');
+
+        if ($action == 0) {
             InstitutionBook::query()->whereIn('blog_id', $ids)->delete();
 
             return [
                 'success' => true,
-                'message' => __('Books have been unassigned.', 'pressbooks-multi-institution'),
+                'message' => _n('Book updated.', 'Books updated.', count($ids), 'pressbooks-multi-institution'),
             ];
         }
 
@@ -75,7 +83,7 @@ class AssignBooksController extends BaseController
 
         return [
             'success' => true,
-            'message' => __('Books have been assigned.', 'pressbooks-multi-institution'),
+            'message' => _n('Book updated.', 'Books updated.', count($ids), 'pressbooks-multi-institution'),
         ];
     }
 }
