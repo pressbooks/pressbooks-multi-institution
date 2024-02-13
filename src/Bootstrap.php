@@ -114,44 +114,34 @@ final class Bootstrap
     private function enqueueScripts(): void
     {
         add_action('admin_enqueue_scripts', function ($page) {
-            if ($page === 'institutions_page_pb_multi_institutions') {
-                Vite\enqueue_asset(
-                    plugin_dir_path(__DIR__).'dist',
-                    'resources/assets/js/pressbooks-multi-institution.js',
-                    ['handle' => 'pressbooks-multi-institution']
-                );
+            $context = [
+                'institutions_page_pb_multi_institutions' => [
+                    'formSelector' => '#pressbooks-multi-institution-admin',
+                    'confirmationMessage' => __('Are you sure you want to delete the selected institutions?', 'pressbooks-multi-institution'),
+                ],
+                'institutions_page_pb_multi_institutions_users' => [
+                    'formSelector' => '#pressbooks-multi-institution-assign-users',
+                    'confirmationMessage' => __('Are you sure you want to re-assign the selected users?', 'pressbooks-multi-institution'),
+                ],
+                'institutions_page_pb_multi_institution_assign_book' => [
+                    'formSelector' => '#pressbooks-multi-institution-assign-books',
+                    'confirmationMessage' => __('Are you sure you want to re-assign the selected books?', 'pressbooks-multi-institution'),
+                ],
+            ];
 
-                wp_localize_script(
-                    'pressbooks-multi-institution',
-                    'Msg',
-                    [
-                        'text' => __('Are you sure you want to delete these institutions?', 'pressbooks-multi-institution'),
-                    ]
-                );
-            }
-
-            if ($page === 'institutions_page_pb_multi_institutions_users') {
-                Vite\enqueue_asset(
-                    plugin_dir_path(__DIR__).'dist',
-                    'resources/assets/js/pressbooks-multi-institutions-users.js',
-                    ['handle' => 'pressbooks-multi-institutions-users']
-                );
-
-                wp_localize_script(
-                    'pressbooks-multi-institutions-users',
-                    'Custom',
-                    [
-                        'text' => __('Are you sure you want to re-assign the user/s?', 'pressbooks-multi-institution'),
-                        'defaultOptionText' => __('- Set Institution -', 'pressbooks-multi-institution'),
-                    ]
-                );
-            }
+            Vite\enqueue_asset(
+                plugin_dir_path(__DIR__).'dist',
+                'resources/assets/js/pressbooks-multi-institution.js',
+                ['handle' => 'pressbooks-multi-institution']
+            );
 
             Vite\enqueue_asset(
                 plugin_dir_path(__DIR__).'dist',
                 'node_modules/@pressbooks/multiselect/pressbooks-multiselect.js',
                 ['handle' => 'pressbooks-multi-select'],
             );
+
+            wp_localize_script('pressbooks-multi-institution', 'context', $context[$page] ?? []);
         });
     }
 
