@@ -18,13 +18,7 @@ class InstitutionsUsersController extends BaseController
 
     public function assign(): string
     {
-        $referer = wp_get_referer();
-
-        if ($referer && str_contains($referer, 'page=pb_multi_institutions_users')) {
-            parse_str(parse_url($referer)['query'], $queryParams);
-            $_REQUEST = array_merge($_REQUEST, $queryParams);
-            unset($_REQUEST['_wp_http_referer']);
-        }
+        $this->mergeRefererQueryParams();
 
         $result = $this->processBulkActions();
 
@@ -41,6 +35,17 @@ class InstitutionsUsersController extends BaseController
                 'order' => $_REQUEST['order'] ?? 'ASC',
             ]
         ]);
+    }
+
+    private function mergeRefererQueryParams(): void
+    {
+        $referer = wp_get_referer();
+
+        if ($referer && str_contains($referer, 'page=pb_multi_institutions_users')) {
+            parse_str(parse_url($referer)['query'], $queryParams);
+            $_REQUEST = array_merge($_REQUEST, $queryParams);
+            unset($_REQUEST['_wp_http_referer']);
+        }
     }
 
     protected function processBulkActions(): array
