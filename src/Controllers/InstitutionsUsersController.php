@@ -36,7 +36,7 @@ class InstitutionsUsersController extends BaseController
             'result' => $result,
             'search_term' => $_REQUEST['s'] ?? '',
             'params' => collect($filters)
-                ->flatMap(fn (string $filter, string $key) => [$key => sanitize_text_field($_REQUEST[$key]) ?? $filter])
+                ->flatMap(fn (string $filter, string $key) => [$key => sanitize_text_field($_REQUEST[$key] ?? $filter)])
                 ->toArray(),
         ]);
     }
