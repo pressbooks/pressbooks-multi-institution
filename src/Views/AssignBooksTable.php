@@ -38,24 +38,6 @@ class AssignBooksTable extends WP_List_Table
     }
 
     /**
-     * This method is called when the parent class can't find a method
-     * for a given column. For example, if the class needs to process a column
-     * named 'title', it would first see if a method named $this->column_title()
-     * exists. If it doesn't this one will be used.
-     *
-     * @param object $item A singular item (one full row's worth of data)
-     * @param string $column_name The name/slug of the column to be processed
-     *
-     * @return string Text or HTML to be placed inside the column <td>
-     * @see WP_List_Table::single_row_columns()
-     *
-     */
-    public function column_default($item, $column_name): string
-    {
-        return $item->$column_name ?? '';
-    }
-
-    /**
      * @param object $item
      * @return string
      */
@@ -80,6 +62,13 @@ class AssignBooksTable extends WP_List_Table
         return app('Blade')->render('PressbooksMultiInstitution::table.book-title', [
             'title' => $item->title,
             'url' => $item->url,
+        ]);
+    }
+
+    public function column_institution(object $item): string
+    {
+        return app('Blade')->render('PressbooksMultiInstitution::table.institution', [
+            'institution' => $item->institution,
         ]);
     }
 

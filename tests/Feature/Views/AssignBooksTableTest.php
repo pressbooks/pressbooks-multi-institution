@@ -24,16 +24,6 @@ class AssignBooksTableTest extends TestCase
     /**
      * @test
      */
-    public function it_renders_default_value(): void
-    {
-        $result = $this->table->column_default($this->fakeBook(), 'title');
-
-        $this->assertEquals('Fake Book', $result);
-    }
-
-    /**
-     * @test
-     */
     public function it_renders_the_checkbox_column(): void
     {
         $expected = <<<HTML
@@ -93,6 +83,21 @@ HTML;
 HTML;
 
         $result = $this->table->column_title($this->fakeBook());
+
+        $this->assertEquals($expected, $result);
+    }
+
+    /**
+     * @test
+     */
+    public function it_renders_institution_column(): void
+    {
+        $expected = <<<HTML
+<p>Fake Institution</p>
+
+HTML;
+
+        $result = $this->table->column_institution($this->fakeBook());
 
         $this->assertEquals($expected, $result);
     }
