@@ -18,9 +18,14 @@ class InstitutionsUsersController extends BaseController
 
     public function assign(): string
     {
-        $this->mergeRefererQueryParams();
-
         $result = $this->processBulkActions();
+
+        $filters = [
+            's' => '',
+            'orderby' => 'title',
+            'order' => 'asc',
+            'paged' => 1,
+        ];
 
         $this->table->prepare_items();
 
@@ -29,23 +34,11 @@ class InstitutionsUsersController extends BaseController
             'list_url' => network_admin_url('admin.php?page=pb_multi_institutions_users'),
             'table' => $this->table,
             'result' => $result,
-            'params' => [
-                'searchQuery' => $_REQUEST['s'] ?? '',
-                'orderBy' => $_REQUEST['orderby'] ?? 'ID',
-                'order' => $_REQUEST['order'] ?? 'ASC',
-            ]
+            'params' => collect($filters)
+                ->flatMap(fn (string $filter, string $key) => [$key => $_REQUEST[$key] ?? $filter])
+                ->filter()
+                ->toArray(),
         ]);
-    }
-
-    private function mergeRefererQueryParams(): void
-    {
-        $referer = wp_get_referer();
-
-        if ($referer && str_contains($referer, 'page=pb_multi_institutions_users')) {
-            parse_str(parse_url($referer)['query'], $queryParams);
-            $_REQUEST = array_merge($_REQUEST, $queryParams);
-            unset($_REQUEST['_wp_http_referer']);
-        }
     }
 
     protected function processBulkActions(): array
@@ -62,11 +55,13 @@ class InstitutionsUsersController extends BaseController
             return [];
         }
 
+        $successMsg = _n('User updated.', 'Users updated.', count($items), 'pressbooks-multi-institution');
+
         if ($action === '0') {
             InstitutionUser::query()->whereIn('user_id', $items)->delete();
             return [
                 'success' => true,
-                'message' => __('User/s unassigned.', 'pressbooks-multi-institution'),
+                'message' => $successMsg,
             ];
         }
 
@@ -87,7 +82,7 @@ class InstitutionsUsersController extends BaseController
 
         return [
             'success' => true,
-            'message' => __('User/s assigned.', 'pressbooks-multi-institution'),
+            'message' => $successMsg,
         ];
     }
 }

@@ -25,6 +25,10 @@
 			<button id="search-apply" class="button" type="submit">{{ __( 'Search', 'pressbooks-multi-institution') }}</button>
 		</p>
 		<input type="hidden" name="page" value="{{ $page }}" />
+		@foreach ($params as $name => $value)
+			<input type="hidden" name="{{ $name }}" value="{{ $value }}" />
+		@endforeach
+
 		{!! $table->display() !!}
 	</form>
 </div>
