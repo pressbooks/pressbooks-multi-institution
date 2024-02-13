@@ -22,7 +22,7 @@ class InstitutionsUsersController extends BaseController
 
         $filters = [
             's' => '',
-            'orderby' => 'title',
+            'orderby' => 'username',
             'order' => 'asc',
             'paged' => 1,
         ];
