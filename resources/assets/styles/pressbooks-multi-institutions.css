@@ -55,3 +55,9 @@ body.institutions_page_pb_multi_institutions .filtering a {
 	grid-template-columns: 1fr;
 	gap: .5rem;
 }
+
+.institutions_page_pb_multi_institution_assign_book .assign-books .column-cover {
+	min-width: 50px;
+	text-align: center;
+	width: 5%;
+}

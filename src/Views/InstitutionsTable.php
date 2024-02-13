@@ -92,7 +92,10 @@ class InstitutionsTable extends WP_List_Table
      */
     public function column_cb($item): string
     {
-        return sprintf('<input type="checkbox" name="ID[]" value="%s" />', $item['ID']);
+        return app('Blade')->render('PressbooksMultiInstitution::table.checkbox', [
+            'name' => 'ID',
+            'value' => $item['ID'],
+        ]);
     }
 
     /**

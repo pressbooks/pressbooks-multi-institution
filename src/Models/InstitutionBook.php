@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $blog_id
  * @property int $institution_id
  */
-class Book extends Model
+class InstitutionBook extends Model
 {
     public $timestamps = false;
 
