@@ -7,10 +7,10 @@
 <div class="wrap">
 	<h1 class="wp-heading-inline">{{ __('Assign Users', 'pressbooks-multi-institution') }}</h1>
 
-	@if( !empty($params['searchQuery']) && !empty($params['orderBy']))
+	@if( !empty($params['s']) && !empty($params['orderby']))
 		<div class="filtering">
 			<ul>
-				<li>{!! sprintf( __( '<strong>Showing results for:</strong> %s', 'pressbooks-multi-institution' ), $params['searchQuery'] ) !!}</li>
+				<li>{!! sprintf( __( '<strong>Showing results for:</strong> %s', 'pressbooks-multi-institution' ), $params['s'] ) !!}</li>
 			</ul>
 			<a href="{{ $list_url }}" class="button">{{ __('Clear filters', 'pressbooks-multi-institution') }}</a>
 		</div>
