@@ -26,9 +26,9 @@ class AssignBooksTableTest extends TestCase
      */
     public function it_renders_default_value(): void
     {
-        $result = $this->table->column_default($this->fakeInstitution(), 'title');
+        $result = $this->table->column_default($this->fakeBook(), 'title');
 
-        $this->assertEquals('Fake Institution', $result);
+        $this->assertEquals('Fake Book', $result);
     }
 
     /**
@@ -41,7 +41,39 @@ class AssignBooksTableTest extends TestCase
 
 HTML;
 
-        $result = $this->table->column_cb($this->fakeInstitution());
+        $result = $this->table->column_cb($this->fakeBook());
+
+        $this->assertEquals($expected, $result);
+    }
+
+    /**
+     * @test
+     */
+    public function it_renders_the_default_cover_column(): void
+    {
+        $expected = <<<HTML
+<img src="http://example.org/wp-content/plugins/pressbooks/assets/dist/images/default-book-cover.jpg" alt="Fake Book&#039;s cover" style="height: 3rem" />
+
+HTML;
+
+        $result = $this->table->column_cover(
+            $this->fakeBook(['cover' => ''])
+        );
+
+        $this->assertEquals($expected, $result);
+    }
+
+    /**
+     * @test
+     */
+    public function it_renders_the_book_cover_column(): void
+    {
+        $expected = <<<HTML
+<img src="http://example.org/wp-content/pressbooks/assets/fakebook-cover.jpg" alt="Fake Book&#039;s cover" style="height: 3rem" />
+
+HTML;
+
+        $result = $this->table->column_cover($this->fakeBook());
 
         $this->assertEquals($expected, $result);
     }
@@ -53,14 +85,14 @@ HTML;
     {
         $expected = <<<HTML
 <p>
-    <span style="display: block">Fake Institution</span>
+    <span style="display: block">Fake Book</span>
 
     <a href="https://fakeinstitution.edu">https://fakeinstitution.edu</a>
 </p>
 
 HTML;
 
-        $result = $this->table->column_title($this->fakeInstitution());
+        $result = $this->table->column_title($this->fakeBook());
 
         $this->assertEquals($expected, $result);
     }
@@ -82,7 +114,7 @@ HTML;
 
 HTML;
 
-        $result = $this->table->column_book_administrators($this->fakeInstitution());
+        $result = $this->table->column_book_administrators($this->fakeBook());
 
         $this->assertEquals($expected, $result);
     }
@@ -92,7 +124,7 @@ HTML;
      */
     public function it_handles_empty_book_admins_list(): void
     {
-        $result = $this->table->column_book_administrators($this->fakeInstitution([
+        $result = $this->table->column_book_administrators($this->fakeBook([
             'admins' => []
         ]));
 
@@ -124,7 +156,7 @@ HTML;
 
 HTML;
 
-        $result = $this->table->column_book_administrators($this->fakeInstitution([
+        $result = $this->table->column_book_administrators($this->fakeBook([
             'admins' => [
                 (object) [
                     'fullname' => 'John Doe',
@@ -330,12 +362,14 @@ HTML;
         $this->assertEquals('Fake Book', $books->last()->title);
     }
 
-    protected function fakeInstitution(array $attributes = []): object
+    protected function fakeBook(array $attributes = []): object
     {
         return (object) [
             'id' => $attributes['id'] ?? 42,
-            'title' => $attributes['title'] ?? 'Fake Institution',
+            'title' => $attributes['title'] ?? 'Fake Book',
+            'institution' => $attributes['institution'] ?? 'Fake Institution',
             'url' => $attributes['url'] ?? 'https://fakeinstitution.edu',
+            'cover' => $attributes['cover'] ?? 'http://example.org/wp-content/pressbooks/assets/fakebook-cover.jpg',
             'admins' => $attributes['admins'] ?? array_map(fn (array $admin) => (object) $admin, [
                 [
                     'fullname' => 'John Doe',
