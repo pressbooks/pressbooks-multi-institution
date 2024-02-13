@@ -4,6 +4,7 @@ namespace Tests\Traits;
 
 use PressbooksMultiInstitution\Models\Institution;
 use PressbooksMultiInstitution\Models\InstitutionUser;
+use Pressbooks\DataCollector\Book as DataCollector;
 
 trait CreatesModels
 {
@@ -40,7 +41,8 @@ trait CreatesModels
         add_filter('pb_redirect_to_new_book', '__return_false');
 
         $properties = [
-            'path' => $properties['path'] ?? 'fakebook',
+            'path' => $properties['path'] ?? 'fakepath',
+            'title' => $properties['title'] ?? 'Fake Book',
         ];
 
         $wpdb->delete($wpdb->blogs, [
@@ -48,6 +50,8 @@ trait CreatesModels
         ]);
 
         $blog = $this->factory()->blog->create($properties);
+
+        DataCollector::init()->copyBookMetaIntoSiteTable($blog);
 
         $wpdb->query('COMMIT');
 

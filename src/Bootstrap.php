@@ -5,11 +5,11 @@ namespace PressbooksMultiInstitution;
 use Kucrut\Vite;
 use PressbooksMultiInstitution\Actions\AssignBookToInstitution;
 use PressbooksMultiInstitution\Actions\AssignUserToInstitution;
+use PressbooksMultiInstitution\Controllers\AssignBooksController;
 use PressbooksMultiInstitution\Actions\ManagerPermissions;
 use PressbooksMultiInstitution\Controllers\InstitutionsController;
 use PressbooksMultiInstitution\Controllers\InstitutionsUsersController;
-use PressbooksMultiInstitution\Models\Book;
-use PressbooksMultiInstitution\Models\Institution;
+use PressbooksMultiInstitution\Models\InstitutionBook;
 use PressbooksMultiInstitution\Models\InstitutionUser;
 
 use function Pressbooks\Admin\NetworkManagers\_restricted_users;
@@ -88,6 +88,16 @@ final class Bootstrap
             },
         );
 
+        add_submenu_page(
+            parent_slug: $slug,
+            page_title: __('Assign Books', 'pressbooks-multi-institution'),
+            menu_title: __('Assign Books', 'pressbooks-multi-institution'),
+            capability: 'manage_network',
+            menu_slug: 'pb_multi_institution_assign_book',
+            callback: function () {
+                echo app(AssignBooksController::class)->index();
+            }
+        );
     }
 
     private function registerActions(): void
@@ -149,7 +159,7 @@ final class Bootstrap
              * Prevent access to any page that is not allowed
             */
             if ($institution !== 0) {
-                $allowedBooks = Book::query()->select('blog_id')->where('institution_id', $institution)->get()->map(fn ($book) => $book->blog_id)->toArray();
+                $allowedBooks = InstitutionBook::query()->select('blog_id')->where('institution_id', $institution)->get()->map(fn ($book) => $book->blog_id)->toArray();
 
                 add_filter('pb_filter_books', function ($books) use ($allowedBooks) {
                     return [...$books, ...array_map('intval', $allowedBooks)];
@@ -225,44 +235,26 @@ final class Bootstrap
     private function enqueueScripts(): void
     {
         add_action('admin_enqueue_scripts', function ($page) {
-            if ($page === 'institutions_page_pb_multi_institutions') {
-                Vite\enqueue_asset(
-                    plugin_dir_path(__DIR__) . 'dist',
-                    'resources/assets/js/pressbooks-multi-institution.js',
-                    ['handle' => 'pressbooks-multi-institution']
-                );
-
-                wp_localize_script(
-                    'pressbooks-multi-institution',
-                    'Msg',
-                    [
-                        'text' => __('Are you sure you want to delete these institutions?', 'pressbooks-multi-institution'),
-                    ]
-                );
-            }
-
-            if ($page === 'institutions_page_pb_multi_institutions_users') {
-                Vite\enqueue_asset(
-                    plugin_dir_path(__DIR__) . 'dist',
-                    'resources/assets/js/pressbooks-multi-institutions-users.js',
-                    ['handle' => 'pressbooks-multi-institutions-users']
-                );
-
-                wp_localize_script(
-                    'pressbooks-multi-institutions-users',
-                    'Custom',
-                    [
-                        'text' => __('Are you sure you want to re-assign the user/s?', 'pressbooks-multi-institution'),
-                        'defaultOptionText' => __('- Set Institution -', 'pressbooks-multi-institution'),
-                    ]
-                );
-            }
+            $context = [
+                'institutions_page_pb_multi_institutions' => [
+                    'formSelector' => '#pressbooks-multi-institution-admin',
+                    'confirmationMessage' => __('Are you sure you want to delete the selected institutions?', 'pressbooks-multi-institution'),
+                ],
+            ];
 
             Vite\enqueue_asset(
-                plugin_dir_path(__DIR__) . 'dist',
+                plugin_dir_path(__DIR__).'dist',
+                'resources/assets/js/pressbooks-multi-institution.js',
+                ['handle' => 'pressbooks-multi-institution']
+            );
+
+            Vite\enqueue_asset(
+                plugin_dir_path(__DIR__).'dist',
                 'node_modules/@pressbooks/multiselect/pressbooks-multiselect.js',
                 ['handle' => 'pressbooks-multi-select'],
             );
+
+            wp_localize_script('pressbooks-multi-institution', 'context', $context[$page] ?? []);
         });
     }
 

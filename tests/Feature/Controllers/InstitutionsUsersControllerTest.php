@@ -74,6 +74,30 @@ class InstitutionsUsersControllerTest extends TestCase
         $this->assertEquals(0, InstitutionUser::query()->where('user_id', $users[1])->count());
     }
 
+    /**
+     * @test
+     */
+    public function it_keeps_ordering_after_bulk_action(): void
+    {
+        $_REQUEST['orderby'] = 'username';
+        $_REQUEST['order'] = 'DESC';
+        $index = $this->institutionsUsersController->assign();
+
+        $this->assertMatchesRegularExpression('/johndoe9/', $index);
+        $this->assertMatchesRegularExpression('/johndoe0/', $index);
+
+        $institutionsUsers = InstitutionUser::all();
+        $users = $institutionsUsers->pluck('user_id')->toArray();
+
+        $_REQUEST['ID'] = [$users[0], $users[1]];
+        $_REQUEST['action'] = $institutionsUsers->first()->institution_id;
+        $this->institutionsUsersController->assign();
+
+        $this->assertMatchesRegularExpression('/johndoe9/', $index);
+        $this->assertMatchesRegularExpression('/johndoe0/', $index);
+    }
+
+
     public function tearDown(): void
     {
         parent::tearDown();

@@ -47,9 +47,7 @@ class Institution extends Model
         // them from the old institution and assign them to the new one instead.
         $current = $this->users()->pluck('manager', 'user_id')->all();
 
-        $managers = array_keys(
-            array_filter($current, fn (bool $isManager) => $isManager)
-        );
+        $managers = array_keys(array_filter($current));
 
         $detach = array_diff($managers, $ids);
 
@@ -89,7 +87,7 @@ class Institution extends Model
 
     public function books(): HasMany
     {
-        return $this->hasMany(Book::class);
+        return $this->hasMany(InstitutionBook::class);
     }
 
     public function scopeSearchAndOrder($query, $request)
