@@ -21,12 +21,14 @@
 	<form id="pressbooks-multi-institution-assign-users" method="GET">
 		<p class="search-box">
 			<label class="screen-reader-text" for="search-input">{{ __( 'Search', 'pressbooks-multi-institution') }}:</label>
-			<input type="search" id="search-input" name="s" value="">
+			<input type="search" id="search-input" name="s" value="{{ $params['s'] ?? '' }}">
 			<button id="search-apply" class="button" type="submit">{{ __( 'Search', 'pressbooks-multi-institution') }}</button>
 		</p>
 		<input type="hidden" name="page" value="{{ $page }}" />
 		@foreach ($params as $name => $value)
-			<input type="hidden" name="{{ $name }}" value="{{ $value }}" />
+			@if($name !== 's')
+				<input type="hidden" name="{{ $name }}" value="{{ $value }}" />
+			@endif
 		@endforeach
 
 		{!! $table->display() !!}

@@ -2,23 +2,23 @@
 
 namespace Tests\Feature\Views;
 
-use PressbooksMultiInstitution\Views\InstitutionsUsersTable;
+use PressbooksMultiInstitution\Views\AssignUsersTable;
 use Tests\TestCase;
 use Tests\Traits\CreatesModels;
 
 /**
  * @group institutions-users-table
  */
-class InstitutionsUsersTableTest extends TestCase
+class AssignUsersTableTest extends TestCase
 {
     use CreatesModels;
 
-    private InstitutionsUsersTable $institutionsUsersTable;
+    private AssignUsersTable $institutionsUsersTable;
 
     public function setUp(): void
     {
         parent::setUp();
-        $this->institutionsUsersTable = new InstitutionsUsersTable;
+        $this->institutionsUsersTable = new AssignUsersTable;
     }
 
     /**

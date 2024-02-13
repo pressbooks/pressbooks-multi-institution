@@ -4,16 +4,16 @@ namespace PressbooksMultiInstitution\Controllers;
 
 use PressbooksMultiInstitution\Models\Institution;
 use PressbooksMultiInstitution\Models\InstitutionUser;
-use PressbooksMultiInstitution\Views\InstitutionsUsersTable;
+use PressbooksMultiInstitution\Views\AssignUsersTable;
 
 class InstitutionsUsersController extends BaseController
 {
-    private InstitutionsUsersTable $table;
+    private AssignUsersTable $table;
 
     public function __construct()
     {
         parent::__construct();
-        $this->table = new InstitutionsUsersTable;
+        $this->table = new AssignUsersTable;
     }
 
     public function assign(): string
@@ -21,10 +21,10 @@ class InstitutionsUsersController extends BaseController
         $result = $this->processBulkActions();
 
         $filters = [
-            's' => '',
             'orderby' => 'username',
             'order' => 'asc',
             'paged' => 1,
+            's' => '',
         ];
 
         $this->table->prepare_items();
@@ -34,9 +34,9 @@ class InstitutionsUsersController extends BaseController
             'list_url' => network_admin_url('admin.php?page=pb_multi_institutions_users'),
             'table' => $this->table,
             'result' => $result,
+            'search_term' => $_REQUEST['s'] ?? '',
             'params' => collect($filters)
-                ->flatMap(fn (string $filter, string $key) => [$key => $_REQUEST[$key] ?? $filter])
-                ->filter()
+                ->flatMap(fn (string $filter, string $key) => [$key => sanitize_text_field($_REQUEST[$key]) ?? $filter])
                 ->toArray(),
         ]);
     }

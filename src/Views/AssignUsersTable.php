@@ -5,7 +5,7 @@ namespace PressbooksMultiInstitution\Views;
 use PressbooksMultiInstitution\Models\Institution;
 use WP_List_Table;
 
-class InstitutionsUsersTable extends WP_List_Table
+class AssignUsersTable extends WP_List_Table
 {
     protected int $paginationSize = 20;
 
@@ -66,9 +66,7 @@ class InstitutionsUsersTable extends WP_List_Table
     {
         $users = $this->getUsers($_REQUEST);
 
-        $columns = $this->get_columns();
-        $sortable = $this->get_sortable_columns();
-        $this->_column_headers = [$columns, [], $sortable];
+        $this->_column_headers = [$this->get_columns(), [], $this->get_sortable_columns()];
 
         $this->items = array_map(function ($user) {
             return [
@@ -89,6 +87,8 @@ class InstitutionsUsersTable extends WP_List_Table
 
     private function getUsers(array $request): object
     {
+        $request = $this->validateRequest($request);
+
         $search = $request['s'] ?? '';
         $orderBy = $request['orderby'] ?? 'ID';
         $order = $request['order'] ?? 'ASC';
@@ -144,5 +144,27 @@ class InstitutionsUsersTable extends WP_List_Table
                 return $query->orderBy($orderBy, $order);
             })
             ->paginate($this->paginationSize, ['*'], 'page', $request['paged'] ?? 1);
+    }
+
+    private function validateRequest(array $request): array
+    {
+        $request['orderby'] = sanitize_text_field($request['orderby'] ?? '');
+        $request['order'] = sanitize_text_field($request['order'] ?? '');
+        $request['s'] = sanitize_text_field($request['s'] ?? '');
+        $request['paged'] = sanitize_text_field($request['paged'] ?? '');
+
+        if (isset($request['ID'])) {
+            $request['ID'] = array_map('intval', $request['ID']);
+        }
+
+        if (!in_array($request['orderby'], ['username', 'name', 'email', 'institution'])) {
+            $request['orderby'] = 'username';
+        }
+
+        if (!in_array(strtolower($request['order']), ['asc', 'desc'])) {
+            $request['order'] = 'asc';
+        }
+
+        return $request;
     }
 }
