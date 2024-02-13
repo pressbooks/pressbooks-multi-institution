@@ -61,7 +61,7 @@ class InstitutionsController extends BaseController
                     'email',
                     'name'
                 ],
-                'login__not_in' => get_super_admins()
+                'login__not_in' => []
             ]),
         ]);
     }
@@ -146,6 +146,8 @@ class InstitutionsController extends BaseController
             $institution = Institution::query()->create($data);
         }
 
+        $managersToBeRemoved = $institution->managers()->whereNotIn('user_id', $managers)->get()->toArray();
+
         $institution
             ->updateDomains(
                 array_map(fn (string $domain) => ['domain' => $domain], $domains)
@@ -154,6 +156,7 @@ class InstitutionsController extends BaseController
                 array_map(fn (string $id) => (int) $id, $managers),
             );
 
+        apply_filters('pb_multi_institution_after_save', $institution, $managers, $managersToBeRemoved);
 
         return [
             'success' => true,

@@ -108,12 +108,12 @@ class Institution extends Model
                     ->orWhere('users.user_email', 'like', "%{$search}%");
             });
 
-        if(!isset($request['orderby']) && !isset($request['order'])) {
+        if (!isset($request['orderby']) && !isset($request['order'])) {
             return $builder;
         }
 
         // only order by the fields that are present in the table
-        if(!in_array($request['orderby'], array_keys($this->casts))) {
+        if (!in_array($request['orderby'], array_keys($this->casts))) {
             return $builder;
         }
 
