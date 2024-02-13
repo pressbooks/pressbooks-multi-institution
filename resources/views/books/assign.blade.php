@@ -7,7 +7,7 @@
 <div class="wrap">
     <h1 class="wp-heading-inline">{{ __('Assign Books', 'pressbooks-multi-institution') }}</h1>
 
-    @if(! empty($params['s']) && ! empty($params['orderby']))
+    @if(! empty($params['s']))
         <div class="filtering">
             <ul>
                 <li>

@@ -35,7 +35,6 @@ class AssignBooksController extends BaseController
             'page' => 'pb_multi_institution_assign_book',
             'params' => collect($filters)
                 ->flatMap(fn (string $filter, string $key) => [$key => $_REQUEST[$key] ?? $filter])
-                ->filter()
                 ->toArray(),
             'result' => $result,
             'table' => $this->table,
