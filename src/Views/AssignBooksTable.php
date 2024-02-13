@@ -6,7 +6,7 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Capsule\Manager;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Str;
-use PressbooksMultiInstitution\Models\Institution;
+use PressbooksMultiInstitution\Traits\OverridesBulkActions;
 use WP_List_Table;
 
 use function Pressbooks\Image\default_cover_url;
@@ -14,6 +14,8 @@ use function Pressbooks\Sanitize\sanitize_string;
 
 class AssignBooksTable extends WP_List_Table
 {
+    use OverridesBulkActions;
+
     protected int $paginationSize = 15;
 
     public function __construct()
@@ -68,7 +70,7 @@ class AssignBooksTable extends WP_List_Table
     public function column_cover(object $item): string
     {
         return app('Blade')->render('PressbooksMultiInstitution::table.cover', [
-            'url' => $item->cover ?? default_cover_url(),
+            'url' => empty($item->cover) ? default_cover_url() : $item->cover,
             'alt_text' => "{$item->title}'s cover",
         ]);
     }
@@ -96,15 +98,6 @@ class AssignBooksTable extends WP_List_Table
         ];
     }
 
-    public function get_bulk_actions(): array
-    {
-        return Institution::query()
-            ->orderBy('name')
-            ->pluck('name', 'id')
-            ->prepend(__('Unassigned', 'pressbooks-multi-institution'), 0)
-            ->toArray();
-    }
-
     public function prepare_items(): void
     {
         $books = $this->getBooks($_REQUEST);
@@ -121,50 +114,6 @@ class AssignBooksTable extends WP_List_Table
             'total_items' => $books->total(),
             'per_page' => $this->paginationSize,
             'total_pages' => $books->lastPage(),
-        ]);
-    }
-
-    /**
-     * Displays the bulk action dropdown.
-     * This has been overridden to customize the dropdown.
-     *
-     * @since 3.1.0
-     *
-     * @param string $which The location of the bulk actions: 'top' or 'bottom'.
-     *                      This is designated as optional for backward compatibility.
-     * @return void
-     */
-    protected function bulk_actions($which = '')
-    {
-        if (is_null($this->_actions)) {
-            $this->_actions = $this->get_bulk_actions();
-
-            /**
-             * Filters the items in the bulk actions menu of the list table.
-             *
-             * The dynamic portion of the hook name, `$this->screen->id`, refers
-             * to the ID of the current screen.
-             *
-             * @since 3.1.0
-             * @since 5.6.0 A bulk action can now contain an array of options in order to create an optgroup.
-             *
-             * @param array $actions An array of the available bulk actions.
-             */
-            $this->_actions = apply_filters("bulk_actions-{$this->screen->id}", $this->_actions);
-
-            $two = '';
-        } else {
-            $two = '2';
-        }
-
-        if (empty($this->_actions)) {
-            return;
-        }
-
-        echo app('Blade')->render('PressbooksMultiInstitution::table.bulk-actions', [
-            'actions' => $this->get_bulk_actions(),
-            'two' => $two,
-            'which' => $which,
         ]);
     }
 
