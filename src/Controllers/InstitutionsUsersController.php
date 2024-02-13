@@ -34,7 +34,6 @@ class InstitutionsUsersController extends BaseController
             'list_url' => network_admin_url('admin.php?page=pb_multi_institutions_users'),
             'table' => $this->table,
             'result' => $result,
-            'search_term' => $_REQUEST['s'] ?? '',
             'params' => collect($filters)
                 ->flatMap(fn (string $filter, string $key) => [$key => sanitize_text_field($_REQUEST[$key] ?? $filter)])
                 ->toArray(),
