@@ -119,14 +119,6 @@ final class Bootstrap
                     'formSelector' => '#pressbooks-multi-institution-admin',
                     'confirmationMessage' => __('Are you sure you want to delete the selected institutions?', 'pressbooks-multi-institution'),
                 ],
-                'institutions_page_pb_multi_institutions_users' => [
-                    'formSelector' => '#pressbooks-multi-institution-assign-users',
-                    'confirmationMessage' => __('Are you sure you want to re-assign the selected users?', 'pressbooks-multi-institution'),
-                ],
-                'institutions_page_pb_multi_institution_assign_book' => [
-                    'formSelector' => '#pressbooks-multi-institution-assign-books',
-                    'confirmationMessage' => __('Are you sure you want to re-assign the selected books?', 'pressbooks-multi-institution'),
-                ],
             ];
 
             Vite\enqueue_asset(
