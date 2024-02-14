@@ -311,8 +311,8 @@ HTML;
 
         $this->assertCount(2, $books);
 
-        $this->assertEquals('Fake Book', $books->first()->title);
-        $this->assertEquals('Another Fake Book', $books->last()->title);
+        $this->assertEquals('Another Fake Book', $books->first()->title);
+        $this->assertEquals('Fake Book', $books->last()->title);
 
         $_REQUEST['orderby'] = 'institution';
         $_REQUEST['order'] = 'desc';
@@ -323,8 +323,8 @@ HTML;
 
         $this->assertCount(2, $books);
 
-        $this->assertEquals('Another Fake Book', $books->first()->title);
-        $this->assertEquals('Fake Book', $books->last()->title);
+        $this->assertEquals('Fake Book', $books->first()->title);
+        $this->assertEquals('Another Fake Book', $books->last()->title);
     }
 
     /**
@@ -343,8 +343,8 @@ HTML;
 
         $this->assertCount(2, $books);
 
-        $this->assertEquals('Fake Book', $books->first()->title);
-        $this->assertEquals('Another Fake Book', $books->last()->title);
+        $this->assertEquals('Another Fake Book', $books->first()->title);
+        $this->assertEquals('Fake Book', $books->last()->title);
     }
 
     /**
@@ -363,8 +363,8 @@ HTML;
 
         $this->assertCount(2, $books);
 
-        $this->assertEquals('Another Fake Book', $books->first()->title);
-        $this->assertEquals('Fake Book', $books->last()->title);
+        $this->assertEquals('Fake Book', $books->first()->title);
+        $this->assertEquals('Another Fake Book', $books->last()->title);
     }
 
     protected function fakeBook(array $attributes = []): object
