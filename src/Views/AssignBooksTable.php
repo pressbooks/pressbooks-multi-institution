@@ -219,7 +219,7 @@ class AssignBooksTable extends WP_List_Table
             ->when($order, function (Builder $query, string $order) use ($direction) {
                 if ($order === 'institution') {
                     $query->orderByRaw(
-                        $direction === 'asc' ? 'institution IS NULL' : 'institution IS NOT NULL'
+                        $direction === 'asc' ? 'institution IS NOT NULL' : 'institution IS NULL'
                     );
                 }
 
