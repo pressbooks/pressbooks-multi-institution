@@ -156,7 +156,7 @@ class InstitutionsController extends BaseController
                 array_map(fn (string $id) => (int) $id, $managers),
             );
 
-        apply_filters('pb_multi_institution_after_save', $institution, $managers, $managersToBeRemoved);
+        apply_filters('pb_institutional_after_save', $managers, $managersToBeRemoved);
 
         return [
             'success' => true,
