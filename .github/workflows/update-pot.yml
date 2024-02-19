@@ -22,7 +22,7 @@ jobs:
           php-version: '8.1'
           tools: composer, wp-cli/wp-cli-bundle
       - name: Update POT file
-        run: wp i18n make-pot . languages/pressbooks-multi-institution.pot --domain=pressbooks --slug=pressbooks-multi-institution --package-name="Pressbooks Multi Institution" --headers="{\"Report-Msgid-Bugs-To\":\"https://github.com/pressbooks/pressbooks-multi-institution/issues\"}"
+        run: wp i18n make-pot . languages/pressbooks-multi-institution.pot --domain=pressbooks-multi-institution --slug=pressbooks-multi-institution --package-name="Pressbooks Multi Institution" --headers="{\"Report-Msgid-Bugs-To\":\"https://github.com/pressbooks/pressbooks-multi-institution/issues\"}"
       - name: Create Pull Request for POT file
         id: cprpot
         uses: peter-evans/create-pull-request@v5
