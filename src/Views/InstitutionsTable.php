@@ -67,7 +67,7 @@ class InstitutionsTable extends WP_List_Table
         );
         $delete_url = esc_url(add_query_arg('_wpnonce', wp_create_nonce('bulk-institutions'), $delete_url));
 
-        $onclick = 'onclick="if ( !confirm(\'' . esc_attr(__('Are you sure you want to delete this?', 'pressbooks')) . '\') ) { return false }"';
+        $onclick = 'onclick="if ( !confirm(\'' . esc_attr(__('Are you sure you want to delete this?', 'pressbooks-multi-institution')) . '\') ) { return false }"';
 
         $actions['trash'] = sprintf(
             '<a href="%s" class="submitdelete" aria-label="%s" ' . $onclick . '>%s</a>',
