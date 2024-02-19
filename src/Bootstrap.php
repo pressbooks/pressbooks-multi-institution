@@ -100,8 +100,7 @@ final class Bootstrap
         // TODO: register menu at the main site level
         add_action('user_register', fn (int $id) => app(AssignUserToInstitution::class)->handle($id));
         add_action('pb_new_blog', fn () => app(AssignBookToInstitution::class)->handle());
-        add_action('network_admin_menu', fn () => app(ManagerPermissions::class)->handleMenus(), 1000);
-        add_action('admin_menu', fn () => app(ManagerPermissions::class)->handleMenus(), 1000);
+        add_action('network_admin_menu', fn () => app(ManagerPermissions::class)->removeMenus(), 1000);
         add_action('init', fn () => app(ManagerPermissions::class)->setupInstitutionalFilters());
         add_action(
             'pb_institutional_after_save',

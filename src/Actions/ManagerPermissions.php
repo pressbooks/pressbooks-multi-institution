@@ -15,7 +15,7 @@ class ManagerPermissions
     /**
      * @return void
      */
-    public function handleMenus(): void
+    public function removeMenus(): void
     {
         if (get_institution_by_manager() !== 0) {
             remove_menu_page($this->getContextSlug('customize.php', true));
