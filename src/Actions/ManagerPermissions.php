@@ -18,7 +18,19 @@ class ManagerPermissions
             remove_menu_page('settings.php');
             remove_menu_page('pb_network_integrations');
             remove_menu_page('pb_multi_institution');
+            add_action('admin_bar_menu', [$this, 'removeAdminBarMenus'], 1000);
         }
+    }
+
+    /**
+     * @param \WP_Admin_Bar $wp_admin_bar
+     * @return void
+     */
+    public function removeAdminBarMenus($wp_admin_bar): void
+    {
+        $wp_admin_bar->remove_node('pb-administer-appearance');
+        $wp_admin_bar->remove_node('pb-administer-pages');
+        $wp_admin_bar->remove_node('pb-administer-settings');
     }
 
     public function getContextSlug(string $page, bool $is_main_site_page): string

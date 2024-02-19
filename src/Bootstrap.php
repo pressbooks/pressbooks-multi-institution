@@ -9,6 +9,7 @@ use PressbooksMultiInstitution\Controllers\AssignBooksController;
 use PressbooksMultiInstitution\Actions\ManagerPermissions;
 use PressbooksMultiInstitution\Controllers\InstitutionsController;
 use PressbooksMultiInstitution\Controllers\InstitutionsUsersController;
+use PressbooksMultiInstitution\Models\Institution;
 use PressbooksMultiInstitution\Models\InstitutionBook;
 use PressbooksMultiInstitution\Models\InstitutionUser;
 
@@ -104,7 +105,6 @@ final class Bootstrap
     {
         add_action('network_admin_menu', [$this, 'registerMenus'], 11);
         // TODO: register menu at the main site level
-
         add_action('user_register', fn (int $id) => app(AssignUserToInstitution::class)->handle($id));
         add_action('pb_new_blog', fn () => app(AssignBookToInstitution::class)->handle());
         add_action('network_admin_menu', fn () => app(ManagerPermissions::class)->handleMenus(), 1000);
@@ -133,6 +133,9 @@ final class Bootstrap
             $institution = get_institution_by_manager();
             $institutionalManagers = InstitutionUser::query()->managers()->pluck('user_id')->toArray();
             $institutionalUsers = InstitutionUser::query()->byInstitution($institution)->pluck('user_id')->toArray();
+            add_filter('pb_institution', function ($param) use ($institution) {
+                return Institution::find($institution)?->toArray() ?? [];
+            });
             add_filter('pb_institutional_managers', function ($managers) use ($institutionalManagers) {
                 return [...$managers, ...array_map('intval', $institutionalManagers)];
             });
@@ -243,7 +246,7 @@ final class Bootstrap
             ];
 
             Vite\enqueue_asset(
-                plugin_dir_path(__DIR__).'dist',
+                WP_PLUGIN_DIR.'/pressbooks-multi-institution/dist',
                 'resources/assets/js/pressbooks-multi-institution.js',
                 ['handle' => 'pressbooks-multi-institution']
             );
@@ -267,14 +270,14 @@ final class Bootstrap
     {
         add_filter('script_loader_src', function ($src, $handle) {
             if ($handle === 'pressbooks-multi-institution' || $handle === 'pressbooks-multi-select') {
-                $src = preg_replace('|/app/srv/www/bedrocks/[^/]+/releases/\d+/web/|', '/', $src);
+                $src = preg_replace('|/app/srv/www/[^/]+/releases/[^/]+/web/|', '/', $src);
             }
             // If the handle doesn't match, return the original $src
             return $src;
         }, 10, 2);
         add_filter('style_loader_src', function ($src, $handle) {
             if (str_starts_with($handle, 'pressbooks-multi-institution') || str_starts_with($handle, 'pressbooks-multi-select')) {
-                $src = preg_replace('|/app/srv/www/bedrocks/[^/]+/releases/\d+/web/|', '/', $src);
+                $src = preg_replace('|/app/srv/www/[^/]+/releases/[^/]+/web/|', '/', $src);
             }
             // If the handle or conditions don't match, return the original $src
             return $src;
