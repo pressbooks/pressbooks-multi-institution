@@ -108,7 +108,7 @@ msgstr "L'institution a été mise à jour."
 
 #: src/Controllers/InstitutionsController.php:188
 msgid "The name field is required."
-msgstr "Le champ nom est requis."
+msgstr "Le champ \"nom\" est requis."
 
 #: src/Controllers/InstitutionsController.php:192
 msgid "The book limit field should be numeric."
