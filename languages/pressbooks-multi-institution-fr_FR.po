@@ -176,7 +176,7 @@ msgstr "Nom"
 
 #: src/Views/AssignUsersTable.php:43
 msgid "Email"
-msgstr "Adresse e-mail"
+msgstr "Adresse courriel"
 
 #: src/Views/InstitutionsTable.php:70
 msgid "Are you sure you want to delete this?"
