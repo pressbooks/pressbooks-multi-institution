@@ -33,6 +33,7 @@ final class Bootstrap
         $this->registerBlade();
         $this->enqueueScripts();
         $this->fixSymlinks();
+        $this->loadTranslations();
     }
 
     public function registerMenus(): void
@@ -158,5 +159,16 @@ final class Bootstrap
             // If the handle or conditions don't match, return the original $src
             return $src;
         }, 10, 2);
+    }
+
+    /**
+     * Load the plugin translations
+     * @return void
+     */
+    private function loadTranslations(): void
+    {
+        add_action('init', function () {
+            load_plugin_textdomain('pressbooks-multi-institution', false, 'pressbooks-multi-institution/languages/');
+        });
     }
 }

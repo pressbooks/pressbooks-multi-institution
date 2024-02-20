@@ -36,6 +36,3 @@ register_activation_hook(__FILE__, [Migration::class, 'migrate']);
 register_deactivation_hook(__FILE__, [Migration::class, 'rollback']);
 
 add_action('plugins_loaded', [Bootstrap::class, 'run']);
-add_action('init', function () {
-    load_plugin_textdomain('pressbooks-multi-institution', false, 'pressbooks-multi-institution/languages/');
-});
