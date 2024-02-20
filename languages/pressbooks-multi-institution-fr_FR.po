@@ -75,7 +75,7 @@ msgstr "Assigner des livres"
 
 #: src/Bootstrap.php:120
 msgid "Are you sure you want to delete the selected institutions?"
-msgstr "Êtes-vous sûr de vouloir supprimer ceci ?"
+msgstr "Voulez-vous vraiment supprimer l'institution sélectionnée ?"
 
 #: src/Controllers/AssignBooksController.php:63
 #: src/Controllers/AssignBooksController.php:85
