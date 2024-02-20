@@ -130,8 +130,9 @@ msgid ""
 "%s is already assigned as an institutional manager for %s. They cannot be "
 "assigned to manage two institutions at the same time."
 msgstr ""
-"%s est déjà désigné en tant que gestionnaire institutionnel pour %s. il ne "
-"peut pas être assigné pour gérer deux institutions en même temps."
+"%s est déjà désigné en tant que gestionnaire institutionnel pour %s. Un "
+"utilisateur ne peut pas être assigné pour gérer deux institutions en même "
+"temps."
 
 #: src/Controllers/InstitutionsUsersController.php:57
 msgid "User updated."
