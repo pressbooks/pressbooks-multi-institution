@@ -140,8 +140,8 @@ class ManagerPermissions
 
                 $allowed_pages = [
                     'admin.php' => ['pb_network_page', 'pb_network_analytics_booklist', 'pb_network_analytics_userlist', 'pb_network_analytics_admin', 'pb_cloner'],
-                    'sites.php' => ['confirm', 'delete'],
-                    'users.php' => ['user_bulk_new'],
+                    'sites.php' => ['confirm', 'delete','pb_network_analytics_booklist','pb_network_analytics_userlist','pb_network_analytics_admin','pb_cloner'],
+                    'users.php' => ['user_bulk_new','pb_network_analytics_userlist'],
                     'admin-ajax.php' => ['pb_network_analytics_books','pb_network_analytics_users'],
                     'index.php' => ['', 'book_dashboard','pb_home_page','pb_network_page'],
                     'profile.php' => [''],
