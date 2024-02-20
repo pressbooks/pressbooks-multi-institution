@@ -33,6 +33,7 @@ final class Bootstrap
         $this->registerActions();
         $this->registerBlade();
         $this->enqueueScripts();
+        $this->loadTranslations();
     }
 
     public function registerMenus(): void
@@ -148,6 +149,17 @@ final class Bootstrap
             );
 
             wp_localize_script('pressbooks-multi-institution', 'context', $context[$page] ?? []);
+        });
+    }
+
+    /**
+     * Load the plugin translations
+     * @return void
+     */
+    private function loadTranslations(): void
+    {
+        add_action('init', function () {
+            load_plugin_textdomain('pressbooks-multi-institution', false, 'pressbooks-multi-institution/languages/');
         });
     }
 }

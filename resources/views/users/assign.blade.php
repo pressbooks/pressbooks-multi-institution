@@ -10,7 +10,7 @@
 	@if(!empty($params['s']))
 		<div class="filtering">
 			<ul>
-				<li>{!! sprintf( __( '<strong>Showing results for:</strong> %s', 'pressbooks-multi-institution' ), $params['s'] ) !!}</li>
+				<li><strong>{!! sprintf( __( 'Showing results for: %s', 'pressbooks-multi-institution' ), $params['s'] ) !!}</strong></li>
 			</ul>
 			<a href="{{ $list_url }}" class="button">{{ __('Clear filters', 'pressbooks-multi-institution') }}</a>
 		</div>

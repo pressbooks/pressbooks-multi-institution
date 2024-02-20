@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d8a6ed5988f8cdc1b6e417d0ae7890a5",
+    "content-hash": "e2a9bb0e3560b8d4ff4c48e8c0f8a5db",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -77,16 +77,16 @@
         },
         {
             "name": "doctrine/inflector",
-            "version": "2.0.9",
+            "version": "2.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/inflector.git",
-                "reference": "2930cd5ef353871c821d5c43ed030d39ac8cfe65"
+                "reference": "5817d0659c5b50c9b950feb9af7b9668e2c436bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/inflector/zipball/2930cd5ef353871c821d5c43ed030d39ac8cfe65",
-                "reference": "2930cd5ef353871c821d5c43ed030d39ac8cfe65",
+                "url": "https://api.github.com/repos/doctrine/inflector/zipball/5817d0659c5b50c9b950feb9af7b9668e2c436bc",
+                "reference": "5817d0659c5b50c9b950feb9af7b9668e2c436bc",
                 "shasum": ""
             },
             "require": {
@@ -148,7 +148,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/inflector/issues",
-                "source": "https://github.com/doctrine/inflector/tree/2.0.9"
+                "source": "https://github.com/doctrine/inflector/tree/2.0.10"
             },
             "funding": [
                 {
@@ -164,7 +164,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-15T18:05:13+00:00"
+            "time": "2024-02-18T20:23:39+00:00"
         },
         {
             "name": "illuminate/collections",
@@ -1258,16 +1258,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.298.9",
+            "version": "3.300.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "db225c3a1c5dabfbb5071349cfb7e4c396c3d9ec"
+                "reference": "67a0c22a70bdcc99ca41028b78be3d5496481c14"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/db225c3a1c5dabfbb5071349cfb7e4c396c3d9ec",
-                "reference": "db225c3a1c5dabfbb5071349cfb7e4c396c3d9ec",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/67a0c22a70bdcc99ca41028b78be3d5496481c14",
+                "reference": "67a0c22a70bdcc99ca41028b78be3d5496481c14",
                 "shasum": ""
             },
             "require": {
@@ -1347,9 +1347,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.298.9"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.300.0"
             },
-            "time": "2024-02-13T19:08:16+00:00"
+            "time": "2024-02-19T19:08:33+00:00"
         },
         {
             "name": "composer/installers",
@@ -3192,16 +3192,16 @@
         },
         {
             "name": "matomo/device-detector",
-            "version": "6.2.1",
+            "version": "6.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/matomo-org/device-detector.git",
-                "reference": "19138b0c4b9ddf4ffd8e423d6af3764b7317cb0b"
+                "reference": "35efad75b31f2596701834d19f097497909572a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/matomo-org/device-detector/zipball/19138b0c4b9ddf4ffd8e423d6af3764b7317cb0b",
-                "reference": "19138b0c4b9ddf4ffd8e423d6af3764b7317cb0b",
+                "url": "https://api.github.com/repos/matomo-org/device-detector/zipball/35efad75b31f2596701834d19f097497909572a4",
+                "reference": "35efad75b31f2596701834d19f097497909572a4",
                 "shasum": ""
             },
             "require": {
@@ -3257,7 +3257,7 @@
                 "source": "https://github.com/matomo-org/matomo",
                 "wiki": "https://dev.matomo.org/"
             },
-            "time": "2024-01-05T09:03:21+00:00"
+            "time": "2024-02-16T16:26:57+00:00"
         },
         {
             "name": "maxbanton/cwh",
@@ -4419,12 +4419,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pressbooks/pressbooks.git",
-                "reference": "041d637541c4739bf5068e62ceb20f739108569c"
+                "reference": "75a9206d0a5a1b8b59d5ae58e251e250bbe5505d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pressbooks/pressbooks/zipball/041d637541c4739bf5068e62ceb20f739108569c",
-                "reference": "041d637541c4739bf5068e62ceb20f739108569c",
+                "url": "https://api.github.com/repos/pressbooks/pressbooks/zipball/75a9206d0a5a1b8b59d5ae58e251e250bbe5505d",
+                "reference": "75a9206d0a5a1b8b59d5ae58e251e250bbe5505d",
                 "shasum": ""
             },
             "require": {
@@ -4502,7 +4502,7 @@
                 "issues": "https://github.com/pressbooks/pressbooks/issues/",
                 "source": "https://github.com/pressbooks/pressbooks/"
             },
-            "time": "2024-02-14T00:32:53+00:00"
+            "time": "2024-02-15T23:07:41+00:00"
         },
         {
             "name": "psr/event-dispatcher",
@@ -5854,16 +5854,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.8.1",
+            "version": "3.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "14f5fff1e64118595db5408e946f3a22c75807f7"
+                "reference": "d63cee4890a8afaf86a22e51ad4d97c91dd4579b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/14f5fff1e64118595db5408e946f3a22c75807f7",
-                "reference": "14f5fff1e64118595db5408e946f3a22c75807f7",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/d63cee4890a8afaf86a22e51ad4d97c91dd4579b",
+                "reference": "d63cee4890a8afaf86a22e51ad4d97c91dd4579b",
                 "shasum": ""
             },
             "require": {
@@ -5930,7 +5930,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-01-11T20:47:48+00:00"
+            "time": "2024-02-16T15:06:51+00:00"
         },
         {
             "name": "symfony/console",
