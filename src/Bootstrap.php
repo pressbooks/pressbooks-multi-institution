@@ -32,7 +32,6 @@ final class Bootstrap
         $this->registerActions();
         $this->registerBlade();
         $this->enqueueScripts();
-        $this->fixSymlinks();
         $this->loadTranslations();
     }
 
@@ -123,42 +122,19 @@ final class Bootstrap
             ];
 
             Vite\enqueue_asset(
-                plugin_dir_path(__DIR__).'dist',
+                WP_PLUGIN_DIR . '/pressbooks-multi-institution/dist',
                 'resources/assets/js/pressbooks-multi-institution.js',
                 ['handle' => 'pressbooks-multi-institution']
             );
 
             Vite\enqueue_asset(
-                plugin_dir_path(__DIR__).'dist',
+                WP_PLUGIN_DIR . '/pressbooks-multi-institution/dist',
                 'node_modules/@pressbooks/multiselect/pressbooks-multiselect.js',
                 ['handle' => 'pressbooks-multi-select'],
             );
 
             wp_localize_script('pressbooks-multi-institution', 'context', $context[$page] ?? []);
         });
-    }
-
-    /**
-     * This is a hack to fix the symlinks in the generated script tags meanwhile we found a better way to enqueue Vite assets
-     * plugin_dir_path(__DIR__).'dist'
-     * @return void
-     */
-    private function fixSymlinks(): void
-    {
-        add_filter('script_loader_src', function ($src, $handle) {
-            if ($handle === 'pressbooks-multi-institution' || $handle === 'pressbooks-multi-select') {
-                $src = preg_replace('|/app/srv/www/bedrocks/[^/]+/releases/\d+/web/|', '/', $src);
-            }
-            // If the handle doesn't match, return the original $src
-            return $src;
-        }, 10, 2);
-        add_filter('style_loader_src', function ($src, $handle) {
-            if (str_starts_with($handle, 'pressbooks-multi-institution') || str_starts_with($handle, 'pressbooks-multi-select')) {
-                $src = preg_replace('|/app/srv/www/bedrocks/[^/]+/releases/\d+/web/|', '/', $src);
-            }
-            // If the handle or conditions don't match, return the original $src
-            return $src;
-        }, 10, 2);
     }
 
     /**
