@@ -139,11 +139,11 @@ class ManagerPermissions
                 global $pagenow;
 
                 $allowed_pages = [
-                    'admin.php' => ['pb_network_page', 'pb_network_analytics_booklist', 'pb_network_analytics_userlist', 'pb_network_analytics_admin', 'pb_cloner'],
+                    'admin.php' => ['pb_network_analytics_booklist', 'pb_network_analytics_userlist', 'pb_network_analytics_admin', 'pb_cloner'],
                     'sites.php' => ['confirm', 'delete','pb_network_analytics_booklist','pb_network_analytics_userlist','pb_network_analytics_admin','pb_cloner'],
                     'users.php' => ['user_bulk_new','pb_network_analytics_userlist'],
                     'admin-ajax.php' => ['pb_network_analytics_books','pb_network_analytics_users'],
-                    'index.php' => ['', 'book_dashboard','pb_home_page','pb_network_page','pb_institutional_manager'],
+                    'index.php' => ['', 'book_dashboard','pb_institutional_manager','pb_home_page'],
                     'profile.php' => [''],
                 ];
 
@@ -183,11 +183,23 @@ class ManagerPermissions
      * @param WP_Admin_Bar $wp_admin_bar
      * @return void
      */
-    public function removeAdminBarMenus($wp_admin_bar): void
+    public function modifyAdminBarMenus(WP_Admin_Bar $wp_admin_bar): void
     {
         $wp_admin_bar->remove_node('pb-administer-appearance');
         $wp_admin_bar->remove_node('pb-administer-pages');
         $wp_admin_bar->remove_node('pb-administer-settings');
+        $mainMenu = $wp_admin_bar->get_node('pb-administer-network');
+        if ($mainMenu) {
+            $mainMenu->href = admin_url('index.php?page=pb_institutional_manager');
+            $title = __('Administer Institutions', 'pressbooks-multi-institution');
+            $mainMenu->title = "<i class='pb-heroicons pb-heroicons-building-library'></i><span>{$title}</span>";
+            $subMenu = $wp_admin_bar->get_node('pb-administer-network-d');
+            if ($subMenu) {
+                $subMenu->href = admin_url('index.php?page=pb_institutional_manager');
+                $wp_admin_bar->add_node($subMenu);
+            }
+            $wp_admin_bar->add_node($mainMenu);
+        }
     }
 
     public function getContextSlug(string $page, bool $is_main_site_page): string
