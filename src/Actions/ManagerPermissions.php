@@ -107,7 +107,6 @@ class ManagerPermissions
                 return [...$books, ...array_map('intval', $allowedBooks)];
             });
 
-
             /*
              * Add filters to restrict access to books and users on the network admin pages
              */
@@ -191,7 +190,7 @@ class ManagerPermissions
         $mainMenu = $wp_admin_bar->get_node('pb-administer-network');
         if ($mainMenu) {
             $mainMenu->href = admin_url('index.php?page=pb_institutional_manager');
-            $title = __('Administer Institutions', 'pressbooks-multi-institution');
+            $title = __('Administer Institution', 'pressbooks-multi-institution');
             $mainMenu->title = "<i class='pb-heroicons pb-heroicons-building-library'></i><span>{$title}</span>";
             $subMenu = $wp_admin_bar->get_node('pb-administer-network-d');
             if ($subMenu) {
