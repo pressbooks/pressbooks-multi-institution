@@ -7,6 +7,7 @@ use PressbooksMultiInstitution\Models\InstitutionBook;
 use PressbooksMultiInstitution\Models\InstitutionUser;
 use WP_Admin_Bar;
 
+use function Pressbooks\Admin\NetworkManagers\is_restricted;
 use function PressbooksMultiInstitution\Support\get_institution_by_manager;
 use function Pressbooks\Admin\NetworkManagers\_restricted_users;
 
@@ -67,13 +68,27 @@ class ManagerPermissions
         add_filter('pb_institutional_managers', function ($managers) use ($institutionalManagers) {
             return [...$managers, ...array_map('intval', $institutionalManagers)];
         });
-        add_filter('pb_institutional_users', function ($users) use ($institutionalUsers) {
+
+        add_filter('pb_network_analytics_filter_userslist', function ($users) use ($institutionalUsers) {
+            $filtered = isset($_GET['institution']);
+
+            if ($filtered && is_super_admin(get_current_user_id()) && !is_restricted()) {
+                $institutionName = sanitize_text_field($_GET['institution']);
+                $institution = Institution::query()->where('name', $institutionName)->first();
+                return $institution ?
+                    InstitutionUser::query()->where('institution_id', $institution->id)->pluck('user_id')->toArray() : [];
+            }
+
             return [...$users, ...array_map('intval', $institutionalUsers)];
         });
 
         add_filter('pb_network_analytics_userslist_columns', [$this, 'addInstitutionColumnForUsersList']);
 
-        add_filter('pb_network_analytics_userslist', [$this, 'addInstitutionFieldForUsersList']);
+        add_filter('pb_network_analytics_userslist', [$this, 'filterUsers']);
+
+        add_filter('pb_network_analytics_userslist_filters_input', [$this, 'addInstitutionsFilterForUsersList']);
+
+        add_filter('pb_network_analytics_userslist_filters_event', [$this, 'addInstitutionsFilterAttributesForUsersList']);
 
         if ($pagenow == 'settings.php' && isset($_GET['page']) && $_GET['page'] == 'pb_network_managers') {
             add_filter('site_option_site_admins', function ($admins) use ($institutionalManagers) {
@@ -93,22 +108,49 @@ class ManagerPermissions
         do_action('pb_institutional_filters_created', $institution, $institutionalManagers, $institutionalUsers);
     }
 
+    public function addInstitutionsFilterForUsersList(): array
+    {
+        if (!is_super_admin(get_current_user_id()) || is_restricted()) {
+            return [];
+        }
+        return [
+            [
+                'partial' => 'PressbooksMultiInstitution::partials.userslist.filters',
+                'data' => [
+                    'institutions' => Institution::all(),
+                ]
+            ]
+        ];
+    }
+
+    public function addInstitutionsFilterAttributesForUsersList(): array
+    {
+        return [
+            [
+                'field' => 'institution',
+                'id' => 'institutions-dropdown',
+            ]
+        ];
+    }
+
     public function addInstitutionColumnForUsersList(array $columns): array
     {
-        $columns[] = [
-            'title' => __('Institution', 'pressbooks-multi-institution'),
-            'field' => 'institution',
-        ];
+        array_splice($columns, 5, 0, [
+            [
+                'title' => __('Institution', 'pressbooks-multi-institution'),
+                'field' => 'institution',
+            ]
+        ]);
         return $columns;
     }
 
-    public function addInstitutionFieldForUsersList(array $users): array
+    public function filterUsers(array $users): array
     {
-        foreach ($users as $key => $user) {
-            $institutionId = InstitutionUser::query()->where('user_id', $user->id)->first()?->institution_id;
-            $users[$key]->institution = $institutionId ? Institution::find($institutionId)->name : '';
-        }
-        return $users;
+        return array_map(function ($user) {
+            $institutionUser = InstitutionUser::query()->where('user_id', $user->id)->first();
+            $user->institution = $institutionUser?->institution->name ?? '';
+            return $user;
+        }, $users);
     }
 
     public function handlePagesPermissions($institution, $institutionalManagers, $institutionalUsers): void
