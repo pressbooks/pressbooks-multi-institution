@@ -70,6 +70,11 @@ class ManagerPermissions
         add_filter('pb_institutional_users', function ($users) use ($institutionalUsers) {
             return [...$users, ...array_map('intval', $institutionalUsers)];
         });
+
+		add_filter('pb_network_analytics_userslist_columns', [$this, 'addInstitutionColumnForUsersList']);
+
+		add_filter('pb_network_analytics_userslist', [$this, 'addInstitutionFieldForUsersList']);
+
         if ($pagenow == 'settings.php' && isset($_GET['page']) && $_GET['page'] == 'pb_network_managers') {
             add_filter('site_option_site_admins', function ($admins) use ($institutionalManagers) {
                 $adminIds = array_map(function ($login) {
@@ -87,6 +92,22 @@ class ManagerPermissions
         }
         do_action('pb_institutional_filters_created', $institution, $institutionalManagers, $institutionalUsers);
     }
+
+	public function addInstitutionColumnForUsersList(array $columns): array {
+		$columns[] = [
+			'title' => __('Institution', 'pressbooks-multi-institution'),
+			'field' => 'institution',
+		];
+		return $columns;
+	}
+
+	public function addInstitutionFieldForUsersList(array $users): array {
+		foreach ($users as $key => $user) {
+			$institutionId = InstitutionUser::query()->where('user_id', $user->id)->first()?->institution_id;
+			$users[$key]->institution = $institutionId ? Institution::find($institutionId)->name : '';
+		}
+		return $users;
+	}
 
     public function handlePagesPermissions($institution, $institutionalManagers, $institutionalUsers): void
     {
@@ -113,6 +134,10 @@ class ManagerPermissions
              */
 
             add_filter('sites_clauses', function ($clauses) use ($allowedBooks) {
+				if (empty($allowedBooks)) {
+					return $clauses;
+				}
+
                 global $wpdb;
 
                 $clauses['where'] .= " AND {$wpdb->blogs}.blog_id IN (" . implode(',', $allowedBooks) . ")";
