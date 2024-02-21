@@ -11,6 +11,8 @@ use PressbooksMultiInstitution\Actions\ManagerPermissions;
 use PressbooksMultiInstitution\Controllers\InstitutionsController;
 use PressbooksMultiInstitution\Controllers\InstitutionsUsersController;
 
+use function PressbooksMultiInstitution\Support\get_institution_by_manager;
+
 /**
  * Class Bootstrap
  * @package PressbooksMultiInstitution
@@ -98,6 +100,10 @@ final class Bootstrap
 
     private function registerActions(): void
     {
+        remove_action('login_redirect', '\Pressbooks\Redirect\handle_dashboard_redirect');
+        add_action('login_redirect', function ($redirect_to, $request, $user) {
+            return get_institution_by_manager($user) !== 0 ? admin_url('index.php?page=pb_institutional_manager') : $redirect_to;
+        }, 8, 3);
         add_action('network_admin_menu', [$this, 'registerMenus'], 11);
         // TODO: register menu at the main site level
         add_action('user_register', fn (int $id) => app(AssignUserToInstitution::class)->handle($id));
