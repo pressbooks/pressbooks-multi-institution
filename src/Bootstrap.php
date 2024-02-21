@@ -5,10 +5,13 @@ namespace PressbooksMultiInstitution;
 use Kucrut\Vite;
 use PressbooksMultiInstitution\Actions\AssignBookToInstitution;
 use PressbooksMultiInstitution\Actions\AssignUserToInstitution;
+use PressbooksMultiInstitution\Actions\InstitutionalManagerDashboard;
 use PressbooksMultiInstitution\Controllers\AssignBooksController;
 use PressbooksMultiInstitution\Actions\ManagerPermissions;
 use PressbooksMultiInstitution\Controllers\InstitutionsController;
 use PressbooksMultiInstitution\Controllers\InstitutionsUsersController;
+
+use function PressbooksMultiInstitution\Support\get_institution_by_manager;
 
 /**
  * Class Bootstrap
@@ -97,12 +100,16 @@ final class Bootstrap
 
     private function registerActions(): void
     {
+        remove_action('login_redirect', '\Pressbooks\Redirect\handle_dashboard_redirect');
+        add_action('login_redirect', function ($redirect_to, $request, $user) {
+            return get_institution_by_manager($user) !== 0 ? admin_url('index.php?page=pb_institutional_manager') : $redirect_to;
+        }, 8, 3);
         add_action('network_admin_menu', [$this, 'registerMenus'], 11);
         // TODO: register menu at the main site level
         add_action('user_register', fn (int $id) => app(AssignUserToInstitution::class)->handle($id));
         add_action('pb_new_blog', fn () => app(AssignBookToInstitution::class)->handle());
-        add_action('network_admin_menu', fn () => app(ManagerPermissions::class)->removeMenus(), 1000);
-        add_action('admin_menu', fn () => app(ManagerPermissions::class)->removeMenus(), 1000);
+        add_action('network_admin_menu', fn () => app(ManagerPermissions::class)->handleMenus(), 1000);
+        add_action('admin_menu', fn () => app(ManagerPermissions::class)->handleMenus(), 1000);
         add_action('init', fn () => app(ManagerPermissions::class)->setupInstitutionalFilters());
         add_action(
             'pb_institutional_after_save',
@@ -117,6 +124,7 @@ final class Bootstrap
             10,
             3
         );
+        add_action('init', [InstitutionalManagerDashboard::class, 'init']);
     }
 
     private function registerBlade(): void
