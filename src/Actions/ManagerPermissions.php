@@ -15,7 +15,7 @@ class ManagerPermissions
     /**
      * @return void
      */
-    public function removeMenus(): void
+    public function handleMenus(): void
     {
         if (get_institution_by_manager() !== 0) {
             remove_menu_page($this->getContextSlug('customize.php', true));
@@ -24,7 +24,7 @@ class ManagerPermissions
             remove_menu_page('settings.php');
             remove_menu_page('pb_network_integrations');
             remove_menu_page('pb_multi_institution');
-            add_action('admin_bar_menu', [$this, 'removeAdminBarMenus'], 1000);
+            add_action('admin_bar_menu', [$this, 'modifyAdminBarMenus'], 1000);
         }
     }
 
@@ -183,7 +183,7 @@ class ManagerPermissions
      * @param WP_Admin_Bar $wp_admin_bar
      * @return void
      */
-    public function modifyAdminBarMenus(WP_Admin_Bar $wp_admin_bar): void
+    public function modifyAdminBarMenus($wp_admin_bar): void
     {
         $wp_admin_bar->remove_node('pb-administer-appearance');
         $wp_admin_bar->remove_node('pb-administer-pages');
