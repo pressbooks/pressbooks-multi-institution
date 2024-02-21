@@ -5,6 +5,7 @@ namespace PressbooksMultiInstitution;
 use Kucrut\Vite;
 use PressbooksMultiInstitution\Actions\AssignBookToInstitution;
 use PressbooksMultiInstitution\Actions\AssignUserToInstitution;
+use PressbooksMultiInstitution\Actions\InstitutionalManagerDashboard;
 use PressbooksMultiInstitution\Controllers\AssignBooksController;
 use PressbooksMultiInstitution\Actions\ManagerPermissions;
 use PressbooksMultiInstitution\Controllers\InstitutionsController;
@@ -117,6 +118,7 @@ final class Bootstrap
             10,
             3
         );
+        add_action('init', [InstitutionalManagerDashboard::class, 'init']);
     }
 
     private function registerBlade(): void
