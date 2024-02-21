@@ -69,22 +69,11 @@ class ManagerPermissions
             return [...$managers, ...array_map('intval', $institutionalManagers)];
         });
 
-        add_filter('pb_network_analytics_filter_userslist', function ($users) use ($institutionalUsers) {
-            $filtered = isset($_GET['institution']);
-
-            if ($filtered && is_super_admin(get_current_user_id()) && !is_restricted()) {
-                $institutionName = sanitize_text_field($_GET['institution']);
-                $institution = Institution::query()->where('name', $institutionName)->first();
-                return $institution ?
-                    InstitutionUser::query()->where('institution_id', $institution->id)->pluck('user_id')->toArray() : [];
-            }
-
-            return [...$users, ...array_map('intval', $institutionalUsers)];
-        });
+        add_filter('pb_network_analytics_filter_userslist', [$this, 'filterUsers']);
 
         add_filter('pb_network_analytics_userslist_columns', [$this, 'addInstitutionColumnForUsersList']);
 
-        add_filter('pb_network_analytics_userslist', [$this, 'filterUsers']);
+        add_filter('pb_network_analytics_userslist', [$this, 'addInstitutionFieldToUsers']);
 
         add_filter('pb_network_analytics_userslist_filters_input', [$this, 'addInstitutionsFilterForUsersList']);
 
@@ -106,6 +95,22 @@ class ManagerPermissions
             });
         }
         do_action('pb_institutional_filters_created', $institution, $institutionalManagers, $institutionalUsers);
+    }
+
+    public function filterUsers(array $users): array
+    {
+        $filtered = isset($_GET['institution']);
+
+        if ($filtered && is_super_admin(get_current_user_id()) && !is_restricted()) {
+            $institutionName = sanitize_text_field($_GET['institution']);
+            $institution = Institution::query()->where('name', $institutionName)->first();
+            return $institution ?
+                InstitutionUser::query()->where('institution_id', $institution->id)->pluck('user_id')->toArray() : [];
+        }
+
+        $institutionalUsers = InstitutionUser::query()->byInstitution(get_institution_by_manager())->pluck('user_id')->toArray();
+
+        return [...$users, ...array_map('intval', $institutionalUsers)];
     }
 
     public function addInstitutionsFilterForUsersList(): array
@@ -144,7 +149,7 @@ class ManagerPermissions
         return $columns;
     }
 
-    public function filterUsers(array $users): array
+    public function addInstitutionFieldToUsers(array $users): array
     {
         return array_map(function ($user) {
             $institutionUser = InstitutionUser::query()->where('user_id', $user->id)->first();
