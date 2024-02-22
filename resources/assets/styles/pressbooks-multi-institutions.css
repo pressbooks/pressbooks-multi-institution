@@ -61,3 +61,15 @@ body.institutions_page_pb_multi_institutions .filtering a {
 	text-align: center;
 	width: 5%;
 }
+
+.institutions_manager_dashboard_stats {
+	text-align: center;
+}
+
+.institutions_manager_dashboard_stats p {
+	margin: 2rem 0;
+}
+
+.institutions_manager_dashboard_stats a {
+	display: inline-block;
+}

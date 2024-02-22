@@ -18,19 +18,19 @@
 				<div class="pb-dashboard-panel">
 					<div class="pb-dashboard-content">
 							<h2>{{ __( 'Institutional Usage', 'pressbooks' ) }}</h2>
-							<p style="text-align:center;">
+							<p style="text-align:center;margin:2rem 0;">
 								{!! sprintf( __( '%s has %s books and %s users. ', 'pressbooks' ), "{$institution_name}","<strong>{$total_books}</strong>", "<strong>{$total_users}</strong>" ) !!}
 							</p>
-							<div class="pb-dashboard-action">
+							<div class="pb-dashboard-action" style="text-align:center;">
 								@if( $network_analytics_active )
 									<a
 										class="button button-primary"
+										style="display:inline-block;"
 										href="{!! network_admin_url( 'admin.php?page=pb_network_analytics_admin' ) !!}"
 									>
 										{{ __( 'Explore stats', 'pressbooks' ) }}
 									</a>
-							@endif
-
+								@endif
 							</div>
 					</div>
 				</div>
