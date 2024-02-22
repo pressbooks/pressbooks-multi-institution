@@ -62,14 +62,15 @@ body.institutions_page_pb_multi_institutions .filtering a {
 	width: 5%;
 }
 
-.institutions_manager_dashboard_stats {
-	text-align: center;
+.pb-centered-inline p,
+.pb-centered-inline .pb-dashboard-action {
+    text-align: center !important;
 }
 
-.institutions_manager_dashboard_stats p {
-	margin: 2rem 0;
+.pb-centered-inline p {
+    margin: 2rem 0 !important;
 }
 
-.institutions_manager_dashboard_stats a {
-	display: inline-block;
+.pb-centered-inline .pb-dashboard-action a {
+    display: inline-block !important;
 }

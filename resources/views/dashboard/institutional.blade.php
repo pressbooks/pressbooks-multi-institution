@@ -16,16 +16,15 @@
 	<div class="pb-dashboard-row">
 			<div class="pb-dashboard-grid">
 				<div class="pb-dashboard-panel">
-					<div class="pb-dashboard-content">
+					<div class="pb-dashboard-content pb-centered-inline">
 							<h2>{{ __( 'Institutional Usage', 'pressbooks' ) }}</h2>
-							<p style="text-align:center;margin:2rem 0;">
+							<p>
 								{!! sprintf( __( '%s has %s books and %s users. ', 'pressbooks' ), "{$institution_name}","<strong>{$total_books}</strong>", "<strong>{$total_users}</strong>" ) !!}
 							</p>
-							<div class="pb-dashboard-action" style="text-align:center;">
+							<div class="pb-dashboard-action">
 								@if( $network_analytics_active )
 									<a
 										class="button button-primary"
-										style="display:inline-block;"
 										href="{!! network_admin_url( 'admin.php?page=pb_network_analytics_admin' ) !!}"
 									>
 										{{ __( 'Explore stats', 'pressbooks' ) }}
