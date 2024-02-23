@@ -23,7 +23,7 @@ jobs:
           tools: wp-cli/wp-cli-bundle
 
       - name: Generate .mo files from .po files
-        run: wp i18n make-mo
+        run: wp i18n make-mo languages
 
       - name: Configure Git
         run: |
