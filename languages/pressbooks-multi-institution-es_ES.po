@@ -1,8 +1,7 @@
 # Copyright (C) 2024 Pressbooks (Book Oven Inc.)
 # This file is distributed under the GPL v3 or later.
 # Translators:
-# Steel Wagstaff <steel@pressbooks.com>, 2024
-# Mich Spieler, 2024
+# Eduardo Vera, 2024
 # 
 msgid ""
 msgstr ""
@@ -10,13 +9,13 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-multi-institution/issues\n"
 "POT-Creation-Date: 2024-02-20T15:45:20+00:00\n"
 "PO-Revision-Date: 2024-02-19 22:27+0000\n"
-"Last-Translator: Mich Spieler, 2024\n"
-"Language-Team: French (https://app.transifex.com/pressbooks/teams/9194/fr/)\n"
+"Last-Translator: Eduardo Vera, 2024\n"
+"Language-Team: Spanish (https://app.transifex.com/pressbooks/teams/9194/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"Language: es\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 "X-Domain: pressbooks-multi-institution\n"
 "X-Generator: WP-CLI 2.10.0\n"
 
@@ -35,7 +34,8 @@ msgstr "https://pressbooks.org"
 #: pressbooks-multi-institution.php
 msgid "Tools for managing Pressbooks networks shared by multiple institutions"
 msgstr ""
-"Outils de gestion des réseaux Pressbooks partagés par plusieurs institutions"
+"Herramientas para gestionar redes de Pressbooks compartidas por varias "
+"instituciones."
 
 #. Author of the plugin
 #: pressbooks-multi-institution.php
@@ -47,172 +47,171 @@ msgid ""
 "Please run <code>composer install</code> from the root of the plugin "
 "directory."
 msgstr ""
-"Veuillez exécuter <code>composer install</code> à partir de la racine du "
-"répertoire du plugin."
+"Ejecuta <code>composer install</code> desde la raíz del directorio del "
+"plugin."
 
 #: src/Bootstrap.php:43 src/Bootstrap.php:44
 msgid "Institutions"
-msgstr "Institutions"
+msgstr "Instituciones"
 
 #: src/Bootstrap.php:54 src/Bootstrap.php:55
 #: resources/views/institutions/index.blade.php:8
 msgid "Institution List"
-msgstr "Liste des institutions"
+msgstr "Lista de instituciones"
 
 #: src/Bootstrap.php:65 src/Bootstrap.php:66
 msgid "Add Institution"
-msgstr "Ajouter institution"
+msgstr "Añadir institución"
 
 #: src/Bootstrap.php:76 src/Bootstrap.php:77
 #: resources/views/users/assign.blade.php:8
 msgid "Assign Users"
-msgstr "Assigner des utilisateurs"
+msgstr "Asignar usuarios"
 
 #: src/Bootstrap.php:87 src/Bootstrap.php:88
 #: resources/views/books/assign.blade.php:8
 msgid "Assign Books"
-msgstr "Assigner des livres"
+msgstr "Asignar libros"
 
 #: src/Bootstrap.php:120
 msgid "Are you sure you want to delete the selected institutions?"
-msgstr "Voulez-vous vraiment supprimer l'institution sélectionnée ?"
+msgstr "¿Confirmas que quieres borrar las instituciones seleccionadas?"
 
 #: src/Controllers/AssignBooksController.php:63
 #: src/Controllers/AssignBooksController.php:85
 msgid "Book updated."
 msgid_plural "Books updated."
-msgstr[0] "Livre mis à jour."
-msgstr[1] "Livres mis à jour."
-msgstr[2] "Livres mis à jour."
+msgstr[0] "Libro actualizado."
+msgstr[1] "Libros actualizados."
+msgstr[2] "Libros actualizados."
 
 #: src/Controllers/AssignBooksController.php:72
 #: src/Controllers/InstitutionsUsersController.php:71
 msgid "Institution not found."
-msgstr "Institution non trouvée."
+msgstr "Institución no encontrada."
 
 #: src/Controllers/InstitutionsController.php:96
 msgid "Action completed."
-msgstr "Action terminée."
+msgstr "Acción completada."
 
 #: src/Controllers/InstitutionsController.php:123
 msgid "The form is invalid."
-msgstr "Le formulaire est invalide."
+msgstr "El formulario no es válido."
 
 #: src/Controllers/InstitutionsController.php:161
 msgid "Institution has been added."
-msgstr "L'institution a été ajoutée."
+msgstr "Se ha añadido la institución."
 
 #: src/Controllers/InstitutionsController.php:162
 msgid "Institution has been updated."
-msgstr "L'institution a été mise à jour."
+msgstr "Se ha actualizado la institución."
 
 #: src/Controllers/InstitutionsController.php:188
 msgid "The name field is required."
-msgstr "Le champ \"nom\" est requis."
+msgstr "El campo de nombre es obligatorio."
 
 #: src/Controllers/InstitutionsController.php:192
 msgid "The book limit field should be numeric."
-msgstr "Le champ de limite du livre doit être numérique."
+msgstr "El campo de límite de libros debe ser numérico."
 
 #: src/Controllers/InstitutionsController.php:196
 msgid "The user limit field should be numeric."
-msgstr "Le champ de limite de l'utilisateur doit être numérique."
+msgstr "El campo de límite de usuarios debe ser numérico."
 
 #: src/Controllers/InstitutionsController.php:243
 msgid ""
 "Email domain %s is already in use with %s. Please use a different address."
 msgstr ""
-"Le domaine de messagerie %s est déjà utilisé avec %s. Veuillez utiliser une "
-"adresse différente."
+"El dominio de correo electrónico %s ya está siendo usado por %s. Utiliza una"
+" dirección diferente."
 
 #: src/Controllers/InstitutionsController.php:276
 msgid ""
 "%s is already assigned as an institutional manager for %s. They cannot be "
 "assigned to manage two institutions at the same time."
 msgstr ""
-"%s est déjà désigné en tant que gestionnaire institutionnel pour %s. Un "
-"utilisateur ne peut pas être assigné pour gérer deux institutions en même "
-"temps."
+"%s ya tiene asignada la gestión institucional de %s. No se le puede asignar "
+"la gestión de dos instituciones al mismo tiempo."
 
 #: src/Controllers/InstitutionsUsersController.php:57
 msgid "User updated."
 msgid_plural "Users updated."
-msgstr[0] "Utilisateur mis à jour."
-msgstr[1] "Utilisateurs mis à jour."
-msgstr[2] "Utilisateurs mis à jour."
+msgstr[0] "Usuario actualizado."
+msgstr[1] "Usuarios actualizados."
+msgstr[2] "Usuarios actualizados."
 
 #: src/Traits/OverridesBulkActions.php:14 src/Views/AssignUsersTable.php:70
 #: src/Views/InstitutionsTable.php:226
 #: resources/views/table/book-admins.blade.php:10
 #: resources/views/table/institution.blade.php:1
 msgid "Unassigned"
-msgstr "Non attribué"
+msgstr "Sin asignar"
 
 #: src/Views/AssignBooksTable.php:33
 msgid "Cover"
-msgstr "Couverture"
+msgstr "Cubierta"
 
 #: src/Views/AssignBooksTable.php:34
 msgid "Title"
-msgstr "Titre"
+msgstr "Título"
 
 #: src/Views/AssignBooksTable.php:35 src/Views/AssignUsersTable.php:44
 #: resources/views/institutions/form.blade.php:33
 msgid "Institution"
-msgstr "Institution"
+msgstr "Institución"
 
 #: src/Views/AssignBooksTable.php:36
 msgid "Book Administrators"
-msgstr "Administrateurs de livres"
+msgstr "Administradores del libro"
 
 #: src/Views/AssignUsersTable.php:41
 msgid "Username"
-msgstr "Nom d'utilisateur"
+msgstr "Nombre de usuario"
 
 #: src/Views/AssignUsersTable.php:42 src/Views/InstitutionsTable.php:108
 #: resources/views/institutions/form.blade.php:58
 msgid "Name"
-msgstr "Nom"
+msgstr "Nombre"
 
 #: src/Views/AssignUsersTable.php:43
 msgid "Email"
-msgstr "Adresse e-mail"
+msgstr "Correo electrónico"
 
 #: src/Views/InstitutionsTable.php:70
 msgid "Are you sure you want to delete this?"
-msgstr "Êtes-vous sûr de vouloir supprimer ceci ?"
+msgstr "¿Confirmas que quieres borrar esto?"
 
 #: src/Views/InstitutionsTable.php:109
 #: resources/views/institutions/form.blade.php:70
 msgid "Email Domains"
-msgstr "Domaines de messagerie électronique"
+msgstr "Dominios de correo electrónico"
 
 #: src/Views/InstitutionsTable.php:110
 #: resources/views/institutions/form.blade.php:135
 msgid "Institutional Managers"
-msgstr "Gestionnaires institutionnels"
+msgstr "Gestores institucionales"
 
 #: src/Views/InstitutionsTable.php:111
 msgid "Books"
-msgstr "Livres"
+msgstr "Libros"
 
 #: src/Views/InstitutionsTable.php:112
 msgid "Users"
-msgstr "Utilisateurs"
+msgstr "Usuarios"
 
 #: src/Views/InstitutionsTable.php:236
 msgid "Total Items"
-msgstr "Total des articles"
+msgstr "Total de elementos"
 
 #: resources/views/books/assign.blade.php:14
 msgid "Showing results for:"
-msgstr "Affichage des résultats pour :"
+msgstr "Mostrando resultados para:"
 
 #: resources/views/books/assign.blade.php:18
 #: resources/views/institutions/index.blade.php:17
 #: resources/views/users/assign.blade.php:15
 msgid "Clear filters"
-msgstr "Supprimer tous les filtres"
+msgstr "Vaciar filtros"
 
 #: resources/views/books/assign.blade.php:26
 #: resources/views/books/assign.blade.php:28
@@ -221,65 +220,66 @@ msgstr "Supprimer tous les filtres"
 #: resources/views/users/assign.blade.php:23
 #: resources/views/users/assign.blade.php:25
 msgid "Search"
-msgstr "Recherche"
+msgstr "Buscar"
 
 #: resources/views/institutions/form.blade.php:4
 msgid "Success"
-msgstr "Succès"
+msgstr "Correcto"
 
 #: resources/views/institutions/form.blade.php:4
 msgid "Error"
-msgstr "Erreur"
+msgstr "Error"
 
 #: resources/views/institutions/form.blade.php:26
 msgid "Edit"
-msgstr "Modifier"
+msgstr "Editar"
 
 #: resources/views/institutions/form.blade.php:29
 msgid "Add"
-msgstr "Ajouter"
+msgstr "Añadir"
 
 #: resources/views/institutions/form.blade.php:41
 msgid "Back to Institution List"
-msgstr "Retour à la liste des institutions"
+msgstr "Volver a la lista de instituciones"
 
 #: resources/views/institutions/form.blade.php:74
 msgid ""
 "Enter exclusive email domains for this institution. One per line (e.g. "
 "utopia.edu)."
 msgstr ""
-"Saisissez les domaines de messagerie exclusifs pour cette institution. Un "
-"par ligne (par exemple, utopia.edu)."
+"Escribe dominios de correo electrónico exclusivos para esta institución. Una"
+" dirección por línea (por ejemplo: utopia.edu)."
 
 #: resources/views/institutions/form.blade.php:139
 msgid "Enter username or email to find existing user(s)"
 msgstr ""
-"Entrez le nom d'utilisateur ou l'e-mail pour trouver les utilisateurs "
-"existants"
+"Escribe un nombre de usuario o correo electrónico para encontrar usuarios "
+"existentes"
 
 #: resources/views/institutions/form.blade.php:183
 msgid "Book Limit"
-msgstr "Limite du livre"
+msgstr "Límite de libros"
 
 #: resources/views/institutions/form.blade.php:187
 #: resources/views/institutions/form.blade.php:212
 msgid "As defined in contract. Contact Pressbooks for adjustments."
 msgstr ""
-"Tel que défini dans le contrat. Contactez Pressbooks pour les ajustements."
+"Según se define en el contrato. Contacta con Pressbooks para realizar "
+"ajustes."
 
 #: resources/views/institutions/form.blade.php:208
 msgid "User Limit"
-msgstr "Limite d'utilisateurs"
+msgstr "Límite de usuarios"
 
 #: resources/views/institutions/index.blade.php:10
 msgid "Add new"
-msgstr "Ajouter nouveau"
+msgstr "Añadir nuevo"
 
 #: resources/views/institutions/index.blade.php:15
 #: resources/views/users/assign.blade.php:13
 msgid "Showing results for: %s"
-msgstr "Affichage des résultats pour : %s"
+msgstr "Mostrando resultados para: %s"
 
 #: resources/views/table/bulk-actions.blade.php:6
 msgid "- Set Institution -"
-msgstr "- Définir l'institution -"
+msgstr "- Establecer institución -"
