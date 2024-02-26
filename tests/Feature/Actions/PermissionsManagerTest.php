@@ -55,7 +55,7 @@ class PermissionsManagerTest extends TestCase
     /**
      * @test
      */
-    public function it_does_not_filter_users_lists_for_non_super_admins(): void
+    public function it_filters_by_manager_institution_logged_user(): void
     {
         $this->createInstitutionsUsers(2, 10);
 
@@ -78,6 +78,31 @@ class PermissionsManagerTest extends TestCase
         $users = $this->permissionsManager->filterUsersList();
 
         $this->assertCount(InstitutionUser::byInstitution($institutionId)->count(), $users);
+    }
+
+    /**
+     * @test
+     */
+    public function it_gets_all_users_filtered_for_super_admins(): void
+    {
+        $this->createInstitutionsUsers(2, 10);
+
+        $superAdminId = $this->newUser([
+            'user_login' => 'subscriber',
+            'user_email' => 'subs@subsc.com',
+        ]);
+        grant_super_admin($superAdminId);
+        wp_set_current_user($superAdminId);
+
+        $institutionId = Institution::query()->first()->id;
+        InstitutionUser::create([
+            'user_id' => $superAdminId,
+            'institution_id' => $institutionId,
+        ]);
+
+        $users = $this->permissionsManager->filterUsersList();
+
+        $this->assertCount(count(get_users()), $users);
     }
 
     /**
@@ -231,10 +256,13 @@ class PermissionsManagerTest extends TestCase
         $users = $this->permissionsManager->addInstitutionFieldToUsers($wpUsers);
 
         foreach ($users as $user) {
+            $properties = array_keys(get_object_vars($user));
+            $this->assertGreaterThan(array_search('email', $properties), array_search('institution', $properties));
+
             $institutionUser = InstitutionUser::query()->where('user_id', $user->id)->first();
-            if ($institutionUser) {
-                $this->assertEquals($institutionUser->institution->name, $user->institution);
-            }
+
+            $institutionUser ? $this->assertEquals($institutionUser->institution->name, $user->institution) :
+                $this->assertEquals('Unassigned', $user->institution);
         }
     }
 

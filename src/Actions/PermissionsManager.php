@@ -116,6 +116,10 @@ class PermissionsManager
             return $userIds ?? [];
         }
 
+        if (is_super_admin(get_current_user_id()) && !is_restricted()) {
+            return array_map(fn ($user) => $user->ID, get_users());
+        }
+
         $institutionalUsers = InstitutionUser::query()->byInstitution(get_institution_by_manager())->pluck('user_id')->toArray();
 
         return array_map('intval', $institutionalUsers);
@@ -161,8 +165,17 @@ class PermissionsManager
     {
         return array_map(function ($user) {
             $institutionUser = InstitutionUser::query()->where('user_id', $user->id)->first();
-            $user->institution = $institutionUser?->institution->name ?? __('Unassigned', 'pressbooks-multi-institution');
-            return $user;
+
+            $properties = get_object_vars($user);
+            $propertiesBeforeEmail = array_slice($properties, 0, 3, true);
+            $propertiesAfterEmail = array_slice($properties, 3, null, true);
+            $properties = array_merge(
+                $propertiesBeforeEmail,
+                ['institution' => $institutionUser?->institution->name ?? __('Unassigned', 'pressbooks-multi-institution')],
+                $propertiesAfterEmail
+            );
+
+            return (object) $properties;
         }, $users);
     }
 
