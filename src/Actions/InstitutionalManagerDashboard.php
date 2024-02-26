@@ -19,10 +19,7 @@ class InstitutionalManagerDashboard extends Dashboard
 
     public function render(): void
     {
-        echo app('Blade')->addNamespace(
-            'PressbooksMultiInstitution',
-            WP_PLUGIN_DIR.'/pressbooks-multi-institution/resources/views'
-        )->render('PressbooksMultiInstitution::dashboard.institutional');
+        echo app('Blade')->render('PressbooksMultiInstitution::dashboard.institutional');
     }
 
     protected function shouldRedirect(): bool
