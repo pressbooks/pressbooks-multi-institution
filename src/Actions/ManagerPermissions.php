@@ -2,6 +2,7 @@
 
 namespace PressbooksMultiInstitution\Actions;
 
+use Illuminate\Database\Capsule\Manager;
 use PressbooksMultiInstitution\Models\Institution;
 use PressbooksMultiInstitution\Models\InstitutionBook;
 use PressbooksMultiInstitution\Models\InstitutionUser;
@@ -70,6 +71,28 @@ class ManagerPermissions
         add_filter('pb_institutional_users', function ($users) use ($institutionalUsers) {
             return [...$users, ...array_map('intval', $institutionalUsers)];
         });
+
+        // TODO: move filters to separate methods
+        add_filter('pb_network_analytics_book_list_columns', [$this, 'addInstitutionColumnToBookList']);
+        // TODO: implement book count based on institution
+        add_filter('pb_network_analytics_total_books_count', fn () => 0);
+        add_filter('pb_network_analytics_book_list_sub_select', function () {
+            /** @var Manager $db */
+            $db = app('db');
+
+            $prefix = $db
+                ->getDatabaseManager()
+                ->getTablePrefix();
+
+            $subSelect = $db
+                ->table('institutions')
+                ->select('name as institution')
+                ->join('institutions_blogs', 'institutions.id', '=', 'institutions_blogs.institution_id')
+                ->whereRaw("{$prefix}institutions_blogs.blog_id = b.blog_id");
+
+            return "({$subSelect->toSql()}) as institution";
+        });
+
         if ($pagenow == 'settings.php' && isset($_GET['page']) && $_GET['page'] == 'pb_network_managers') {
             add_filter('site_option_site_admins', function ($admins) use ($institutionalManagers) {
                 $adminIds = array_map(function ($login) {
@@ -206,5 +229,17 @@ class ManagerPermissions
         return is_network_admin() ?
             ($is_main_site_page ? admin_url($page) : $page) :
             ($is_main_site_page ? $page : network_admin_url($page));
+    }
+
+    public function addInstitutionColumnToBookList(array $columns): array
+    {
+        array_splice($columns, 7, 0, [
+            [
+                'title' => __('Institution', 'pressbooks-multi-institution'),
+                'field' => 'institution',
+            ]
+        ]);
+
+        return $columns;
     }
 }
