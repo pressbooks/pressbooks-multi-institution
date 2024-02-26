@@ -11,7 +11,7 @@ use function Pressbooks\Admin\NetworkManagers\is_restricted;
 use function PressbooksMultiInstitution\Support\get_institution_by_manager;
 use function Pressbooks\Admin\NetworkManagers\_restricted_users;
 
-class ManagerPermissions
+class PermissionsManager
 {
     /**
      * @return void
@@ -69,9 +69,9 @@ class ManagerPermissions
             return [...$managers, ...array_map('intval', $institutionalManagers)];
         });
 
-        add_filter('pb_network_analytics_filter_userslist', [$this, 'filterUsers']);
+        add_filter('pb_network_analytics_filter_userslist', [$this, 'filterUsersList']);
 
-        add_filter('pb_network_analytics_userslist_columns', [$this, 'addInstitutionColumnForUsersList']);
+        add_filter('pb_network_analytics_userslist_columns', [$this, 'addInstitutionColumnToUsersList']);
 
         add_filter('pb_network_analytics_userslist', [$this, 'addInstitutionFieldToUsers']);
 
@@ -97,20 +97,28 @@ class ManagerPermissions
         do_action('pb_institutional_filters_created', $institution, $institutionalManagers, $institutionalUsers);
     }
 
-    public function filterUsers(array $users): array
+    public function filterUsersList(): array
     {
         $filtered = isset($_GET['institution']);
 
         if ($filtered && is_super_admin(get_current_user_id()) && !is_restricted()) {
-            $institutionName = sanitize_text_field($_GET['institution']);
-            $institution = Institution::query()->where('name', $institutionName)->first();
-            return $institution ?
-                InstitutionUser::query()->where('institution_id', $institution->id)->pluck('user_id')->toArray() : [];
+            if ($_GET['institution'] === 'unassigned-institution') {
+                $wpUsers = get_users(['exclude' => InstitutionUser::get()->pluck('user_id')->toArray()]);
+                return array_map(fn ($user) => $user->ID, $wpUsers);
+            }
+
+            $institution = Institution::query()->where('name', sanitize_text_field($_GET['institution']))->first();
+            if (!$institution) {
+                return [];
+            }
+
+            $userIds = InstitutionUser::query()->byInstitution($institution->id)->pluck('user_id')->toArray();
+            return $userIds ?? [];
         }
 
         $institutionalUsers = InstitutionUser::query()->byInstitution(get_institution_by_manager())->pluck('user_id')->toArray();
 
-        return [...$users, ...array_map('intval', $institutionalUsers)];
+        return array_map('intval', $institutionalUsers);
     }
 
     public function addInstitutionsFilterForUsersList(): array
@@ -138,7 +146,7 @@ class ManagerPermissions
         ];
     }
 
-    public function addInstitutionColumnForUsersList(array $columns): array
+    public function addInstitutionColumnToUsersList(array $columns): array
     {
         array_splice($columns, 5, 0, [
             [
@@ -153,7 +161,7 @@ class ManagerPermissions
     {
         return array_map(function ($user) {
             $institutionUser = InstitutionUser::query()->where('user_id', $user->id)->first();
-            $user->institution = $institutionUser?->institution->name ?? '';
+            $user->institution = $institutionUser?->institution->name ?? __('Unassigned', 'pressbooks-multi-institution');
             return $user;
         }, $users);
     }
