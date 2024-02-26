@@ -1,42 +1,24 @@
 <div class="wrap">
 	<div class="pb-dashboard-row">
-		<div class="pb-dashboard-panel">
-			<div class="pb-dashboard-content">
-				<h1 class="screen-reader-text">{{ __('Institutional Manager Dashboard', 'pressbooks')  }}</h1>
-				<h2>
-					{{ __( 'Welcome to', 'pressbooks' ) }}
-					<span class="network-title">{!! $network_name !!}</span>
-				</h2>
-				<a class="visit-homepage" href="{{ $network_url }}">
-					{{ __( 'Visit network homepage', 'pressbooks' ) }}
-				</a>
-			</div>
-		</div>
-	</div>
-	<div class="pb-dashboard-row">
 			<div class="pb-dashboard-grid">
 				<div class="pb-dashboard-panel">
-					<div class="pb-dashboard-content pb-centered-inline">
-							<h2>{{ __( 'Institutional Usage', 'pressbooks' ) }}</h2>
-							<p>
-								{!! sprintf( __( '%s has %s books and %s users. ', 'pressbooks' ), "{$institution_name}","<strong>{$total_books}</strong>", "<strong>{$total_users}</strong>" ) !!}
-							</p>
-							<div class="pb-dashboard-action">
-								@if( $network_analytics_active )
-									<a
-										class="button button-primary"
-										href="{!! network_admin_url( 'admin.php?page=pb_network_analytics_admin' ) !!}"
-									>
-										{{ __( 'Explore stats', 'pressbooks' ) }}
-									</a>
-								@endif
-							</div>
+					<div class="pb-dashboard-content pb-institution-welcome-content">
+						<h1 class="screen-reader-text">{{ __('Institutional Manager Dashboard', 'pressbooks')  }}</h1>
+						<h2>
+							{{ __( 'Welcome to', 'pressbooks' ) }}
+							<span class="network-title">{!! $network_name !!}</span>
+						</h2>
+						<a class="visit-homepage" href="{{ $network_url }}">
+							{{ __( 'Visit network homepage', 'pressbooks' ) }}
+						</a>
+						<p>
+							{!! sprintf( __( '%s has %s books and %s users. ', 'pressbooks' ), "{$institution_name}","<strong>{$total_books}</strong>", "<strong>{$total_users}</strong>" ) !!}
+						</p>
 					</div>
 				</div>
-
 				<div class="pb-dashboard-panel">
 					<div class="pb-dashboard-content">
-						<h2>{{ __( 'Administer Institution', 'pressbooks' ) }}</h2>
+						<h2>{{ __( 'Administer', 'pressbooks' )}} {{$institution_name}}</h2>
 
 						<div class="pb-dashboard-flex">
 							<img
@@ -62,6 +44,16 @@
 										<span>{{ __( 'View user list', 'pressbooks' ) }}</span>
 									</a>
 								</li>
+								@if( $network_analytics_active )
+								<li>
+									<a
+										href="{!! network_admin_url( 'admin.php?page=pb_network_analytics_admin' ) !!}"
+									>
+										<i class="pb-heroicons dashicons-before dashicons-chart-area"></i>
+										<span>{{ __( 'Explore Stats', 'pressbooks' ) }}</span>
+									</a>
+								</li>
+								@endif
 							</ul>
 						</div>
 					</div>
