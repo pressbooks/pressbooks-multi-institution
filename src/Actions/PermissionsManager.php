@@ -10,7 +10,6 @@ use WP_Admin_Bar;
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
 use function PressbooksMultiInstitution\Support\get_institution_by_manager;
 use function Pressbooks\Admin\NetworkManagers\_restricted_users;
-use function PressbooksMultiInstitution\Support\is_network_manager;
 
 class PermissionsManager
 {
@@ -79,9 +78,9 @@ class PermissionsManager
 
         add_filter('pb_network_analytics_userslist', [$this, 'addInstitutionFieldToUsers']);
 
-        add_filter('pb_network_analytics_userslist_filters_input', [$this, 'addInstitutionsFilterForUsersList']);
-
         add_filter('pb_network_analytics_userslist_filters_event', [$this, 'addInstitutionsFilterAttributesForUsersList']);
+
+        add_filter('pb_network_analytics_filter_tabs', [$this, 'addInstitutionsFilterTab']);
 
         if ($pagenow == 'settings.php' && isset($_GET['page']) && $_GET['page'] == 'pb_network_managers') {
             add_filter('site_option_site_admins', function ($admins) use ($institutionalManagers) {
@@ -106,7 +105,7 @@ class PermissionsManager
         $filtered = isset($_GET['institution']);
 
         if ($filtered && is_super_admin() && ! get_institution_by_manager()) {
-            if ($_GET['institution'] === 'unassigned-institution') {
+            if ($_GET['institution'] === '0') {
                 $wpUsers = get_users(['exclude' => InstitutionUser::get()->pluck('user_id')->toArray()]);
                 return array_map(fn ($user) => $user->ID, $wpUsers);
             }
@@ -129,17 +128,19 @@ class PermissionsManager
         return array_map('intval', $institutionalUsers);
     }
 
-    public function addInstitutionsFilterForUsersList(): array
+    public function addInstitutionsFilterTab(array $filters): array
     {
-        if (! is_super_admin() || ! is_network_manager()) {
-            return [];
+        if (! is_super_admin() || get_institution_by_manager() > 0) {
+            return $filters;
         }
+
         return [
+            ...$filters,
             [
-                'partial' => 'PressbooksMultiInstitution::partials.userslist.filters',
-                'data' => [
-                    'institutions' => Institution::all(),
-                ]
+                'tab' => app('Blade')->render('PressbooksMultiInstitution::partials.filters.institutions.tab'),
+                'content' => app('Blade')->render('PressbooksMultiInstitution::partials.filters.institutions.content', [
+                    'institutions' => Institution::query()->orderBy('name')->get(),
+                ])
             ]
         ];
     }
@@ -149,7 +150,8 @@ class PermissionsManager
         return [
             [
                 'field' => 'institution',
-                'id' => 'institutions-dropdown',
+                'name' => 'institution[]',
+                'counterId' => 'institutions-tab-counter',
             ]
         ];
     }
