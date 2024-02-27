@@ -10,6 +10,7 @@ use WP_Admin_Bar;
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
 use function PressbooksMultiInstitution\Support\get_institution_by_manager;
 use function Pressbooks\Admin\NetworkManagers\_restricted_users;
+use function PressbooksMultiInstitution\Support\is_network_manager;
 
 class PermissionsManager
 {
@@ -104,7 +105,7 @@ class PermissionsManager
     {
         $filtered = isset($_GET['institution']);
 
-        if ($filtered && is_super_admin(get_current_user_id()) && !is_restricted()) {
+        if ($filtered && is_super_admin() && ! get_institution_by_manager()) {
             if ($_GET['institution'] === 'unassigned-institution') {
                 $wpUsers = get_users(['exclude' => InstitutionUser::get()->pluck('user_id')->toArray()]);
                 return array_map(fn ($user) => $user->ID, $wpUsers);
@@ -119,7 +120,7 @@ class PermissionsManager
             return $userIds ?? [];
         }
 
-        if (is_super_admin(get_current_user_id()) && !is_restricted()) {
+        if (is_super_admin() && !is_restricted()) {
             return array_map(fn ($user) => $user->ID, get_users());
         }
 
@@ -130,7 +131,7 @@ class PermissionsManager
 
     public function addInstitutionsFilterForUsersList(): array
     {
-        if (!is_super_admin(get_current_user_id()) || is_restricted()) {
+        if (! is_super_admin() || ! is_network_manager()) {
             return [];
         }
         return [
@@ -280,7 +281,7 @@ class PermissionsManager
         $userId = $_GET['user_id'] ?? null;
 
         $institution = get_institution_by_manager();
-        if (! $userId || (is_super_admin(get_current_user_id()) && ! $institution)) {
+        if (! $userId || (is_super_admin() && ! $institution)) {
             return true;
         }
         $institutionalUsers = InstitutionUser::query()

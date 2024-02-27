@@ -107,6 +107,25 @@ class PermissionsManagerTest extends TestCase
 
         $this->assertCount(InstitutionUser::byInstitution($institutionId)->count(), $users);
     }
+    /**
+     * @test
+     */
+    public function it_filters_for_network_managers(): void
+    {
+        $networkManager = $this->setSuperAdminUser();
+        update_network_option(null, 'pressbooks_network_managers', [$networkManager]);
+
+        $this->createInstitutionsUsers(2, 10);
+
+        $institution = Institution::query()->first();
+
+        $_GET['institution'] = $institution->name;
+
+        $this->assertCount(
+            InstitutionUser::byInstitution($institution->id)->count(),
+            $this->permissionsManager->filterUsersList()
+        );
+    }
 
     /**
      * @test
