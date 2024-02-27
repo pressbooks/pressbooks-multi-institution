@@ -18,9 +18,21 @@ class PermissionsManager
      */
     public function handleMenus(): void
     {
+        global $menu, $submenu;
+        // Remove the Home page from the books menu
+        if (!is_main_site()) {
+            unset($submenu['index.php'][0]);
+        }
         if (get_institution_by_manager() !== 0) {
             remove_menu_page($this->getContextSlug('customize.php', true));
             remove_menu_page($this->getContextSlug('edit.php?post_type=page', true));
+            // Remove the default dashboard page and point to the institutional dashboard
+            foreach ($menu as &$item) {
+                if ($item[2] == network_admin_url('index.php')) {
+                    $item[2] = network_site_url('wp-admin/index.php?page=pb_institutional_manager');
+                    break;
+                }
+            }
             remove_menu_page($this->getContextSlug('admin.php?page=pb_network_integrations', false));
             remove_menu_page('settings.php');
             remove_menu_page('pb_network_integrations');
@@ -62,6 +74,7 @@ class PermissionsManager
         $institution = get_institution_by_manager();
         $institutionalManagers = InstitutionUser::query()->managers()->pluck('user_id')->toArray();
         $institutionalUsers = InstitutionUser::query()->byInstitution($institution)->pluck('user_id')->toArray();
+
         add_filter('pb_institution', function () use ($institution) {
             return Institution::find($institution)?->toArray() ?? [];
         });
@@ -190,7 +203,7 @@ class PermissionsManager
 
     public function handlePagesPermissions($institution, $institutionalManagers, $institutionalUsers): void
     {
-        if($institution !== 0) {
+        if ($institution !== 0) {
 
             $allowedBooks = InstitutionBook::query()
                 ->select('blog_id')
@@ -237,32 +250,62 @@ class PermissionsManager
             /*
              * Restrict access to the network admin pages and allow only some pages
              */
-
             add_action('admin_init', function () use ($allowedBooks) {
                 global $pagenow;
 
-                $allowed_pages = [
-                    'admin.php' => ['pb_network_analytics_booklist', 'pb_network_analytics_userlist', 'pb_network_analytics_admin', 'pb_cloner'],
-                    'sites.php' => ['confirm', 'delete','pb_network_analytics_booklist','pb_network_analytics_userlist','pb_network_analytics_admin','pb_cloner'],
-                    'users.php' => ['user_bulk_new','pb_network_analytics_userlist'],
-                    'admin-ajax.php' => ['pb_network_analytics_books','pb_network_analytics_users', 'pb_network_analytics_users_csv'],
-                    'index.php' => ['', 'book_dashboard','pb_institutional_manager','pb_home_page'],
+                $allowedPages = [
+                    'admin.php' => ['pb_network_analytics_booklist','pb_network_analytics_userlist'],
+                    'sites.php' => ['confirm', 'delete', 'pb_network_analytics_booklist', 'pb_network_analytics_userlist', 'pb_network_analytics_admin', 'pb_cloner'],
+                    'index.php' => ['', 'book_dashboard', 'pb_institutional_manager', 'pb_home_page', 'pb_catalog'],
+                    'tools.php' => ['', 'book_dashboard', 'pb_cloner_stats', 'pressbooks-search-and-replace'],
+                    'users.php',
+                    'admin-ajax.php',
+                    'options-general.php',
                     'profile.php' => [''],
+                    'post-new.php',
+                    'site-info.php',
+                    'site-users.php',
+                    'site-themes.php',
+                    'site-settings.php',
+                    'edit.php',
+                    'edit-tags.php',
+                    'upload.php',
+                    'post.php',
+                    'themes.php',
+                    'plugins.php',
+                    'media-new.php',
+                    'users.php',
+                    'export-personal-data.php',
+                    'erase-personal-data.php',
+                    'options-privacy.php'
                 ];
 
                 $currentPage = $pagenow;
                 $currentPageParam = $_GET['page'] ?? '';
                 $currentPageParam = $_GET['action'] ?? $currentPageParam;
+                $isAccessAllowed = false;
 
-                // Flag to check if the current access is allowed
+                if (empty($allowedPages[$currentPage]) && in_array($currentPage, $allowedPages)) {
+                    $isAccessAllowed = true;
+                }
+
                 $currentBlogId = get_current_blog_id();
 
                 // Check if the current page is in the allowed list and has the allowed query parameter
-                $isAccessAllowed = array_key_exists($currentPage, $allowed_pages) &&
-                    in_array($currentPageParam, $allowed_pages[$currentPage]);
+                if (array_key_exists($currentPage, $allowedPages)) {
+                    if (in_array($currentPageParam, $allowedPages[$currentPage])) {
+                        $isAccessAllowed = true;
+                    }
+                }
 
                 if ($currentBlogId !== 1 && !in_array($currentBlogId, $allowedBooks)) {
                     $isAccessAllowed = false;
+                }
+
+                // hack to redirect to the dashboard because the institutional manager check is done after the redirect
+                if ($currentPageParam === 'pb_network_page') {
+                    wp_redirect(network_site_url('wp-admin/index.php?page=pb_institutional_manager'));
+                    exit;
                 }
 
                 if (
@@ -280,6 +323,7 @@ class PermissionsManager
         }
     }
 
+
     private function canManageUser(): bool
     {
         $userId = $_GET['user_id'] ?? null;
@@ -296,11 +340,6 @@ class PermissionsManager
         return in_array($userId, $institutionalUsers);
     }
 
-    public function createInstitutionFilters()
-    {
-
-    }
-
     /**
      * @param WP_Admin_Bar $wp_admin_bar
      * @return void
@@ -312,12 +351,12 @@ class PermissionsManager
         $wp_admin_bar->remove_node('pb-administer-settings');
         $mainMenu = $wp_admin_bar->get_node('pb-administer-network');
         if ($mainMenu) {
-            $mainMenu->href = admin_url('index.php?page=pb_institutional_manager');
             $title = __('Administer Institution', 'pressbooks-multi-institution');
             $mainMenu->title = "<i class='pb-heroicons pb-heroicons-building-library'></i><span>{$title}</span>";
+            $mainMenu->href = network_site_url('wp-admin/index.php?page=pb_institutional_manager');
             $subMenu = $wp_admin_bar->get_node('pb-administer-network-d');
             if ($subMenu) {
-                $subMenu->href = admin_url('index.php?page=pb_institutional_manager');
+                $subMenu->href = network_site_url('wp-admin/index.php?page=pb_institutional_manager');
                 $wp_admin_bar->add_node($subMenu);
             }
             $wp_admin_bar->add_node($mainMenu);
