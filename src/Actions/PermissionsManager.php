@@ -257,7 +257,10 @@ class PermissionsManager
                     $isAccessAllowed = false;
                 }
 
-                if ($currentPage === 'user-edit.php') {
+                if (
+                    $currentPage === 'user-edit.php' ||
+                    ($currentPage === 'users.php' && $currentPageParam === 'deleteuser')
+                ) {
                     $isAccessAllowed = $this->canEditUser();
                 }
 
