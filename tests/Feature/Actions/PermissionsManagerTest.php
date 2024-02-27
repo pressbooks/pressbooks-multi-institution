@@ -23,13 +23,8 @@ class PermissionsManagerTest extends TestCase
         $this->permissionsManager = new PermissionsManager;
     }
 
-    /**
-     * @test
-     */
-    public function it_filters_users_lists(): void
+    private function setSuperAdminUser(): int
     {
-        $this->createInstitutionsUsers(2, 10);
-
         $superAdminUserId = $this->newUser([
             'user_login' => 'superadmin',
             'user_email' => 'superadmin@test.com',
@@ -38,10 +33,20 @@ class PermissionsManagerTest extends TestCase
         grant_super_admin($superAdminUserId);
         wp_set_current_user($superAdminUserId);
 
+        return $superAdminUserId;
+    }
+
+    /**
+     * @test
+     */
+    public function it_filters_users_lists(): void
+    {
+        $this->createInstitutionsUsers(2, 10);
+
+        $this->setSuperAdminUser();
+
         $institution = Institution::query()->first();
         $_GET['institution'] = $institution->name;
-
-        $users = $this->permissionsManager->filterUsersList();
 
         $expectedUsers = InstitutionUser::query()
             ->where('institution_id', $institution->id)
@@ -49,7 +54,36 @@ class PermissionsManagerTest extends TestCase
             ->pluck('user_id')
             ->toArray();
 
-        $this->assertCount(count($expectedUsers), $users);
+        $this->assertCount(count($expectedUsers), $this->permissionsManager->filterUsersList());
+    }
+
+    /**
+     * @test
+     */
+    public function it_filters_by_unexisting_institution(): void
+    {
+        $this->createInstitutionsUsers(2, 10);
+
+        $this->setSuperAdminUser();
+
+        $_GET['institution'] = 'unexisting institution name';
+
+        $this->assertCount(0, $this->permissionsManager->filterUsersList());
+    }
+
+    /**
+     * @test
+     */
+    public function it_filters_users_by_insitution_without_users(): void
+    {
+        $this->createInstitutionsUsers(2, 0);
+
+        $this->setSuperAdminUser();
+
+        $institution = Institution::query()->first();
+        $_GET['institution'] = $institution->name;
+
+        $this->assertCount(0, $this->permissionsManager->filterUsersList());
     }
 
     /**
@@ -59,14 +93,8 @@ class PermissionsManagerTest extends TestCase
     {
         $this->createInstitutionsUsers(2, 10);
 
-        $institutionalManagerId = $this->newUser([
-            'user_login' => 'subscriber',
-            'user_email' => 'subs@subsc.com',
-        ]);
-        grant_super_admin($institutionalManagerId);
+        $institutionalManagerId = $this->setSuperAdminUser();
         update_network_option(null, 'pressbooks_network_managers', [$institutionalManagerId]);
-
-        wp_set_current_user($institutionalManagerId);
 
         $institutionId = Institution::query()->first()->id;
         InstitutionUser::create([
@@ -87,12 +115,7 @@ class PermissionsManagerTest extends TestCase
     {
         $this->createInstitutionsUsers(2, 10);
 
-        $superAdminId = $this->newUser([
-            'user_login' => 'subscriber',
-            'user_email' => 'subs@subsc.com',
-        ]);
-        grant_super_admin($superAdminId);
-        wp_set_current_user($superAdminId);
+        $superAdminId = $this->setSuperAdminUser();
 
         $institutionId = Institution::query()->first()->id;
         InstitutionUser::create([
@@ -112,13 +135,7 @@ class PermissionsManagerTest extends TestCase
     {
         $this->createInstitutionsUsers(2, 10);
 
-        $superAdminUserId = $this->newUser([
-            'user_login' => 'superadmin',
-            'user_email' => 'superadmin@test.com',
-        ]);
-
-        grant_super_admin($superAdminUserId);
-        wp_set_current_user($superAdminUserId);
+        $this->setSuperAdminUser();
 
         $wpUsers = get_users();
         $wpUserIds = array_map(fn ($user) => $user->ID, $wpUsers);
@@ -142,13 +159,7 @@ class PermissionsManagerTest extends TestCase
      */
     public function it_adds_institutions_filter_to_users_list_for_super_admins(): void
     {
-        $superAdminUserId = $this->newUser([
-            'user_login' => 'superadmin',
-            'user_email' => 'test@superadmin.com',
-        ]);
-
-        grant_super_admin($superAdminUserId);
-        wp_set_current_user($superAdminUserId);
+        $this->setSuperAdminUser();
 
         $data = $this->permissionsManager->addInstitutionsFilterForUsersList()[0];
 
@@ -160,11 +171,11 @@ class PermissionsManagerTest extends TestCase
 
         $this->assertEquals('PressbooksMultiInstitution::partials.userslist.filters', $data['partial']);
 
-        $superAdminUserId = $this->newUser([
+        $regularUserId = $this->newUser([
             'user_login' => 'regularuser',
             'user_email' => 'test@regular.com',
         ]);
-        wp_set_current_user($superAdminUserId);
+        wp_set_current_user($regularUserId);
 
         $this->assertEmpty($this->permissionsManager->addInstitutionsFilterForUsersList());
     }
