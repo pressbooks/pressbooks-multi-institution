@@ -19,7 +19,20 @@ class InstitutionalManagerDashboard extends Dashboard
 
     public function render(): void
     {
-        echo app('Blade')->render('PressbooksMultiInstitution::dashboard.institutional');
+        echo app('Blade')->addNamespace(
+            'PressbooksMultiInstitution',
+            WP_PLUGIN_DIR.'/pressbooks-multi-institution/resources/views'
+        )->render(
+            'PressbooksMultiInstitution::dashboard.institutional',
+            [
+              'network_name' => get_bloginfo('name'),
+              'network_url' => network_home_url(),
+              'institution_name' => apply_filters('pb_institution', [])['name'],
+              'total_books' => count(apply_filters('pb_institutional_books', [])),
+              'total_users' => count(apply_filters('pb_institutional_users', [])),
+              'network_analytics_active' => is_plugin_active('pressbooks-network-analytics/pressbooks-network-analytics.php')
+            ]
+        );
     }
 
     protected function shouldRedirect(): bool
