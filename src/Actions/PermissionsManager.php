@@ -247,18 +247,18 @@ class PermissionsManager
                 $currentPageParam = $_GET['action'] ?? $currentPageParam;
 
                 // Flag to check if the current access is allowed
-                $isAccessAllowed = false;
                 $currentBlogId = get_current_blog_id();
 
                 // Check if the current page is in the allowed list and has the allowed query parameter
-                if (array_key_exists($currentPage, $allowed_pages)) {
-                    if (in_array($currentPageParam, $allowed_pages[$currentPage])) {
-                        $isAccessAllowed = true;
-                    }
-                }
+                $isAccessAllowed = array_key_exists($currentPage, $allowed_pages) &&
+                    in_array($currentPageParam, $allowed_pages[$currentPage]);
 
                 if ($currentBlogId !== 1 && !in_array($currentBlogId, $allowedBooks)) {
                     $isAccessAllowed = false;
+                }
+
+                if ($currentPage === 'user-edit.php') {
+                    $isAccessAllowed = $this->canEditUser();
                 }
 
                 // If access is not allowed, redirect or deny access
@@ -267,6 +267,22 @@ class PermissionsManager
                 }
             });
         }
+    }
+
+    private function canEditUser(): bool
+    {
+        $userId = $_GET['user_id'] ?? null;
+
+        $institution = get_institution_by_manager();
+        if (! $userId || (is_super_admin(get_current_user_id()) && ! $institution)) {
+            return true;
+        }
+        $institutionalUsers = InstitutionUser::query()
+            ->byInstitution($institution)
+            ->pluck('user_id')
+            ->toArray();
+
+        return in_array($userId, $institutionalUsers);
     }
 
     public function createInstitutionFilters()
