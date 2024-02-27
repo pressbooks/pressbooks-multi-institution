@@ -237,7 +237,7 @@ class PermissionsManager
                     'admin.php' => ['pb_network_analytics_booklist', 'pb_network_analytics_userlist', 'pb_network_analytics_admin', 'pb_cloner'],
                     'sites.php' => ['confirm', 'delete','pb_network_analytics_booklist','pb_network_analytics_userlist','pb_network_analytics_admin','pb_cloner'],
                     'users.php' => ['user_bulk_new','pb_network_analytics_userlist'],
-                    'admin-ajax.php' => ['pb_network_analytics_books','pb_network_analytics_users'],
+                    'admin-ajax.php' => ['pb_network_analytics_books','pb_network_analytics_users', 'pb_network_analytics_users_csv'],
                     'index.php' => ['', 'book_dashboard','pb_institutional_manager','pb_home_page'],
                     'profile.php' => [''],
                 ];
