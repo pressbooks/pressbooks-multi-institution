@@ -37,11 +37,11 @@ class InstitutionalManagerDashboard extends Dashboard
 
     protected function shouldRedirect(): bool
     {
-        return 0 !== get_institution_by_manager();
+        return 0 !== get_institution_by_manager() && 'index' === get_current_screen()->base;
     }
 
     public function getURL(): string
     {
-        return admin_url("index.php?page={$this->page_name}");
+        return network_admin_url("index.php?page={$this->page_name}");
     }
 }
