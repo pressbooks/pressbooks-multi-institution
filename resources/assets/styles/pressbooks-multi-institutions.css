@@ -61,3 +61,11 @@ body.institutions_page_pb_multi_institutions .filtering a {
 	text-align: center;
 	width: 5%;
 }
+
+.pb-institution-welcome-content p {
+	margin: 4rem 0 0 0 !important;
+}
+
+.pb-dashboard-content i.dashicons-before {
+	margin-right: 4px !important;
+}
