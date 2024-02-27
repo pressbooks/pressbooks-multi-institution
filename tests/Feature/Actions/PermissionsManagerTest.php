@@ -46,7 +46,7 @@ class PermissionsManagerTest extends TestCase
         $this->setSuperAdminUser();
 
         $institution = Institution::query()->first();
-        $_GET['institution'] = $institution->name;
+        $_GET['institution'] = [$institution->id];
 
         $expectedUsers = InstitutionUser::query()
             ->where('institution_id', $institution->id)
@@ -66,7 +66,7 @@ class PermissionsManagerTest extends TestCase
 
         $this->setSuperAdminUser();
 
-        $_GET['institution'] = 'unexisting institution name';
+        $_GET['institution'] = [-1];
 
         $this->assertCount(0, $this->permissionsManager->filterUsersList());
     }
@@ -80,8 +80,7 @@ class PermissionsManagerTest extends TestCase
 
         $this->setSuperAdminUser();
 
-        $institution = Institution::query()->first();
-        $_GET['institution'] = $institution->name;
+        $_GET['institution'] = [Institution::query()->first()->id];
 
         $this->assertCount(0, $this->permissionsManager->filterUsersList());
     }
@@ -117,12 +116,12 @@ class PermissionsManagerTest extends TestCase
 
         $this->createInstitutionsUsers(2, 10);
 
-        $institution = Institution::query()->first();
+        $institutions = Institution::query()->pluck('id')->toArray();
 
-        $_GET['institution'] = $institution->name;
+        $_GET['institution'] = [$institutions[0], $institutions[1]];
 
         $this->assertCount(
-            InstitutionUser::byInstitution($institution->id)->count(),
+            InstitutionUser::query()->whereIn('institution_id', $institutions)->count(),
             $this->permissionsManager->filterUsersList()
         );
     }
@@ -159,7 +158,7 @@ class PermissionsManagerTest extends TestCase
         $wpUsers = get_users();
         $wpUserIds = array_map(fn ($user) => $user->ID, $wpUsers);
 
-        $_GET['institution'] = 'unassigned-institution';
+        $_GET['institution'] = [0];
 
         $users = $this->permissionsManager->filterUsersList();
 
@@ -179,16 +178,37 @@ class PermissionsManagerTest extends TestCase
     public function it_adds_institutions_filter_to_users_list_for_super_admins(): void
     {
         $this->setSuperAdminUser();
+        $this->createInstitutionsUsers(2, 10);
 
-        $data = $this->permissionsManager->addInstitutionsFilterForUsersList()[0];
+        $data = $this->permissionsManager->addInstitutionsFilterTab([])[0];
 
-        $this->assertArrayHasKey('partial', $data);
-        $this->assertArrayHasKey('data', $data);
+        $this->assertArrayHasKey('tab', $data);
+        $this->assertArrayHasKey('content', $data);
 
-        $institutions = $data['data']['institutions'];
-        $this->assertCount(Institution::query()->count(), $institutions);
+        $institutions = Institution::query()->get();
 
-        $this->assertEquals('PressbooksMultiInstitution::partials.userslist.filters', $data['partial']);
+        // asssert that tab content template is rendered with regex
+        $this->assertMatchesRegularExpression(
+            '/<a href="#institutions-tab">/',
+            $data['tab']
+        );
+
+        $this->assertMatchesRegularExpression(
+            '/<div id="institutions-tab" class="table-controls">/',
+            $data['content']
+        );
+        $this->assertMatchesRegularExpression(
+            '/<input\\s+[^>]*?name="institution\\[\\]"\\s+[^>]*?type="checkbox"\\s+[^>]*?value="0"\\s*\\/?>\\s*Unassigned/',
+            $data['content']
+        );
+
+        foreach ($institutions as $institution) {
+            $this->assertMatchesRegularExpression(
+                '/<input\\s+[^>]*?name="institution\\[\\]"\\s+[^>]*?type="checkbox"\\s+[^>]*?value="' . $institution->id . '"\\s*\\/?>\\s*' . $institution->name . '/',
+                $data['content']
+            );
+        }
+
 
         $regularUserId = $this->newUser([
             'user_login' => 'regularuser',
@@ -196,7 +216,7 @@ class PermissionsManagerTest extends TestCase
         ]);
         wp_set_current_user($regularUserId);
 
-        $this->assertEmpty($this->permissionsManager->addInstitutionsFilterForUsersList());
+        $this->assertEmpty($this->permissionsManager->addInstitutionsFilterTab([]));
     }
 
     /**
@@ -207,7 +227,8 @@ class PermissionsManagerTest extends TestCase
         $this->assertEquals([
             [
                 'field' => 'institution',
-                'id' => 'institutions-dropdown',
+                'name' => 'institution[]',
+                'counterId' => 'institutions-tab-counter',
             ]
         ], $this->permissionsManager->addInstitutionsFilterAttributesForUsersList());
     }

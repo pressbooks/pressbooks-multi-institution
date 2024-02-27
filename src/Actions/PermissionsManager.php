@@ -102,21 +102,23 @@ class PermissionsManager
 
     public function filterUsersList(): array
     {
-        $filtered = isset($_GET['institution']);
+        $filtered = isset($_GET['institution']) && is_array($_GET['institution']) && count($_GET['institution']) > 0;
 
         if ($filtered && is_super_admin() && ! get_institution_by_manager()) {
-            if ($_GET['institution'] === '0') {
-                $wpUsers = get_users(['exclude' => InstitutionUser::get()->pluck('user_id')->toArray()]);
-                return array_map(fn ($user) => $user->ID, $wpUsers);
+            $institutionIds = array_map('intval', $_GET['institution']);
+            $userIds = [];
+            if (in_array(0, $institutionIds)) {
+                $wpUsers = get_users([
+                    'fields' => ['ID'],
+                    'exclude' => InstitutionUser::get()->pluck('user_id')->toArray(),
+                ]);
+                $userIds = array_map(fn ($user) => $user->ID, $wpUsers);
             }
 
-            $institution = Institution::query()->where('name', sanitize_text_field($_GET['institution']))->first();
-            if (!$institution) {
-                return [];
-            }
-
-            $userIds = InstitutionUser::query()->byInstitution($institution->id)->pluck('user_id')->toArray();
-            return $userIds ?? [];
+            return array_merge(
+                $userIds,
+                InstitutionUser::query()->whereIn('institution_id', $institutionIds)->pluck('user_id')->toArray()
+            );
         }
 
         if (is_super_admin() && !is_restricted()) {
