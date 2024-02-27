@@ -12,7 +12,7 @@ class InstitutionalManagerDashboard extends Dashboard
 
     public function hooks(): void
     {
-        add_action('load-index.php', [$this, 'redirect'], 1000);
+        add_action('load-index.php', [$this, 'redirect'], 1001);
         add_action('admin_menu', [$this, 'removeDefaultPage']);
         add_action('admin_menu', [$this, 'addNewPage']);
     }
@@ -37,11 +37,11 @@ class InstitutionalManagerDashboard extends Dashboard
 
     protected function shouldRedirect(): bool
     {
-        return 0 !== get_institution_by_manager() && 'index' === get_current_screen()->base;
+        return 0 !== get_institution_by_manager() && is_main_site();
     }
 
     public function getURL(): string
     {
-        return network_admin_url("index.php?page={$this->page_name}");
+        return network_site_url('wp-admin/index.php?page=pb_institutional_manager');
     }
 }

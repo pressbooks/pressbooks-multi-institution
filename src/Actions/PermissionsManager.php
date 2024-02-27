@@ -73,6 +73,7 @@ class PermissionsManager
         $institution = get_institution_by_manager();
         $institutionalManagers = InstitutionUser::query()->managers()->pluck('user_id')->toArray();
         $institutionalUsers = InstitutionUser::query()->byInstitution($institution)->pluck('user_id')->toArray();
+
         add_filter('pb_institution', function () use ($institution) {
             return Institution::find($institution)?->toArray() ?? [];
         });
@@ -149,7 +150,7 @@ class PermissionsManager
                 global $pagenow;
 
                 $allowedPages = [
-                    'admin.php', ['pb_network_analytics_booklist'],
+                    'admin.php' => ['pb_network_analytics_booklist','pb_network_analytics_userlist'],
                     'sites.php' => ['confirm', 'delete', 'pb_network_analytics_booklist', 'pb_network_analytics_userlist', 'pb_network_analytics_admin', 'pb_cloner'],
                     'index.php' => ['', 'book_dashboard', 'pb_institutional_manager', 'pb_home_page', 'pb_catalog'],
                     'tools.php' => ['', 'book_dashboard', 'pb_cloner_stats', 'pressbooks-search-and-replace'],
@@ -195,6 +196,12 @@ class PermissionsManager
 
                 if ($currentBlogId !== 1 && !in_array($currentBlogId, $allowedBooks)) {
                     $isAccessAllowed = false;
+                }
+
+                // hack to redirect to the dashboard because the institutional manager check is done after the redirect
+                if ($currentPageParam === 'pb_network_page') {
+                    wp_redirect(network_site_url('wp-admin/index.php?page=pb_institutional_manager'));
+                    exit;
                 }
 
                 // If access is not allowed, redirect or deny access
