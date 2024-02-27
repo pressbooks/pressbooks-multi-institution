@@ -163,9 +163,10 @@ class PermissionsManager
 
     public function addInstitutionFieldToUsers(array $users): array
     {
-        return array_map(function ($user) {
-            $institutionUser = InstitutionUser::query()->where('user_id', $user->id)->first();
+        $institutionUsers = InstitutionUser::query()->with('institution')->get();
 
+        return array_map(function ($user) use ($institutionUsers) {
+            $institutionUser = $institutionUsers->where('user_id', $user->id)->first();
             $properties = get_object_vars($user);
             $propertiesBeforeEmail = array_slice($properties, 0, 3, true);
             $propertiesAfterEmail = array_slice($properties, 3, null, true);
