@@ -44,6 +44,6 @@ class InstitutionUser extends Model
 
     public function scopeIsManager($query, $user_id)
     {
-        return $query->where('manager', true)->where('user_id', $user_id);
+        return $query->managers()->where('user_id', $user_id);
     }
 }

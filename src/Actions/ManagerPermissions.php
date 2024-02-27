@@ -92,6 +92,41 @@ class ManagerPermissions
 
             return "({$subSelect->toSql()}) as institution";
         });
+        add_filter('pb_network_analytics_filter_tabs', function (array $filters) {
+            if (! is_super_admin()) {
+                return $filters;
+            }
+
+            if (get_institution_by_manager() > 0) {
+                return $filters;
+            }
+
+            return [
+                ...$filters,
+                [
+                    'tab' => app('Blade')->render('PressbooksMultiInstitution::partials.filters.institutions.tab'),
+                    'content' => app('Blade')->render('PressbooksMultiInstitution::partials.filters.institutions.content', [
+                        'institutions' => Institution::query()->orderBy('name')->get(),
+                    ])
+                ]
+            ];
+        });
+        //		add_filter('pb_network_analytics_book_list_filter_tabs_js', function (array $filters) {
+        //			if (! is_super_admin()) {
+        //				return $filters;
+        //			}
+        //
+        //			if (get_institution_by_manager() > 0) {
+        //				return $filters;
+        //			}
+        //
+        //			return [
+        //				[
+        //					'name' => 'tab5',
+        //					'fields' => ['institution'],
+        //				]
+        //			];
+        //		});
 
         if ($pagenow == 'settings.php' && isset($_GET['page']) && $_GET['page'] == 'pb_network_managers') {
             add_filter('site_option_site_admins', function ($admins) use ($institutionalManagers) {
