@@ -65,6 +65,9 @@ class PermissionsManager
         add_filter('pb_institution', function () use ($institution) {
             return Institution::find($institution)?->toArray() ?? [];
         });
+        add_filter('pb_institutional_users', function ($users) use ($institutionalUsers) {
+            return [...$users, ...array_map('intval', $institutionalUsers)];
+        });
         add_filter('pb_institutional_managers', function ($managers) use ($institutionalManagers) {
             return [...$managers, ...array_map('intval', $institutionalManagers)];
         });
@@ -261,7 +264,7 @@ class PermissionsManager
                     $currentPage === 'user-edit.php' ||
                     ($currentPage === 'users.php' && $currentPageParam === 'deleteuser')
                 ) {
-                    $isAccessAllowed = $this->canEditUser();
+                    $isAccessAllowed = $this->canManageUser();
                 }
 
                 // If access is not allowed, redirect or deny access
@@ -272,7 +275,7 @@ class PermissionsManager
         }
     }
 
-    private function canEditUser(): bool
+    private function canManageUser(): bool
     {
         $userId = $_GET['user_id'] ?? null;
 
