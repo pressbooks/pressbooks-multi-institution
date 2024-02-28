@@ -5,7 +5,7 @@ use PressbooksMultiInstitution\Actions\InstitutionalManagerDashboard;
 use Tests\TestCase;
 use Tests\Traits\CreatesModels;
 
-class Admin_InstitutionalManagerDashboardTest extends TestCase
+class InstitutionalManagerDashboardTest extends TestCase
 {
     use utilsTrait;
     use CreatesModels;

@@ -317,6 +317,37 @@ class PermissionsManagerTest extends TestCase
         }
     }
 
+    /**
+     * @test
+     */
+    public function it_returns_custom_text_for_users_list(): void
+    {
+        $this->createInstitutionsUsers(2, 10);
+
+        $IMId = $this->setSuperAdminUser();
+        update_network_option(null, 'pressbooks_network_managers', [$IMId]);
+
+        $institution = Institution::query()->first();
+        InstitutionUser::create([
+            'user_id' => $IMId,
+            'institution_id' => $institution->id,
+            'manager' => true,
+        ]);
+
+        $customTextArray = $this->permissionsManager->addCustomTextForUsersList([]);
+
+        $this->assertArrayHasKey('title', $customTextArray);
+        $this->assertArrayHasKey('count', $customTextArray);
+
+        $totalUsers = InstitutionUser::query()->byInstitution($institution->id)->count();
+
+        $this->assertEquals($institution->name . "'s User List", $customTextArray['title']);
+        $this->assertEquals(
+            'There are ' . $totalUsers . ' users assigned to ' . $institution->name . '.',
+            $customTextArray['count']
+        );
+    }
+
     public function tearDown(): void
     {
         InstitutionUser::query()->delete();
