@@ -7,6 +7,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use PressbooksMultiInstitution\Models\EmailDomain;
 use PressbooksMultiInstitution\Models\Institution;
+use PressbooksMultiInstitution\Models\InstitutionUser;
 use PressbooksMultiInstitution\Views\InstitutionsTable;
 use PressbooksMultiInstitution\Support\ConvertEmptyStringsToNull;
 
@@ -48,10 +49,12 @@ class InstitutionsController extends BaseController
 
         $result = $this->save($canUpdateLimits);
 
+        $institution = $this->fetchInstitution();
+
         return $this->renderView('institutions.form', [
             'back_url' => network_admin_url('admin.php?page=pb_multi_institutions'),
             'canUpdateLimits' =>  $canUpdateLimits,
-            'institution' => $this->fetchInstitution(),
+            'institution' => $institution,
             'old' => $result['success'] ? [] : $_POST,
             'result' => $result,
             'users' => get_users([
@@ -61,6 +64,9 @@ class InstitutionsController extends BaseController
                     'email',
                     'name'
                 ],
+                'exclude' => InstitutionUser::query()
+                    ->where('institution_id', '<>', $institution->id)
+                    ->pluck('user_id')->toArray(),
                 'login__not_in' => []
             ]),
         ]);
