@@ -206,7 +206,7 @@ msgstr "Total des articles"
 
 #: resources/views/books/assign.blade.php:14
 msgid "Showing results for:"
-msgstr "Affichage des résultats pour :"
+msgstr "Affichage des résultats pour:"
 
 #: resources/views/books/assign.blade.php:18
 #: resources/views/institutions/index.blade.php:17
