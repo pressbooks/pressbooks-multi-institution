@@ -124,22 +124,24 @@ class PermissionsManager
                 ]
             ];
         });
-        //		add_filter('pb_network_analytics_book_list_filter_tabs_js', function (array $filters) {
-        //			if (! is_super_admin()) {
-        //				return $filters;
-        //			}
-        //
-        //			if (get_institution_by_manager() > 0) {
-        //				return $filters;
-        //			}
-        //
-        //			return [
-        //				[
-        //					'name' => 'tab5',
-        //					'fields' => ['institution'],
-        //				]
-        //			];
-        //		});
+        add_filter('pb_network_analytics_book_list_filter', function (array $filters) {
+            if (! is_super_admin()) {
+                return $filters;
+            }
+
+            if (get_institution_by_manager() > 0) {
+                return $filters;
+            }
+
+            return [
+                ...$filters,
+                [
+                    'field' => 'institution',
+                    'name' => 'institution[]',
+                    'counterId' => 'institution-tab-counter',
+                ]
+            ];
+        });
 
         if ($pagenow == 'settings.php' && isset($_GET['page']) && $_GET['page'] == 'pb_network_managers') {
             add_filter('site_option_site_admins', function ($admins) use ($institutionalManagers) {

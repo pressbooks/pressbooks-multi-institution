@@ -1,4 +1,4 @@
-<div id="institutions-tab" class="table-controls">
+<div id="institution-tab" class="table-controls">
     <fieldset>
         <legend>{{ __('Institution', 'pressbooks-multi-institution') }}</legend>
         <div class="grid-container">
