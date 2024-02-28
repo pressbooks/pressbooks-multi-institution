@@ -14,6 +14,16 @@ class BookList
     {
     }
 
+    public function init(): void
+    {
+        add_filter('pb_network_analytics_book_list_custom_texts', [$this, 'getCustomTexts']);
+        add_filter('pb_network_analytics_book_list_columns', [$this, 'addColumns']);
+        add_filter('pb_network_analytics_book_list_select_clause', [$this, 'appendAdditionalColumnsToQuery']);
+        add_filter('pb_network_analytics_book_list_where_clause', [$this, 'appendAdditionalWhereClausesToQuery']);
+        add_filter('pb_network_analytics_filter_tabs', [$this, 'addFilterTabs']);
+        add_filter('pb_network_analytics_book_list_filter', [$this, 'addFilters']);
+    }
+
     public function addFilterTabs(array $filters): array
     {
         if (! is_super_admin()) {
@@ -55,7 +65,7 @@ class BookList
         ];
     }
 
-    public function addColumn(array $columns): array
+    public function addColumns(array $columns): array
     {
         // TODO: I don't like this approach
         array_splice($columns, 7, 0, [
@@ -96,7 +106,9 @@ class BookList
         return [
             ...$texts,
             'title' => sprintf(
-                __('%s\'s Book List', 'pressbooks-multi-institution'),
+                str_ends_with($institution->name, 's')
+                    ? __('%s\' Book List', 'pressbooks-multi-institution')
+                    : __('%s\'s Book List', 'pressbooks-multi-institution'),
                 $institution->name
             ),
             'count' => sprintf(

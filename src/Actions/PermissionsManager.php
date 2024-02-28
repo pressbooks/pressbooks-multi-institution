@@ -88,12 +88,7 @@ class PermissionsManager
         });
 
         /** Book List */
-        add_filter('pb_network_analytics_book_list_custom_texts', fn (array $texts) => Container::get(BookList::class)->getCustomTexts($texts));
-        add_filter('pb_network_analytics_book_list_columns', fn (array $columns) => Container::get(BookList::class)->addColumn($columns));
-        add_filter('pb_network_analytics_book_list_select_clause', fn () => Container::get(BookList::class)->appendAdditionalColumnsToQuery());
-        add_filter('pb_network_analytics_book_list_where_clause', fn (string $where) => Container::get(BookList::class)->appendAdditionalWhereClausesToQuery($where));
-        add_filter('pb_network_analytics_filter_tabs', fn (array $filters) => Container::get(BookList::class)->addFilterTabs($filters));
-        add_filter('pb_network_analytics_book_list_filter', fn (array $filters) => Container::get(BookList::class)->addFilters($filters));
+        Container::get(BookList::class)->init();
 
         if ($pagenow == 'settings.php' && isset($_GET['page']) && $_GET['page'] == 'pb_network_managers') {
             add_filter('site_option_site_admins', function ($admins) use ($institutionalManagers) {
