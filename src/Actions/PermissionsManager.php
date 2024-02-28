@@ -138,7 +138,7 @@ class PermissionsManager
                 global $pagenow;
 
                 $allowedPages = [
-                    'admin.php' => ['pb_network_analytics_booklist','pb_network_analytics_userlist'],
+                    'admin.php' => ['pb_network_analytics_booklist', 'pb_network_analytics_userlist'],
                     'sites.php' => ['confirm', 'delete', 'pb_network_analytics_booklist', 'pb_network_analytics_userlist', 'pb_network_analytics_admin', 'pb_cloner'],
                     'index.php' => ['', 'book_dashboard', 'pb_institutional_manager', 'pb_home_page', 'pb_catalog'],
                     'tools.php' => ['', 'book_dashboard', 'pb_cloner_stats', 'pressbooks-search-and-replace'],
@@ -187,8 +187,20 @@ class PermissionsManager
                 }
 
                 // Check if user has access to the book even though is not an institution book.
-                if(current_user_can_for_blog($currentBlogId, 'read')) {
+                if (current_user_can_for_blog($currentBlogId, 'read')) {
                     $isAccessAllowed = true;
+                }
+
+                $institutionalUsers = apply_filters('pb_institutional_users', []);
+
+                if ($currentPageParam === 'pb_network_analytics_userlist' || $currentPage === 'users.php' || $currentPage === 'site-users.php') {
+                    if (isset($_GET['user_id']) && !in_array($_GET['user_id'], $institutionalUsers)) {
+                        $isAccessAllowed = false;
+                    }
+
+                    if (isset($_GET['id']) && !in_array($_GET['id'], $institutionalUsers)) {
+                        $isAccessAllowed = false;
+                    }
                 }
 
                 // hack to redirect to the dashboard because the institutional manager check is done after the redirect
