@@ -7,7 +7,6 @@
                     <input name="institution[]" type="checkbox" value="{{ $institution->id }}" /> {{ $institution->name }}
                 </label>
             @endforeach
-
             <label>
                 <input name="institution[]" type="checkbox" value="0" /> {{ __('Unassigned', 'pressbooks-multi-institution') }}
             </label>
