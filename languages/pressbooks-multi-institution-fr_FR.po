@@ -258,7 +258,7 @@ msgstr ""
 
 #: resources/views/institutions/form.blade.php:183
 msgid "Book Limit"
-msgstr "Limite du livre"
+msgstr "Limite de livres"
 
 #: resources/views/institutions/form.blade.php:187
 #: resources/views/institutions/form.blade.php:212
