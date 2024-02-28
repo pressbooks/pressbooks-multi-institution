@@ -7,11 +7,9 @@ use PressbooksMultiInstitution\Actions\AssignBookToInstitution;
 use PressbooksMultiInstitution\Actions\AssignUserToInstitution;
 use PressbooksMultiInstitution\Actions\InstitutionalManagerDashboard;
 use PressbooksMultiInstitution\Controllers\AssignBooksController;
-use PressbooksMultiInstitution\Actions\ManagerPermissions;
+use PressbooksMultiInstitution\Actions\PermissionsManager;
 use PressbooksMultiInstitution\Controllers\InstitutionsController;
 use PressbooksMultiInstitution\Controllers\InstitutionsUsersController;
-
-use function PressbooksMultiInstitution\Support\get_institution_by_manager;
 
 /**
  * Class Bootstrap
@@ -100,27 +98,21 @@ final class Bootstrap
 
     private function registerActions(): void
     {
-        remove_action('login_redirect', '\Pressbooks\Redirect\handle_dashboard_redirect');
-        add_action('login_redirect', function ($redirect_to, $request, $user) {
-            return get_institution_by_manager($user) !== 0 ? admin_url('index.php?page=pb_institutional_manager') : $redirect_to;
-        }, 8, 3);
         add_action('network_admin_menu', [$this, 'registerMenus'], 11);
-        // TODO: register menu at the main site level
         add_action('user_register', fn (int $id) => app(AssignUserToInstitution::class)->handle($id));
         add_action('pb_new_blog', fn () => app(AssignBookToInstitution::class)->handle());
-        add_action('network_admin_menu', fn () => app(ManagerPermissions::class)->handleMenus(), 1000);
-        add_action('admin_menu', fn () => app(ManagerPermissions::class)->handleMenus(), 1000);
-        add_action('init', fn () => app(ManagerPermissions::class)->setupInstitutionalFilters());
+        add_action('network_admin_menu', fn () => app(PermissionsManager::class)->handleMenus(), 1000);
+        add_action('admin_menu', fn () => app(PermissionsManager::class)->handleMenus(), 1000);
+        add_action('init', fn () => app(PermissionsManager::class)->setupInstitutionalFilters());
         add_action(
             'pb_institutional_after_save',
-            fn ($newManagers, $revokedManagers) => app(ManagerPermissions::class)->afterSaveInstitution($newManagers, $revokedManagers),
+            fn ($newManagers, $revokedManagers) => app(PermissionsManager::class)->afterSaveInstitution($newManagers, $revokedManagers),
             10,
             2
         );
         add_action(
             'pb_institutional_filters_created',
-            fn ($institution, $institutionalManagers, $institutionalUsers)
-            => app(ManagerPermissions::class)->handlePagesPermissions($institution, $institutionalManagers, $institutionalUsers),
+            fn ($institution, $institutionalManagers, $institutionalUsers) => app(PermissionsManager::class)->handlePagesPermissions($institution, $institutionalManagers, $institutionalUsers),
             10,
             3
         );
