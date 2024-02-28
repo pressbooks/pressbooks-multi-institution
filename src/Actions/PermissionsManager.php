@@ -92,6 +92,8 @@ class PermissionsManager
 
         add_filter('pb_network_analytics_userslist_filters_event', [$this, 'addInstitutionsFilterAttributesForUsersList']);
 
+        add_filter('pb_network_analytics_userslist_custom_text', [$this, 'addCustomTextForUsersList']);
+
         add_filter('pb_network_analytics_filter_tabs', [$this, 'addInstitutionsFilterTab']);
 
         if ($pagenow == 'settings.php' && isset($_GET['page']) && $_GET['page'] == 'pb_network_managers') {
@@ -110,6 +112,30 @@ class PermissionsManager
             });
         }
         do_action('pb_institutional_filters_created', $institution, $institutionalManagers, $institutionalUsers);
+    }
+
+    public function addCustomTextForUsersList(array $customText): array
+    {
+        $institutionId = get_institution_by_manager();
+        if (! is_super_admin() || $institutionId === 0) {
+            return $customText;
+        }
+
+        $institution = Institution::find($institutionId);
+        $totalUsers = InstitutionUser::query()->byInstitution($institutionId)->count();
+
+        return [
+            'title' => sprintf(__("%s's User List", 'pressbooks-multi-institution'), $institution->name),
+            'count' => sprintf(
+                _n(
+                    'There is %s users assigned to %s',
+                    'There are %s users assigned to %s',
+                    'pressbooks-multi-institution'
+                ),
+                $totalUsers,
+                $institution->name
+            ),
+        ];
     }
 
     public function filterUsersList(): array
