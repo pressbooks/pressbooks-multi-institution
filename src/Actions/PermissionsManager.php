@@ -124,18 +124,6 @@ class PermissionsManager
              * Add filters to restrict access to books and users on the network admin pages
              */
 
-            add_filter('sites_clauses', function ($clauses) use ($allowedBooks) {
-                global $wpdb;
-
-                $clauses['where'] .= " AND {$wpdb->blogs}.blog_id IN (" . implode(',', $allowedBooks) . ")";
-
-                return $clauses;
-            });
-
-            /*
-             * Add filters to restrict access to books and users on the network admin pages
-             */
-
             add_filter('can_edit_network', function ($canEdit) use ($allowedBooks) {
                 if (is_network_admin() && !in_array($_REQUEST['id'], $allowedBooks)) {
                     $canEdit = false;
@@ -196,6 +184,11 @@ class PermissionsManager
 
                 if ($currentBlogId !== 1 && !in_array($currentBlogId, $allowedBooks)) {
                     $isAccessAllowed = false;
+                }
+
+                // Check if user has access to the book even though is not an institution book.
+                if(current_user_can_for_blog($currentBlogId, 'read')) {
+                    $isAccessAllowed = true;
                 }
 
                 // hack to redirect to the dashboard because the institutional manager check is done after the redirect
