@@ -1,5 +1,4 @@
-# Pressbooks Multi Institution
-
+# Pressbooks Shared Network
 **Contributors:** arzola, fdalcin \
 **Tags:** pressbooks, plugin \
 **Requires at least:** 6.4.3 \

@@ -1,7 +1,6 @@
 {
-  "name": "pressbooks-multi-institution",
-  "version": "0.1.0",
-  "description": "",
+  "name": "@pressbooks/pressbooks-multi-institution",
+  "description": "Tools for managing Pressbooks networks shared by multiple institutions",
   "main": "resources/assets/js/pressbooks-multi-institution.js",
   "scripts": {
     "build": "vite build",

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Plugin Name: Pressbooks Multi Institution
- * Plugin URI: https://pressbooks.org
+ * Plugin Name: Pressbooks Shared Network
+ * Plugin URI: https://github.com/pressbooks/pressbooks-multi-institution
  * Description: Tools for managing Pressbooks networks shared by multiple institutions
  * Version: 0.1.0
  * Author: Pressbooks (Book Oven Inc.)
