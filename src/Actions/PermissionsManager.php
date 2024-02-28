@@ -89,7 +89,7 @@ class PermissionsManager
         add_filter('pb_network_analytics_book_list_columns', [$this, 'addInstitutionColumnToBookList']);
         // TODO: implement book count based on institution
         add_filter('pb_network_analytics_total_books_count', fn () => 0);
-        add_filter('pb_network_analytics_book_list_sub_select', function () {
+        add_filter('pb_network_analytics_book_list_sub_query', function () {
             /** @var Manager $db */
             $db = app('db');
 
@@ -97,13 +97,59 @@ class PermissionsManager
                 ->getDatabaseManager()
                 ->getTablePrefix();
 
-            $subSelect = $db
+            $idSubQuery = $db
                 ->table('institutions')
-                ->select('name as institution')
+                ->select('institutions.id')
                 ->join('institutions_blogs', 'institutions.id', '=', 'institutions_blogs.institution_id')
                 ->whereRaw("{$prefix}institutions_blogs.blog_id = b.blog_id");
 
-            return "({$subSelect->toSql()}) as institution";
+            $nameSubQuery = $db
+                ->table('institutions')
+                ->select('institutions.name')
+                ->join('institutions_blogs', 'institutions.id', '=', 'institutions_blogs.institution_id')
+                ->whereRaw("{$prefix}institutions_blogs.blog_id = b.blog_id");
+
+            return "({$idSubQuery->toSql()}) as institution_id, ({$nameSubQuery->toSql()}) as institution";
+        });
+        add_filter('pb_network_analytics_book_list_where_clause', function (string $where) {
+            global $wpdb;
+
+            $institutionIds = array_map(fn (string $value) => (int) $value, $_GET['institution'] ?? []);
+
+            if (! $institutionIds) {
+                return $where;
+            }
+
+            $ids = array_filter($institutionIds, fn (int $value) => $value > 0);
+
+            $unassigned = count($institutionIds) > count($ids);
+
+            $whereIn = null;
+            $whereNull = null;
+
+            if ($ids) {
+                $placeholder = implode(', ', array_fill(0, count($ids), '%d'));
+
+                $whereIn = $wpdb->prepare("institution_id IN ({$placeholder})", $ids);
+            }
+
+            if ($unassigned) {
+                $whereNull = 'institution_id IS NULL';
+            }
+
+            if ($whereIn && $whereNull) {
+                return "{$where} AND ({$whereIn} OR {$whereNull})";
+            }
+
+            if ($whereIn) {
+                return "{$where} AND ({$whereIn})";
+            }
+
+            if ($whereNull) {
+                return "{$where} AND ({$whereNull})";
+            }
+
+            return $where;
         });
         add_filter('pb_network_analytics_filter_tabs', function (array $filters) {
             if (! is_super_admin()) {
