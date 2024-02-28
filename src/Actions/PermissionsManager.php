@@ -5,7 +5,6 @@ namespace PressbooksMultiInstitution\Actions;
 use PressbooksMultiInstitution\Models\Institution;
 use PressbooksMultiInstitution\Models\InstitutionBook;
 use PressbooksMultiInstitution\Models\InstitutionUser;
-use WP_Admin_Bar;
 
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
 use function PressbooksMultiInstitution\Support\get_institution_by_manager;
@@ -340,11 +339,7 @@ class PermissionsManager
         return in_array($userId, $institutionalUsers);
     }
 
-    /**
-     * @param WP_Admin_Bar $wp_admin_bar
-     * @return void
-     */
-    public function modifyAdminBarMenus($wp_admin_bar): void
+    public function modifyAdminBarMenus(\WP_Admin_Bar $wp_admin_bar): void
     {
         $wp_admin_bar->remove_node('pb-administer-appearance');
         $wp_admin_bar->remove_node('pb-administer-pages');
