@@ -20,7 +20,7 @@ class BookList
         add_filter('pb_network_analytics_book_list_columns', [$this, 'addColumns']);
         add_filter('pb_network_analytics_book_list_select_clause', [$this, 'appendAdditionalColumnsToQuery']);
         add_filter('pb_network_analytics_book_list_where_clause', [$this, 'appendAdditionalWhereClausesToQuery']);
-        add_filter('pb_network_analytics_filter_tabs', [$this, 'addFilterTabs']);
+        //        add_filter('pb_network_analytics_filter_tabs', [$this, 'addFilterTabs']);
         add_filter('pb_network_analytics_book_list_filter', [$this, 'addFilters']);
     }
 
@@ -60,7 +60,7 @@ class BookList
             [
                 'field' => 'institution',
                 'name' => 'institution[]',
-                'counterId' => 'institution-tab-counter',
+                'counterId' => 'institutions-tab-counter',
             ]
         ];
     }
