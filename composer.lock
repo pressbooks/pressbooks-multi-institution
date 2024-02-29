@@ -4419,12 +4419,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pressbooks/pressbooks.git",
-                "reference": "0288835c4e30de9bfff16b3a86daeade2e69f948"
+                "reference": "01bf37c26cfe43a25ca2e9ac0154624d0c969da4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pressbooks/pressbooks/zipball/0288835c4e30de9bfff16b3a86daeade2e69f948",
-                "reference": "0288835c4e30de9bfff16b3a86daeade2e69f948",
+                "url": "https://api.github.com/repos/pressbooks/pressbooks/zipball/01bf37c26cfe43a25ca2e9ac0154624d0c969da4",
+                "reference": "01bf37c26cfe43a25ca2e9ac0154624d0c969da4",
                 "shasum": ""
             },
             "require": {
@@ -4502,7 +4502,7 @@
                 "issues": "https://github.com/pressbooks/pressbooks/issues/",
                 "source": "https://github.com/pressbooks/pressbooks/"
             },
-            "time": "2024-02-29T16:23:04+00:00"
+            "time": "2024-02-27T15:49:26+00:00"
         },
         {
             "name": "psr/event-dispatcher",

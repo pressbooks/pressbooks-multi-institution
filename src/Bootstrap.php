@@ -3,6 +3,7 @@
 namespace PressbooksMultiInstitution;
 
 use Kucrut\Vite;
+use Pressbooks\Container;
 use PressbooksMultiInstitution\Actions\AssignBookToInstitution;
 use PressbooksMultiInstitution\Actions\AssignUserToInstitution;
 use PressbooksMultiInstitution\Actions\InstitutionalManagerDashboard;
@@ -10,6 +11,7 @@ use PressbooksMultiInstitution\Controllers\AssignBooksController;
 use PressbooksMultiInstitution\Actions\PermissionsManager;
 use PressbooksMultiInstitution\Controllers\InstitutionsController;
 use PressbooksMultiInstitution\Controllers\InstitutionsUsersController;
+use PressbooksMultiInstitution\Support\BookList;
 
 /**
  * Class Bootstrap
@@ -35,6 +37,8 @@ final class Bootstrap
         $this->registerBlade();
         $this->enqueueScripts();
         $this->loadTranslations();
+
+        Container::getInstance()->singleton(BookList::class, fn () => new BookList(app('db')));
     }
 
     public function registerMenus(): void

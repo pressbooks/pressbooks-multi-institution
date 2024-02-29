@@ -32,6 +32,30 @@ trait CreatesModels
         return $user;
     }
 
+    protected function newSuperAdmin(array $properties = []): int
+    {
+        return tap($this->newUser($properties), function (int $id) {
+            grant_super_admin($id);
+        });
+    }
+
+    protected function newNetworkManager(array $properties = []): int
+    {
+        return tap($this->newSuperAdmin($properties), function (int $id) {
+            update_site_option('pressbooks_network_managers', [$id]);
+        });
+    }
+
+    protected function newInstitutionalManager(Institution $institution, array $properties = []): int
+    {
+        return tap($this->newNetworkManager($properties), function (int $id) use ($institution) {
+            $institution->users()->create([
+                'user_id' => $id,
+                'manager' => true,
+            ]);
+        });
+    }
+
     protected function newBook(array $properties = []): int
     {
         global $wpdb;
@@ -60,7 +84,7 @@ trait CreatesModels
         return $blog;
     }
 
-    public function createInstitution(array $properties): Institution
+    public function createInstitution(array $properties = []): Institution
     {
         return Institution::create([
             'name' => $properties['name'] ?? 'Fake Institution',

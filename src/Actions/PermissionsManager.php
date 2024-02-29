@@ -2,10 +2,12 @@
 
 namespace PressbooksMultiInstitution\Actions;
 
+use Illuminate\Database\Capsule\Manager;
+use Pressbooks\Container;
 use PressbooksMultiInstitution\Models\Institution;
 use PressbooksMultiInstitution\Models\InstitutionBook;
 use PressbooksMultiInstitution\Models\InstitutionUser;
-
+use PressbooksMultiInstitution\Support\BookList;
 use WP_Admin_Bar;
 
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
@@ -83,6 +85,10 @@ class PermissionsManager
         add_filter('pb_institutional_users', function ($users) use ($institutionalUsers) {
             return [...$users, ...array_map('intval', $institutionalUsers)];
         });
+
+        /** Book List */
+        Container::get(BookList::class)->init();
+
         add_filter('pb_institutional_managers', function ($managers) use ($institutionalManagers) {
             return [...$managers, ...array_map('intval', $institutionalManagers)];
         });
