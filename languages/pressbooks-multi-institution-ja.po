@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks Multi Institution 0.1.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-multi-institution/issues\n"
-"POT-Creation-Date: 2024-02-20T15:45:20+00:00\n"
+"POT-Creation-Date: 2024-02-28T18:04:12+00:00\n"
 "PO-Revision-Date: 2024-02-19 22:27+0000\n"
 "Last-Translator: Eduardo Vera, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/pressbooks/teams/9194/ja/)\n"
@@ -21,14 +21,13 @@ msgstr ""
 
 #. Plugin Name of the plugin
 #: pressbooks-multi-institution.php
-msgid "Pressbooks Multi Institution"
-msgstr "Pressbooks Multi Institution"
+msgid "Pressbooks Shared Network"
+msgstr ""
 
 #. Plugin URI of the plugin
-#. Author URI of the plugin
 #: pressbooks-multi-institution.php
-msgid "https://pressbooks.org"
-msgstr "https://pressbooks.org"
+msgid "https://github.com/pressbooks/pressbooks-multi-institution"
+msgstr ""
 
 #. Description of the plugin
 #: pressbooks-multi-institution.php
@@ -39,6 +38,11 @@ msgstr "複数の機関が共有する Pressbooks サイトネットワークを
 #: pressbooks-multi-institution.php
 msgid "Pressbooks (Book Oven Inc.)"
 msgstr "Pressbooks (Book Oven Inc.)"
+
+#. Author URI of the plugin
+#: pressbooks-multi-institution.php
+msgid "https://pressbooks.org"
+msgstr "https://pressbooks.org"
 
 #: pressbooks-multi-institution.php:26
 msgid ""
