@@ -1,35 +1,33 @@
 # Copyright (C) 2024 Pressbooks (Book Oven Inc.)
 # This file is distributed under the GPL v3 or later.
 # Translators:
-# Mich Spieler, 2024
 # Steel Wagstaff <steel@pressbooks.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks Multi Institution 0.1.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-multi-institution/issues\n"
-"POT-Creation-Date: 2024-02-20T15:45:20+00:00\n"
+"POT-Creation-Date: 2024-02-28T18:04:12+00:00\n"
 "PO-Revision-Date: 2024-02-19 22:27+0000\n"
 "Last-Translator: Steel Wagstaff <steel@pressbooks.com>, 2024\n"
-"Language-Team: French (https://app.transifex.com/pressbooks/teams/9194/fr/)\n"
+"Language-Team: French (France) (https://app.transifex.com/pressbooks/teams/9194/fr_FR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
+"Language: fr_FR\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 "X-Domain: pressbooks-multi-institution\n"
 "X-Generator: WP-CLI 2.10.0\n"
 
 #. Plugin Name of the plugin
 #: pressbooks-multi-institution.php
-msgid "Pressbooks Multi Institution"
-msgstr "Pressbooks Multi Institution"
+msgid "Pressbooks Shared Network"
+msgstr ""
 
 #. Plugin URI of the plugin
-#. Author URI of the plugin
 #: pressbooks-multi-institution.php
-msgid "https://pressbooks.org"
-msgstr "https://pressbooks.org"
+msgid "https://github.com/pressbooks/pressbooks-multi-institution"
+msgstr ""
 
 #. Description of the plugin
 #: pressbooks-multi-institution.php
@@ -41,6 +39,11 @@ msgstr ""
 #: pressbooks-multi-institution.php
 msgid "Pressbooks (Book Oven Inc.)"
 msgstr "Pressbooks (Book Oven Inc.)"
+
+#. Author URI of the plugin
+#: pressbooks-multi-institution.php
+msgid "https://pressbooks.org"
+msgstr "https://pressbooks.org"
 
 #: pressbooks-multi-institution.php:26
 msgid ""
@@ -61,7 +64,7 @@ msgstr "Liste des institutions"
 
 #: src/Bootstrap.php:65 src/Bootstrap.php:66
 msgid "Add Institution"
-msgstr "Ajouter institution"
+msgstr "Ajouter Institution"
 
 #: src/Bootstrap.php:76 src/Bootstrap.php:77
 #: resources/views/users/assign.blade.php:8
@@ -75,7 +78,7 @@ msgstr "Assigner des livres"
 
 #: src/Bootstrap.php:120
 msgid "Are you sure you want to delete the selected institutions?"
-msgstr "Voulez-vous vraiment supprimer l'institution sélectionnée ?"
+msgstr "Êtes-vous sûr de vouloir supprimer ceci ?"
 
 #: src/Controllers/AssignBooksController.php:63
 #: src/Controllers/AssignBooksController.php:85
@@ -108,7 +111,7 @@ msgstr "L'institution a été mise à jour."
 
 #: src/Controllers/InstitutionsController.php:188
 msgid "The name field is required."
-msgstr "Le champ \"nom\" est requis."
+msgstr "Le champ nom est requis."
 
 #: src/Controllers/InstitutionsController.php:192
 msgid "The book limit field should be numeric."
@@ -130,9 +133,8 @@ msgid ""
 "%s is already assigned as an institutional manager for %s. They cannot be "
 "assigned to manage two institutions at the same time."
 msgstr ""
-"%s est déjà désigné en tant que gestionnaire institutionnel pour %s. Un "
-"utilisateur ne peut pas être assigné pour gérer deux institutions en même "
-"temps."
+"%s est déjà désigné en tant que gestionnaire institutionnel pour %s. Ils ne "
+"peuvent pas être assignés pour gérer deux institutions en même temps."
 
 #: src/Controllers/InstitutionsUsersController.php:57
 msgid "User updated."
@@ -254,11 +256,12 @@ msgstr ""
 #: resources/views/institutions/form.blade.php:139
 msgid "Enter username or email to find existing user(s)"
 msgstr ""
-"Entrez le l'identifiant ou l'e-mail pour trouver les utilisateurs existants"
+"Entrez le nom d'utilisateur ou l'e-mail pour trouver les utilisateurs "
+"existants"
 
 #: resources/views/institutions/form.blade.php:183
 msgid "Book Limit"
-msgstr "Limite de livres"
+msgstr "Limite du livre"
 
 #: resources/views/institutions/form.blade.php:187
 #: resources/views/institutions/form.blade.php:212
