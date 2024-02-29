@@ -31,4 +31,24 @@ class InstitutionUser extends Model
         // TODO: does this work?
         return $this->belongsTo('WP_User', 'user_id');
     }
+
+    public function institution(): BelongsTo
+    {
+        return $this->belongsTo(Institution::class);
+    }
+
+    public function scopeManagers($query)
+    {
+        return $query->where('manager', true);
+    }
+
+    public function scopeByInstitution($query, $institution_id)
+    {
+        return $query->where('institution_id', $institution_id);
+    }
+
+    public function scopeIsManager($query, $user_id)
+    {
+        return $query->managers()->where('user_id', $user_id);
+    }
 }

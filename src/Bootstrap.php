@@ -3,11 +3,15 @@
 namespace PressbooksMultiInstitution;
 
 use Kucrut\Vite;
+use Pressbooks\Container;
 use PressbooksMultiInstitution\Actions\AssignBookToInstitution;
 use PressbooksMultiInstitution\Actions\AssignUserToInstitution;
+use PressbooksMultiInstitution\Actions\InstitutionalManagerDashboard;
 use PressbooksMultiInstitution\Controllers\AssignBooksController;
+use PressbooksMultiInstitution\Actions\PermissionsManager;
 use PressbooksMultiInstitution\Controllers\InstitutionsController;
 use PressbooksMultiInstitution\Controllers\InstitutionsUsersController;
+use PressbooksMultiInstitution\Support\BookList;
 
 /**
  * Class Bootstrap
@@ -33,6 +37,8 @@ final class Bootstrap
         $this->registerBlade();
         $this->enqueueScripts();
         $this->loadTranslations();
+
+        Container::getInstance()->singleton(BookList::class, fn () => new BookList(app('db')));
     }
 
     public function registerMenus(): void
@@ -97,17 +103,31 @@ final class Bootstrap
     private function registerActions(): void
     {
         add_action('network_admin_menu', [$this, 'registerMenus'], 11);
-        // TODO: register menu at the main site level
-
         add_action('user_register', fn (int $id) => app(AssignUserToInstitution::class)->handle($id));
         add_action('pb_new_blog', fn () => app(AssignBookToInstitution::class)->handle());
+        add_action('network_admin_menu', fn () => app(PermissionsManager::class)->handleMenus(), 1000);
+        add_action('admin_menu', fn () => app(PermissionsManager::class)->handleMenus(), 1000);
+        add_action('init', fn () => app(PermissionsManager::class)->setupInstitutionalFilters());
+        add_action(
+            'pb_institutional_after_save',
+            fn ($newManagers, $revokedManagers) => app(PermissionsManager::class)->afterSaveInstitution($newManagers, $revokedManagers),
+            10,
+            2
+        );
+        add_action(
+            'pb_institutional_filters_created',
+            fn ($institution, $institutionalManagers, $institutionalUsers) => app(PermissionsManager::class)->handlePagesPermissions($institution, $institutionalManagers, $institutionalUsers),
+            10,
+            3
+        );
+        add_action('init', [InstitutionalManagerDashboard::class, 'init']);
     }
 
     private function registerBlade(): void
     {
         app('Blade')->addNamespace(
             'PressbooksMultiInstitution',
-            dirname(__DIR__).'/resources/views'
+            dirname(__DIR__) . '/resources/views'
         );
     }
 
