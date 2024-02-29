@@ -145,6 +145,12 @@ class BookList
     {
         global $wpdb;
 
+        $institutionId = get_institution_by_manager();
+
+        if (is_super_admin() && $institutionId > 0) {
+            return "{$where} AND (institution_id = $institutionId)";
+        }
+
         $institutionIds = array_map(fn (string $value) => (int) $value, $_GET['institution'] ?? []);
 
         if (! $institutionIds) {
