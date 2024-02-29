@@ -335,36 +335,12 @@ class PermissionsManager
                     exit;
                 }
 
-                if (
-                    $currentPage === 'user-edit.php' ||
-                    ($currentPage === 'users.php' && $currentPageParam === 'deleteuser')
-                ) {
-                    $isAccessAllowed = $this->canManageUser();
-                }
-
                 // If access is not allowed, redirect or deny access
                 if (!$isAccessAllowed) {
                     wp_die(__('Sorry, you are not allowed to access this page.', 'pressbooks-multi-institution'), 403);
                 }
             });
         }
-    }
-
-
-    private function canManageUser(): bool
-    {
-        $userId = $_GET['user_id'] ?? null;
-
-        $institution = get_institution_by_manager();
-        if (! $userId || (is_super_admin() && ! $institution)) {
-            return true;
-        }
-        $institutionalUsers = InstitutionUser::query()
-            ->byInstitution($institution)
-            ->pluck('user_id')
-            ->toArray();
-
-        return in_array($userId, $institutionalUsers);
     }
 
     public function modifyAdminBarMenus(\WP_Admin_Bar $wp_admin_bar): void
