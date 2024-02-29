@@ -28,7 +28,7 @@ msgstr "Pressbooks Réseau Partagé"
 #. Plugin URI of the plugin
 #: pressbooks-multi-institution.php
 msgid "https://github.com/pressbooks/pressbooks-multi-institution"
-msgstr ""
+msgstr "https://github.com/pressbooks/pressbooks-multi-institution"
 
 #. Description of the plugin
 #: pressbooks-multi-institution.php
