@@ -84,11 +84,11 @@ msgstr "Non attribué"
 
 #: src/Actions/PermissionsManager.php:353
 msgid "Sorry, you are not allowed to access this page."
-msgstr ""
+msgstr "Désolé, vous n'êtes pas autorisé à accéder à cette page."
 
 #: src/Actions/PermissionsManager.php:365
 msgid "Administer Institution"
-msgstr ""
+msgstr "Administrer Institution"
 
 #: src/Bootstrap.php:49 src/Bootstrap.php:50
 msgid "Institutions"
