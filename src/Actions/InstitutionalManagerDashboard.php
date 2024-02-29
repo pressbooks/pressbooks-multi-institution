@@ -19,10 +19,7 @@ class InstitutionalManagerDashboard extends Dashboard
 
     public function render(): void
     {
-        echo app('Blade')->addNamespace(
-            'PressbooksMultiInstitution',
-            WP_PLUGIN_DIR.'/pressbooks-multi-institution/resources/views'
-        )->render(
+        echo app('Blade')->render(
             'PressbooksMultiInstitution::dashboard.institutional',
             [
               'network_name' => get_bloginfo('name'),
@@ -37,7 +34,7 @@ class InstitutionalManagerDashboard extends Dashboard
 
     protected function shouldRedirect(): bool
     {
-        return 0 !== get_institution_by_manager() && is_main_site();
+        return is_main_site() && 0 !== get_institution_by_manager();
     }
 
     public function getURL(): string
