@@ -39,8 +39,6 @@ class InstitutionalManagerDashboardTest extends TestCase
      */
     public function it_renders_home_page(): void
     {
-        wp_set_current_user($institutionalManagerFromFirstInstitution);
-
         add_action('pb_institution', function () {
             return ['name' => 'Fake First Institution'];
         });

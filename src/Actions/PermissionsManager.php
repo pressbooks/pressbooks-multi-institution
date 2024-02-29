@@ -110,118 +110,119 @@ class PermissionsManager
 
     public function handlePagesPermissions($institution, $institutionalManagers, $institutionalUsers): void
     {
-        if ($institution !== 0) {
+        if ($institution === 0) {
+            return;
+        }
 
-            $allowedBooks = InstitutionBook::query()
-                ->select('blog_id')
-                ->where('institution_id', $institution)
-                ->get()
-                ->map(fn ($book) => $book->blog_id)
-                ->toArray();
+        $allowedBooks = InstitutionBook::query()
+            ->select('blog_id')
+            ->where('institution_id', $institution)
+            ->get()
+            ->map(fn ($book) => $book->blog_id)
+            ->toArray();
 
-            /*
-             * Filter to return IDs of books that belong to the institution
-             */
+        /*
+         * Filter to return IDs of books that belong to the institution
+         */
 
-            add_filter('pb_institutional_books', function ($books) use ($allowedBooks) {
-                return [...$books, ...array_map('intval', $allowedBooks)];
-            });
+        add_filter('pb_institutional_books', function ($books) use ($allowedBooks) {
+            return [...$books, ...array_map('intval', $allowedBooks)];
+        });
 
-            /*
-             * Add filters to restrict access to books and users on the network admin pages
-             */
+        /*
+         * Add filters to restrict access to books and users on the network admin pages
+         */
 
-            add_filter('can_edit_network', function ($canEdit) use ($allowedBooks) {
-                if (is_network_admin() && !in_array($_REQUEST['id'], $allowedBooks)) {
-                    $canEdit = false;
-                }
-                return $canEdit;
-            });
+        add_filter('can_edit_network', function ($canEdit) use ($allowedBooks) {
+            if (is_network_admin() && !in_array($_REQUEST['id'], $allowedBooks)) {
+                $canEdit = false;
+            }
+            return $canEdit;
+        });
 
-            /*
-             * Restrict access to the network admin pages and allow only some pages
-             */
-            add_action('admin_init', function () use ($allowedBooks) {
-                global $pagenow;
+        /*
+         * Restrict access to the network admin pages and allow only some pages
+         */
+        add_action('admin_init', function () use ($allowedBooks) {
+            global $pagenow;
 
-                $allowedPages = [
-                    'admin.php' => ['pb_network_analytics_booklist', 'pb_network_analytics_userlist'],
-                    'sites.php' => ['confirm', 'delete', 'pb_network_analytics_booklist', 'pb_network_analytics_userlist', 'pb_network_analytics_admin', 'pb_cloner'],
-                    'index.php' => ['', 'book_dashboard', 'pb_institutional_manager', 'pb_home_page', 'pb_catalog'],
-                    'tools.php' => ['', 'book_dashboard', 'pb_cloner_stats', 'pressbooks-search-and-replace'],
-                    'users.php',
-                    'admin-ajax.php',
-                    'options-general.php',
-                    'profile.php' => [''],
-                    'post-new.php',
-                    'site-info.php',
-                    'site-users.php',
-                    'site-themes.php',
-                    'site-settings.php',
-                    'edit.php',
-                    'edit-tags.php',
-                    'upload.php',
-                    'post.php',
-                    'themes.php',
-                    'plugins.php',
-                    'media-new.php',
-                    'users.php',
-                    'export-personal-data.php',
-                    'erase-personal-data.php',
-                    'options-privacy.php'
-                ];
+            $allowedPages = [
+                'admin.php' => ['pb_network_analytics_booklist', 'pb_network_analytics_userlist'],
+                'sites.php' => ['confirm', 'delete', 'pb_network_analytics_booklist', 'pb_network_analytics_userlist', 'pb_network_analytics_admin', 'pb_cloner'],
+                'index.php' => ['', 'book_dashboard', 'pb_institutional_manager', 'pb_home_page', 'pb_catalog'],
+                'tools.php',
+                'users.php',
+                'admin-ajax.php',
+                'options-general.php',
+                'profile.php' => [''],
+                'post-new.php',
+                'site-info.php',
+                'site-users.php',
+                'site-themes.php',
+                'site-settings.php',
+                'edit.php',
+                'edit-tags.php',
+                'upload.php',
+                'post.php',
+                'themes.php',
+                'plugins.php',
+                'media-new.php',
+                'users.php',
+                'export-personal-data.php',
+                'erase-personal-data.php',
+                'options-privacy.php'
+            ];
 
-                $currentPage = $pagenow;
-                $currentPageParam = $_GET['page'] ?? '';
-                $currentPageParam = $_GET['action'] ?? $currentPageParam;
-                $isAccessAllowed = false;
+            $currentPage = $pagenow;
+            $currentPageParam = $_GET['page'] ?? '';
+            $currentPageParam = $_GET['action'] ?? $currentPageParam;
+            $isAccessAllowed = false;
 
-                if (empty($allowedPages[$currentPage]) && in_array($currentPage, $allowedPages)) {
+            if (empty($allowedPages[$currentPage]) && in_array($currentPage, $allowedPages)) {
+                $isAccessAllowed = true;
+            }
+
+            $currentBlogId = get_current_blog_id();
+
+            // Check if the current page is in the allowed list and has the allowed query parameter
+            if (array_key_exists($currentPage, $allowedPages)) {
+                if (in_array($currentPageParam, $allowedPages[$currentPage])) {
                     $isAccessAllowed = true;
                 }
+            }
 
-                $currentBlogId = get_current_blog_id();
+            if ($currentBlogId !== 1 && !in_array($currentBlogId, $allowedBooks)) {
+                $isAccessAllowed = false;
+            }
 
-                // Check if the current page is in the allowed list and has the allowed query parameter
-                if (array_key_exists($currentPage, $allowedPages)) {
-                    if (in_array($currentPageParam, $allowedPages[$currentPage])) {
-                        $isAccessAllowed = true;
-                    }
-                }
+            // Check if user has access to the book even though is not an institution book.
+            if (current_user_can_for_blog($currentBlogId, 'read')) {
+                $isAccessAllowed = true;
+            }
 
-                if ($currentBlogId !== 1 && !in_array($currentBlogId, $allowedBooks)) {
+            $institutionalUsers = apply_filters('pb_institutional_users', []);
+
+            if ($currentPageParam === 'pb_network_analytics_userlist' || $currentPage === 'users.php' || $currentPage === 'user-edit.php') {
+                if (isset($_GET['user_id']) && !in_array($_GET['user_id'], $institutionalUsers)) {
                     $isAccessAllowed = false;
                 }
 
-                // Check if user has access to the book even though is not an institution book.
-                if (current_user_can_for_blog($currentBlogId, 'read')) {
-                    $isAccessAllowed = true;
+                if (isset($_GET['id']) && !in_array($_GET['id'], $institutionalUsers)) {
+                    $isAccessAllowed = false;
                 }
+            }
 
-                $institutionalUsers = apply_filters('pb_institutional_users', []);
+            // hack to redirect to the dashboard because the institutional manager check is done after the redirect
+            if ($currentPageParam === 'pb_network_page') {
+                wp_redirect(network_site_url('wp-admin/index.php?page=pb_institutional_manager'));
+                exit;
+            }
 
-                if ($currentPageParam === 'pb_network_analytics_userlist' || $currentPage === 'users.php' || $currentPage === 'user-edit.php') {
-                    if (isset($_GET['user_id']) && !in_array($_GET['user_id'], $institutionalUsers)) {
-                        $isAccessAllowed = false;
-                    }
-
-                    if (isset($_GET['id']) && !in_array($_GET['id'], $institutionalUsers)) {
-                        $isAccessAllowed = false;
-                    }
-                }
-
-                // hack to redirect to the dashboard because the institutional manager check is done after the redirect
-                if ($currentPageParam === 'pb_network_page') {
-                    wp_redirect(network_site_url('wp-admin/index.php?page=pb_institutional_manager'));
-                    exit;
-                }
-
-                // If access is not allowed, redirect or deny access
-                if (!$isAccessAllowed) {
-                    wp_die(__('Sorry, you are not allowed to access this page.', 'pressbooks-multi-institution'), 403);
-                }
-            });
-        }
+            // If access is not allowed, redirect or deny access
+            if (!$isAccessAllowed) {
+                wp_die(__('Sorry, you are not allowed to access this page.', 'pressbooks-multi-institution'), 403);
+            }
+        });
     }
 
     /**
