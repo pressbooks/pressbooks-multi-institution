@@ -6,8 +6,11 @@ use PressbooksMultiInstitution\Models\Institution;
 use PressbooksMultiInstitution\Models\InstitutionBook;
 use PressbooksMultiInstitution\Models\InstitutionUser;
 
+use WP_Admin_Bar;
+
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
 use function PressbooksMultiInstitution\Support\get_institution_by_manager;
+
 use function Pressbooks\Admin\NetworkManagers\_restricted_users;
 
 class PermissionsManager
@@ -121,19 +124,21 @@ class PermissionsManager
             return $customText;
         }
 
-        $institution = Institution::find($institutionId);
-        $totalUsers = InstitutionUser::query()->byInstitution($institutionId)->count();
+        $institution = Institution::query()
+            ->where('id', $institutionId)
+            ->withCount('users')
+            ->first();
 
         return [
             'title' => sprintf(__("%s's User List", 'pressbooks-multi-institution'), $institution->name),
             'count' => sprintf(
                 _n(
-                    'There is %s users assigned to %s.',
+                    'There is %s user assigned to %s.',
                     'There are %s users assigned to %s.',
-                    $totalUsers,
+                    $institution->users_count,
                     'pressbooks-multi-institution'
                 ),
-                $totalUsers,
+                $institution->users_count,
                 $institution->name
             ),
         ];
@@ -343,7 +348,7 @@ class PermissionsManager
         }
     }
 
-    public function modifyAdminBarMenus(\WP_Admin_Bar $wp_admin_bar): void
+    public function modifyAdminBarMenus(WP_Admin_Bar $wp_admin_bar): void
     {
         $wp_admin_bar->remove_node('pb-administer-appearance');
         $wp_admin_bar->remove_node('pb-administer-pages');
