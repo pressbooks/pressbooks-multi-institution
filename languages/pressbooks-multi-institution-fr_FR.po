@@ -277,7 +277,7 @@ msgstr ""
 
 #: resources/views/dashboard/institutional.blade.php:17
 msgid "%s has %s books and %s users. "
-msgstr ""
+msgstr "%s a %s livres et %s utilisateurs."
 
 #: resources/views/dashboard/institutional.blade.php:24
 msgid "Administer"
