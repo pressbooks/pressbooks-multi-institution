@@ -51,7 +51,10 @@ class BookListTest extends TestCase
             'count' => 'There are 0 books owned by Fake Institution. They use 0 B of storage.',
         ];
 
-        $this->assertEquals($expected, apply_filters('pb_network_analytics_book_list_custom_texts', []));
+        $this->assertEquals($expected, apply_filters('pb_network_analytics_book_list_custom_texts', [
+            'title' => 'Book List',
+            'count' => 'There are 5 books on this network. They use 50.46 MB of storage.',
+        ]));
     }
 
     /**
@@ -67,9 +70,15 @@ class BookListTest extends TestCase
 
         Container::get(BookList::class)->init();
 
-        $this->assertEmpty(
-            apply_filters('pb_network_analytics_book_list_custom_texts', [])
-        );
+        $expected = [
+            'title' => 'Book List',
+            'count' => 'There are 5 books on this network. They use 50.46 MB of storage.',
+        ];
+
+        $this->assertEquals($expected, apply_filters('pb_network_analytics_book_list_custom_texts', [
+                'title' => 'Book List',
+                'count' => 'There are 5 books on this network. They use 50.46 MB of storage.',
+        ]));
     }
 
     /**
@@ -85,9 +94,15 @@ class BookListTest extends TestCase
 
         Container::get(BookList::class)->init();
 
-        $this->assertEmpty(
-            apply_filters('pb_network_analytics_book_list_custom_texts', [])
-        );
+        $expected = [
+            'title' => 'Book List',
+            'count' => 'There are 5 books on this network. They use 50.46 MB of storage.',
+        ];
+
+        $this->assertEquals($expected, apply_filters('pb_network_analytics_book_list_custom_texts', [
+                'title' => 'Book List',
+                'count' => 'There are 5 books on this network. They use 50.46 MB of storage.',
+        ]));
     }
 
     /**
