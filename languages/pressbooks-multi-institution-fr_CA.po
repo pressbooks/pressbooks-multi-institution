@@ -2,14 +2,15 @@
 # This file is distributed under the GPL v3 or later.
 # Translators:
 # Mich Spieler, 2024
+# Siri Gauthier, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks Multi Institution 0.1.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-multi-institution/issues\n"
-"POT-Creation-Date: 2024-02-20T15:45:20+00:00\n"
+"POT-Creation-Date: 2024-02-28T18:04:12+00:00\n"
 "PO-Revision-Date: 2024-02-19 22:27+0000\n"
-"Last-Translator: Mich Spieler, 2024\n"
+"Last-Translator: Siri Gauthier, 2024\n"
 "Language-Team: French (Canada) (https://app.transifex.com/pressbooks/teams/9194/fr_CA/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,14 +22,13 @@ msgstr ""
 
 #. Plugin Name of the plugin
 #: pressbooks-multi-institution.php
-msgid "Pressbooks Multi Institution"
-msgstr "Pressbooks multi-institution"
+msgid "Pressbooks Shared Network"
+msgstr "Pressbooks Réseau partagé"
 
 #. Plugin URI of the plugin
-#. Author URI of the plugin
 #: pressbooks-multi-institution.php
-msgid "https://pressbooks.org"
-msgstr "https://pressbooks.org"
+msgid "https://github.com/pressbooks/pressbooks-multi-institution"
+msgstr ""
 
 #. Description of the plugin
 #: pressbooks-multi-institution.php
@@ -40,6 +40,11 @@ msgstr ""
 #: pressbooks-multi-institution.php
 msgid "Pressbooks (Book Oven Inc.)"
 msgstr "Pressbooks (Fournil aux livres Inc.)"
+
+#. Author URI of the plugin
+#: pressbooks-multi-institution.php
+msgid "https://pressbooks.org"
+msgstr "https://pressbooks.org"
 
 #: pressbooks-multi-institution.php:26
 msgid ""
