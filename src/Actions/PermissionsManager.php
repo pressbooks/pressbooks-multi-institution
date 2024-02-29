@@ -5,9 +5,12 @@ namespace PressbooksMultiInstitution\Actions;
 use PressbooksMultiInstitution\Models\Institution;
 use PressbooksMultiInstitution\Models\InstitutionBook;
 use PressbooksMultiInstitution\Models\InstitutionUser;
+
 use WP_Admin_Bar;
 
+use function Pressbooks\Admin\NetworkManagers\is_restricted;
 use function PressbooksMultiInstitution\Support\get_institution_by_manager;
+
 use function Pressbooks\Admin\NetworkManagers\_restricted_users;
 
 class PermissionsManager
@@ -77,12 +80,25 @@ class PermissionsManager
         add_filter('pb_institution', function () use ($institution) {
             return Institution::find($institution)?->toArray() ?? [];
         });
-        add_filter('pb_institutional_managers', function ($managers) use ($institutionalManagers) {
-            return [...$managers, ...array_map('intval', $institutionalManagers)];
-        });
         add_filter('pb_institutional_users', function ($users) use ($institutionalUsers) {
             return [...$users, ...array_map('intval', $institutionalUsers)];
         });
+        add_filter('pb_institutional_managers', function ($managers) use ($institutionalManagers) {
+            return [...$managers, ...array_map('intval', $institutionalManagers)];
+        });
+
+        add_filter('pb_network_analytics_filter_userslist', [$this, 'filterUsersList']);
+
+        add_filter('pb_network_analytics_userslist_columns', [$this, 'addInstitutionColumnToUsersList']);
+
+        add_filter('pb_network_analytics_userslist', [$this, 'addInstitutionFieldToUsers']);
+
+        add_filter('pb_network_analytics_userslist_filters_event', [$this, 'addInstitutionsFilterAttributesForUsersList']);
+
+        add_filter('pb_network_analytics_userslist_custom_text', [$this, 'addCustomTextForUsersList']);
+
+        add_filter('pb_network_analytics_filter_tabs', [$this, 'addInstitutionsFilterTab']);
+
         if ($pagenow == 'settings.php' && isset($_GET['page']) && $_GET['page'] == 'pb_network_managers') {
             add_filter('site_option_site_admins', function ($admins) use ($institutionalManagers) {
                 $adminIds = array_map(function ($login) {
@@ -99,6 +115,121 @@ class PermissionsManager
             });
         }
         do_action('pb_institutional_filters_created', $institution, $institutionalManagers, $institutionalUsers);
+    }
+
+    public function addCustomTextForUsersList(array $customText): array
+    {
+        $institutionId = get_institution_by_manager();
+        if (! is_super_admin() || $institutionId === 0) {
+            return $customText;
+        }
+
+        $institution = Institution::query()
+            ->where('id', $institutionId)
+            ->withCount('users')
+            ->first();
+
+        return [
+            'title' => sprintf(__("%s's User List", 'pressbooks-multi-institution'), $institution->name),
+            'count' => sprintf(
+                _n(
+                    'There is %s user assigned to %s.',
+                    'There are %s users assigned to %s.',
+                    $institution->users_count,
+                    'pressbooks-multi-institution'
+                ),
+                $institution->users_count,
+                $institution->name
+            ),
+        ];
+    }
+
+    public function filterUsersList(): array
+    {
+        $filtered = isset($_GET['institution']) && is_array($_GET['institution']) && count($_GET['institution']) > 0;
+
+        if ($filtered && is_super_admin() && ! get_institution_by_manager()) {
+            $institutionIds = array_map('intval', $_GET['institution']);
+            $userIds = [];
+            if (in_array(0, $institutionIds)) {
+                $wpUsers = get_users([
+                    'fields' => ['ID'],
+                    'exclude' => InstitutionUser::get()->pluck('user_id')->toArray(),
+                ]);
+                $userIds = array_map(fn ($user) => $user->ID, $wpUsers);
+            }
+
+            return array_merge(
+                $userIds,
+                InstitutionUser::query()->whereIn('institution_id', $institutionIds)->pluck('user_id')->toArray()
+            );
+        }
+
+        if (is_super_admin() && !is_restricted()) {
+            return array_map(fn ($user) => $user->ID, get_users());
+        }
+
+        $institutionalUsers = InstitutionUser::query()->byInstitution(get_institution_by_manager())->pluck('user_id')->toArray();
+
+        return array_map('intval', $institutionalUsers);
+    }
+
+    public function addInstitutionsFilterTab(array $filters): array
+    {
+        if (! is_super_admin() || get_institution_by_manager() > 0) {
+            return $filters;
+        }
+
+        return [
+            ...$filters,
+            [
+                'tab' => app('Blade')->render('PressbooksMultiInstitution::partials.filters.institutions.tab'),
+                'content' => app('Blade')->render('PressbooksMultiInstitution::partials.filters.institutions.content', [
+                    'institutions' => Institution::query()->orderBy('name')->get(),
+                ])
+            ]
+        ];
+    }
+
+    public function addInstitutionsFilterAttributesForUsersList(): array
+    {
+        return [
+            [
+                'field' => 'institution',
+                'name' => 'institution[]',
+                'counterId' => 'institutions-tab-counter',
+            ]
+        ];
+    }
+
+    public function addInstitutionColumnToUsersList(array $columns): array
+    {
+        array_splice($columns, 5, 0, [
+            [
+                'title' => __('Institution', 'pressbooks-multi-institution'),
+                'field' => 'institution',
+            ]
+        ]);
+        return $columns;
+    }
+
+    public function addInstitutionFieldToUsers(array $users): array
+    {
+        $institutionUsers = InstitutionUser::query()->with('institution')->get();
+
+        return array_map(function ($user) use ($institutionUsers) {
+            $institutionUser = $institutionUsers->where('user_id', $user->id)->first();
+            $properties = get_object_vars($user);
+            $propertiesBeforeEmail = array_slice($properties, 0, 3, true);
+            $propertiesAfterEmail = array_slice($properties, 3, null, true);
+            $properties = array_merge(
+                $propertiesBeforeEmail,
+                ['institution' => $institutionUser?->institution->name ?? __('Unassigned', 'pressbooks-multi-institution')],
+                $propertiesAfterEmail
+            );
+
+            return (object) $properties;
+        }, $users);
     }
 
     public function handlePagesPermissions($institution, $institutionalManagers, $institutionalUsers): void
@@ -218,11 +349,7 @@ class PermissionsManager
         });
     }
 
-    /**
-     * @param WP_Admin_Bar $wp_admin_bar
-     * @return void
-     */
-    public function modifyAdminBarMenus($wp_admin_bar): void
+    public function modifyAdminBarMenus(WP_Admin_Bar $wp_admin_bar): void
     {
         $wp_admin_bar->remove_node('pb-administer-appearance');
         $wp_admin_bar->remove_node('pb-administer-pages');
