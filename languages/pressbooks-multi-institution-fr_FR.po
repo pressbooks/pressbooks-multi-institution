@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks Multi Institution 0.1.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-multi-institution/issues\n"
-"POT-Creation-Date: 2024-02-28T18:04:12+00:00\n"
+"POT-Creation-Date: 2024-02-29T18:40:14+00:00\n"
 "PO-Revision-Date: 2024-02-19 22:27+0000\n"
 "Last-Translator: Steel Wagstaff <steel@pressbooks.com>, 2024\n"
 "Language-Team: French (France) (https://app.transifex.com/pressbooks/teams/9194/fr_FR/)\n"
@@ -53,30 +53,66 @@ msgstr ""
 "Veuillez exécuter <code>composer install</code> à partir de la racine du "
 "répertoire du plugin."
 
-#: src/Bootstrap.php:43 src/Bootstrap.php:44
+#: src/Actions/PermissionsManager.php:139
+msgid "%s's User List"
+msgstr ""
+
+#: src/Actions/PermissionsManager.php:141
+msgid "There is %s user assigned to %s."
+msgid_plural "There are %s users assigned to %s."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: src/Actions/PermissionsManager.php:215 src/Support/BookList.php:73
+#: src/Views/AssignBooksTable.php:35 src/Views/AssignUsersTable.php:44
+#: resources/views/institutions/form.blade.php:33
+#: resources/views/partials/filters/institutions/content.blade.php:3
+#: resources/views/partials/filters/institutions/tab.blade.php:3
+msgid "Institution"
+msgstr "Institution"
+
+#: src/Actions/PermissionsManager.php:233
+#: src/Traits/OverridesBulkActions.php:14 src/Views/AssignUsersTable.php:70
+#: src/Views/InstitutionsTable.php:226
+#: resources/views/partials/filters/institutions/content.blade.php:14
+#: resources/views/table/book-admins.blade.php:10
+#: resources/views/table/institution.blade.php:1
+msgid "Unassigned"
+msgstr "Non attribué"
+
+#: src/Actions/PermissionsManager.php:353
+msgid "Sorry, you are not allowed to access this page."
+msgstr ""
+
+#: src/Actions/PermissionsManager.php:365
+msgid "Administer Institution"
+msgstr ""
+
+#: src/Bootstrap.php:49 src/Bootstrap.php:50
 msgid "Institutions"
 msgstr "Institutions"
 
-#: src/Bootstrap.php:54 src/Bootstrap.php:55
+#: src/Bootstrap.php:60 src/Bootstrap.php:61
 #: resources/views/institutions/index.blade.php:8
 msgid "Institution List"
 msgstr "Liste des institutions"
 
-#: src/Bootstrap.php:65 src/Bootstrap.php:66
+#: src/Bootstrap.php:71 src/Bootstrap.php:72
 msgid "Add Institution"
 msgstr "Ajouter Institution"
 
-#: src/Bootstrap.php:76 src/Bootstrap.php:77
+#: src/Bootstrap.php:82 src/Bootstrap.php:83
 #: resources/views/users/assign.blade.php:8
 msgid "Assign Users"
 msgstr "Assigner des utilisateurs"
 
-#: src/Bootstrap.php:87 src/Bootstrap.php:88
+#: src/Bootstrap.php:93 src/Bootstrap.php:94
 #: resources/views/books/assign.blade.php:8
 msgid "Assign Books"
 msgstr "Assigner des livres"
 
-#: src/Bootstrap.php:120
+#: src/Bootstrap.php:140
 msgid "Are you sure you want to delete the selected institutions?"
 msgstr "Êtes-vous sûr de vouloir supprimer ceci ?"
 
@@ -93,42 +129,42 @@ msgstr[2] "Livres mis à jour."
 msgid "Institution not found."
 msgstr "Institution non trouvée."
 
-#: src/Controllers/InstitutionsController.php:96
+#: src/Controllers/InstitutionsController.php:102
 msgid "Action completed."
 msgstr "Action terminée."
 
-#: src/Controllers/InstitutionsController.php:123
+#: src/Controllers/InstitutionsController.php:129
 msgid "The form is invalid."
 msgstr "Le formulaire est invalide."
 
-#: src/Controllers/InstitutionsController.php:161
+#: src/Controllers/InstitutionsController.php:170
 msgid "Institution has been added."
 msgstr "L'institution a été ajoutée."
 
-#: src/Controllers/InstitutionsController.php:162
+#: src/Controllers/InstitutionsController.php:171
 msgid "Institution has been updated."
 msgstr "L'institution a été mise à jour."
 
-#: src/Controllers/InstitutionsController.php:188
+#: src/Controllers/InstitutionsController.php:197
 msgid "The name field is required."
 msgstr "Le champ nom est requis."
 
-#: src/Controllers/InstitutionsController.php:192
+#: src/Controllers/InstitutionsController.php:201
 msgid "The book limit field should be numeric."
 msgstr "Le champ de limite du livre doit être numérique."
 
-#: src/Controllers/InstitutionsController.php:196
+#: src/Controllers/InstitutionsController.php:205
 msgid "The user limit field should be numeric."
 msgstr "Le champ de limite de l'utilisateur doit être numérique."
 
-#: src/Controllers/InstitutionsController.php:243
+#: src/Controllers/InstitutionsController.php:252
 msgid ""
 "Email domain %s is already in use with %s. Please use a different address."
 msgstr ""
 "Le domaine de messagerie %s est déjà utilisé avec %s. Veuillez utiliser une "
 "adresse différente."
 
-#: src/Controllers/InstitutionsController.php:276
+#: src/Controllers/InstitutionsController.php:285
 msgid ""
 "%s is already assigned as an institutional manager for %s. They cannot be "
 "assigned to manage two institutions at the same time."
@@ -143,12 +179,17 @@ msgstr[0] "Utilisateur mis à jour."
 msgstr[1] "Utilisateurs mis à jour."
 msgstr[2] "Utilisateurs mis à jour."
 
-#: src/Traits/OverridesBulkActions.php:14 src/Views/AssignUsersTable.php:70
-#: src/Views/InstitutionsTable.php:226
-#: resources/views/table/book-admins.blade.php:10
-#: resources/views/table/institution.blade.php:1
-msgid "Unassigned"
-msgstr "Non attribué"
+#: src/Support/BookList.php:110
+msgid "%s' Book List"
+msgstr ""
+
+#: src/Support/BookList.php:111
+msgid "%s's Book List"
+msgstr ""
+
+#: src/Support/BookList.php:115
+msgid "There are %d books owned by %s. They use %s of storage."
+msgstr ""
 
 #: src/Views/AssignBooksTable.php:33
 msgid "Cover"
@@ -157,11 +198,6 @@ msgstr "Couverture"
 #: src/Views/AssignBooksTable.php:34
 msgid "Title"
 msgstr "Titre"
-
-#: src/Views/AssignBooksTable.php:35 src/Views/AssignUsersTable.php:44
-#: resources/views/institutions/form.blade.php:33
-msgid "Institution"
-msgstr "Institution"
 
 #: src/Views/AssignBooksTable.php:36
 msgid "Book Administrators"
@@ -224,6 +260,82 @@ msgstr "Supprimer tous les filtres"
 #: resources/views/users/assign.blade.php:25
 msgid "Search"
 msgstr "Recherche"
+
+#: resources/views/dashboard/institutional.blade.php:6
+msgid "Institutional Manager Dashboard"
+msgstr ""
+
+#: resources/views/dashboard/institutional.blade.php:8
+msgid "Welcome to"
+msgstr ""
+
+#: resources/views/dashboard/institutional.blade.php:13
+msgid "Visit network homepage"
+msgstr ""
+
+#: resources/views/dashboard/institutional.blade.php:17
+msgid "%s has %s books and %s users. "
+msgstr ""
+
+#: resources/views/dashboard/institutional.blade.php:24
+msgid "Administer"
+msgstr ""
+
+#: resources/views/dashboard/institutional.blade.php:30
+msgid "Administer network art"
+msgstr ""
+
+#: resources/views/dashboard/institutional.blade.php:39
+msgid "View book list"
+msgstr ""
+
+#: resources/views/dashboard/institutional.blade.php:47
+msgid "View user list"
+msgstr ""
+
+#: resources/views/dashboard/institutional.blade.php:56
+msgid "Explore Stats"
+msgstr ""
+
+#: resources/views/dashboard/institutional.blade.php:69
+msgid "Support resources"
+msgstr ""
+
+#: resources/views/dashboard/institutional.blade.php:78
+msgid "Getting started with Pressbooks"
+msgstr ""
+
+#: resources/views/dashboard/institutional.blade.php:81
+msgid "Watch a short video series on how to get started with Pressbooks."
+msgstr ""
+
+#: resources/views/dashboard/institutional.blade.php:89
+msgid "Pressbooks user guide"
+msgstr ""
+
+#: resources/views/dashboard/institutional.blade.php:92
+msgid ""
+"Find help and how-tos for your publishing project in this detailed handbook."
+msgstr ""
+
+#: resources/views/dashboard/institutional.blade.php:100
+msgid "Pressbooks community forum"
+msgstr ""
+
+#: resources/views/dashboard/institutional.blade.php:103
+msgid ""
+"Discuss Pressbooks related questions with other users in our public forum."
+msgstr ""
+
+#: resources/views/dashboard/institutional.blade.php:111
+msgid "Pressbooks training webinars"
+msgstr ""
+
+#: resources/views/dashboard/institutional.blade.php:114
+msgid ""
+"Register for free webinars to learn about Pressbooks features and best "
+"practices."
+msgstr ""
 
 #: resources/views/institutions/form.blade.php:4
 msgid "Success"
