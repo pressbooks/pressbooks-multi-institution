@@ -183,7 +183,7 @@ msgstr[2] "Utilisateurs mis à jour."
 
 #: src/Support/BookList.php:110
 msgid "%s' Book List"
-msgstr ""
+msgstr "Liste de livres de %s"
 
 #: src/Support/BookList.php:111
 msgid "%s's Book List"
