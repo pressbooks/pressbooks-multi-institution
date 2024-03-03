@@ -57,7 +57,7 @@ msgstr "%s のユーザーリスト"
 #: src/Actions/PermissionsManager.php:141
 msgid "There is %s user assigned to %s."
 msgid_plural "There are %s users assigned to %s."
-msgstr[0] ""
+msgstr[0] "%s 人のユーザーは %s に割り当てられた。"
 
 #: src/Actions/PermissionsManager.php:215 src/Support/BookList.php:73
 #: src/Views/AssignBooksTable.php:35 src/Views/AssignUsersTable.php:44
