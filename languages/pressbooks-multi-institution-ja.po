@@ -316,7 +316,7 @@ msgstr "公開フォルムで他のユーザーと Pressbooks に関する質問
 
 #: resources/views/dashboard/institutional.blade.php:111
 msgid "Pressbooks training webinars"
-msgstr ""
+msgstr "Pressbooks トレーニングウェビナー"
 
 #: resources/views/dashboard/institutional.blade.php:114
 msgid ""
