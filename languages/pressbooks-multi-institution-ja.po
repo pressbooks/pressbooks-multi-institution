@@ -270,7 +270,7 @@ msgstr ""
 
 #: resources/views/dashboard/institutional.blade.php:30
 msgid "Administer network art"
-msgstr ""
+msgstr "機関管理の絵"
 
 #: resources/views/dashboard/institutional.blade.php:39
 msgid "View book list"
