@@ -22,12 +22,12 @@ msgstr ""
 #. Plugin Name of the plugin
 #: pressbooks-multi-institution.php
 msgid "Pressbooks Shared Network"
-msgstr ""
+msgstr "Pressbooks Shared Network"
 
 #. Plugin URI of the plugin
 #: pressbooks-multi-institution.php
 msgid "https://github.com/pressbooks/pressbooks-multi-institution"
-msgstr ""
+msgstr "https://github.com/pressbooks/pressbooks-multi-institution"
 
 #. Description of the plugin
 #: pressbooks-multi-institution.php
