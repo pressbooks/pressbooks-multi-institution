@@ -300,7 +300,7 @@ msgstr "Explorar las estadísticas"
 
 #: resources/views/dashboard/institutional.blade.php:69
 msgid "Support resources"
-msgstr ""
+msgstr "Recursos de soporte"
 
 #: resources/views/dashboard/institutional.blade.php:78
 msgid "Getting started with Pressbooks"
