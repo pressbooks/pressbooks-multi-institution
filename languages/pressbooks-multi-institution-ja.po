@@ -266,7 +266,7 @@ msgstr ""
 
 #: resources/views/dashboard/institutional.blade.php:24
 msgid "Administer"
-msgstr ""
+msgstr "管理"
 
 #: resources/views/dashboard/institutional.blade.php:30
 msgid "Administer network art"
