@@ -186,7 +186,7 @@ msgstr "Lista de libros de %s"
 
 #: src/Support/BookList.php:111
 msgid "%s's Book List"
-msgstr ""
+msgstr "Lista de libros de %s"
 
 #: src/Support/BookList.php:115
 msgid "There are %d books owned by %s. They use %s of storage."
