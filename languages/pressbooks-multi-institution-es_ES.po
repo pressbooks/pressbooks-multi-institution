@@ -329,6 +329,8 @@ msgstr "Foro de la comunidad de Pressbooks"
 msgid ""
 "Discuss Pressbooks related questions with other users in our public forum."
 msgstr ""
+"Intercambia preguntas sobre Pressbooks con otros usuarios en nuestro foro "
+"público."
 
 #: resources/views/dashboard/institutional.blade.php:111
 msgid "Pressbooks training webinars"
