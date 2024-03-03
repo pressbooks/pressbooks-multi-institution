@@ -290,7 +290,7 @@ msgstr "サポートリソース"
 
 #: resources/views/dashboard/institutional.blade.php:78
 msgid "Getting started with Pressbooks"
-msgstr ""
+msgstr "Pressbooks を始める"
 
 #: resources/views/dashboard/institutional.blade.php:81
 msgid "Watch a short video series on how to get started with Pressbooks."
