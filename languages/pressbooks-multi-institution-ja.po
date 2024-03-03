@@ -294,7 +294,7 @@ msgstr "Pressbooks を始める"
 
 #: resources/views/dashboard/institutional.blade.php:81
 msgid "Watch a short video series on how to get started with Pressbooks."
-msgstr ""
+msgstr "Pressbooks を始めるについて短いビデオシリーズを表示する。"
 
 #: resources/views/dashboard/institutional.blade.php:89
 msgid "Pressbooks user guide"
