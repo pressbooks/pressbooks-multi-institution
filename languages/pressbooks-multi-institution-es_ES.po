@@ -296,7 +296,7 @@ msgstr "Ver la lista de usuarios"
 
 #: resources/views/dashboard/institutional.blade.php:56
 msgid "Explore Stats"
-msgstr ""
+msgstr "Explorar las estadísticas"
 
 #: resources/views/dashboard/institutional.blade.php:69
 msgid "Support resources"
