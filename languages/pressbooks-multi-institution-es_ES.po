@@ -312,7 +312,7 @@ msgstr "Mira una serie corta de vídeos sobre cómo comenzar con Pressbooks."
 
 #: resources/views/dashboard/institutional.blade.php:89
 msgid "Pressbooks user guide"
-msgstr ""
+msgstr "Guía de usuario de Pressbooks"
 
 #: resources/views/dashboard/institutional.blade.php:92
 msgid ""
