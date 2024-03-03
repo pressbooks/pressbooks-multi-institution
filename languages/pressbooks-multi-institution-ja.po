@@ -274,7 +274,7 @@ msgstr "機関管理の絵"
 
 #: resources/views/dashboard/institutional.blade.php:39
 msgid "View book list"
-msgstr ""
+msgstr "本リストを表示"
 
 #: resources/views/dashboard/institutional.blade.php:47
 msgid "View user list"
