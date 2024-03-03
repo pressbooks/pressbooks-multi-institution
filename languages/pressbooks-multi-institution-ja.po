@@ -307,7 +307,7 @@ msgstr "この詳細なハンドブックに出版プロジェクトのヘルプ
 
 #: resources/views/dashboard/institutional.blade.php:100
 msgid "Pressbooks community forum"
-msgstr ""
+msgstr "Pressbooks のコミュニティフォーラム"
 
 #: resources/views/dashboard/institutional.blade.php:103
 msgid ""
