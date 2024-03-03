@@ -284,7 +284,7 @@ msgstr "Administrar"
 
 #: resources/views/dashboard/institutional.blade.php:30
 msgid "Administer network art"
-msgstr ""
+msgstr "Imagen de administrar la red"
 
 #: resources/views/dashboard/institutional.blade.php:39
 msgid "View book list"
