@@ -268,7 +268,7 @@ msgstr "Escritorio del gestor institucional"
 
 #: resources/views/dashboard/institutional.blade.php:8
 msgid "Welcome to"
-msgstr "Esta es la red"
+msgstr "Te damos la bienvenida a"
 
 #: resources/views/dashboard/institutional.blade.php:13
 msgid "Visit network homepage"
