@@ -278,7 +278,7 @@ msgstr "本リストを表示"
 
 #: resources/views/dashboard/institutional.blade.php:47
 msgid "View user list"
-msgstr ""
+msgstr "ユーザーリストを表示"
 
 #: resources/views/dashboard/institutional.blade.php:56
 msgid "Explore Stats"
