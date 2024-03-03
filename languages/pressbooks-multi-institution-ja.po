@@ -322,7 +322,7 @@ msgstr "Pressbooks トレーニングウェビナー"
 msgid ""
 "Register for free webinars to learn about Pressbooks features and best "
 "practices."
-msgstr ""
+msgstr "Pressbooks の機能とベストプラクティスについて詳しくには無料ウェビナーに登録します。"
 
 #: resources/views/institutions/form.blade.php:4
 msgid "Success"
