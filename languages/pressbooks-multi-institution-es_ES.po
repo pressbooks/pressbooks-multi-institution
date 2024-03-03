@@ -272,7 +272,7 @@ msgstr ""
 
 #: resources/views/dashboard/institutional.blade.php:13
 msgid "Visit network homepage"
-msgstr "Visita la página de inicio de la red"
+msgstr "Visitar la página de inicio de la red"
 
 #: resources/views/dashboard/institutional.blade.php:17
 msgid "%s has %s books and %s users. "
