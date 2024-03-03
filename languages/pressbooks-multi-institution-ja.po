@@ -262,7 +262,7 @@ msgstr "サイトネットワークのホームページを表示"
 
 #: resources/views/dashboard/institutional.blade.php:17
 msgid "%s has %s books and %s users. "
-msgstr ""
+msgstr "%s は %s 冊の本と %s 人のユーザーがいます。"
 
 #: resources/views/dashboard/institutional.blade.php:24
 msgid "Administer"
