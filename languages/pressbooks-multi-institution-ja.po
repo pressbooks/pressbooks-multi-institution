@@ -303,7 +303,7 @@ msgstr "Pressbooks ユーザーガイド"
 #: resources/views/dashboard/institutional.blade.php:92
 msgid ""
 "Find help and how-tos for your publishing project in this detailed handbook."
-msgstr ""
+msgstr "この詳細なハンドブックに出版プロジェクトのヘルプと使い方を検索します。"
 
 #: resources/views/dashboard/institutional.blade.php:100
 msgid "Pressbooks community forum"
