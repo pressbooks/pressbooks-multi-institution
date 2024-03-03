@@ -334,7 +334,7 @@ msgstr ""
 
 #: resources/views/dashboard/institutional.blade.php:111
 msgid "Pressbooks training webinars"
-msgstr ""
+msgstr "Webinarios formativos de Pressbooks"
 
 #: resources/views/dashboard/institutional.blade.php:114
 msgid ""
