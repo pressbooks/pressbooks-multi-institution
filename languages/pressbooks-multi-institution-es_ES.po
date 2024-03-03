@@ -318,6 +318,8 @@ msgstr "Guía de usuario de Pressbooks"
 msgid ""
 "Find help and how-tos for your publishing project in this detailed handbook."
 msgstr ""
+"Encuentra ayuda y guías prácticas para tu proyecto de publicación en este "
+"manual detallado."
 
 #: resources/views/dashboard/institutional.blade.php:100
 msgid "Pressbooks community forum"
