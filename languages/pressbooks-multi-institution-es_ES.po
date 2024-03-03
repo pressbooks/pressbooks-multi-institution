@@ -288,11 +288,11 @@ msgstr "Imagen de administrar la red"
 
 #: resources/views/dashboard/institutional.blade.php:39
 msgid "View book list"
-msgstr ""
+msgstr "Ver la lista de libros"
 
 #: resources/views/dashboard/institutional.blade.php:47
 msgid "View user list"
-msgstr ""
+msgstr "Ver la lista de usuarios"
 
 #: resources/views/dashboard/institutional.blade.php:56
 msgid "Explore Stats"
