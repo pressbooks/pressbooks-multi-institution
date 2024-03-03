@@ -191,6 +191,7 @@ msgstr "Lista de libros de %s"
 #: src/Support/BookList.php:115
 msgid "There are %d books owned by %s. They use %s of storage."
 msgstr ""
+"Hay %d libros que son propiedad de %s. Estos ocupan %s de almacenamiento."
 
 #: src/Views/AssignBooksTable.php:33
 msgid "Cover"
