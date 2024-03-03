@@ -268,7 +268,7 @@ msgstr ""
 
 #: resources/views/dashboard/institutional.blade.php:8
 msgid "Welcome to"
-msgstr ""
+msgstr "Esta es la red"
 
 #: resources/views/dashboard/institutional.blade.php:13
 msgid "Visit network homepage"
