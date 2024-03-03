@@ -304,7 +304,7 @@ msgstr "Recursos de soporte"
 
 #: resources/views/dashboard/institutional.blade.php:78
 msgid "Getting started with Pressbooks"
-msgstr ""
+msgstr "Primeros pasos con Pressbooks"
 
 #: resources/views/dashboard/institutional.blade.php:81
 msgid "Watch a short video series on how to get started with Pressbooks."
