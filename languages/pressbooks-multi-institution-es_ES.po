@@ -84,7 +84,7 @@ msgstr "Sin asignar"
 
 #: src/Actions/PermissionsManager.php:353
 msgid "Sorry, you are not allowed to access this page."
-msgstr "Lo siento, no tienes autorización para acceder a esta página."
+msgstr "Lo siento, no tienes permisos para acceder a esta página."
 
 #: src/Actions/PermissionsManager.php:365
 msgid "Administer Institution"
