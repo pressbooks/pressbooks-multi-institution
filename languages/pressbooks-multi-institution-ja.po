@@ -168,7 +168,7 @@ msgstr[0] "ユーザーは更新しました。"
 
 #: src/Support/BookList.php:110
 msgid "%s' Book List"
-msgstr ""
+msgstr "%s の本リスト"
 
 #: src/Support/BookList.php:111
 msgid "%s's Book List"
