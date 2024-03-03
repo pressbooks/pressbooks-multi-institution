@@ -61,9 +61,9 @@ msgstr "Lista de usuarios de %s"
 #: src/Actions/PermissionsManager.php:141
 msgid "There is %s user assigned to %s."
 msgid_plural "There are %s users assigned to %s."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Hay %s usuario asignado a %s."
+msgstr[1] "Hay %s usuarios asignados a %s."
+msgstr[2] "Hay %s usuarios asignados a %s."
 
 #: src/Actions/PermissionsManager.php:215 src/Support/BookList.php:73
 #: src/Views/AssignBooksTable.php:35 src/Views/AssignUsersTable.php:44
