@@ -56,7 +56,7 @@ msgstr ""
 
 #: src/Actions/PermissionsManager.php:139
 msgid "%s's User List"
-msgstr ""
+msgstr "Lista de usuarios de %s"
 
 #: src/Actions/PermissionsManager.php:141
 msgid "There is %s user assigned to %s."
