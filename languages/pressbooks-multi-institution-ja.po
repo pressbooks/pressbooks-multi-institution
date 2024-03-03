@@ -312,7 +312,7 @@ msgstr "Pressbooks のコミュニティフォーラム"
 #: resources/views/dashboard/institutional.blade.php:103
 msgid ""
 "Discuss Pressbooks related questions with other users in our public forum."
-msgstr ""
+msgstr "公開フォルムで他のユーザーと Pressbooks に関する質問を相談します。"
 
 #: resources/views/dashboard/institutional.blade.php:111
 msgid "Pressbooks training webinars"
