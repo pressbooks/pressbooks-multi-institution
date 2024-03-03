@@ -323,7 +323,7 @@ msgstr ""
 
 #: resources/views/dashboard/institutional.blade.php:100
 msgid "Pressbooks community forum"
-msgstr ""
+msgstr "Foro de la comunidad de Pressbooks"
 
 #: resources/views/dashboard/institutional.blade.php:103
 msgid ""
