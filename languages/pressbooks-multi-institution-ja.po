@@ -52,7 +52,7 @@ msgstr "プラグインディレクトリのルートから <code>composer insta
 
 #: src/Actions/PermissionsManager.php:139
 msgid "%s's User List"
-msgstr ""
+msgstr "%s のユーザーリスト"
 
 #: src/Actions/PermissionsManager.php:141
 msgid "There is %s user assigned to %s."
