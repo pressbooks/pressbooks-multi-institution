@@ -250,7 +250,7 @@ msgstr "検索"
 
 #: resources/views/dashboard/institutional.blade.php:6
 msgid "Institutional Manager Dashboard"
-msgstr ""
+msgstr "機関管理者ダッシュボード"
 
 #: resources/views/dashboard/institutional.blade.php:8
 msgid "Welcome to"
