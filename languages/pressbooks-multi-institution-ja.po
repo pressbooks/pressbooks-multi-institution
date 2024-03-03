@@ -176,7 +176,7 @@ msgstr "%s の本リスト"
 
 #: src/Support/BookList.php:115
 msgid "There are %d books owned by %s. They use %s of storage."
-msgstr ""
+msgstr "%d 冊の本は %s が所有しているものがあります。%s のストレージを使用します。"
 
 #: src/Views/AssignBooksTable.php:33
 msgid "Cover"
