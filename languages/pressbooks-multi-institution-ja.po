@@ -78,7 +78,7 @@ msgstr "未割り当て"
 
 #: src/Actions/PermissionsManager.php:353
 msgid "Sorry, you are not allowed to access this page."
-msgstr ""
+msgstr "このページにアクセスする権限がありません。"
 
 #: src/Actions/PermissionsManager.php:365
 msgid "Administer Institution"
