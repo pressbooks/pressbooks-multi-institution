@@ -71,7 +71,7 @@
 								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-network-guide.png" }}"
 								alt=""
 							/>
-							{{ __('Network manager guide', 'pressbooks-multi-institution' )}}
+							{{ __('Network manager guide', 'pressbooks-multi-institution' ) }}
 						</a>
 						<p>{{ __( 'Learn how to administer your Pressbooks network from our comprehensive how-to guide.', 'pressbooks-multi-institution' ) }}</p>
 					</li>
