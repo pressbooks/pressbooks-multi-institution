@@ -73,7 +73,7 @@
 							/>
 							{{ __('Network manager guide', 'pressbooks-multi-institution' )}}
 						</a>
-						<p>{{ __( 'Learn how to administrator your Pressbooks network from our comprehensive how-to guide.', 'pressbooks-multi-institution' ) }}</p>
+						<p>{{ __( 'Learn how to administer your Pressbooks network from our comprehensive how-to guide.', 'pressbooks-multi-institution' ) }}</p>
 					</li>
 					<li class="resources" id="forum">
 						<a href="https://pressbooks.community" target="_blank">
