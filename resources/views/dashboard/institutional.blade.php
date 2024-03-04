@@ -65,7 +65,7 @@
 			<div class="pb-dashboard-content">
 				<h2>{{ __('Support resources', 'pressbooks-multi-institution') }}</h2>
 				<ul class="horizontal">
-					<li class="resources" id="getting-started">
+					<li class="resources" id="pressbooks-guide">
 						<a href="https://guide.pressbooks.com" target="_blank">
 							<img
 								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-network-guide.png" }}"
@@ -75,7 +75,7 @@
 						</a>
 						<p>{{ __( 'Learn how to administrator your Pressbooks network from our comprehensive how-to guide.', 'pressbooks-multi-institution' ) }}</p>
 					</li>
-					<li class="resources" id="pressbooks-guide">
+					<li class="resources" id="forum">
 						<a href="https://pressbooks.community" target="_blank">
 							<img
 								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-forum.png" }}"
@@ -85,7 +85,7 @@
 						</a>
 						<p>{{ __( 'Discuss issues of interest with other network managers and Pressbooks support staff.', 'pressbooks-multi-institution' ) }}</p>
 					</li>
-					<li class="resources" id="forum">
+					<li class="resources" id="webinars">
 						<a href="https://pressbooks.com/webinars" target="_blank">
 							<img
 								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-spotlight-series.png" }}"
@@ -95,7 +95,7 @@
 						</a>
 						<p>{{ __( 'Become a confident Pressbooks user by attending a free, live webinar.', 'pressbooks-multi-institution' ) }}</p>
 					</li>
-					<li class="resources" id="webinars">
+					<li class="resources" id="contact">
 						<a href="mailto:premiumsupport@pressbooks.com" target="_blank">
 							<img
 								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-contact-support.png" }}"
@@ -103,7 +103,7 @@
 							/>
 							{{ __('Contact Pressbooks Support', 'pressbooks-multi-institution') }}
 						</a>
-						<p>{{ __( 'Email Pressbooks\' Premium Support team to report bugs oor get personalized help.', 'pressbooks-multi-institution' ) }}</p>
+						<p>{{ __( 'Email Pressbooks\' Premium Support team to report bugs or get personalized help.', 'pressbooks-multi-institution' ) }}</p>
 					</li>
 				</ul>
 			</div>
