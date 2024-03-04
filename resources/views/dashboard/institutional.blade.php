@@ -64,47 +64,46 @@
 		<div class="pb-dashboard-panel">
 			<div class="pb-dashboard-content">
 				<h2>{{ __('Support resources', 'pressbooks-multi-institution') }}</h2>
-				{{-- TODO: add link to new YouTube playlist. --}}
 				<ul class="horizontal">
 					<li class="resources" id="getting-started">
-						<a href="https://youtube.com/playlist?list=PLMFmJu3NJhevTbp5XAbdif8OloNhqOw5n" target="_blank">
-							<img
-								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-getting-started.png" }}"
-								alt=""
-							/>
-							{{ __('Getting started with Pressbooks', 'pressbooks-multi-institution' )}}
-						</a>
-						<p>{{ __( 'Watch a short video series on how to get started with Pressbooks.', 'pressbooks-multi-institution' ) }}</p>
-					</li>
-					<li class="resources" id="pressbooks-guide">
 						<a href="https://guide.pressbooks.com" target="_blank">
 							<img
-								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-guide.png" }}"
+								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-network-guide.png" }}"
 								alt=""
 							/>
-							{{ __('Pressbooks user guide', 'pressbooks-multi-institution' )}}
+							{{ __('Network manager guide', 'pressbooks-multi-institution' )}}
 						</a>
-						<p>{{ __( 'Find help and how-tos for your publishing project in this detailed handbook.', 'pressbooks-multi-institution' ) }}</p>
+						<p>{{ __( 'Learn how to administrator your Pressbooks network from our comprehensive how-to guide.', 'pressbooks-multi-institution' ) }}</p>
 					</li>
-					<li class="resources" id="forum">
+					<li class="resources" id="pressbooks-guide">
 						<a href="https://pressbooks.community" target="_blank">
 							<img
 								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-forum.png" }}"
 								alt=""
 							/>
-							{{ __('Pressbooks community forum', 'pressbooks-multi-institution' ) }}
+							{{ __('Pressbooks community forum', 'pressbooks-multi-institution' )}}
 						</a>
-						<p>{{ __( 'Discuss Pressbooks related questions with other users in our public forum.', 'pressbooks-multi-institution' ) }}</p>
+						<p>{{ __( 'Discuss issues of interest with other network managers and Pressbooks support staff.', 'pressbooks-multi-institution' ) }}</p>
 					</li>
-					<li class="resources" id="webinars">
+					<li class="resources" id="forum">
 						<a href="https://pressbooks.com/webinars" target="_blank">
 							<img
-								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-webinars.png" }}"
+								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-spotlight-series.png" }}"
 								alt=""
 							/>
-							{{ __('Pressbooks training webinars', 'pressbooks-multi-institution') }}
+							{{ __('Pressbooks webinars', 'pressbooks-multi-institution' ) }}
 						</a>
-						<p>{{ __( 'Register for free webinars to learn about Pressbooks features and best practices.', 'pressbooks-multi-institution' ) }}</p>
+						<p>{{ __( 'Become a confident Pressbooks user by attending a free, live webinar.', 'pressbooks-multi-institution' ) }}</p>
+					</li>
+					<li class="resources" id="webinars">
+						<a href="mailto:premiumsupport@pressbooks.com" target="_blank">
+							<img
+								src="{{ PB_PLUGIN_URL . "assets/dist/images/pb-contact-support.png" }}"
+								alt=""
+							/>
+							{{ __('Contact Pressbooks Support', 'pressbooks-multi-institution') }}
+						</a>
+						<p>{{ __( 'Email Pressbooks\' Premium Support team to report bugs oor get personalized help.', 'pressbooks-multi-institution' ) }}</p>
 					</li>
 				</ul>
 			</div>
