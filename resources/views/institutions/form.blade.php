@@ -118,96 +118,114 @@
                 </td>
             </tr>
 
-            <tr>
-                <th>
-                    <label id="managers">
-                        {{ __('Institutional Managers', 'pressbooks-multi-institution') }}
-                    </label>
-                    <p id="managers-description" class="description">
-                        {{ __('Enter username or email to find existing user(s)', 'pressbooks-multi-institution') }}
-                    </p>
-                </th>
-                <td>
-                    <pressbooks-multiselect>
-                        <label class="screen-reader-text">Test</label>
-                        <select
-                            id="managers"
-                            name="managers[]"
-                            multiple
-                            aria-labelledby="managers-label"
-                            aria-describedby="managers-description"
-                        >
-                            @foreach($users as $user)
-                                @isset($old['managers'])
-                                    <option
-                                        value="{{ $user->ID }}"
-                                        @if(in_array($user->ID, $old['managers']))
-                                        selected
-                                        @endif
-                                    >
-                                        {{ $user->display_name }} ({{ $user->user_email }})
-                                    </option>
-                                @else
-                                    <option
-                                        value="{{ $user->ID }}"
-                                        @if($institution->managers->contains(fn (object $institutionUser) => $institutionUser->user_id === $user->ID)))
-                                        selected
-                                        @endif
-                                    >
-                                        {{ $user->display_name }} ({{ $user->user_email }})
-                                    </option>
-                                @endisset
-                            @endforeach
-                        </select>
-                    </pressbooks-multiselect>
-                </td>
-            </tr>
+            @if($isSuperAdmin)
+                <tr>
+                    <th>
+                        <label for="allow_institutional_managers">
+                            {{ __('Institutional Managers Allowed', 'pressbooks-multi-institution') }}
+                        </label>
+                    </th>
+                    <td>
+                        <input
+                            name="allow_institutional_managers"
+                            id="allow_institutional_managers"
+                            type="checkbox"
+                            value="1"
+                            @if($institution->allow_institutional_managers)
+                                checked
+                            @endif
+                        />
+                    </td>
+                </tr>
+            @endif
 
-            <tr>
-                <th>
-                    <label for="book_limit">
-                        {{ __('Book Limit', 'pressbooks-multi-institution') }}
-                    </label>
-                    <p class="description">
-                        {{ __('As defined in contract. Contact Pressbooks for adjustments.', 'pressbooks-multi-institution') }}
-                    </p>
-                </th>
-                <td>
-                    <input
-                        name="book_limit"
-                        id="book_limit"
-                        type="number"
-                        min="0"
-                        value="{{ $old['book_limit'] ?? $institution->book_limit }}"
-                        @if(! $canUpdateLimits)
-                            disabled
-                        @endif
-                    />
-                </td>
-            </tr>
+            @if($institution->allow_institutional_managers || $isSuperAdmin)
+                <tr>
+                    <th>
+                        <label id="managers">
+                            {{ __('Institutional Managers', 'pressbooks-multi-institution') }}
+                        </label>
+                        <p id="managers-description" class="description">
+                            {{ __('Enter username or email to find existing user(s)', 'pressbooks-multi-institution') }}
+                        </p>
+                    </th>
+                    <td>
+                        <pressbooks-multiselect>
+                            <label class="screen-reader-text">Test</label>
+                            <select
+                                id="managers"
+                                name="managers[]"
+                                multiple
+                                aria-labelledby="managers-label"
+                                aria-describedby="managers-description"
+                            >
+                                @foreach($users as $user)
+                                    @isset($old['managers'])
+                                        <option
+                                            value="{{ $user->ID }}"
+                                            @if(in_array($user->ID, $old['managers']))
+                                                selected
+                                            @endif
+                                        >
+                                            {{ $user->display_name }} ({{ $user->user_email }})
+                                        </option>
+                                    @else
+                                        <option
+                                            value="{{ $user->ID }}"
+                                            @if($institution->managers->contains(fn (object $institutionUser) => $institutionUser->user_id === $user->ID)))
+                                            selected
+                                            @endif
+                                        >
+                                            {{ $user->display_name }} ({{ $user->user_email }})
+                                        </option>
+                                    @endisset
+                                @endforeach
+                            </select>
+                        </pressbooks-multiselect>
+                    </td>
+                </tr>
+            @endif
 
-            <tr>
-                <th>
-                    <label for="user_limit">
-                        {{ __('User Limit', 'pressbooks-multi-institution') }}
-                    </label>
-                    <p class="description">
-                        {{ __('As defined in contract. Contact Pressbooks for adjustments.', 'pressbooks-multi-institution') }}
-                    </p>
-                </th>
-                <td>
-                    <input
-                        name="user_limit"
-                        id="user_limit"
-                        type="number"
-                        min="0"
-                        value="{{ $old['user_limit'] ?? $institution->user_limit }}"
-                        @if(! $canUpdateLimits)
-                            disabled
-                        @endif
-                    />
-                </td>
-            </tr>
+            @if($isSuperAdmin)
+                <tr>
+                    <th>
+                        <label for="buy_in">
+                            {{ __('Premium Member Buy-in', 'pressbooks-multi-institution') }}
+                        </label>
+                    </th>
+                    <td>
+                        <input
+                            name="buy_in"
+                            id="buy_in"
+                            type="checkbox"
+                            value="1"
+                            @if($institution->buy_in)
+                                checked
+                            @endif
+                        />
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>
+                        <label for="book_limit">
+                            {{ __('Book Limit', 'pressbooks-multi-institution') }}
+                        </label>
+                        <p class="description">
+                            {{ __('As defined in contract. Contact Pressbooks for adjustments.', 'pressbooks-multi-institution') }}
+                        </p>
+                    </th>
+                    <td>
+                        <input
+                            name="book_limit"
+                            id="book_limit"
+                            type="number"
+                            min="0"
+                            value="{{ $old['book_limit'] ?? $institution->book_limit }}"
+                        />
+                    </td>
+                </tr>
+            @endif
         </table>
 
         {!! get_submit_button() !!}

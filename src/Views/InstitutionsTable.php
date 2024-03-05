@@ -193,13 +193,23 @@ class InstitutionsTable extends WP_List_Table
 
         // Extract the data from the Eloquent paginator object
         // TODO: calculate totals using subqueries in the model
-        $this->items = $institutions->map(function ($institution) {
+        $this->items = $institutions->map(function (Institution $institution) {
+            $bookLimit = $institution->books_count;
+
+            if ($institution->book_limit === 0) {
+                $bookLimit .= '/' . __('unlimited', 'pressbooks-multi-institution');
+            }
+
+            if ($institution->book_limit > 0) {
+                $bookLimit .= "/{$institution->book_limit}";
+            }
+
             return [
                 'ID' => $institution->id,
                 'name' => $institution->name,
                 'email_domains' => $institution->email_domains,
                 'institutional_managers' => $institution->institutional_managers,
-                'book_limit' => "{$institution->books_count}/{$institution->book_limit}",
+                'book_limit' => $bookLimit,
                 'users' => $institution->users_count,
             ];
         })->toArray();
