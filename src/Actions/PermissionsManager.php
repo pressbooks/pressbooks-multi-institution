@@ -80,8 +80,9 @@ class PermissionsManager
         $institutionalUsers = InstitutionUser::query()->byInstitution($institution)->pluck('user_id')->toArray();
 
         add_filter('pb_institution', function () use ($institution) {
-            return Institution::find($institution)?->toArray() ?? [];
+            return Institution::find($institution)?->toArray() ?? false;
         });
+
         add_filter('pb_institutional_users', function ($users) use ($institutionalUsers) {
             return [...$users, ...array_map('intval', $institutionalUsers)];
         });
@@ -286,10 +287,6 @@ class PermissionsManager
                 'options-general.php',
                 'profile.php' => [''],
                 'post-new.php',
-                'site-info.php',
-                'site-users.php',
-                'site-themes.php',
-                'site-settings.php',
                 'edit.php',
                 'edit-tags.php',
                 'upload.php',
@@ -301,6 +298,13 @@ class PermissionsManager
                 'export-personal-data.php',
                 'erase-personal-data.php',
                 'options-privacy.php'
+            ];
+
+            $bookPages = [
+                'site-info.php',
+                'site-settings.php',
+                'site-themes.php',
+                'site-users.php',
             ];
 
             $currentPage = $pagenow;
@@ -325,8 +329,10 @@ class PermissionsManager
                 $isAccessAllowed = false;
             }
 
-            // Check if user has access to the book even though is not an institution book.
-            if (current_user_can_for_blog($currentBlogId, 'read')) {
+            // Check if the current page is a book page and if the user has access to it
+            $userBooks = array_slice(array_keys(get_blogs_of_user(get_current_user_id())), 1); // remove the main site
+
+            if (in_array($currentBlogId, $userBooks) && !in_array($currentPage, $bookPages)) {
                 $isAccessAllowed = true;
             }
 
