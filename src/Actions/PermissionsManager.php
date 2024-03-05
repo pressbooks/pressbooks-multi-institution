@@ -278,7 +278,7 @@ class PermissionsManager
             global $pagenow;
 
             $allowedPages = [
-                'admin.php' => ['pb_network_analytics_booklist', 'pb_network_analytics_userlist'],
+                'admin.php' => ['pb_network_analytics_booklist', 'pb_network_analytics_userlist', 'pb_network_analytics_admin', 'pb_cloner'],
                 'sites.php' => ['confirm', 'delete', 'pb_network_analytics_booklist', 'pb_network_analytics_userlist', 'pb_network_analytics_admin', 'pb_cloner'],
                 'index.php' => ['', 'book_dashboard', 'pb_institutional_manager', 'pb_home_page', 'pb_catalog'],
                 'tools.php',
