@@ -1,36 +1,39 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Schema\Builder;
 use PressbooksMultiInstitution\Interfaces\MigrationInterface;
 
 return new class implements MigrationInterface {
     public function up(): void
     {
-        global $wpdb;
+        /** @var Builder $schema */
+        $schema = app('db')->schema();
 
-        $sql = <<<SQL
-CREATE TABLE IF NOT EXISTS {$wpdb->base_prefix}institutions_users (
-    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    user_id BIGINT UNSIGNED NOT NULL,
-    institution_id BIGINT UNSIGNED NOT NULL,
-    manager BOOLEAN NOT NULL DEFAULT FALSE,
-    PRIMARY KEY (id),
-    UNIQUE (user_id, institution_id), -- TODO: make only user id unique
-    FOREIGN KEY (user_id) REFERENCES {$wpdb->users}(ID) ON DELETE CASCADE,
-    FOREIGN KEY (institution_id) REFERENCES {$wpdb->base_prefix}institutions(id) ON DELETE CASCADE
-) {$wpdb->get_charset_collate()}
-SQL;
+        $schema->create('institutions_users', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('institution_id');
+            $table->boolean('manager')->default(false);
 
-        $wpdb->query($sql);
+            $table->foreign('user_id')
+                ->references('ID')
+                ->on('users')
+                ->cascadeOnDelete();
+            $table->foreign('institution_id')
+                ->references('id')
+                ->on('institutions')
+                ->cascadeOnDelete();
+
+            $table->unique(['user_id']);
+        });
     }
 
     public function down(): void
     {
-        global $wpdb;
+        /** @var Builder $schema */
+        $schema = app('db')->schema();
 
-        $sql = <<<SQL
-DROP TABLE IF EXISTS {$wpdb->base_prefix}institutions_users
-SQL;
-
-        $wpdb->query($sql);
+        $schema->dropIfExists('institutions_users');
     }
 };

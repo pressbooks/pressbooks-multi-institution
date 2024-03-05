@@ -1,35 +1,30 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Schema\Builder;
 use PressbooksMultiInstitution\Interfaces\MigrationInterface;
 
 return new class implements MigrationInterface {
     public function up(): void
     {
-        global $wpdb;
+        /** @var Builder $schema */
+        $schema = app('db')->schema();
 
-        $sql = <<<SQL
-CREATE TABLE IF NOT EXISTS {$wpdb->base_prefix}institutions (
-    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL,
-    book_limit INT UNSIGNED NULL,
-    user_limit INT UNSIGNED NULL,
-    created_at datetime NOT NULL,
-    updated_at datetime NOT NULL,
-    PRIMARY KEY (id)
-) {$wpdb->get_charset_collate()}
-SQL;
-
-        $wpdb->query($sql);
+        $schema->create('institutions', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->unsignedInteger('book_limit')->nullable();
+            $table->boolean('allow_institutional_managers')->default(false);
+            $table->boolean('buy_in')->default(false);
+            $table->timestamps();
+        });
     }
 
     public function down(): void
     {
-        global $wpdb;
+        /** @var Builder $schema */
+        $schema = app('db')->schema();
 
-        $sql = <<<SQL
-DROP TABLE IF EXISTS {$wpdb->base_prefix}institutions
-SQL;
-
-        $wpdb->query($sql);
+        $schema->dropIfExists('institutions');
     }
 };

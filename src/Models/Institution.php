@@ -10,7 +10,8 @@ use Illuminate\Support\Carbon;
  * @property int $id
  * @property string $name
  * @property int|null $book_limit
- * @property int|null $user_limit
+ * @property boolean $allow_institutional_managers
+ * @property boolean $buy_in
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
@@ -20,7 +21,8 @@ class Institution extends Model
         'id' => 'integer',
         'name' => 'string',
         'book_limit' => 'integer',
-        'user_limit' => 'integer',
+        'allow_institutional_managers' => 'boolean',
+        'buy_in' => 'boolean',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
@@ -95,7 +97,6 @@ class Institution extends Model
         $search = $request['s'] ?? '';
         $builder = $query->where('name', 'like', "%{$search}%")
             ->orWhere('book_limit', 'like', "%{$search}%")
-            ->orWhere('user_limit', 'like', "%{$search}%")
             ->orWhereHas('domains', function ($query) use ($search) {
                 $query->where('domain', 'like', "%{$search}%");
             })

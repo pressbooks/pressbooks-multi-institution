@@ -23,6 +23,7 @@ class InstitutionsUsersControllerTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
+
         $this->institutionsUsersController = new InstitutionsUsersController;
 
         $this->createInstitutionsUsers(2, 10);
@@ -95,16 +96,5 @@ class InstitutionsUsersControllerTest extends TestCase
 
         $this->assertMatchesRegularExpression('/johndoe9/', $index);
         $this->assertMatchesRegularExpression('/johndoe0/', $index);
-    }
-
-
-    public function tearDown(): void
-    {
-        parent::tearDown();
-        unset($_REQUEST['s'], $_REQUEST['orderby'], $_REQUEST['order']);
-
-        global $wpdb;
-        $wpdb->query("DELETE FROM {$wpdb->usermeta}");
-        $wpdb->query("DELETE FROM {$wpdb->users}");
     }
 }

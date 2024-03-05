@@ -89,7 +89,8 @@ trait CreatesModels
         return Institution::create([
             'name' => $properties['name'] ?? 'Fake Institution',
             'book_limit' => $properties['book_limit'] ?? 10,
-            'user_limit' => $properties['user_limit'] ?? 10,
+            'allow_institutional_managers' => $properties['allow_institutional_managers'] ?? false,
+            'buy_in' => $properties['buy_in'] ?? false,
         ]);
     }
 

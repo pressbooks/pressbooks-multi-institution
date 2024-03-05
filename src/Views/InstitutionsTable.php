@@ -2,6 +2,8 @@
 
 namespace PressbooksMultiInstitution\Views;
 
+use Illuminate\Database\Capsule\Manager;
+use Illuminate\Database\Query\Builder;
 use Pressbooks\DataCollector\Book;
 use PressbooksMultiInstitution\Models\Institution;
 use WP_List_Table;
@@ -109,7 +111,7 @@ class InstitutionsTable extends WP_List_Table
             'email_domains' => __('Email Domains', 'pressbooks-multi-institution'),
             'institutional_managers' => __('Institutional Managers', 'pressbooks-multi-institution'),
             'book_limit' => __('Books', 'pressbooks-multi-institution'),
-            'user_limit' => __('Users', 'pressbooks-multi-institution'),
+            'users' => __('Users', 'pressbooks-multi-institution'),
         ];
     }
 
@@ -118,7 +120,7 @@ class InstitutionsTable extends WP_List_Table
         return [
             'name' => ['name', false],
             'book_limit' => ['book_limit', false],
-            'user_limit' => ['user_limit', false],
+            'users' => ['users', false],
         ];
     }
 
@@ -157,9 +159,9 @@ class InstitutionsTable extends WP_List_Table
      *
      * @return string
      */
-    public function column_user_limit(array $item): string
+    public function column_users(array $item): string
     {
-        return $item['user_limit'];
+        return $item['users'];
     }
 
     /**
@@ -168,7 +170,7 @@ class InstitutionsTable extends WP_List_Table
     public function get_bulk_actions(): array
     {
         return [
-            'delete' => 'Delete',
+            'delete' => __('Delete', 'pressbooks-multi-institution'),
         ];
     }
 
@@ -189,9 +191,6 @@ class InstitutionsTable extends WP_List_Table
         $sortable = $this->get_sortable_columns();
         $this->_column_headers = [$columns, $hidden, $sortable];
 
-        // Total items count
-        $total_items = $institutions->total();
-
         // Extract the data from the Eloquent paginator object
         // TODO: calculate totals using subqueries in the model
         $this->items = $institutions->map(function ($institution) {
@@ -200,24 +199,26 @@ class InstitutionsTable extends WP_List_Table
                 'name' => $institution->name,
                 'email_domains' => $institution->email_domains,
                 'institutional_managers' => $institution->institutional_managers,
-                'book_limit' => "{$institution->books_count}/$institution->book_limit",
-                'user_limit' => "{$institution->users_count}/$institution->user_limit",
+                'book_limit' => "{$institution->books_count}/{$institution->book_limit}",
+                'users' => $institution->users_count,
             ];
         })->toArray();
 
+        /** @var Manager $db */
+        $db = app('db');
+
         // Get total books and users from the database
         $totalBooks = (new Book)->getTotalBooks();
-        $totalUsers = app('db')->table('users')->count();
-        $assigned = app('db')->table('blogs')
-            ->whereIn('blog_id', function ($query) {
-                $query->select('blog_id')->from('institutions_blogs');
-            })
-            ->where('blog_id', '<>', 1) // Exclude the main blog
+        $totalBooksAssigned = $db
+            ->table('blogs')
+            ->whereIn('blog_id', fn (Builder $query) => $query->select('blog_id')->from('institutions_blogs'))
+            ->where('blog_id', '<>', get_main_site_id())
             ->count();
-        $totalUsersAssigned = app('db')->table('users')
-            ->whereIn('ID', function ($query) {
-                $query->select('user_id')->from('institutions_users');
-            })
+
+        $totalUsers = $db->table('users')->count();
+        $totalUsersAssigned = $db
+            ->table('users')
+            ->whereIn('ID', fn ($query) => $query->select('user_id')->from('institutions_users'))
             ->count();
 
         $this->items[] = [
@@ -226,7 +227,7 @@ class InstitutionsTable extends WP_List_Table
             'name' => __('Unassigned', 'pressbooks-multi-institution'),
             'email_domains' => '',
             'institutional_managers' => '',
-            'book_total' => $totalBooks - $assigned,
+            'book_total' => $totalBooks - $totalBooksAssigned,
             'user_total' => $totalUsers - $totalUsersAssigned,
         ];
 
@@ -241,7 +242,7 @@ class InstitutionsTable extends WP_List_Table
         ];
 
         $this->set_pagination_args([
-            'total_items' => $total_items,
+            'total_items' => $institutions->total(),
             'per_page' => $this->paginationSize,
             'total_pages' => $institutions->lastPage(),
         ]);
