@@ -4419,12 +4419,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pressbooks/pressbooks.git",
-                "reference": "01bf37c26cfe43a25ca2e9ac0154624d0c969da4"
+                "reference": "3014f037070b670259970a18bc90a1a2ec08d8dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pressbooks/pressbooks/zipball/01bf37c26cfe43a25ca2e9ac0154624d0c969da4",
-                "reference": "01bf37c26cfe43a25ca2e9ac0154624d0c969da4",
+                "url": "https://api.github.com/repos/pressbooks/pressbooks/zipball/3014f037070b670259970a18bc90a1a2ec08d8dd",
+                "reference": "3014f037070b670259970a18bc90a1a2ec08d8dd",
                 "shasum": ""
             },
             "require": {
@@ -4502,7 +4502,7 @@
                 "issues": "https://github.com/pressbooks/pressbooks/issues/",
                 "source": "https://github.com/pressbooks/pressbooks/"
             },
-            "time": "2024-02-27T15:49:26+00:00"
+            "time": "2024-03-06T01:40:15+00:00"
         },
         {
             "name": "psr/event-dispatcher",
@@ -7631,5 +7631,5 @@
         "php": "^8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }
