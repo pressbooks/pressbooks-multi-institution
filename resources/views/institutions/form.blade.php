@@ -212,7 +212,7 @@
                             {{ __('Book Limit', 'pressbooks-multi-institution') }}
                         </label>
                         <p class="description">
-                            {{ __('As defined in contract. Contact Pressbooks for adjustments.', 'pressbooks-multi-institution') }}
+                            {{ __('For an unlimited institution, enter 0.', 'pressbooks-multi-institution') }}
                         </p>
                     </th>
                     <td>

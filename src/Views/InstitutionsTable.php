@@ -109,7 +109,7 @@ class InstitutionsTable extends WP_List_Table
             'cb' => '<input type="checkbox" />',
             'name' => __('Name', 'pressbooks-multi-institution'),
             'email_domains' => __('Email Domains', 'pressbooks-multi-institution'),
-			'buy_in' => __('Buy-in', 'pressbooks-multi-institution'),
+            'buy_in' => __('Buy-in', 'pressbooks-multi-institution'),
             'institutional_managers' => __('Institutional Managers', 'pressbooks-multi-institution'),
             'book_limit' => __('Books', 'pressbooks-multi-institution'),
             'users' => __('Users', 'pressbooks-multi-institution'),
@@ -135,15 +135,15 @@ class InstitutionsTable extends WP_List_Table
         return $item['email_domains'];
     }
 
-	/**
-	 * @param  array  $item
-	 * @return string
-	 */
-	public function column_buy_in(array $item): string
-	{
-		// TODO: convert this to a checkbox or an icon
-		return $item['buy_in'] ? 'Yes' : 'No';
-	}
+    /**
+     * @param  array  $item
+     * @return string
+     */
+    public function column_buy_in(array $item): string
+    {
+        // TODO: convert this to a checkbox or an icon
+        return $item['buy_in'] ? 'Yes' : 'No';
+    }
 
     /**
      * @param array $item
@@ -219,7 +219,7 @@ class InstitutionsTable extends WP_List_Table
                 'ID' => $institution->id,
                 'name' => $institution->name,
                 'email_domains' => $institution->email_domains,
-				'buy_in' => $institution->buy_in,
+                'buy_in' => $institution->buy_in,
                 'institutional_managers' => $institution->institutional_managers,
                 'book_limit' => $bookLimit,
                 'users' => $institution->users_count,
