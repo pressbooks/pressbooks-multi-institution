@@ -92,6 +92,11 @@ class Institution extends Model
         return $this->hasMany(InstitutionBook::class);
     }
 
+    public function allowsInstitutionalManagers(): bool
+    {
+        return $this->allow_institutional_managers || $this->buy_in;
+    }
+
     public function scopeSearchAndOrder($query, $request)
     {
         $search = $request['s'] ?? '';

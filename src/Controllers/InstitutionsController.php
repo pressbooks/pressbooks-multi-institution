@@ -159,7 +159,7 @@ class InstitutionsController extends BaseController
             array_map(fn (string $domain) => ['domain' => $domain], $domains)
         );
 
-        if ($institution->allow_institutional_managers || $isSuperAdmin) {
+        if ($institution->allowsInstitutionalManagers() || $isSuperAdmin) {
             $institution->syncManagers(
                 array_map(fn (string $id) => (int) $id, $managers),
             );

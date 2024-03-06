@@ -47,11 +47,11 @@
             <tr>
                 <th>
                     <label for="name">
-                        {{ __('Name', 'pressbooks-multi-institution') }}
+                        {{ __('Name', 'pressbooks-multi-institution') }}*
                     </label>
                 </th>
                 <td>
-                    <input name="name" id="name" type="text" value="{{ $old['name'] ?? $institution->name }}" class="regular-text" />
+                    <input name="name" id="name" type="text" value="{{ $old['name'] ?? $institution->name }}" class="regular-text" required />
                 </td>
             </tr>
 
@@ -139,14 +139,14 @@
                 </tr>
             @endif
 
-            @if($institution->allow_institutional_managers || $isSuperAdmin)
+            @if($institution->allowsInstitutionalManagers() || $isSuperAdmin)
                 <tr>
                     <th>
                         <label id="managers">
                             {{ __('Institutional Managers', 'pressbooks-multi-institution') }}
                         </label>
                         <p id="managers-description" class="description">
-                            {{ __('Enter username or email to find existing user(s)', 'pressbooks-multi-institution') }}
+                            {{ __('Enter username or email to find existing user(s). Limit 3.', 'pressbooks-multi-institution') }}
                         </p>
                     </th>
                     <td>
