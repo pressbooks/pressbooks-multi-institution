@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks Multi Institution 0.1.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-multi-institution/issues\n"
-"POT-Creation-Date: 2024-02-29T18:40:14+00:00\n"
+"POT-Creation-Date: 2024-03-06T15:50:55+00:00\n"
 "PO-Revision-Date: 2024-02-19 22:27+0000\n"
 "Last-Translator: Eduardo Vera, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/pressbooks/teams/9194/ja/)\n"
@@ -283,46 +283,6 @@ msgstr "ユーザーリストを表示"
 #: resources/views/dashboard/institutional.blade.php:56
 msgid "Explore Stats"
 msgstr "統計を調べる"
-
-#: resources/views/dashboard/institutional.blade.php:69
-msgid "Support resources"
-msgstr "サポートリソース"
-
-#: resources/views/dashboard/institutional.blade.php:78
-msgid "Getting started with Pressbooks"
-msgstr "Pressbooks を始める"
-
-#: resources/views/dashboard/institutional.blade.php:81
-msgid "Watch a short video series on how to get started with Pressbooks."
-msgstr "Pressbooks を始めるについて短いビデオシリーズを表示する。"
-
-#: resources/views/dashboard/institutional.blade.php:89
-msgid "Pressbooks user guide"
-msgstr "Pressbooks ユーザーガイド"
-
-#: resources/views/dashboard/institutional.blade.php:92
-msgid ""
-"Find help and how-tos for your publishing project in this detailed handbook."
-msgstr "この詳細なハンドブックに出版プロジェクトのヘルプと使い方を検索します。"
-
-#: resources/views/dashboard/institutional.blade.php:100
-msgid "Pressbooks community forum"
-msgstr "Pressbooks のコミュニティフォーラム"
-
-#: resources/views/dashboard/institutional.blade.php:103
-msgid ""
-"Discuss Pressbooks related questions with other users in our public forum."
-msgstr "公開フォルムで他のユーザーと Pressbooks に関する質問を相談します。"
-
-#: resources/views/dashboard/institutional.blade.php:111
-msgid "Pressbooks training webinars"
-msgstr "Pressbooks トレーニングウェビナー"
-
-#: resources/views/dashboard/institutional.blade.php:114
-msgid ""
-"Register for free webinars to learn about Pressbooks features and best "
-"practices."
-msgstr "Pressbooks の機能とベストプラクティスについて詳しくには無料ウェビナーに登録します。"
 
 #: resources/views/institutions/form.blade.php:4
 msgid "Success"
