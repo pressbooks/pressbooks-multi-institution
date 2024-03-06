@@ -109,6 +109,7 @@ class InstitutionsTable extends WP_List_Table
             'cb' => '<input type="checkbox" />',
             'name' => __('Name', 'pressbooks-multi-institution'),
             'email_domains' => __('Email Domains', 'pressbooks-multi-institution'),
+			'buy_in' => __('Buy-in', 'pressbooks-multi-institution'),
             'institutional_managers' => __('Institutional Managers', 'pressbooks-multi-institution'),
             'book_limit' => __('Books', 'pressbooks-multi-institution'),
             'users' => __('Users', 'pressbooks-multi-institution'),
@@ -133,6 +134,16 @@ class InstitutionsTable extends WP_List_Table
     {
         return $item['email_domains'];
     }
+
+	/**
+	 * @param  array  $item
+	 * @return string
+	 */
+	public function column_buy_in(array $item): string
+	{
+		// TODO: convert this to a checkbox or an icon
+		return $item['buy_in'] ? 'Yes' : 'No';
+	}
 
     /**
      * @param array $item
@@ -208,6 +219,7 @@ class InstitutionsTable extends WP_List_Table
                 'ID' => $institution->id,
                 'name' => $institution->name,
                 'email_domains' => $institution->email_domains,
+				'buy_in' => $institution->buy_in,
                 'institutional_managers' => $institution->institutional_managers,
                 'book_limit' => $bookLimit,
                 'users' => $institution->users_count,
@@ -233,20 +245,14 @@ class InstitutionsTable extends WP_List_Table
 
         $this->items[] = [
             'unassigned' => true,
-            'ID' => 'unassigned_items',
             'name' => __('Unassigned', 'pressbooks-multi-institution'),
-            'email_domains' => '',
-            'institutional_managers' => '',
             'book_total' => $totalBooks - $totalBooksAssigned,
             'user_total' => $totalUsers - $totalUsersAssigned,
         ];
 
         $this->items[] = [
             'totals' => true,
-            'ID' => 'total_items',
             'name' => __('Total Items', 'pressbooks-multi-institution'),
-            'email_domains' => '',
-            'institutional_managers' => '',
             'book_total' => $totalBooks,
             'user_total' => $totalUsers,
         ];
@@ -260,7 +266,6 @@ class InstitutionsTable extends WP_List_Table
 
     public function single_row($item): void
     {
-
         if (isset($item['unassigned']) || isset($item['totals'])) {
             echo app('Blade')->render('PressbooksMultiInstitution::institutions.rows.totals', $item);
         } else {
