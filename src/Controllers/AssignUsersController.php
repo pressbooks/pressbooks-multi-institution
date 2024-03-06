@@ -6,7 +6,7 @@ use PressbooksMultiInstitution\Models\Institution;
 use PressbooksMultiInstitution\Models\InstitutionUser;
 use PressbooksMultiInstitution\Views\AssignUsersTable;
 
-class InstitutionsUsersController extends BaseController
+class AssignUsersController extends BaseController
 {
     private AssignUsersTable $table;
 

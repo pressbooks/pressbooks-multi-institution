@@ -10,7 +10,7 @@ use PressbooksMultiInstitution\Actions\InstitutionalManagerDashboard;
 use PressbooksMultiInstitution\Controllers\AssignBooksController;
 use PressbooksMultiInstitution\Actions\PermissionsManager;
 use PressbooksMultiInstitution\Controllers\InstitutionsController;
-use PressbooksMultiInstitution\Controllers\InstitutionsUsersController;
+use PressbooksMultiInstitution\Controllers\AssignUsersController;
 use PressbooksMultiInstitution\Support\BookList;
 
 /**
@@ -84,7 +84,7 @@ final class Bootstrap
             capability: 'manage_network',
             menu_slug: 'pb_multi_institutions_users',
             callback: function () {
-                echo app(InstitutionsUsersController::class)->assign();
+                echo app(AssignUsersController::class)->assign();
             },
         );
 
