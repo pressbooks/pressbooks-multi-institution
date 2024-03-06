@@ -1,21 +1,20 @@
 # Copyright (C) 2024 Pressbooks (Book Oven Inc.)
 # This file is distributed under the GPL v3 or later.
 # Translators:
-# Mich Spieler, 2024
 # Steel Wagstaff <steel@pressbooks.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks Multi Institution 0.1.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-multi-institution/issues\n"
-"POT-Creation-Date: 2024-02-29T18:40:14+00:00\n"
+"POT-Creation-Date: 2024-03-06T15:50:55+00:00\n"
 "PO-Revision-Date: 2024-02-19 22:27+0000\n"
 "Last-Translator: Steel Wagstaff <steel@pressbooks.com>, 2024\n"
-"Language-Team: French (https://app.transifex.com/pressbooks/teams/9194/fr/)\n"
+"Language-Team: French (France) (https://app.transifex.com/pressbooks/teams/9194/fr_FR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
+"Language: fr_FR\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 "X-Domain: pressbooks-multi-institution\n"
 "X-Generator: WP-CLI 2.10.0\n"
@@ -23,12 +22,12 @@ msgstr ""
 #. Plugin Name of the plugin
 #: pressbooks-multi-institution.php
 msgid "Pressbooks Shared Network"
-msgstr "Pressbooks Réseau Partagé"
+msgstr ""
 
 #. Plugin URI of the plugin
 #: pressbooks-multi-institution.php
 msgid "https://github.com/pressbooks/pressbooks-multi-institution"
-msgstr "https://github.com/pressbooks/pressbooks-multi-institution"
+msgstr ""
 
 #. Description of the plugin
 #: pressbooks-multi-institution.php
@@ -56,14 +55,14 @@ msgstr ""
 
 #: src/Actions/PermissionsManager.php:139
 msgid "%s's User List"
-msgstr "Liste des utilisateurs de %s"
+msgstr ""
 
 #: src/Actions/PermissionsManager.php:141
 msgid "There is %s user assigned to %s."
 msgid_plural "There are %s users assigned to %s."
-msgstr[0] "Il y a %s utilisateur assigné à %s."
-msgstr[1] "Il y a %s utilisateurs assignés à %s."
-msgstr[2] "Il y a %s utilisateurs assignés à %s."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 #: src/Actions/PermissionsManager.php:215 src/Support/BookList.php:73
 #: src/Views/AssignBooksTable.php:35 src/Views/AssignUsersTable.php:44
@@ -84,11 +83,11 @@ msgstr "Non attribué"
 
 #: src/Actions/PermissionsManager.php:353
 msgid "Sorry, you are not allowed to access this page."
-msgstr "Désolé, vous n'êtes pas autorisé à accéder à cette page."
+msgstr ""
 
 #: src/Actions/PermissionsManager.php:365
 msgid "Administer Institution"
-msgstr "Administrer Institution"
+msgstr ""
 
 #: src/Bootstrap.php:49 src/Bootstrap.php:50
 msgid "Institutions"
@@ -101,7 +100,7 @@ msgstr "Liste des institutions"
 
 #: src/Bootstrap.php:71 src/Bootstrap.php:72
 msgid "Add Institution"
-msgstr "Ajouter institution"
+msgstr "Ajouter Institution"
 
 #: src/Bootstrap.php:82 src/Bootstrap.php:83
 #: resources/views/users/assign.blade.php:8
@@ -115,7 +114,7 @@ msgstr "Assigner des livres"
 
 #: src/Bootstrap.php:140
 msgid "Are you sure you want to delete the selected institutions?"
-msgstr "Voulez-vous vraiment supprimer l'institution sélectionnée ?"
+msgstr "Êtes-vous sûr de vouloir supprimer ceci ?"
 
 #: src/Controllers/AssignBooksController.php:63
 #: src/Controllers/AssignBooksController.php:85
@@ -148,7 +147,7 @@ msgstr "L'institution a été mise à jour."
 
 #: src/Controllers/InstitutionsController.php:197
 msgid "The name field is required."
-msgstr "Le champ \"nom\" est requis."
+msgstr "Le champ nom est requis."
 
 #: src/Controllers/InstitutionsController.php:201
 msgid "The book limit field should be numeric."
@@ -170,9 +169,8 @@ msgid ""
 "%s is already assigned as an institutional manager for %s. They cannot be "
 "assigned to manage two institutions at the same time."
 msgstr ""
-"%s est déjà désigné en tant que gestionnaire institutionnel pour %s. Un "
-"utilisateur ne peut pas être assigné pour gérer deux institutions en même "
-"temps."
+"%s est déjà désigné en tant que gestionnaire institutionnel pour %s. Ils ne "
+"peuvent pas être assignés pour gérer deux institutions en même temps."
 
 #: src/Controllers/InstitutionsUsersController.php:57
 msgid "User updated."
@@ -183,7 +181,7 @@ msgstr[2] "Utilisateurs mis à jour."
 
 #: src/Support/BookList.php:110
 msgid "%s' Book List"
-msgstr "Liste de livres de %s"
+msgstr ""
 
 #: src/Support/BookList.php:111
 msgid "%s's Book List"
@@ -191,7 +189,7 @@ msgstr ""
 
 #: src/Support/BookList.php:115
 msgid "There are %d books owned by %s. They use %s of storage."
-msgstr "Il y a %d livres possédés par %s. Ils utilisent %s de stockage."
+msgstr ""
 
 #: src/Views/AssignBooksTable.php:33
 msgid "Cover"
@@ -277,7 +275,7 @@ msgstr ""
 
 #: resources/views/dashboard/institutional.blade.php:17
 msgid "%s has %s books and %s users. "
-msgstr "%s a %s livres et %s utilisateurs."
+msgstr ""
 
 #: resources/views/dashboard/institutional.blade.php:24
 msgid "Administer"
@@ -297,46 +295,6 @@ msgstr ""
 
 #: resources/views/dashboard/institutional.blade.php:56
 msgid "Explore Stats"
-msgstr ""
-
-#: resources/views/dashboard/institutional.blade.php:69
-msgid "Support resources"
-msgstr ""
-
-#: resources/views/dashboard/institutional.blade.php:78
-msgid "Getting started with Pressbooks"
-msgstr ""
-
-#: resources/views/dashboard/institutional.blade.php:81
-msgid "Watch a short video series on how to get started with Pressbooks."
-msgstr ""
-
-#: resources/views/dashboard/institutional.blade.php:89
-msgid "Pressbooks user guide"
-msgstr ""
-
-#: resources/views/dashboard/institutional.blade.php:92
-msgid ""
-"Find help and how-tos for your publishing project in this detailed handbook."
-msgstr ""
-
-#: resources/views/dashboard/institutional.blade.php:100
-msgid "Pressbooks community forum"
-msgstr ""
-
-#: resources/views/dashboard/institutional.blade.php:103
-msgid ""
-"Discuss Pressbooks related questions with other users in our public forum."
-msgstr ""
-
-#: resources/views/dashboard/institutional.blade.php:111
-msgid "Pressbooks training webinars"
-msgstr ""
-
-#: resources/views/dashboard/institutional.blade.php:114
-msgid ""
-"Register for free webinars to learn about Pressbooks features and best "
-"practices."
 msgstr ""
 
 #: resources/views/institutions/form.blade.php:4
@@ -370,11 +328,12 @@ msgstr ""
 #: resources/views/institutions/form.blade.php:139
 msgid "Enter username or email to find existing user(s)"
 msgstr ""
-"Entrez le l'identifiant ou l'e-mail pour trouver les utilisateurs existants"
+"Entrez le nom d'utilisateur ou l'e-mail pour trouver les utilisateurs "
+"existants"
 
 #: resources/views/institutions/form.blade.php:183
 msgid "Book Limit"
-msgstr "Limite de livres"
+msgstr "Limite du livre"
 
 #: resources/views/institutions/form.blade.php:187
 #: resources/views/institutions/form.blade.php:212
