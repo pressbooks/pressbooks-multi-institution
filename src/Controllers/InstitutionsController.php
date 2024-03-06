@@ -67,7 +67,6 @@ class InstitutionsController extends BaseController
                 'exclude' => InstitutionUser::query()
                     ->where('institution_id', '<>', $institution->id)
                     ->pluck('user_id')->toArray(),
-                'login__not_in' => []
             ]),
         ]);
     }

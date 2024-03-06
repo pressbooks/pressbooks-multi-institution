@@ -74,11 +74,11 @@ HTML;
     public function it_renders_the_title_column(): void
     {
         $expected = <<<HTML
-<p>
+<div>
     <span style="display: block">Fake Book</span>
 
     <a href="https://fakeinstitution.edu">https://fakeinstitution.edu</a>
-</p>
+</div>
 
 HTML;
 

@@ -34,6 +34,21 @@ class Institution extends Model
         return $this->hasMany(EmailDomain::class);
     }
 
+    public function users(): HasMany
+    {
+        return $this->hasMany(InstitutionUser::class, 'institution_id', 'id');
+    }
+
+    public function managers(): HasMany
+    {
+        return $this->users()->where('manager', true);
+    }
+
+    public function books(): HasMany
+    {
+        return $this->hasMany(InstitutionBook::class);
+    }
+
     public function updateDomains(array $domains): self
     {
         $this->domains()->delete();
@@ -75,21 +90,6 @@ class Institution extends Model
         }
 
         return $this;
-    }
-
-    public function users(): HasMany
-    {
-        return $this->hasMany(InstitutionUser::class, 'institution_id', 'id');
-    }
-
-    public function managers(): HasMany
-    {
-        return $this->users()->where('manager', true);
-    }
-
-    public function books(): HasMany
-    {
-        return $this->hasMany(InstitutionBook::class);
     }
 
     public function allowsInstitutionalManagers(): bool
