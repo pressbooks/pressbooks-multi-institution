@@ -123,28 +123,4 @@ class Institution extends Model
 
         return $builder->orderBy($request['orderby'] ?? 'name', $request['order'] === 'asc' ? 'asc' : 'desc');
     }
-
-    public function getEmailDomainsAttribute(): string
-    {
-        // TODO: rethink this
-        return $this->render('domains', ['domains' => $this->domains->pluck('domain')]);
-    }
-
-    public function getInstitutionalManagersAttribute(): string
-    {
-        // TODO: rethink this
-        return app('db')
-            ->table('institutions_users')
-            ->join('users', 'institutions_users.user_id', '=', 'users.ID')
-            ->where('institution_id', $this->id)
-            ->orderBy('users.display_name')
-            ->where('manager', 1)->get()->map(function ($manager) {
-                return $this->render('managers', ['manager' => $manager]);
-            })->implode('');
-    }
-
-    private function render(string $view, array $data = []): string
-    {
-        return app('Blade')->render("PressbooksMultiInstitution::institutions.{$view}", $data);
-    }
 }

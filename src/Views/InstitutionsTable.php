@@ -3,6 +3,7 @@
 namespace PressbooksMultiInstitution\Views;
 
 use Illuminate\Database\Capsule\Manager;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Query\Builder;
 use Pressbooks\DataCollector\Book;
 use PressbooksMultiInstitution\Models\Institution;
@@ -87,11 +88,6 @@ class InstitutionsTable extends WP_List_Table
         );
     }
 
-    /**
-     * @param array $item
-     *
-     * @return string
-     */
     public function column_cb($item): string
     {
         return app('Blade')->render('PressbooksMultiInstitution::table.checkbox', [
@@ -100,9 +96,6 @@ class InstitutionsTable extends WP_List_Table
         ]);
     }
 
-    /**
-     * @return array
-     */
     public function get_columns(): array
     {
         return [
@@ -125,59 +118,35 @@ class InstitutionsTable extends WP_List_Table
         ];
     }
 
-    /**
-     * @param array $item
-     *
-     * @return string
-     */
     public function column_email_domains(array $item): string
     {
-        return $item['email_domains'];
+        return app('Blade')->render('PressbooksMultiInstitution::table.email-domains', [
+            'domains' => $item['email_domains'],
+        ]);
     }
 
-    /**
-     * @param  array  $item
-     * @return string
-     */
     public function column_buy_in(array $item): string
     {
-        // TODO: convert this to a checkbox or an icon
-        return $item['buy_in'] ? 'Yes' : 'No';
+        return $item['buy_in'] ? '✅' : '❌';
     }
 
-    /**
-     * @param array $item
-     *
-     * @return string
-     */
     public function column_institutional_managers(array $item): string
     {
-        return $item['institutional_managers'];
+        return app('Blade')->render('PressbooksMultiInstitution::table.institutional-managers', [
+            'managers' => $item['managers'],
+        ]);
     }
 
-    /**
-     * @param array $item
-     *
-     * @return string
-     */
     public function column_book_limit(array $item): string
     {
         return $item['book_limit'];
     }
 
-    /**
-     * @param array $item
-     *
-     * @return string
-     */
     public function column_users(array $item): string
     {
         return $item['users'];
     }
 
-    /**
-     * @return array
-     */
     public function get_bulk_actions(): array
     {
         return [
@@ -185,14 +154,19 @@ class InstitutionsTable extends WP_List_Table
         ];
     }
 
-    /**
-     * Prepares the list of items for displaying.
-     */
     public function prepare_items(): void
     {
         // Retrieve the paginated data using Eloquent
         $institutions = Institution::query()
             ->withCount('books', 'users')
+            ->with([
+                'domains',
+                'managers' => function (HasMany $query) {
+                    $query
+                        ->join('users', 'institutions_users.user_id', '=', 'users.ID')
+                        ->orderBy('users.display_name');
+                },
+            ])
             ->searchAndOrder($_REQUEST)
             ->paginate($this->paginationSize, ['*'], 'paged', $this->get_pagenum());
 
@@ -218,9 +192,9 @@ class InstitutionsTable extends WP_List_Table
             return [
                 'ID' => $institution->id,
                 'name' => $institution->name,
-                'email_domains' => $institution->email_domains,
+                'email_domains' => $institution->domains,
                 'buy_in' => $institution->buy_in,
-                'institutional_managers' => $institution->institutional_managers,
+                'managers' => $institution->managers,
                 'book_limit' => $bookLimit,
                 'users' => $institution->users_count,
             ];
