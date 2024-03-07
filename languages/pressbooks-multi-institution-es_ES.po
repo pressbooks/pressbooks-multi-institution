@@ -48,7 +48,7 @@ msgstr "https://pressbooks.org"
 
 #: pressbooks-multi-institution.php:25
 msgid "Missing dependencies"
-msgstr ""
+msgstr "Hay dependencias faltantes"
 
 #: pressbooks-multi-institution.php:26
 msgid ""
