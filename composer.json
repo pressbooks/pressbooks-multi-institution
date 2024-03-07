@@ -29,9 +29,9 @@
     "psr-4": {
       "PressbooksMultiInstitution\\": "src/"
     },
-    "files": [
-      "src/Support/helpers.php"
-    ]
+		"files": [
+			"src/Support/helpers.php"
+		]
   },
   "autoload-dev": {
     "psr-4": {

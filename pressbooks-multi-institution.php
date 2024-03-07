@@ -22,7 +22,7 @@ if (!class_exists('Pressbooks\Book')) {
     if (file_exists(__DIR__ . '/vendor/autoload.php')) {
         require_once __DIR__ . '/vendor/autoload.php';
     } else {
-        $title = __('Missing dependencies', 'PressbooksMultiInstitution');
+        $title = __('Missing dependencies', 'pressbooks-multi-institution');
         $body = __(
             'Please run <code>composer install</code> from the root of the plugin directory.',
             'pressbooks-multi-institution'
