@@ -23,8 +23,8 @@ class PermissionsManager
     public function handleMenus(): void
     {
         global $menu, $submenu;
-        // Remove the Home page from the books menu
-        if (!is_main_site()) {
+        // Remove the Home page from the books menu and root site
+        if (!is_main_site() || !is_super_admin()) {
             unset($submenu['index.php'][0]);
         }
         if (get_institution_by_manager() !== 0) {

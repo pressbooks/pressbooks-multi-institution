@@ -18,7 +18,7 @@ use PressbooksMultiInstitution\Bootstrap;
 use PressbooksMultiInstitution\Database\Migration;
 
 // TODO: Check if this is the best way to check for Pressbooks.
-if (!class_exists('Pressbooks\Book')) {
+if (!class_exists('PressbooksMultiInstitution\Bootstrap')) {
     if (file_exists(__DIR__ . '/vendor/autoload.php')) {
         require_once __DIR__ . '/vendor/autoload.php';
     } else {
