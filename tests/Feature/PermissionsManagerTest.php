@@ -6,10 +6,12 @@ use PressbooksMultiInstitution\Actions\PermissionsManager;
 use PressbooksMultiInstitution\Models\Institution;
 use Tests\TestCase;
 use Tests\Traits\CreatesModels;
+use Tests\Traits\Utils;
 
 class PermissionsManagerTest extends TestCase
 {
     use CreatesModels;
+    use Utils;
     /**
      * @group pressbooks-multi-institution
      * @test

@@ -28,15 +28,15 @@
   "autoload": {
     "psr-4": {
       "PressbooksMultiInstitution\\": "src/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Tests\\": "tests/"
     },
 		"files": [
 			"src/Support/helpers.php"
 		]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
   },
   "require": {
     "php": "^8.1",

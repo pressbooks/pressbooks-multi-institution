@@ -9,11 +9,13 @@ use PressbooksMultiInstitution\Models\Institution;
 use Tests\TestCase;
 use Tests\Traits\Assertions;
 use Tests\Traits\CreatesModels;
+use Tests\Traits\Utils;
 
 class AssignBookToInstitutionTest extends TestCase
 {
     use Assertions;
     use CreatesModels;
+    use Utils;
 
     /**
      * @test
