@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks Multi Institution 0.1.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-multi-institution/issues\n"
-"POT-Creation-Date: 2024-03-06T15:50:55+00:00\n"
+"POT-Creation-Date: 2024-03-07T15:33:17+00:00\n"
 "PO-Revision-Date: 2024-02-19 22:27+0000\n"
 "Last-Translator: Eduardo Vera, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/pressbooks/teams/9194/es/)\n"
@@ -46,6 +46,10 @@ msgstr "Pressbooks (Book Oven Inc.)"
 msgid "https://pressbooks.org"
 msgstr "https://pressbooks.org"
 
+#: pressbooks-multi-institution.php:25
+msgid "Missing dependencies"
+msgstr ""
+
 #: pressbooks-multi-institution.php:26
 msgid ""
 "Please run <code>composer install</code> from the root of the plugin "
@@ -54,18 +58,18 @@ msgstr ""
 "Ejecuta <code>composer install</code> desde la raíz del directorio del "
 "plugin."
 
-#: src/Actions/PermissionsManager.php:139
+#: src/Actions/PermissionsManager.php:140
 msgid "%s's User List"
 msgstr "Lista de usuarios de %s"
 
-#: src/Actions/PermissionsManager.php:141
+#: src/Actions/PermissionsManager.php:142
 msgid "There is %s user assigned to %s."
 msgid_plural "There are %s users assigned to %s."
 msgstr[0] "Hay %s usuario asignado a %s."
 msgstr[1] "Hay %s usuarios asignados a %s."
 msgstr[2] "Hay %s usuarios asignados a %s."
 
-#: src/Actions/PermissionsManager.php:215 src/Support/BookList.php:73
+#: src/Actions/PermissionsManager.php:216 src/Support/BookList.php:73
 #: src/Views/AssignBooksTable.php:35 src/Views/AssignUsersTable.php:44
 #: resources/views/institutions/form.blade.php:33
 #: resources/views/partials/filters/institutions/content.blade.php:3
@@ -73,7 +77,7 @@ msgstr[2] "Hay %s usuarios asignados a %s."
 msgid "Institution"
 msgstr "Institución"
 
-#: src/Actions/PermissionsManager.php:233
+#: src/Actions/PermissionsManager.php:234
 #: src/Traits/OverridesBulkActions.php:14 src/Views/AssignUsersTable.php:70
 #: src/Views/InstitutionsTable.php:226
 #: resources/views/partials/filters/institutions/content.blade.php:14
@@ -82,11 +86,11 @@ msgstr "Institución"
 msgid "Unassigned"
 msgstr "Sin asignar"
 
-#: src/Actions/PermissionsManager.php:353
+#: src/Actions/PermissionsManager.php:359
 msgid "Sorry, you are not allowed to access this page."
 msgstr "Lo siento, no tienes permisos para acceder a esta página."
 
-#: src/Actions/PermissionsManager.php:365
+#: src/Actions/PermissionsManager.php:371
 msgid "Administer Institution"
 msgstr "Administrar institución"
 
