@@ -122,7 +122,7 @@ final class Bootstrap
             3
         );
         add_action('init', [InstitutionalManagerDashboard::class, 'init']);
-		add_action('init', fn () => app(NetworkStatsService::class)->setupHooks());
+        add_action('init', fn () => app(NetworkStatsService::class)->setupHooks());
     }
 
     private function registerBlade(): void
