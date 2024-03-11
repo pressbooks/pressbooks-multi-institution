@@ -139,52 +139,54 @@
                 </tr>
             @endif
 
-            @if($institution->allowsInstitutionalManagers() || $isSuperAdmin)
-                <tr>
-                    <th>
-                        <label id="managers">
-                            {{ __('Institutional Managers', 'pressbooks-multi-institution') }}
-                        </label>
-                        <p id="managers-description" class="description">
-                            {{ __('Enter username or email to find existing user(s). Limit 3.', 'pressbooks-multi-institution') }}
-                        </p>
-                    </th>
-                    <td>
-                        <pressbooks-multiselect>
-                            <label class="screen-reader-text">Test</label>
-                            <select
-                                id="managers"
-                                name="managers[]"
-                                multiple
-                                aria-labelledby="managers-label"
-                                aria-describedby="managers-description"
-                            >
-                                @foreach($users as $user)
-                                    @isset($old['managers'])
-                                        <option
-                                            value="{{ $user->ID }}"
-                                            @if(in_array($user->ID, $old['managers']))
-                                                selected
-                                            @endif
-                                        >
-                                            {{ $user->display_name }} ({{ $user->user_email }})
-                                        </option>
-                                    @else
-                                        <option
-                                            value="{{ $user->ID }}"
-                                            @if($institution->managers->contains(fn (object $institutionUser) => $institutionUser->user_id === $user->ID)))
+            <tr>
+                <th>
+                    <label id="managers">
+                        {{ __('Institutional Managers', 'pressbooks-multi-institution') }}
+                    </label>
+                    <p id="managers-description" class="description">
+                        {{ __('Enter username or email to find existing user(s). Limit 3.', 'pressbooks-multi-institution') }}
+                    </p>
+                </th>
+                <td>
+                    <pressbooks-multiselect
+                        @if(! $institution->allowsInstitutionalManagers() && ! $isSuperAdmin)
+                            disabled
+                        @endif
+                    >
+                        <label class="screen-reader-text">Test</label>
+                        <select
+                            id="managers"
+                            name="managers[]"
+                            multiple
+                            aria-labelledby="managers-label"
+                            aria-describedby="managers-description"
+                        >
+                            @foreach($users as $user)
+                                @isset($old['managers'])
+                                    <option
+                                        value="{{ $user->ID }}"
+                                        @if(in_array($user->ID, $old['managers']))
                                             selected
-                                            @endif
-                                        >
-                                            {{ $user->display_name }} ({{ $user->user_email }})
-                                        </option>
-                                    @endisset
-                                @endforeach
-                            </select>
-                        </pressbooks-multiselect>
-                    </td>
-                </tr>
-            @endif
+                                        @endif
+                                    >
+                                        {{ $user->display_name }} ({{ $user->user_email }})
+                                    </option>
+                                @else
+                                    <option
+                                        value="{{ $user->ID }}"
+                                        @if($institution->managers->contains(fn (object $institutionUser) => $institutionUser->user_id === $user->ID)))
+                                        selected
+                                        @endif
+                                    >
+                                        {{ $user->display_name }} ({{ $user->user_email }})
+                                    </option>
+                                @endisset
+                            @endforeach
+                        </select>
+                    </pressbooks-multiselect>
+                </td>
+            </tr>
 
             @if($isSuperAdmin)
                 <tr>
