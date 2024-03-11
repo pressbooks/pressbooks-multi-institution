@@ -25,7 +25,7 @@ class NetworkStatsService
         if (get_institution_by_manager() !== 0) {
             add_filter('pb_network_analytics_stats_title', [$this, 'getStatsTitle']);
             add_filter('pb_network_analytics_pageview_query_conditions', [$this, 'addPageViewConditions']);
-            add_filter('pressbooks_network_analytics_usersovertime_query_conditions', [$this, '']);
+            add_filter('pressbooks_network_analytics_usersovertime_query_conditions', [$this, 'addUserOverTimeConditions']);
         }
         add_filter('pb_network_analytics_pageview_additional_columns', [$this, 'addPageViewSubQuery']);
     }
@@ -51,10 +51,16 @@ SQL;
     {
         $blogIds = $this->institution->books()->pluck('blog_id')->join(', ');
         if (! $blogIds) {
-            // institution without any book
-            return 'blogmeta.blog_id = -1';
+            return '';
         }
 
         return "blogmeta.blog_id IN ({$blogIds})";
+    }
+
+    public function addUserOverTimeConditions(): string
+    {
+        $userIds = $this->institution->users()->pluck('user_id')->join(', ');
+
+        return "ID IN ({$userIds})";
     }
 }

@@ -2,12 +2,9 @@
 
 namespace Tests\Feature\Services;
 
-use Illuminate\Support\Collection;
 use PressbooksMultiInstitution\Models\Institution;
-use PressbooksMultiInstitution\Models\InstitutionBook;
 use PressbooksMultiInstitution\Services\NetworkStatsService;
 use Tests\TestCase;
-use Tests\Traits\Assertions;
 use Tests\Traits\CreatesModels;
 
 /**
@@ -16,7 +13,6 @@ use Tests\Traits\CreatesModels;
 class NetworkStatsServiceTest extends TestCase
 {
     use CreatesModels;
-    use Assertions;
 
     private Institution $institution;
 
@@ -25,6 +21,32 @@ class NetworkStatsServiceTest extends TestCase
         parent::setUp();
 
         $this->institution = $this->createInstitution();
+    }
+
+    /** @test */
+    public function it_adds_all_hooks_for_institutional_manager(): void
+    {
+        wp_set_current_user($this->newInstitutionalManager($this->institution));
+
+        $service = new NetworkStatsService;
+        $service->setupHooks();
+
+        $this->assertTrue(has_filter('pb_network_analytics_pageview_query_conditions'));
+        $this->assertTrue(has_filter('pressbooks_network_analytics_usersovertime_query_conditions'));
+        $this->assertTrue(has_filter('pb_network_analytics_stats_title'));
+        $this->assertTrue(has_filter('pb_network_analytics_pageview_additional_columns'));
+    }
+
+    /** @test */
+    public function it_does_not_add_download_conditions_and_title_if_not_manager(): void
+    {
+        wp_set_current_user($this->newSuperAdmin());
+
+        $service = new NetworkStatsService;
+        $service->setupHooks();
+
+        $this->assertFalse(has_filter('pb_network_analytics_stats_download_conditions'));
+        $this->assertFalse(has_filter('pb_network_analytics_stats_title'));
     }
 
     /** @test */
@@ -47,7 +69,7 @@ class NetworkStatsServiceTest extends TestCase
 
         $blogIds = $this->addBooksToInstitution(5);
 
-        $this->assertEquals("blogmeta.blog_id IN ({$blogIds->join(', ')})", $service->addDownloadConditions());
+        $this->assertEquals("blogmeta.blog_id IN ({$blogIds->join(', ')})", $service->addPageViewConditions());
     }
 
     /** @test */
@@ -57,32 +79,7 @@ class NetworkStatsServiceTest extends TestCase
 
         $service = new NetworkStatsService;
 
-        $this->assertEquals('blogmeta.blog_id = -1', $service->addDownloadConditions());
-    }
-
-    /** @test */
-    public function it_does_not_add_download_conditions_and_title_if_not_manager(): void
-    {
-        wp_set_current_user($this->newSuperAdmin());
-
-        $service = new NetworkStatsService;
-        $service->setupHooks();
-
-        $this->assertFalse(has_filter('pb_network_analytics_stats_download_conditions'));
-        $this->assertFalse(has_filter('pb_network_analytics_stats_title'));
-    }
-
-    /** @test */
-    public function it_adds_all_hooks_for_institutional_manager(): void
-    {
-        wp_set_current_user($this->newInstitutionalManager($this->institution));
-
-        $service = new NetworkStatsService;
-        $service->setupHooks();
-
-        $this->assertTrue(has_filter('pb_network_analytics_stats_download_conditions'));
-        $this->assertTrue(has_filter('pb_network_analytics_stats_title'));
-        $this->assertTrue(has_filter('pb_network_analytics_stats_download_additional_columns'));
+        $this->assertEmpty($service->addPageViewConditions());
     }
 
     /** @test */
@@ -90,34 +87,22 @@ class NetworkStatsServiceTest extends TestCase
     {
         wp_set_current_user($this->newInstitutionalManager($this->institution));
 
-        $subQuery = (new NetworkStatsService)->addDownloadSubQuery();
+        $subQuery = (new NetworkStatsService)->addPageViewSubQuery();
 
         $this->assertStringContainsString('SELECT name', $subQuery);
         $this->assertStringContainsString('AS Institution', $subQuery);
     }
 
-    private function addBooksToInstitution(int $count = 1): Collection
+    /** @test */
+    public function it_adds_users_overtime_query_condintions(): void
     {
-        remove_all_filters('pb_new_blog');
+        wp_set_current_user($this->newInstitutionalManager($this->institution));
 
-        global $wpdb;
+        $service = new NetworkStatsService;
 
-        $wpdb->query('BEGIN TRANSACTION;');
+        $userIds = $this->addUsersToInstitution(5, $this->institution)->prepend(get_current_user_id());
 
-        $blogIds = collect($this->factory()->blog->create_many($count));
-
-        $wpdb->query('COMMIT;');
-
-        InstitutionBook::insert(
-            $blogIds->map(function ($blogId) {
-                return [
-                    'institution_id' => $this->institution->id,
-                    'blog_id' => $blogId,
-                ];
-            })->toArray()
-        );
-
-        return $blogIds;
+        $this->assertEquals("ID IN ({$userIds->join(', ')})", $service->addUserOverTimeConditions());
     }
 
     public function tearDown(): void

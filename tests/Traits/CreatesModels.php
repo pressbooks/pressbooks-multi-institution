@@ -2,7 +2,9 @@
 
 namespace Tests\Traits;
 
+use Illuminate\Support\Collection;
 use PressbooksMultiInstitution\Models\Institution;
+use PressbooksMultiInstitution\Models\InstitutionBook;
 use PressbooksMultiInstitution\Models\InstitutionUser;
 use Pressbooks\DataCollector\Book as DataCollector;
 
@@ -113,5 +115,53 @@ trait CreatesModels
                 'institution_id' => $institutions[array_rand($institutions)]->id,
             ]);
         }
+    }
+
+    protected function addBooksToInstitution(int $count = 1): Collection
+    {
+        remove_all_filters('pb_new_blog');
+
+        global $wpdb;
+
+        $wpdb->query('BEGIN TRANSACTION;');
+
+        $blogIds = collect($this->factory()->blog->create_many($count));
+
+        $wpdb->query('COMMIT;');
+
+        InstitutionBook::insert(
+            $blogIds->map(function ($blogId) {
+                return [
+                    'institution_id' => $this->institution->id,
+                    'blog_id' => $blogId,
+                ];
+            })->toArray()
+        );
+
+        return $blogIds;
+    }
+
+    protected function addUsersToInstitution(int $count, Institution $institution): Collection
+    {
+        remove_all_filters('user_register');
+
+        global $wpdb;
+
+        $wpdb->query('BEGIN TRANSACTION;');
+
+        $users = collect($this->factory()->user->create_many($count));
+
+        $wpdb->query('COMMIT;');
+
+        InstitutionUser::insert(
+            $users->map(function ($user) use ($institution) {
+                return [
+                    'user_id' => $user,
+                    'institution_id' => $institution->id,
+                ];
+            })->toArray()
+        );
+
+        return $users;
     }
 }
