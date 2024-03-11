@@ -23,10 +23,11 @@ class NetworkStatsService
     public function setupHooks(): void
     {
         if (get_institution_by_manager() !== 0) {
-            add_filter('pb_network_analytics_stats_download_conditions', [$this, 'addDownloadConditions']);
             add_filter('pb_network_analytics_stats_title', [$this, 'getStatsTitle']);
+            add_filter('pb_network_analytics_pageview_query_conditions', [$this, 'addPageViewConditions']);
+            add_filter('pressbooks_network_analytics_usersovertime_query_conditions', [$this, '']);
         }
-        add_filter('pb_network_analytics_stats_download_additional_columns', [$this, 'addDownloadSubQuery']);
+        add_filter('pb_network_analytics_pageview_additional_columns', [$this, 'addPageViewSubQuery']);
     }
 
     public function getStatsTitle(): string
@@ -34,7 +35,7 @@ class NetworkStatsService
         return sprintf(__('%s Stats', 'pressbooks-multi-institution'), $this->institution->name);
     }
 
-    public function addDownloadSubQuery(): string
+    public function addPageViewSubQuery(): string
     {
         global $wpdb;
         return <<<SQL
@@ -46,7 +47,7 @@ class NetworkStatsService
 SQL;
     }
 
-    public function addDownloadConditions(): string
+    public function addPageViewConditions(): string
     {
         $blogIds = $this->institution->books()->pluck('blog_id')->join(', ');
         if (! $blogIds) {
