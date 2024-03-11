@@ -4,10 +4,10 @@ namespace PressbooksMultiInstitution\Views;
 
 use Illuminate\Database\Capsule\Manager;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Query\Builder;
-use Pressbooks\DataCollector\Book;
 use PressbooksMultiInstitution\Models\Institution;
 use WP_List_Table;
+
+use function PressbooksMultiInstitution\Support\is_network_unlimited;
 
 class InstitutionsTable extends WP_List_Table
 {
@@ -98,15 +98,16 @@ class InstitutionsTable extends WP_List_Table
 
     public function get_columns(): array
     {
-        return [
+        return array_filter([
             'cb' => '<input type="checkbox" />',
             'name' => __('Name', 'pressbooks-multi-institution'),
             'email_domains' => __('Email Domains', 'pressbooks-multi-institution'),
-            'buy_in' => __('Buy-in', 'pressbooks-multi-institution'),
+            'buy_in' => is_network_unlimited() ? null : __('Buy-in', 'pressbooks-multi-institution'),
+
             'institutional_managers' => __('Institutional Managers', 'pressbooks-multi-institution'),
             'book_limit' => __('Books', 'pressbooks-multi-institution'),
             'users' => __('Users', 'pressbooks-multi-institution'),
-        ];
+        ]);
     }
 
     public function get_sortable_columns(): array
@@ -156,6 +157,9 @@ class InstitutionsTable extends WP_List_Table
 
     public function prepare_items(): void
     {
+        $networkLimit = get_option('pb_plan_settings_book_limit', null);
+        $unlimitedNetwork = is_network_unlimited();
+
         // Retrieve the paginated data using Eloquent
         $institutions = Institution::query()
             ->withCount('books', 'users')
@@ -177,15 +181,14 @@ class InstitutionsTable extends WP_List_Table
         $this->_column_headers = [$columns, $hidden, $sortable];
 
         // Extract the data from the Eloquent paginator object
-        // TODO: calculate totals using subqueries in the model
-        $this->items = $institutions->map(function (Institution $institution) {
+        $this->items = $institutions->map(function (Institution $institution) use ($unlimitedNetwork) {
             $bookLimit = $institution->books_count;
 
-            if ($institution->book_limit === 0) {
+            if ($institution->book_limit === 0 && ! $unlimitedNetwork) {
                 $bookLimit .= '/' . __('unlimited', 'pressbooks-multi-institution');
             }
 
-            if ($institution->book_limit > 0) {
+            if ($institution->book_limit > 0 && ! $unlimitedNetwork) {
                 $bookLimit .= "/{$institution->book_limit}";
             }
 
@@ -203,32 +206,79 @@ class InstitutionsTable extends WP_List_Table
         /** @var Manager $db */
         $db = app('db');
 
-        // Get total books and users from the database
-        $totalBooks = (new Book)->getTotalBooks();
-        $totalBooksAssigned = $db
-            ->table('blogs')
-            ->whereIn('blog_id', fn (Builder $query) => $query->select('blog_id')->from('institutions_blogs'))
-            ->where('blog_id', '<>', get_main_site_id())
-            ->count();
+        $prefix = $db->getDatabaseManager()->getTablePrefix();
 
-        $totalUsers = $db->table('users')->count();
-        $totalUsersAssigned = $db
-            ->table('users')
-            ->whereIn('ID', fn ($query) => $query->select('user_id')->from('institutions_users'))
-            ->count();
+        $bookCounts = $db->table('blogs')
+            ->selectRaw("count(*) as total")
+            ->selectRaw("count(case when {$prefix}institutions.id is null then 1 end) as unassigned")
+            ->selectRaw("count(case when {$prefix}institutions.id is not null and {$prefix}institutions.buy_in = false then 1 end) as shared")
+            ->selectRaw("count(case when {$prefix}institutions.id is not null then 1 end) as assigned")
+            ->selectRaw("count(case when {$prefix}institutions.id is not null and {$prefix}institutions.buy_in = true then 1 end) as premium")
+            ->leftJoin('institutions_blogs', 'institutions_blogs.blog_id', '=', 'blogs.blog_id')
+            ->leftJoin('institutions', 'institutions.id', '=', 'institutions_blogs.institution_id')
+            ->where('blogs.blog_id', '<>', get_main_site_id())
+            ->first();
+
+        $userCounts = $db->table('users')
+            ->selectRaw("count(*) as total")
+            ->selectRaw("count(case when {$prefix}institutions.id is null then 1 end) as unassigned")
+            ->selectRaw("count(case when {$prefix}institutions.id is not null and {$prefix}institutions.buy_in = false then 1 end) as shared")
+            ->selectRaw("count(case when {$prefix}institutions.id is not null then 1 end) as assigned")
+            ->selectRaw("count(case when {$prefix}institutions.id is not null and {$prefix}institutions.buy_in = true then 1 end) as premium")
+            ->leftJoin('institutions_users', 'institutions_users.user_id', '=', 'users.ID')
+            ->leftJoin('institutions', 'institutions.id', '=', 'institutions_users.institution_id')
+//			->whereNotIn('users.ID', function (Builder $query) {
+//				$query
+//					->selectRaw('1')
+//					->from('users')
+//					->whereIn('id', function (Builder $query) {
+//						$query
+//							->select('id')
+//							->from('users')
+//							->whereIn('user_login', get_super_admins())
+//							->whereNotIn('ID', _restricted_users());
+//					});
+//			})
+            ->first();
 
         $this->items[] = [
-            'unassigned' => true,
+            'totals' => true,
             'name' => __('Unassigned', 'pressbooks-multi-institution'),
-            'book_total' => $totalBooks - $totalBooksAssigned,
-            'user_total' => $totalUsers - $totalUsersAssigned,
+            'book_total' => $bookCounts->unassigned,
+            'user_total' => $userCounts->unassigned,
         ];
+
+        $sharedBookCount = $bookCounts->unassigned + $bookCounts->shared;
+        $sharedUserCount = $userCounts->unassigned + $userCounts->shared;
+
+        if ($unlimitedNetwork) {
+            $sharedBookCount = $bookCounts->total . '/' . __('unlimited', 'pressbooks-multi-institution');
+            $sharedUserCount = $userCounts->total;
+        } else {
+            $sharedBookCount .= $networkLimit ? '/' . $networkLimit : '';
+        }
+
+        $this->items[] = [
+            'totals' => true,
+            'name' => __('Shared Network Totals', 'pressbooks-multi-institution'),
+            'book_total' => $sharedBookCount,
+            'user_total' => $sharedUserCount,
+        ];
+
+        if (! $unlimitedNetwork) {
+            $this->items[] = [
+                'totals' => true,
+                'name' => __('Premium Member Totals', 'pressbooks-multi-institution'),
+                'book_total' => $bookCounts->premium,
+                'user_total' => $userCounts->premium,
+            ];
+        }
 
         $this->items[] = [
             'totals' => true,
             'name' => __('Total Items', 'pressbooks-multi-institution'),
-            'book_total' => $totalBooks,
-            'user_total' => $totalUsers,
+            'book_total' => $bookCounts->total,
+            'user_total' => $userCounts->total,
         ];
 
         $this->set_pagination_args([
@@ -240,10 +290,18 @@ class InstitutionsTable extends WP_List_Table
 
     public function single_row($item): void
     {
-        if (isset($item['unassigned']) || isset($item['totals'])) {
-            echo app('Blade')->render('PressbooksMultiInstitution::institutions.rows.totals', $item);
-        } else {
+        if (! isset($item['totals'])) {
             parent::single_row($item);
+
+            return;
         }
+
+        echo app('Blade')->render(
+            'PressbooksMultiInstitution::institutions.rows.totals',
+            [
+                'item' => $item,
+                'colspan' => is_network_unlimited() ? 4 : 5,
+            ]
+        );
     }
 }

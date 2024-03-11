@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
+use function PressbooksMultiInstitution\Support\is_network_unlimited;
+
 /**
  * @property int $id
  * @property string $name
@@ -94,7 +96,19 @@ class Institution extends Model
 
     public function allowsInstitutionalManagers(): bool
     {
-        return $this->allow_institutional_managers || $this->buy_in;
+        if (is_network_unlimited()) {
+            return true;
+        }
+
+        if ($this->buy_in) {
+            return true;
+        }
+
+        if ($this->allow_institutional_managers) {
+            return true;
+        }
+
+        return false;
     }
 
     public function scopeSearchAndOrder($query, $request)
