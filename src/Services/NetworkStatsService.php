@@ -24,10 +24,16 @@ class NetworkStatsService
     {
         if (get_institution_by_manager() !== 0) {
             add_filter('pb_network_analytics_stats_title', [$this, 'getStatsTitle']);
-            add_filter('pb_network_analytics_pageview_query_conditions', [$this, 'addPageViewConditions']);
-            add_filter('pressbooks_network_analytics_usersovertime_query_conditions', [$this, 'addUserOverTimeConditions']);
+            add_filter('pressbooks_network_analytics_usersovertime_query_conditions', [$this, 'addUsersOverTimeConditions']);
+            add_filter('pb_network_analytics_stats_download_filename', [$this, 'replaceDownloadsFilename']);
+            add_filter('pressbooks_network_analytics_stats_blogmeta_conditions', [$this, 'addBlogMetaCondition'], 10, 2);
         }
-        add_filter('pb_network_analytics_pageview_additional_columns', [$this, 'addPageViewSubQuery']);
+        add_filter('pb_network_analytics_downloads_additional_columns', [$this, 'getInstitutionColumn'], 10, 3);
+    }
+
+    public function replaceDownloadsFilename(string $filename): string
+    {
+        return str_replace('Network', $this->institution->name, $filename);
     }
 
     public function getStatsTitle(): string
@@ -35,29 +41,31 @@ class NetworkStatsService
         return sprintf(__('%s Stats', 'pressbooks-multi-institution'), $this->institution->name);
     }
 
-    public function addPageViewSubQuery(): string
+    public function getInstitutionColumn(string $column, string $blogmetaAlias, bool $subQuery = true): string
     {
+        $columnName = 'Institution';
+
         global $wpdb;
-        return <<<SQL
+        return $subQuery ? <<<SQL
 (SELECT name
 	FROM {$wpdb->base_prefix}institutions AS i
 	LEFT OUTER JOIN {$wpdb->base_prefix}institutions_blogs AS ib
 	ON i.id = ib.institution_id
-	WHERE ib.blog_id = blogmeta.blog_id) AS Institution
-SQL;
+	WHERE ib.blog_id = {$blogmetaAlias}.blog_id) AS {$columnName}
+SQL : $columnName;
     }
 
-    public function addPageViewConditions(): string
+    public function addBlogMetaCondition(string $condition, string $blogmetaAlias): string
     {
         $blogIds = $this->institution->books()->pluck('blog_id')->join(', ');
         if (! $blogIds) {
             return '';
         }
 
-        return "blogmeta.blog_id IN ({$blogIds})";
+        return "{$blogmetaAlias}.blog_id IN ({$blogIds})";
     }
 
-    public function addUserOverTimeConditions(): string
+    public function addUsersOverTimeConditions(): string
     {
         $userIds = $this->institution->users()->pluck('user_id')->join(', ');
 

@@ -31,10 +31,11 @@ class NetworkStatsServiceTest extends TestCase
         $service = new NetworkStatsService;
         $service->setupHooks();
 
-        $this->assertTrue(has_filter('pb_network_analytics_pageview_query_conditions'));
+        $this->assertTrue(has_filter('pressbooks_network_analytics_stats_blogmeta_conditions'));
         $this->assertTrue(has_filter('pressbooks_network_analytics_usersovertime_query_conditions'));
         $this->assertTrue(has_filter('pb_network_analytics_stats_title'));
-        $this->assertTrue(has_filter('pb_network_analytics_pageview_additional_columns'));
+        $this->assertTrue(has_filter('pb_network_analytics_downloads_additional_columns'));
+        $this->assertTrue(has_filter('pb_network_analytics_stats_download_filename'));
     }
 
     /** @test */
@@ -69,7 +70,7 @@ class NetworkStatsServiceTest extends TestCase
 
         $blogIds = $this->addBooksToInstitution(5);
 
-        $this->assertEquals("blogmeta.blog_id IN ({$blogIds->join(', ')})", $service->addPageViewConditions());
+        $this->assertEquals("blogmeta.blog_id IN ({$blogIds->join(', ')})", $service->addBlogMetaCondition('', 'blogmeta'));
     }
 
     /** @test */
@@ -79,7 +80,7 @@ class NetworkStatsServiceTest extends TestCase
 
         $service = new NetworkStatsService;
 
-        $this->assertEmpty($service->addPageViewConditions());
+        $this->assertEmpty($service->addBlogMetaCondition('', 'blogmeta'));
     }
 
     /** @test */
@@ -87,7 +88,7 @@ class NetworkStatsServiceTest extends TestCase
     {
         wp_set_current_user($this->newInstitutionalManager($this->institution));
 
-        $subQuery = (new NetworkStatsService)->addPageViewSubQuery();
+        $subQuery = (new NetworkStatsService)->getInstitutionColumn('', 'blogmeta');
 
         $this->assertStringContainsString('SELECT name', $subQuery);
         $this->assertStringContainsString('AS Institution', $subQuery);
@@ -102,7 +103,7 @@ class NetworkStatsServiceTest extends TestCase
 
         $userIds = $this->addUsersToInstitution(5, $this->institution)->prepend(get_current_user_id());
 
-        $this->assertEquals("ID IN ({$userIds->join(', ')})", $service->addUserOverTimeConditions());
+        $this->assertEquals("ID IN ({$userIds->join(', ')})", $service->addUsersOverTimeConditions());
     }
 
     public function tearDown(): void
