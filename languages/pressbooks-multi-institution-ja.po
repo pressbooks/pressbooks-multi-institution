@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks Multi Institution 0.1.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-multi-institution/issues\n"
-"POT-Creation-Date: 2024-03-07T15:33:17+00:00\n"
+"POT-Creation-Date: 2024-03-12T18:04:16+00:00\n"
 "PO-Revision-Date: 2024-02-19 22:27+0000\n"
 "Last-Translator: Eduardo Vera, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/pressbooks/teams/9194/ja/)\n"
@@ -73,7 +73,7 @@ msgstr "機関"
 
 #: src/Actions/PermissionsManager.php:234
 #: src/Traits/OverridesBulkActions.php:14 src/Views/AssignUsersTable.php:70
-#: src/Views/InstitutionsTable.php:226
+#: src/Views/InstitutionsTable.php:234
 #: resources/views/partials/filters/institutions/content.blade.php:14
 #: resources/views/table/book-admins.blade.php:10
 #: resources/views/table/institution.blade.php:1
@@ -122,37 +122,38 @@ msgid_plural "Books updated."
 msgstr[0] "本は更新しました。"
 
 #: src/Controllers/AssignBooksController.php:72
-#: src/Controllers/InstitutionsUsersController.php:71
+#: src/Controllers/AssignUsersController.php:71
 msgid "Institution not found."
 msgstr "機関が見つかりません。"
 
-#: src/Controllers/InstitutionsController.php:102
+#: src/Controllers/AssignUsersController.php:57
+msgid "User updated."
+msgid_plural "Users updated."
+msgstr[0] "ユーザーは更新しました。"
+
+#: src/Controllers/InstitutionsController.php:101
 msgid "Action completed."
 msgstr "アクションが完了しました。"
 
-#: src/Controllers/InstitutionsController.php:129
+#: src/Controllers/InstitutionsController.php:128
 msgid "The form is invalid."
 msgstr "無効なフォーム。"
 
-#: src/Controllers/InstitutionsController.php:170
+#: src/Controllers/InstitutionsController.php:173
 msgid "Institution has been added."
 msgstr "機関は追加しました。"
 
-#: src/Controllers/InstitutionsController.php:171
+#: src/Controllers/InstitutionsController.php:174
 msgid "Institution has been updated."
 msgstr "機関は更新しました。"
 
-#: src/Controllers/InstitutionsController.php:197
+#: src/Controllers/InstitutionsController.php:201
 msgid "The name field is required."
 msgstr "名前フィールドは必要です。"
 
-#: src/Controllers/InstitutionsController.php:201
+#: src/Controllers/InstitutionsController.php:205
 msgid "The book limit field should be numeric."
 msgstr "本数制限フィールドは数値にする必要があります。"
-
-#: src/Controllers/InstitutionsController.php:205
-msgid "The user limit field should be numeric."
-msgstr "ユーザー数制限フィールドは数値にする必要があります。"
 
 #: src/Controllers/InstitutionsController.php:252
 msgid ""
@@ -164,11 +165,6 @@ msgid ""
 "%s is already assigned as an institutional manager for %s. They cannot be "
 "assigned to manage two institutions at the same time."
 msgstr "%s は、既に %sの機関管理者として割り当てられている。同時に二つの機関を管理するように割り当てることはできません。"
-
-#: src/Controllers/InstitutionsUsersController.php:57
-msgid "User updated."
-msgid_plural "Users updated."
-msgstr[0] "ユーザーは更新しました。"
 
 #: src/Support/BookList.php:110
 msgid "%s' Book List"
@@ -198,7 +194,7 @@ msgstr "本管理者"
 msgid "Username"
 msgstr "ユーザー名"
 
-#: src/Views/AssignUsersTable.php:42 src/Views/InstitutionsTable.php:108
+#: src/Views/AssignUsersTable.php:42 src/Views/InstitutionsTable.php:103
 #: resources/views/institutions/form.blade.php:58
 msgid "Name"
 msgstr "名前"
@@ -207,29 +203,49 @@ msgstr "名前"
 msgid "Email"
 msgstr "メール"
 
-#: src/Views/InstitutionsTable.php:70
+#: src/Views/InstitutionsTable.php:73
 msgid "Are you sure you want to delete this?"
 msgstr "本当に削除してもよいですか ?"
 
-#: src/Views/InstitutionsTable.php:109
-#: resources/views/institutions/form.blade.php:70
+#: src/Views/InstitutionsTable.php:104
+#: resources/views/institutions/form.blade.php:69
 msgid "Email Domains"
 msgstr "メールドメイン"
 
-#: src/Views/InstitutionsTable.php:110
-#: resources/views/institutions/form.blade.php:135
+#: src/Views/InstitutionsTable.php:105
+msgid "Buy-in"
+msgstr ""
+
+#: src/Views/InstitutionsTable.php:107
+#: resources/views/institutions/form.blade.php:156
 msgid "Institutional Managers"
 msgstr "機関管理者"
 
-#: src/Views/InstitutionsTable.php:111
+#: src/Views/InstitutionsTable.php:108
 msgid "Books"
 msgstr "本"
 
-#: src/Views/InstitutionsTable.php:112
+#: src/Views/InstitutionsTable.php:109
 msgid "Users"
 msgstr "ユーザー"
 
-#: src/Views/InstitutionsTable.php:236
+#: src/Views/InstitutionsTable.php:154
+msgid "Delete"
+msgstr ""
+
+#: src/Views/InstitutionsTable.php:188 src/Views/InstitutionsTable.php:243
+msgid "unlimited"
+msgstr ""
+
+#: src/Views/InstitutionsTable.php:251
+msgid "Shared Network Totals"
+msgstr ""
+
+#: src/Views/InstitutionsTable.php:259
+msgid "Premium Member Totals"
+msgstr ""
+
+#: src/Views/InstitutionsTable.php:267
 msgid "Total Items"
 msgstr "総数"
 
@@ -308,28 +324,31 @@ msgstr "追加"
 msgid "Back to Institution List"
 msgstr "機関リストに戻る"
 
-#: resources/views/institutions/form.blade.php:74
+#: resources/views/institutions/form.blade.php:73
 msgid ""
 "Enter exclusive email domains for this institution. One per line (e.g. "
 "utopia.edu)."
 msgstr "この機関の排他的なメールドメインを入力します。ドメインを改行で区切って入力してください (例: utopia.edu)。"
 
-#: resources/views/institutions/form.blade.php:139
-msgid "Enter username or email to find existing user(s)"
-msgstr "既存のユーザーを検索するには、ユーザー名またはメールを入力してください。"
+#: resources/views/institutions/form.blade.php:135
+msgid "Institutional Managers Allowed"
+msgstr ""
 
-#: resources/views/institutions/form.blade.php:183
+#: resources/views/institutions/form.blade.php:160
+msgid "Enter username or email to find existing user(s). Limit 3."
+msgstr ""
+
+#: resources/views/institutions/form.blade.php:209
+msgid "Premium Member Buy-in"
+msgstr ""
+
+#: resources/views/institutions/form.blade.php:229
 msgid "Book Limit"
 msgstr "本数制限"
 
-#: resources/views/institutions/form.blade.php:187
-#: resources/views/institutions/form.blade.php:212
-msgid "As defined in contract. Contact Pressbooks for adjustments."
-msgstr "契約上の定義どおり。 調整については Pressbooks にお問い合わせください。"
-
-#: resources/views/institutions/form.blade.php:208
-msgid "User Limit"
-msgstr "ユーザー数制限"
+#: resources/views/institutions/form.blade.php:233
+msgid "For an unlimited institution, enter 0."
+msgstr ""
 
 #: resources/views/institutions/index.blade.php:10
 msgid "Add new"
