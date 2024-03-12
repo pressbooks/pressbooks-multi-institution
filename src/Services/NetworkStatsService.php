@@ -28,7 +28,8 @@ class NetworkStatsService
             add_filter('pb_network_analytics_stats_download_filename', [$this, 'replaceDownloadsFilename']);
             add_filter('pressbooks_network_analytics_stats_blogmeta_conditions', [$this, 'addBlogMetaCondition'], 10, 2);
         }
-        add_filter('pb_network_analytics_downloads_additional_columns', [$this, 'getInstitutionColumn'], 10, 3);
+        // cambiar hooks name pb_ por pressbooks_
+        add_filter('pressbooks_network_analytics_downloads_additional_columns', [$this, 'getInstitutionColumn'], 10, 3);
     }
 
     public function replaceDownloadsFilename(string $filename): string
