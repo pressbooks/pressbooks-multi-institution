@@ -8,68 +8,57 @@ use function PressbooksMultiInstitution\Support\get_institution_by_manager;
 
 class NetworkStatsService
 {
-    private Institution $institution;
+    private null|Institution $institution;
+
+    private string $columnName = 'Institution';
 
     public function __construct()
     {
         $institutionId = get_institution_by_manager();
-        if ($institutionId === 0) {
-            return;
-        }
-
-        $this->institution = Institution::find($institutionId);
+        $this->institution = $institutionId ? Institution::find($institutionId) : null;
     }
 
     public function setupHooks(): void
     {
-        if (get_institution_by_manager() !== 0) {
-            add_filter('pb_network_analytics_stats_title', [$this, 'getStatsTitle']);
-            add_filter('pressbooks_network_analytics_usersovertime_query_conditions', [$this, 'addUsersOverTimeConditions']);
-            add_filter('pb_network_analytics_stats_download_filename', [$this, 'replaceDownloadsFilename']);
-            add_filter('pressbooks_network_analytics_stats_blogmeta_conditions', [$this, 'addBlogMetaCondition'], 10, 2);
-        }
-        // cambiar hooks name pb_ por pressbooks_
-        add_filter('pressbooks_network_analytics_downloads_additional_columns', [$this, 'getInstitutionColumn'], 10, 3);
+        add_filter('pressbooks_network_analytics_stats_title', [$this, 'getStatsTitle']);
+        add_filter('pressbooks_network_analytics_stats_download_filename', [$this, 'replaceDownloadsFilename']);
+        add_filter('pressbooks_network_analytics_stats_blogmeta_query', [$this, 'addInstitutionToBlogmetaQuery'], 10, 2);
+        add_filter('pressbooks_network_analytics_stats_user_query', [$this, 'addInstitutionToUserQuery'], 10, 2);
     }
 
     public function replaceDownloadsFilename(string $filename): string
     {
-        return str_replace('Network', $this->institution->name, $filename);
+        return $this->institution ?
+            str_replace('Network', $this->institution->name, $filename)
+            : $filename;
     }
 
     public function getStatsTitle(): string
     {
-        return sprintf(__('%s Stats', 'pressbooks-multi-institution'), $this->institution->name);
+        return $this->institution ?
+            sprintf(__('%s Stats', 'pressbooks-multi-institution'), $this->institution->name)
+            : __('Network Stats', 'pressbooks-multi-institution');
     }
 
-    public function getInstitutionColumn(string $column, string $blogmetaAlias, bool $subQuery = true): string
+    public function addInstitutionToBlogmetaQuery(array $values, string $blogmetaAlias): array
     {
-        $columnName = 'Institution';
-
         global $wpdb;
-        return $subQuery ? <<<SQL
-(SELECT name
-	FROM {$wpdb->base_prefix}institutions AS i
-	LEFT OUTER JOIN {$wpdb->base_prefix}institutions_blogs AS ib
-	ON i.id = ib.institution_id
-	WHERE ib.blog_id = {$blogmetaAlias}.blog_id) AS {$columnName}
-SQL : $columnName;
+        return [
+            'columnAlias' => $this->columnName,
+            'column' => "i.name AS {$this->columnName}",
+            'join' => " LEFT OUTER JOIN {$wpdb->base_prefix}institutions_blogs AS ib ON ib.blog_id = {$blogmetaAlias}.blog_id LEFT OUTER JOIN {$wpdb->base_prefix}institutions AS i ON i.id = ib.institution_id",
+            'conditions' => $this->institution ? "i.id = {$this->institution->id}" : '',
+        ];
     }
 
-    public function addBlogMetaCondition(string $condition, string $blogmetaAlias): string
+    public function addInstitutionToUserQuery(array $values, string $userTableAlias): array
     {
-        $blogIds = $this->institution->books()->pluck('blog_id')->join(', ');
-        if (! $blogIds) {
-            return '';
-        }
-
-        return "{$blogmetaAlias}.blog_id IN ({$blogIds})";
-    }
-
-    public function addUsersOverTimeConditions(): string
-    {
-        $userIds = $this->institution->users()->pluck('user_id')->join(', ');
-
-        return "ID IN ({$userIds})";
+        global $wpdb;
+        return [
+            'columnAlias' => $this->columnName,
+            'column' => "i.name AS {$this->columnName}",
+            'join' => " LEFT OUTER JOIN {$wpdb->base_prefix}institutions_users AS iu ON iu.user_id = {$userTableAlias}.ID LEFT OUTER JOIN {$wpdb->base_prefix}institutions AS i ON i.id = iu.institution_id",
+            'conditions' => $this->institution ? "i.id = {$this->institution->id}" : '',
+        ];
     }
 }
