@@ -44,7 +44,7 @@ class InstitutionStatsServiceTest extends TestCase
         wp_set_current_user($this->newInstitutionalManager($this->institution));
 
         $service = new InstitutionStatsService;
-        $this->assertEquals($this->institution->name . ' Stats', $service->getStatsTitle());
+        $this->assertEquals($this->institution->name . ' Stats', $service->getStatsTitle('Network Stats'));
     }
 
 
@@ -108,17 +108,6 @@ class InstitutionStatsServiceTest extends TestCase
         $queryData = $service->addInstitutionToUserQuery([], 'users');
 
         $this->assertEmpty($queryData['conditions']);
-    }
-
-    public function tearDown(): void
-    {
-        parent::tearDown();
-
-        global $wpdb;
-
-        $wpdb->query("DELETE FROM {$wpdb->users}");
-        $wpdb->query("DELETE FROM {$wpdb->blogs}");
-        delete_network_option(null, 'pressbooks_network_managers');
     }
 
 }
