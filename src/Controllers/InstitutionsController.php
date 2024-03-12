@@ -131,7 +131,7 @@ class InstitutionsController extends BaseController
         }
 
         $domains = array_filter($data['domains'] ?? []);
-        $managers = array_filter($data['managers'] ?? []);
+        $managers = array_slice(array_filter($data['managers'] ?? []), 0, 3);
         $data = Arr::except($data, [
             'domains',
             'managers',
@@ -152,19 +152,20 @@ class InstitutionsController extends BaseController
             $institution = Institution::query()->create($data);
         }
 
-        $managersToBeRemoved = $institution->managers()->whereNotIn('user_id', $managers)->get()->toArray();
-
         $institution->updateDomains(
             array_map(fn (string $domain) => ['domain' => $domain], $domains)
         );
 
         if ($institution->allowsInstitutionalManagers() || $isSuperAdmin) {
+            // TODO: handle the super admin removal while syncing managers
+            $managersToBeRemoved = $institution->managers()->whereNotIn('user_id', $managers)->get()->toArray();
+
             $institution->syncManagers(
                 array_map(fn (string $id) => (int) $id, $managers),
             );
-        }
 
-        apply_filters('pb_institutional_after_save', $managers, $managersToBeRemoved);
+            apply_filters('pb_institutional_after_save', $managers, $managersToBeRemoved);
+        }
 
         return [
             'success' => true,
