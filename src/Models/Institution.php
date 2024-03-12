@@ -6,11 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
+use function PressbooksMultiInstitution\Support\is_network_unlimited;
+
 /**
  * @property int $id
  * @property string $name
  * @property int|null $book_limit
- * @property int|null $user_limit
+ * @property boolean $allow_institutional_managers
+ * @property boolean $buy_in
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
@@ -20,7 +23,8 @@ class Institution extends Model
         'id' => 'integer',
         'name' => 'string',
         'book_limit' => 'integer',
-        'user_limit' => 'integer',
+        'allow_institutional_managers' => 'boolean',
+        'buy_in' => 'boolean',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
@@ -30,6 +34,21 @@ class Institution extends Model
     public function domains(): HasMany
     {
         return $this->hasMany(EmailDomain::class);
+    }
+
+    public function users(): HasMany
+    {
+        return $this->hasMany(InstitutionUser::class, 'institution_id', 'id');
+    }
+
+    public function managers(): HasMany
+    {
+        return $this->users()->where('manager', true);
+    }
+
+    public function books(): HasMany
+    {
+        return $this->hasMany(InstitutionBook::class);
     }
 
     public function updateDomains(array $domains): self
@@ -75,19 +94,21 @@ class Institution extends Model
         return $this;
     }
 
-    public function users(): HasMany
+    public function allowsInstitutionalManagers(): bool
     {
-        return $this->hasMany(InstitutionUser::class, 'institution_id', 'id');
-    }
+        if (is_network_unlimited()) {
+            return true;
+        }
 
-    public function managers(): HasMany
-    {
-        return $this->users()->where('manager', true);
-    }
+        if ($this->buy_in) {
+            return true;
+        }
 
-    public function books(): HasMany
-    {
-        return $this->hasMany(InstitutionBook::class);
+        if ($this->allow_institutional_managers) {
+            return true;
+        }
+
+        return false;
     }
 
     public function scopeSearchAndOrder($query, $request)
@@ -95,7 +116,6 @@ class Institution extends Model
         $search = $request['s'] ?? '';
         $builder = $query->where('name', 'like', "%{$search}%")
             ->orWhere('book_limit', 'like', "%{$search}%")
-            ->orWhere('user_limit', 'like', "%{$search}%")
             ->orWhereHas('domains', function ($query) use ($search) {
                 $query->where('domain', 'like', "%{$search}%");
             })
@@ -116,29 +136,5 @@ class Institution extends Model
         }
 
         return $builder->orderBy($request['orderby'] ?? 'name', $request['order'] === 'asc' ? 'asc' : 'desc');
-    }
-
-    public function getEmailDomainsAttribute(): string
-    {
-        // TODO: rethink this
-        return $this->render('domains', ['domains' => $this->domains->pluck('domain')]);
-    }
-
-    public function getInstitutionalManagersAttribute(): string
-    {
-        // TODO: rethink this
-        return app('db')
-            ->table('institutions_users')
-            ->join('users', 'institutions_users.user_id', '=', 'users.ID')
-            ->where('institution_id', $this->id)
-            ->orderBy('users.display_name')
-            ->where('manager', 1)->get()->map(function ($manager) {
-                return $this->render('managers', ['manager' => $manager]);
-            })->implode('');
-    }
-
-    private function render(string $view, array $data = []): string
-    {
-        return app('Blade')->render("PressbooksMultiInstitution::institutions.{$view}", $data);
     }
 }

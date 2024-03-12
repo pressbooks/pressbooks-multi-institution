@@ -13,12 +13,13 @@ class AssignUsersTableTest extends TestCase
 {
     use CreatesModels;
 
-    private AssignUsersTable $institutionsUsersTable;
+    private AssignUsersTable $table;
 
     public function setUp(): void
     {
         parent::setUp();
-        $this->institutionsUsersTable = new AssignUsersTable;
+
+        $this->table = app(AssignUsersTable::class);
     }
 
     /**
@@ -27,7 +28,7 @@ class AssignUsersTableTest extends TestCase
     public function it_should_return_default_column(): void
     {
         $item = ['name' => 'John Doe'];
-        $this->assertEquals('John Doe', $this->institutionsUsersTable->column_default($item, 'name'));
+        $this->assertEquals('John Doe', $this->table->column_default($item, 'name'));
     }
 
     /**
@@ -36,7 +37,7 @@ class AssignUsersTableTest extends TestCase
     public function it_should_return_name_column(): void
     {
         $item = ['name' => 'John Doe'];
-        $this->assertEquals('<div class="row-title">John Doe</div>', $this->institutionsUsersTable->column_name($item));
+        $this->assertEquals('<div class="row-title">John Doe</div>', $this->table->column_name($item));
     }
 
     /**
@@ -45,7 +46,7 @@ class AssignUsersTableTest extends TestCase
     public function it_should_return_cb_column(): void
     {
         $item = ['ID' => 1];
-        $this->assertEquals('<input type="checkbox" name="ID[]" value="1" />', $this->institutionsUsersTable->column_cb($item));
+        $this->assertEquals('<input type="checkbox" name="ID[]" value="1" />', $this->table->column_cb($item));
     }
 
     /**
@@ -60,7 +61,7 @@ class AssignUsersTableTest extends TestCase
             'email' => __('Email', 'pressbooks-multi-institution'),
             'institution' => __('Institution', 'pressbooks-multi-institution'),
         ];
-        $this->assertEquals($expected, $this->institutionsUsersTable->get_columns());
+        $this->assertEquals($expected, $this->table->get_columns());
     }
 
     /**
@@ -74,7 +75,7 @@ class AssignUsersTableTest extends TestCase
             'email' => ['email', false],
             'institution' => ['institution', false],
         ];
-        $this->assertEquals($expected, $this->institutionsUsersTable->get_sortable_columns());
+        $this->assertEquals($expected, $this->table->get_sortable_columns());
     }
 
     /**
@@ -89,7 +90,7 @@ class AssignUsersTableTest extends TestCase
             0 => __('Unassigned', 'pressbooks-multi-institution'),
             1 => 'Institution 1',
             2 => 'Institution 2',
-        ], $this->institutionsUsersTable->get_bulk_actions());
+        ], $this->table->get_bulk_actions());
     }
 
     /**
@@ -99,12 +100,12 @@ class AssignUsersTableTest extends TestCase
     {
         $this->createInstitutionsUsers(2, 5);
 
-        $this->institutionsUsersTable->prepare_items();
+        $this->table->prepare_items();
 
-        $this->assertCount(5, $this->institutionsUsersTable->items);
+        $this->assertCount(5, $this->table->items);
 
-        $this->assertContains('johndoe1', array_column($this->institutionsUsersTable->items, 'username'));
-        $this->assertContains('j4@fake.test', array_column($this->institutionsUsersTable->items, 'email'));
+        $this->assertContains('johndoe1', array_column($this->table->items, 'username'));
+        $this->assertContains('j4@fake.test', array_column($this->table->items, 'email'));
     }
 
     /**
@@ -115,23 +116,23 @@ class AssignUsersTableTest extends TestCase
         $this->createInstitutionsUsers(2, 5);
 
         $_REQUEST['s'] = 'johndoe1';
-        $this->institutionsUsersTable->prepare_items();
+        $this->table->prepare_items();
 
-        $this->assertCount(1, $this->institutionsUsersTable->items);
-        $this->assertEquals('johndoe1', $this->institutionsUsersTable->items[0]['username']);
+        $this->assertCount(1, $this->table->items);
+        $this->assertEquals('johndoe1', $this->table->items[0]['username']);
 
         $_REQUEST['s'] = 'Doe3';
-        $this->institutionsUsersTable->prepare_items();
+        $this->table->prepare_items();
 
-        $this->assertCount(1, $this->institutionsUsersTable->items);
-        $this->assertEquals('John3 Doe3', $this->institutionsUsersTable->items[0]['name']);
+        $this->assertCount(1, $this->table->items);
+        $this->assertEquals('John3 Doe3', $this->table->items[0]['name']);
 
         // search by email
         $_REQUEST['s'] = 'j4@fake';
-        $this->institutionsUsersTable->prepare_items();
+        $this->table->prepare_items();
 
-        $this->assertCount(1, $this->institutionsUsersTable->items);
-        $this->assertEquals('j4@fake.test', $this->institutionsUsersTable->items[0]['email']);
+        $this->assertCount(1, $this->table->items);
+        $this->assertEquals('j4@fake.test', $this->table->items[0]['email']);
     }
 
     /**
@@ -143,24 +144,24 @@ class AssignUsersTableTest extends TestCase
 
         $_REQUEST['orderby'] = 'username';
         $_REQUEST['order'] = 'asc';
-        $this->institutionsUsersTable->prepare_items();
+        $this->table->prepare_items();
 
-        $this->assertEquals('johndoe0', $this->institutionsUsersTable->items[0]['username']);
-        $this->assertEquals('johndoe4', $this->institutionsUsersTable->items[4]['username']);
+        $this->assertEquals('johndoe0', $this->table->items[0]['username']);
+        $this->assertEquals('johndoe4', $this->table->items[4]['username']);
 
         $_REQUEST['orderby'] = 'username';
         $_REQUEST['order'] = 'desc';
-        $this->institutionsUsersTable->prepare_items();
+        $this->table->prepare_items();
 
-        $this->assertEquals('johndoe4', $this->institutionsUsersTable->items[0]['username']);
-        $this->assertEquals('johndoe0', $this->institutionsUsersTable->items[4]['username']);
+        $this->assertEquals('johndoe4', $this->table->items[0]['username']);
+        $this->assertEquals('johndoe0', $this->table->items[4]['username']);
 
         $_REQUEST['orderby'] = 'name';
         $_REQUEST['order'] = 'asc';
-        $this->institutionsUsersTable->prepare_items();
+        $this->table->prepare_items();
 
-        $this->assertEquals('johndoe0', $this->institutionsUsersTable->items[0]['username']);
-        $this->assertEquals('John4 Doe4', $this->institutionsUsersTable->items[4]['name']);
+        $this->assertEquals('johndoe0', $this->table->items[0]['username']);
+        $this->assertEquals('John4 Doe4', $this->table->items[4]['name']);
 
         $this->newUser([
             'user_login' => "testuser",
@@ -169,18 +170,8 @@ class AssignUsersTableTest extends TestCase
 
         $_REQUEST['orderby'] = 'institution';
         $_REQUEST['order'] = 'asc';
-        $this->institutionsUsersTable->prepare_items();
+        $this->table->prepare_items();
 
-        $this->assertEquals('Unassigned', $this->institutionsUsersTable->items[0]['institution']);
-    }
-
-    public function tearDown(): void
-    {
-        parent::tearDown();
-        unset($_REQUEST['s'], $_REQUEST['orderby'], $_REQUEST['order']);
-
-        global $wpdb;
-        $wpdb->query("DELETE FROM {$wpdb->usermeta}");
-        $wpdb->query("DELETE FROM {$wpdb->users}");
+        $this->assertEquals('Unassigned', $this->table->items[0]['institution']);
     }
 }

@@ -1,35 +1,38 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Schema\Builder;
 use PressbooksMultiInstitution\Interfaces\MigrationInterface;
 
 return new class implements MigrationInterface {
     public function up(): void
     {
-        global $wpdb;
+        /** @var Builder $schema */
+        $schema = app('db')->schema();
 
-        $sql = <<<SQL
-CREATE TABLE IF NOT EXISTS {$wpdb->base_prefix}institutions_blogs (
-    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    blog_id BIGINT NOT NULL,
-    institution_id BIGINT UNSIGNED NOT NULL,
-    PRIMARY KEY (id),
-    UNIQUE (blog_id, institution_id), -- TODO: make only blog id unique
-    FOREIGN KEY (blog_id) REFERENCES {$wpdb->blogs}(blog_id) ON DELETE CASCADE,
-    FOREIGN KEY (institution_id) REFERENCES {$wpdb->base_prefix}institutions(id) ON DELETE CASCADE
-) {$wpdb->get_charset_collate()}
-SQL;
+        $schema->create('institutions_blogs', function (Blueprint $table) {
+            $table->id();
+            $table->bigInteger('blog_id');
+            $table->unsignedBigInteger('institution_id');
 
-        $wpdb->query($sql);
+            $table->foreign('blog_id')
+                ->references('blog_id')
+                ->on('blogs')
+                ->cascadeOnDelete();
+            $table->foreign('institution_id')
+                ->references('id')
+                ->on('institutions')
+                ->cascadeOnDelete();
+
+            $table->unique(['blog_id']);
+        });
     }
 
     public function down(): void
     {
-        global $wpdb;
+        /** @var Builder $schema */
+        $schema = app('db')->schema();
 
-        $sql = <<<SQL
-DROP TABLE IF EXISTS {$wpdb->base_prefix}institutions_blogs
-SQL;
-
-        $wpdb->query($sql);
+        $schema->dropIfExists('institutions_blogs');
     }
 };
