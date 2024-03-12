@@ -227,18 +227,6 @@ class InstitutionsTable extends WP_List_Table
             ->selectRaw("count(case when {$prefix}institutions.id is not null and {$prefix}institutions.buy_in = true then 1 end) as premium")
             ->leftJoin('institutions_users', 'institutions_users.user_id', '=', 'users.ID')
             ->leftJoin('institutions', 'institutions.id', '=', 'institutions_users.institution_id')
-//			->whereNotIn('users.ID', function (Builder $query) {
-//				$query
-//					->selectRaw('1')
-//					->from('users')
-//					->whereIn('id', function (Builder $query) {
-//						$query
-//							->select('id')
-//							->from('users')
-//							->whereIn('user_login', get_super_admins())
-//							->whereNotIn('ID', _restricted_users());
-//					});
-//			})
             ->first();
 
         $this->items[] = [
