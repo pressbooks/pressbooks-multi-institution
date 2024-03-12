@@ -3,14 +3,14 @@
 namespace Tests\Feature\Services;
 
 use PressbooksMultiInstitution\Models\Institution;
-use PressbooksMultiInstitution\Services\NetworkStatsService;
+use PressbooksMultiInstitution\Services\InstitutionStatsService;
 use Tests\TestCase;
 use Tests\Traits\CreatesModels;
 
 /**
- * @group network-stats-service
+ * @group institution-stats-service
  */
-class NetworkStatsServiceTest extends TestCase
+class InstitutionStatsServiceTest extends TestCase
 {
     use CreatesModels;
 
@@ -28,7 +28,7 @@ class NetworkStatsServiceTest extends TestCase
     {
         wp_set_current_user($this->newInstitutionalManager($this->institution));
 
-        $service = new NetworkStatsService;
+        $service = new InstitutionStatsService;
 
         $service->setupHooks();
 
@@ -43,7 +43,7 @@ class NetworkStatsServiceTest extends TestCase
     {
         wp_set_current_user($this->newInstitutionalManager($this->institution));
 
-        $service = new NetworkStatsService;
+        $service = new InstitutionStatsService;
         $this->assertEquals($this->institution->name . ' Stats', $service->getStatsTitle());
     }
 
@@ -53,7 +53,7 @@ class NetworkStatsServiceTest extends TestCase
     {
         wp_set_current_user($this->newInstitutionalManager($this->institution));
 
-        $service = new NetworkStatsService;
+        $service = new InstitutionStatsService;
         $queryData = $service->addInstitutionToBlogmetaQuery([], 'blogmeta');
 
         global $wpdb;
@@ -70,7 +70,7 @@ class NetworkStatsServiceTest extends TestCase
     {
         wp_set_current_user($this->newNetworkManager());
 
-        $service = new NetworkStatsService;
+        $service = new InstitutionStatsService;
         $queryData = $service->addInstitutionToBlogmetaQuery([], 'blogmeta');
 
         $this->assertEmpty($queryData['conditions']);
@@ -81,7 +81,7 @@ class NetworkStatsServiceTest extends TestCase
     {
         wp_set_current_user($this->newInstitutionalManager($this->institution));
 
-        $service = new NetworkStatsService;
+        $service = new InstitutionStatsService;
         $this->assertEquals($this->institution->name . ' file.', $service->replaceDownloadsFilename('Network file.'));
     }
 
@@ -90,7 +90,7 @@ class NetworkStatsServiceTest extends TestCase
     {
         wp_set_current_user($this->newInstitutionalManager($this->institution));
 
-        $service = new NetworkStatsService;
+        $service = new InstitutionStatsService;
         $queryData = $service->addInstitutionToUserQuery([], 'users');
 
         global $wpdb;
@@ -104,7 +104,7 @@ class NetworkStatsServiceTest extends TestCase
     {
         wp_set_current_user($this->newNetworkManager());
 
-        $service = new NetworkStatsService;
+        $service = new InstitutionStatsService;
         $queryData = $service->addInstitutionToUserQuery([], 'users');
 
         $this->assertEmpty($queryData['conditions']);

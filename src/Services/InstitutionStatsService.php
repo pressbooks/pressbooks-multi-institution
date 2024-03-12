@@ -6,7 +6,7 @@ use PressbooksMultiInstitution\Models\Institution;
 
 use function PressbooksMultiInstitution\Support\get_institution_by_manager;
 
-class NetworkStatsService
+class InstitutionStatsService
 {
     private null|Institution $institution;
 
@@ -29,15 +29,13 @@ class NetworkStatsService
     public function replaceDownloadsFilename(string $filename): string
     {
         return $this->institution ?
-            str_replace('Network', $this->institution->name, $filename)
-            : $filename;
+            str_replace('Network', $this->institution->name, $filename) : $filename;
     }
 
-    public function getStatsTitle(): string
+    public function getStatsTitle(string $title): string
     {
         return $this->institution ?
-            sprintf(__('%s Stats', 'pressbooks-multi-institution'), $this->institution->name)
-            : __('Network Stats', 'pressbooks-multi-institution');
+            sprintf(__('%s Stats', 'pressbooks-multi-institution'), $this->institution->name) : $title;
     }
 
     public function addInstitutionToBlogmetaQuery(array $values, string $blogmetaAlias): array
