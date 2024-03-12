@@ -8,4 +8,5 @@ tx
 .transifexrc
 LICENSE
 .DS_Store
+.swp
 *.log

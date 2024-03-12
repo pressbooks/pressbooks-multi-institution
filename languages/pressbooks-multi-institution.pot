@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-03-07T15:33:17+00:00\n"
+"POT-Creation-Date: 2024-03-12T18:04:16+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: pressbooks-multi-institution\n"
@@ -70,7 +70,7 @@ msgstr ""
 #: src/Actions/PermissionsManager.php:234
 #: src/Traits/OverridesBulkActions.php:14
 #: src/Views/AssignUsersTable.php:70
-#: src/Views/InstitutionsTable.php:226
+#: src/Views/InstitutionsTable.php:234
 #: resources/views/partials/filters/institutions/content.blade.php:14
 #: resources/views/table/book-admins.blade.php:10
 #: resources/views/table/institution.blade.php:1
@@ -125,36 +125,38 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/Controllers/AssignBooksController.php:72
-#: src/Controllers/InstitutionsUsersController.php:71
+#: src/Controllers/AssignUsersController.php:71
 msgid "Institution not found."
 msgstr ""
 
-#: src/Controllers/InstitutionsController.php:102
+#: src/Controllers/AssignUsersController.php:57
+msgid "User updated."
+msgid_plural "Users updated."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Controllers/InstitutionsController.php:101
 msgid "Action completed."
 msgstr ""
 
-#: src/Controllers/InstitutionsController.php:129
+#: src/Controllers/InstitutionsController.php:128
 msgid "The form is invalid."
 msgstr ""
 
-#: src/Controllers/InstitutionsController.php:170
+#: src/Controllers/InstitutionsController.php:173
 msgid "Institution has been added."
 msgstr ""
 
-#: src/Controllers/InstitutionsController.php:171
+#: src/Controllers/InstitutionsController.php:174
 msgid "Institution has been updated."
 msgstr ""
 
-#: src/Controllers/InstitutionsController.php:197
+#: src/Controllers/InstitutionsController.php:201
 msgid "The name field is required."
 msgstr ""
 
-#: src/Controllers/InstitutionsController.php:201
-msgid "The book limit field should be numeric."
-msgstr ""
-
 #: src/Controllers/InstitutionsController.php:205
-msgid "The user limit field should be numeric."
+msgid "The book limit field should be numeric."
 msgstr ""
 
 #: src/Controllers/InstitutionsController.php:252
@@ -164,12 +166,6 @@ msgstr ""
 #: src/Controllers/InstitutionsController.php:285
 msgid "%s is already assigned as an institutional manager for %s. They cannot be assigned to manage two institutions at the same time."
 msgstr ""
-
-#: src/Controllers/InstitutionsUsersController.php:57
-msgid "User updated."
-msgid_plural "Users updated."
-msgstr[0] ""
-msgstr[1] ""
 
 #: src/Support/BookList.php:110
 msgid "%s' Book List"
@@ -200,7 +196,7 @@ msgid "Username"
 msgstr ""
 
 #: src/Views/AssignUsersTable.php:42
-#: src/Views/InstitutionsTable.php:108
+#: src/Views/InstitutionsTable.php:103
 #: resources/views/institutions/form.blade.php:58
 msgid "Name"
 msgstr ""
@@ -209,29 +205,50 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: src/Views/InstitutionsTable.php:70
+#: src/Views/InstitutionsTable.php:73
 msgid "Are you sure you want to delete this?"
 msgstr ""
 
-#: src/Views/InstitutionsTable.php:109
-#: resources/views/institutions/form.blade.php:70
+#: src/Views/InstitutionsTable.php:104
+#: resources/views/institutions/form.blade.php:69
 msgid "Email Domains"
 msgstr ""
 
-#: src/Views/InstitutionsTable.php:110
-#: resources/views/institutions/form.blade.php:135
+#: src/Views/InstitutionsTable.php:105
+msgid "Buy-in"
+msgstr ""
+
+#: src/Views/InstitutionsTable.php:107
+#: resources/views/institutions/form.blade.php:156
 msgid "Institutional Managers"
 msgstr ""
 
-#: src/Views/InstitutionsTable.php:111
+#: src/Views/InstitutionsTable.php:108
 msgid "Books"
 msgstr ""
 
-#: src/Views/InstitutionsTable.php:112
+#: src/Views/InstitutionsTable.php:109
 msgid "Users"
 msgstr ""
 
-#: src/Views/InstitutionsTable.php:236
+#: src/Views/InstitutionsTable.php:154
+msgid "Delete"
+msgstr ""
+
+#: src/Views/InstitutionsTable.php:188
+#: src/Views/InstitutionsTable.php:243
+msgid "unlimited"
+msgstr ""
+
+#: src/Views/InstitutionsTable.php:251
+msgid "Shared Network Totals"
+msgstr ""
+
+#: src/Views/InstitutionsTable.php:259
+msgid "Premium Member Totals"
+msgstr ""
+
+#: src/Views/InstitutionsTable.php:267
 msgid "Total Items"
 msgstr ""
 
@@ -310,25 +327,28 @@ msgstr ""
 msgid "Back to Institution List"
 msgstr ""
 
-#: resources/views/institutions/form.blade.php:74
+#: resources/views/institutions/form.blade.php:73
 msgid "Enter exclusive email domains for this institution. One per line (e.g. utopia.edu)."
 msgstr ""
 
-#: resources/views/institutions/form.blade.php:139
-msgid "Enter username or email to find existing user(s)"
+#: resources/views/institutions/form.blade.php:135
+msgid "Institutional Managers Allowed"
 msgstr ""
 
-#: resources/views/institutions/form.blade.php:183
+#: resources/views/institutions/form.blade.php:160
+msgid "Enter username or email to find existing user(s). Limit 3."
+msgstr ""
+
+#: resources/views/institutions/form.blade.php:209
+msgid "Premium Member Buy-in"
+msgstr ""
+
+#: resources/views/institutions/form.blade.php:229
 msgid "Book Limit"
 msgstr ""
 
-#: resources/views/institutions/form.blade.php:187
-#: resources/views/institutions/form.blade.php:212
-msgid "As defined in contract. Contact Pressbooks for adjustments."
-msgstr ""
-
-#: resources/views/institutions/form.blade.php:208
-msgid "User Limit"
+#: resources/views/institutions/form.blade.php:233
+msgid "For an unlimited institution, enter 0."
 msgstr ""
 
 #: resources/views/institutions/index.blade.php:10

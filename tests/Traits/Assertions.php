@@ -3,10 +3,31 @@
 namespace Tests\Traits;
 
 use Illuminate\Database\Capsule\Manager;
+use Illuminate\Database\Schema\Builder;
 use ReflectionFunction;
 
 trait Assertions
 {
+    protected function assertTableMissing(string $table): void
+    {
+        /** @var Builder $schema */
+        $schema = app('db')->schema();
+
+        $this->assertFalse($schema->hasTable($table));
+    }
+
+    protected function assertTableExists(string $table, ?array $columns = null): void
+    {
+        /** @var Builder $schema */
+        $schema = app('db')->schema();
+
+        $this->assertTrue($schema->hasTable($table));
+
+        if ($columns) {
+            $this->assertEquals($columns, $schema->getColumnListing($table));
+        }
+    }
+
     protected function assertDatabaseCount(string $table, int $count): void
     {
         /** @var Manager $db */

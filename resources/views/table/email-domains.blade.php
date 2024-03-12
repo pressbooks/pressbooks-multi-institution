@@ -1,3 +1,3 @@
 @foreach($domains as $domain)
-	<p>{{$domain}}</p>
+	<p>{{$domain->domain}}</p>
 @endforeach

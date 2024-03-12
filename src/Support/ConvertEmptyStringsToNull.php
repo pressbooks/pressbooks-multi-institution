@@ -27,7 +27,7 @@ class ConvertEmptyStringsToNull
         return $this->transform($value);
     }
 
-    protected function transform(mixed $value): ?string
+    protected function transform(mixed $value): mixed
     {
         if (! is_string($value)) {
             return $value;

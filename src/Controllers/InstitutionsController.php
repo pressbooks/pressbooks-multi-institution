@@ -45,15 +45,15 @@ class InstitutionsController extends BaseController
 
     public function form(): string
     {
-        $canUpdateLimits = is_super_admin() && ! is_restricted();
+        $isSuperAdmin = is_super_admin() && ! is_restricted();
 
-        $result = $this->save($canUpdateLimits);
+        $result = $this->save($isSuperAdmin);
 
         $institution = $this->fetchInstitution();
 
         return $this->renderView('institutions.form', [
             'back_url' => network_admin_url('admin.php?page=pb_multi_institutions'),
-            'canUpdateLimits' =>  $canUpdateLimits,
+            'isSuperAdmin' =>  $isSuperAdmin,
             'institution' => $institution,
             'old' => $result['success'] ? [] : $_POST,
             'result' => $result,
@@ -67,7 +67,6 @@ class InstitutionsController extends BaseController
                 'exclude' => InstitutionUser::query()
                     ->where('institution_id', '<>', $institution->id)
                     ->pluck('user_id')->toArray(),
-                'login__not_in' => []
             ]),
         ]);
     }
@@ -105,7 +104,7 @@ class InstitutionsController extends BaseController
 
     }
 
-    protected function save(bool $canUpdateLimits): array
+    protected function save(bool $isSuperAdmin): array
     {
         if (! $_POST) {
             return [
@@ -116,7 +115,7 @@ class InstitutionsController extends BaseController
         check_admin_referer('pb_multi_institution_form');
 
         $data = Arr::only($this->sanitize($_POST), [
-            'name', 'domains', 'managers', 'book_limit', 'user_limit'
+            'name', 'domains', 'managers', 'allow_institutional_managers', 'book_limit', 'buy_in'
         ]);
 
         $id = $_POST['ID'] ?? null;
@@ -132,13 +131,14 @@ class InstitutionsController extends BaseController
         }
 
         $domains = array_filter($data['domains'] ?? []);
-        $managers = array_filter($data['managers'] ?? []);
+        $managers = array_slice(array_filter($data['managers'] ?? []), 0, 3);
         $data = Arr::except($data, [
             'domains',
             'managers',
-            ...$canUpdateLimits ? [] : [
+            ...$isSuperAdmin ? [] : [
+                'allow_institutional_managers',
                 'book_limit',
-                'user_limit',
+                'buy_in',
             ],
         ]);
 
@@ -152,17 +152,20 @@ class InstitutionsController extends BaseController
             $institution = Institution::query()->create($data);
         }
 
-        $managersToBeRemoved = $institution->managers()->whereNotIn('user_id', $managers)->get()->toArray();
+        $institution->updateDomains(
+            array_map(fn (string $domain) => ['domain' => $domain], $domains)
+        );
 
-        $institution
-            ->updateDomains(
-                array_map(fn (string $domain) => ['domain' => $domain], $domains)
-            )
-            ->syncManagers(
+        if ($institution->allowsInstitutionalManagers() || $isSuperAdmin) {
+            // TODO: handle the super admin removal while syncing managers
+            $managersToBeRemoved = $institution->managers()->whereNotIn('user_id', $managers)->get()->toArray();
+
+            $institution->syncManagers(
                 array_map(fn (string $id) => (int) $id, $managers),
             );
 
-        apply_filters('pb_institutional_after_save', $managers, $managersToBeRemoved);
+            apply_filters('pb_institutional_after_save', $managers, $managersToBeRemoved);
+        }
 
         return [
             'success' => true,
@@ -175,15 +178,16 @@ class InstitutionsController extends BaseController
     protected function sanitize(array $data): array
     {
         $keys = [
-            'name',
-            'domains',
-            'managers',
-            'book_limit',
-            'user_limit',
+            'name' => '',
+            'domains' => [],
+            'managers' => [],
+            'allow_institutional_managers' => false,
+            'book_limit' => null,
+            'buy_in' => false,
         ];
 
-        foreach ($keys as $key) {
-            $data[$key] ??= '';
+        foreach ($keys as $key => $default) {
+            $data[$key] ??= $default;
         }
 
         return (new ConvertEmptyStringsToNull)->handle($data);
@@ -199,10 +203,6 @@ class InstitutionsController extends BaseController
 
         if (! is_numeric($data['book_limit']) && ! is_null($data['book_limit'])) {
             $errors['book_limit'][] = __('The book limit field should be numeric.', 'pressbooks-multi-institution');
-        }
-
-        if (! is_numeric($data['user_limit']) && ! is_null($data['user_limit'])) {
-            $errors['user_limit'][] = __('The user limit field should be numeric.', 'pressbooks-multi-institution');
         }
 
         if ($domainErrors = $this->checkForDuplicateDomains($data['domains'] ?? [], $id)) {
