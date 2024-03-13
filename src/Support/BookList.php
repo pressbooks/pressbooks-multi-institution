@@ -20,29 +20,7 @@ class BookList
         add_filter('pb_network_analytics_book_list_columns', [$this, 'addColumns']);
         add_filter('pb_network_analytics_book_list_select_clause', [$this, 'appendAdditionalColumnsToQuery']);
         add_filter('pb_network_analytics_book_list_where_clause', [$this, 'appendAdditionalWhereClausesToQuery']);
-        //        add_filter('pb_network_analytics_filter_tabs', [$this, 'addFilterTabs']);
         add_filter('pb_network_analytics_book_list_filter', [$this, 'addFilters']);
-    }
-
-    public function addFilterTabs(array $filters): array
-    {
-        if (! is_super_admin()) {
-            return $filters;
-        }
-
-        if (get_institution_by_manager() > 0) {
-            return $filters;
-        }
-
-        return [
-            ...$filters,
-            [
-                'tab' => app('Blade')->render('PressbooksMultiInstitution::partials.filters.institutions.tab'),
-                'content' => app('Blade')->render('PressbooksMultiInstitution::partials.filters.institutions.content', [
-                    'institutions' => Institution::query()->orderBy('name')->get(),
-                ])
-            ]
-        ];
     }
 
     public function addFilters(array $filters): array

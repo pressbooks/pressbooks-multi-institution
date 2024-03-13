@@ -55,6 +55,14 @@ class AssignUsersTable extends WP_List_Table
         ];
     }
 
+    public function column_username(array $item): string
+    {
+        return app('Blade')->render('PressbooksMultiInstitution::table.user', [
+            'editUrl' => admin_url('user-edit.php?user_id=' . $item['ID']),
+            'username' => $item['username'],
+        ]);
+    }
+
     public function prepare_items(): void
     {
         $users = $this->getUsers($_REQUEST);
