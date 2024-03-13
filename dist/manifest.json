@@ -5,14 +5,14 @@
     "src": "node_modules/@pressbooks/multiselect/pressbooks-multiselect.js"
   },
   "resources/assets/js/pressbooks-multi-institution.css": {
-    "file": "assets/pressbooks-multi-institution-31b5d661.css",
+    "file": "assets/pressbooks-multi-institution-f2730a9d.css",
     "src": "resources/assets/js/pressbooks-multi-institution.css"
   },
   "resources/assets/js/pressbooks-multi-institution.js": {
     "css": [
-      "assets/pressbooks-multi-institution-31b5d661.css"
+      "assets/pressbooks-multi-institution-f2730a9d.css"
     ],
-    "file": "assets/app-731f8680.js",
+    "file": "assets/app-c95f6bf1.js",
     "isEntry": true,
     "src": "resources/assets/js/pressbooks-multi-institution.js"
   }

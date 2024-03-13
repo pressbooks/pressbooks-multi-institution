@@ -44,6 +44,18 @@ table.institutions {
 	}
 }
 
+table.users, table.assign-books {
+	tr {
+		td, th {
+			border-bottom: 1px solid var(--border-color);
+		}
+
+		td {
+			margin: 0 0 10px;
+		}
+	}
+}
+
 #pressbooks-multi-institution-assign-users .wp-list-table td,
 #pressbooks-multi-institution-assign-books .wp-list-table td {
 	border-bottom: 1px solid var(--border-color);
