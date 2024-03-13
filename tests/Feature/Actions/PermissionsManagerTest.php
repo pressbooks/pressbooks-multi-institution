@@ -106,6 +106,7 @@ class PermissionsManagerTest extends TestCase
 
         $this->assertCount(InstitutionUser::byInstitution($institutionId)->count(), $users);
     }
+
     /**
      * @test
      */
@@ -129,6 +130,26 @@ class PermissionsManagerTest extends TestCase
     /**
      * @test
      */
+    public function it_filters_for_network_managers_without_institutions(): void
+    {
+        $this->setSuperAdminUser();
+
+        $this->newUser([
+            'user_login' => 'user1',
+            'user_email' => 'user1@test.pb',
+        ]);
+        $this->newUser([
+            'user_login' => 'user2',
+            'user_email' => 'user2@test.pb',
+        ]);
+
+        $_GET['institution'] = [0];
+        $this->assertCount(count(get_users(['blog_id' => 0])), $this->permissionsManager->filterUsersList());
+    }
+
+    /**
+     * @test
+     */
     public function it_gets_all_users_filtered_for_super_admins(): void
     {
         $this->createInstitutionsUsers(2, 10);
@@ -143,7 +164,7 @@ class PermissionsManagerTest extends TestCase
 
         $users = $this->permissionsManager->filterUsersList();
 
-        $this->assertCount(count(get_users()), $users);
+        $this->assertCount(count(get_users(['blog_id' => 0])), $users);
     }
 
     /**
@@ -155,7 +176,7 @@ class PermissionsManagerTest extends TestCase
 
         $this->setSuperAdminUser();
 
-        $wpUsers = get_users();
+        $wpUsers = get_users(['blog_id' => 0]);
         $wpUserIds = array_map(fn ($user) => $user->ID, $wpUsers);
 
         $_GET['institution'] = [0];
@@ -296,7 +317,7 @@ class PermissionsManagerTest extends TestCase
     {
         $this->createInstitutionsUsers(2, 10);
 
-        $wpUsers = get_users();
+        $wpUsers = get_users(['blog_id' => 0]);
 
         $wpUsers = array_map(fn ($user) => (object) [
             'id' => $user->ID,
@@ -350,9 +371,6 @@ class PermissionsManagerTest extends TestCase
 
     public function tearDown(): void
     {
-        InstitutionUser::query()->delete();
-        Institution::query()->delete();
-
         global $wpdb;
         $wpdb->query("DELETE FROM {$wpdb->usermeta}");
         $wpdb->query("DELETE FROM {$wpdb->users}");
