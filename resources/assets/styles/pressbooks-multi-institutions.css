@@ -20,12 +20,14 @@ table.institutions {
 			}
 		}
 
-		tr td, th {
-			border-bottom: 1px solid var(--border-color);
-		}
+		tr {
+			td, th {
+				border-bottom: 1px solid var(--border-color);
+			}
 
-		tr td {
-			margin: 0 0 10px;
+			td {
+				margin: 0 0 10px;
+			}
 		}
 
 		.row-title {
@@ -34,9 +36,23 @@ table.institutions {
 
 		.totals-row {
 			background-color: var(--totals-row-bg-color) !important;
+
 			td, th {
 				border-bottom: 1px solid var(--totals-row-border-color);
 			}
+		}
+	}
+}
+
+#pressbooks-multi-institution-assign-users .wp-list-table td,
+#pressbooks-multi-institution-assign-books .wp-list-table td {
+	border-bottom: 1px solid var(--border-color);
+}
+
+.striped {
+	.totals-row {
+		.text-right {
+			padding-left: 40px;
 		}
 	}
 }
@@ -47,7 +63,7 @@ body.institutions_page_pb_multi_institutions {
 		gap: 10px;
 		margin-top: 10px;
 
-		&:is(ul) {
+		ul {
 			margin: 0;
 			padding-top: 5px;
 		}
@@ -58,6 +74,61 @@ body.institutions_page_pb_multi_institutions {
 	}
 }
 
-th#book_limit, th#users {
+.institutions_page_pb_multi_institution_form {
+	--pb-input-width: var(--pb-input-width);
+	--pb-selected-options-flex-direction: var(--pb-selected-options-flex-direction);
+
+	.description {
+		font-weight: normal;
+	}
+
+	.form-table {
+		td {
+			select[hidden] {
+				display: none;
+			}
+		}
+
+		.multiple-text-input {
+			display: grid;
+			grid-template-columns: 1fr;
+			gap: .5rem;
+		}
+	}
+}
+
+.institutions_page_pb_multi_institution_assign_book {
+	.assign-books {
+		.column-cover {
+			min-width: 50px;
+			text-align: center;
+			width: 5%;
+		}
+	}
+}
+
+.pb-institution-welcome-content p {
+	margin: 4rem 0 0 0 !important;
+}
+
+.pb-dashboard-content i.dashicons-before {
+	margin-right: 4px !important;
+}
+
+form {
+	.form-table {
+		th, td {
+			vertical-align: top;
+			padding-top: 10px;
+		}
+
+		.institutional-managers-component {
+			margin-top: -30px;
+			display: flex;
+		}
+	}
+}
+
+th#book_limit, th#users, th#cover {
 	width: var(--pb-count-td-width);
 }
