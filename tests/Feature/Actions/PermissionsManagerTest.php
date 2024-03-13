@@ -144,7 +144,7 @@ class PermissionsManagerTest extends TestCase
         ]);
 
         $_GET['institution'] = [0];
-        $this->assertCount(4, $this->permissionsManager->filterUsersList());
+        $this->assertCount(count(get_users(['blog_id' => 0])), $this->permissionsManager->filterUsersList());
     }
 
     /**
@@ -164,7 +164,7 @@ class PermissionsManagerTest extends TestCase
 
         $users = $this->permissionsManager->filterUsersList();
 
-        $this->assertCount(count(get_users()), $users);
+        $this->assertCount(count(get_users(['blog_id' => 0])), $users);
     }
 
     /**
@@ -176,7 +176,7 @@ class PermissionsManagerTest extends TestCase
 
         $this->setSuperAdminUser();
 
-        $wpUsers = get_users();
+        $wpUsers = get_users(['blog_id' => 0]);
         $wpUserIds = array_map(fn ($user) => $user->ID, $wpUsers);
 
         $_GET['institution'] = [0];
@@ -317,7 +317,7 @@ class PermissionsManagerTest extends TestCase
     {
         $this->createInstitutionsUsers(2, 10);
 
-        $wpUsers = get_users();
+        $wpUsers = get_users(['blog_id' => 0]);
 
         $wpUsers = array_map(fn ($user) => (object) [
             'id' => $user->ID,
@@ -371,9 +371,6 @@ class PermissionsManagerTest extends TestCase
 
     public function tearDown(): void
     {
-        InstitutionUser::query()->delete();
-        Institution::query()->delete();
-
         global $wpdb;
         $wpdb->query("DELETE FROM {$wpdb->usermeta}");
         $wpdb->query("DELETE FROM {$wpdb->users}");
