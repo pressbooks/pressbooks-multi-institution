@@ -16,7 +16,7 @@ class AssignBooksTable extends WP_List_Table
 {
     use OverridesBulkActions;
 
-    protected int $paginationSize = 15;
+    protected int $paginationSize = 50;
 
     public function __construct()
     {

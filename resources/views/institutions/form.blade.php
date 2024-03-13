@@ -148,7 +148,7 @@
                         {{ __('Enter username or email to find existing user(s). Limit 3.', 'pressbooks-multi-institution') }}
                     </p>
                 </th>
-                <td>
+                <td class="institutional-managers-component">
                     <pressbooks-multiselect
                         @if(! $institution->allowsInstitutionalManagers() && ! $isSuperAdmin)
                             disabled

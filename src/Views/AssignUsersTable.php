@@ -9,7 +9,7 @@ class AssignUsersTable extends WP_List_Table
 {
     use OverridesBulkActions;
 
-    protected int $paginationSize = 20;
+    protected int $paginationSize = 50;
 
     public function __construct()
     {

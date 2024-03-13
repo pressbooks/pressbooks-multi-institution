@@ -18,11 +18,11 @@ use PressbooksMultiInstitution\Bootstrap;
 use PressbooksMultiInstitution\Database\Migration;
 
 // TODO: Check if this is the best way to check for Pressbooks.
-if (!class_exists('Pressbooks\Book')) {
+//if (!class_exists('PressbooksMultiInstitution\Bootstrap')) {
     if (file_exists(__DIR__ . '/vendor/autoload.php')) {
         require_once __DIR__ . '/vendor/autoload.php';
     } else {
-        $title = __('Missing dependencies', 'PressbooksMultiInstitution');
+        $title = __('Missing dependencies', 'pressbooks-multi-institution');
         $body = __(
             'Please run <code>composer install</code> from the root of the plugin directory.',
             'pressbooks-multi-institution'
@@ -30,7 +30,7 @@ if (!class_exists('Pressbooks\Book')) {
 
         wp_die("<h1>{$title}</h1><p>{$body}</p>");
     }
-}
+//}
 
 register_activation_hook(__FILE__, [Migration::class, 'migrate']);
 register_deactivation_hook(__FILE__, [Migration::class, 'rollback']);
