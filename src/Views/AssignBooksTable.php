@@ -61,7 +61,7 @@ class AssignBooksTable extends WP_List_Table
     {
         return app('Blade')->render('PressbooksMultiInstitution::table.book-title', [
             'title' => $item->title,
-            'url' => $item->url,
+            'url' => "$item->url/wp-admin",
         ]);
     }
 

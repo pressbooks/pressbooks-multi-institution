@@ -106,6 +106,8 @@ class PermissionsManager
 
         add_filter('pb_network_analytics_filter_tabs', [$this, 'addInstitutionsFilterTab']);
 
+        add_filter('pb_network_analytics_book_list_fields', [$this, 'filterBookListItems']);
+
         if ($pagenow == 'settings.php' && isset($_GET['page']) && $_GET['page'] == 'pb_network_managers') {
             add_filter('site_option_site_admins', function ($admins) use ($institutionalManagers) {
                 $adminIds = array_map(function ($login) {
@@ -192,7 +194,7 @@ class PermissionsManager
             [
                 'tab' => app('Blade')->render('PressbooksMultiInstitution::partials.filters.institutions.tab'),
                 'content' => app('Blade')->render('PressbooksMultiInstitution::partials.filters.institutions.content', [
-                    'institutions' => Institution::query()->orderBy('name')->get(),
+                    'institutions' => Institution::query()->whereHas('books')->orderBy('name')->get(),
                 ])
             ]
         ];
@@ -237,6 +239,15 @@ class PermissionsManager
 
             return (object) $properties;
         }, $users);
+    }
+
+    public function filterBookListItems($bookList): array
+    {
+        return array_map(function (\stdClass $item) {
+            unset($item->institution_id);
+            $item->institution = $item->institution ?? __('Unassigned', 'pressbooks-multi-institution');
+            return $item;
+        }, $bookList);
     }
 
     public function handlePagesPermissions($institution, $institutionalManagers, $institutionalUsers): void
