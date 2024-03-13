@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks Multi Institution 0.1.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-multi-institution/issues\n"
-"POT-Creation-Date: 2024-03-12T18:04:16+00:00\n"
+"POT-Creation-Date: 2024-03-13T21:06:44+00:00\n"
 "PO-Revision-Date: 2024-02-19 22:27+0000\n"
 "Last-Translator: Eduardo Vera, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/pressbooks/teams/9194/ja/)\n"
@@ -88,30 +88,30 @@ msgstr "このページにアクセスする権限がありません。"
 msgid "Administer Institution"
 msgstr "機関管理"
 
-#: src/Bootstrap.php:49 src/Bootstrap.php:50
+#: src/Bootstrap.php:50 src/Bootstrap.php:51
 msgid "Institutions"
 msgstr "機関"
 
-#: src/Bootstrap.php:60 src/Bootstrap.php:61
+#: src/Bootstrap.php:61 src/Bootstrap.php:62
 #: resources/views/institutions/index.blade.php:8
 msgid "Institution List"
 msgstr "機関リスト"
 
-#: src/Bootstrap.php:71 src/Bootstrap.php:72
+#: src/Bootstrap.php:72 src/Bootstrap.php:73
 msgid "Add Institution"
 msgstr "機関を追加"
 
-#: src/Bootstrap.php:82 src/Bootstrap.php:83
+#: src/Bootstrap.php:83 src/Bootstrap.php:84
 #: resources/views/users/assign.blade.php:8
 msgid "Assign Users"
 msgstr "ユーザーを割り当てる"
 
-#: src/Bootstrap.php:93 src/Bootstrap.php:94
+#: src/Bootstrap.php:94 src/Bootstrap.php:95
 #: resources/views/books/assign.blade.php:8
 msgid "Assign Books"
 msgstr "本を割り当てる"
 
-#: src/Bootstrap.php:140
+#: src/Bootstrap.php:142
 msgid "Are you sure you want to delete the selected institutions?"
 msgstr "本当に選択した機関を削除しますか ?"
 
@@ -165,6 +165,10 @@ msgid ""
 "%s is already assigned as an institutional manager for %s. They cannot be "
 "assigned to manage two institutions at the same time."
 msgstr "%s は、既に %sの機関管理者として割り当てられている。同時に二つの機関を管理するように割り当てることはできません。"
+
+#: src/Services/InstitutionStatsService.php:39
+msgid "%s Stats"
+msgstr ""
 
 #: src/Support/BookList.php:110
 msgid "%s' Book List"
