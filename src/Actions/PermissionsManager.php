@@ -157,23 +157,23 @@ class PermissionsManager
 
         if ($filtered && is_super_admin() && ! get_institution_by_manager()) {
             $institutionIds = array_map('intval', $_GET['institution']);
-            $userIds = [];
             if (in_array(0, $institutionIds)) {
                 $wpUsers = get_users([
+                    'blog_id' => 0,
                     'fields' => ['ID'],
                     'exclude' => InstitutionUser::get()->pluck('user_id')->toArray(),
                 ]);
-                $userIds = array_map(fn ($user) => $user->ID, $wpUsers);
+                $userIds = array_map(fn ($user) => is_object($user) ? $user->ID : $user, $wpUsers);
             }
 
             return array_merge(
-                $userIds,
+                $userIds ?? [],
                 InstitutionUser::query()->whereIn('institution_id', $institutionIds)->pluck('user_id')->toArray()
             );
         }
 
         if (is_super_admin() && !is_restricted()) {
-            return array_map(fn ($user) => $user->ID, get_users());
+            return array_map(fn ($user) => $user->ID, get_users(['blog_id' => 0]));
         }
 
         $institutionalUsers = InstitutionUser::query()->byInstitution(get_institution_by_manager())->pluck('user_id')->toArray();
