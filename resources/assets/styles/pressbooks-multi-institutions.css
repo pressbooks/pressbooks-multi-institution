@@ -1,6 +1,4 @@
 :root {
-	--pb-input-width: 25em;
-	--pb-selected-options-flex-direction: column;
 	--odd-row-bg-color: #FFFFFF;
 	--even-row-bg-color: #F6F7F7;
 	--totals-row-bg-color: #E0E0E0;
@@ -87,8 +85,8 @@ body.institutions_page_pb_multi_institutions {
 }
 
 .institutions_page_pb_multi_institution_form {
-	--pb-input-width: var(--pb-input-width);
-	--pb-selected-options-flex-direction: var(--pb-selected-options-flex-direction);
+	--pb-input-width: 25em;
+	--pb-selected-options-flex-direction: column;
 
 	.description {
 		font-weight: normal;
