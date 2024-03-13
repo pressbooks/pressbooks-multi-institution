@@ -5,6 +5,7 @@
 	--border-color: #e5e5e5;
 	--totals-row-border-color: #C3C4C7;
 	--pb-count-td-width: 10%;
+	--pb-error-color: #d4002d;
 }
 
 table.institutions {
@@ -87,6 +88,10 @@ body.institutions_page_pb_multi_institutions {
 .institutions_page_pb_multi_institution_form {
 	--pb-input-width: 25em;
 	--pb-selected-options-flex-direction: column;
+
+	.error {
+		color: var(--pb-error-color);
+	}
 
 	.description {
 		font-weight: normal;

@@ -28,6 +28,8 @@
         {{ __( 'Institution', 'pressbooks-multi-institution') }}
     </h1>
 
+	<p class="error">An asterisk (*) indicates a required field</p>
+
     <hr class="wp-header-end">
 
     <p>
@@ -47,7 +49,7 @@
             <tr>
                 <th>
                     <label for="name">
-                        {{ __('Name', 'pressbooks-multi-institution') }}*
+                        {{ __('Name', 'pressbooks-multi-institution') }} <span class="error">*</span>
                     </label>
                 </th>
                 <td>
