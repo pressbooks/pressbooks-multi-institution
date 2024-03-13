@@ -100,12 +100,12 @@ body.institutions_page_pb_multi_institutions {
 				display: none;
 			}
 		}
+	}
 
-		.multiple-text-input {
-			display: grid;
-			grid-template-columns: 1fr;
-			gap: .5rem;
-		}
+	.multiple-text-input {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: .5rem;
 	}
 }
 
@@ -141,6 +141,6 @@ form {
 	}
 }
 
-th#book_limit, th#users, th#cover {
+th#book_limit, th#users {
 	width: var(--pb-count-td-width);
 }
