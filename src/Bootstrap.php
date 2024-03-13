@@ -11,6 +11,7 @@ use PressbooksMultiInstitution\Controllers\AssignBooksController;
 use PressbooksMultiInstitution\Actions\PermissionsManager;
 use PressbooksMultiInstitution\Controllers\InstitutionsController;
 use PressbooksMultiInstitution\Controllers\AssignUsersController;
+use PressbooksMultiInstitution\Services\InstitutionStatsService;
 use PressbooksMultiInstitution\Support\BookList;
 
 /**
@@ -121,6 +122,7 @@ final class Bootstrap
             3
         );
         add_action('init', [InstitutionalManagerDashboard::class, 'init']);
+        add_action('init', fn () => app(InstitutionStatsService::class)->setupHooks());
     }
 
     private function registerBlade(): void

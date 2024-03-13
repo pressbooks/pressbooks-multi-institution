@@ -35,6 +35,8 @@ trait CreatesModels
     protected function newSuperAdmin(array $properties = []): int
     {
         return tap($this->newUser($properties), function (int $id) {
+            $user = get_user_by('ID', $id);
+            update_site_option('site_admins', [$user->user_login]);
             grant_super_admin($id);
         });
     }

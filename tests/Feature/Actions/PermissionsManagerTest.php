@@ -74,7 +74,7 @@ class PermissionsManagerTest extends TestCase
     /**
      * @test
      */
-    public function it_filters_users_by_insitution_without_users(): void
+    public function it_filters_users_by_institution_without_users(): void
     {
         $this->createInstitutionsUsers(2, 0);
 
