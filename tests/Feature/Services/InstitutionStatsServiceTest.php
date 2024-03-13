@@ -32,10 +32,11 @@ class InstitutionStatsServiceTest extends TestCase
 
         $service->setupHooks();
 
-        $this->assertTrue(has_filter('pressbooks_network_analytics_stats_title'));
-        $this->assertTrue(has_filter('pressbooks_network_analytics_stats_download_filename'));
-        $this->assertTrue(has_filter('pressbooks_network_analytics_stats_blogmeta_query'));
-        $this->assertTrue(has_filter('pressbooks_network_analytics_stats_user_query'));
+        $this->assertTrue(has_filter('pb_network_analytics_stats_title'));
+        $this->assertTrue(has_filter('pb_network_analytics_stats_download_filename'));
+        $this->assertTrue(has_filter('pb_network_analytics_stats_blogmeta_query'));
+        $this->assertTrue(has_filter('pb_network_analytics_stats_user_query'));
+        $this->assertTrue(has_filter('pb_network_analytics_stats_download_column'));
     }
 
     /** @test */
@@ -58,7 +59,6 @@ class InstitutionStatsServiceTest extends TestCase
 
         global $wpdb;
 
-        $this->assertEquals('Institution', $queryData['columnAlias']);
         $this->assertEquals("i.name AS Institution", $queryData['column']);
         $this->assertEquals(" LEFT OUTER JOIN {$wpdb->base_prefix}institutions_blogs AS ib ON ib.blog_id = blogmeta.blog_id LEFT OUTER JOIN {$wpdb->base_prefix}institutions AS i ON i.id = ib.institution_id", $queryData['join']);
         $this->assertEquals("i.id = {$this->institution->id}", $queryData['conditions']);
@@ -94,7 +94,6 @@ class InstitutionStatsServiceTest extends TestCase
         $queryData = $service->addInstitutionToUserQuery([], 'users');
 
         global $wpdb;
-        $this->assertEquals('Institution', $queryData['columnAlias']);
         $this->assertEquals("i.name AS Institution", $queryData['column']);
         $this->assertEquals(" LEFT OUTER JOIN {$wpdb->base_prefix}institutions_users AS iu ON iu.user_id = users.ID LEFT OUTER JOIN {$wpdb->base_prefix}institutions AS i ON i.id = iu.institution_id", $queryData['join']);
     }
@@ -108,6 +107,13 @@ class InstitutionStatsServiceTest extends TestCase
         $queryData = $service->addInstitutionToUserQuery([], 'users');
 
         $this->assertEmpty($queryData['conditions']);
+    }
+
+    /** @test */
+    public function it_returns_column_alias(): void
+    {
+        $service = new InstitutionStatsService;
+        $this->assertEquals('Institution', $service->getColumnAlias());
     }
 
 }
