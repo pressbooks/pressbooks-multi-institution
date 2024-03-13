@@ -10,7 +10,7 @@ class InstitutionStatsService
 {
     private null|Institution $institution;
 
-    private string $columnName = 'Institution';
+    private string $columnAlias = 'Institution';
 
     public function __construct()
     {
@@ -43,7 +43,7 @@ class InstitutionStatsService
     {
         global $wpdb;
         return [
-            'column' => "i.name AS {$this->columnName}",
+            'column' => "i.name AS {$this->columnAlias}",
             'join' => " LEFT OUTER JOIN {$wpdb->base_prefix}institutions_blogs AS ib ON ib.blog_id = {$blogmetaAlias}.blog_id LEFT OUTER JOIN {$wpdb->base_prefix}institutions AS i ON i.id = ib.institution_id",
             'conditions' => $this->institution ? "i.id = {$this->institution->id}" : '',
         ];
@@ -53,7 +53,7 @@ class InstitutionStatsService
     {
         global $wpdb;
         return [
-            'column' => "i.name AS {$this->columnName}",
+            'column' => "i.name AS {$this->columnAlias}",
             'join' => " LEFT OUTER JOIN {$wpdb->base_prefix}institutions_users AS iu ON iu.user_id = {$userTableAlias}.ID LEFT OUTER JOIN {$wpdb->base_prefix}institutions AS i ON i.id = iu.institution_id",
             'conditions' => $this->institution ? "i.id = {$this->institution->id}" : '',
         ];
@@ -61,6 +61,6 @@ class InstitutionStatsService
 
     public function getColumnAlias(): string
     {
-        return $this->columnName;
+        return $this->columnAlias;
     }
 }
