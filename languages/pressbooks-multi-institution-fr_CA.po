@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks Multi Institution 0.1.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-multi-institution/issues\n"
-"POT-Creation-Date: 2024-03-12T18:04:16+00:00\n"
+"POT-Creation-Date: 2024-03-13T21:06:44+00:00\n"
 "PO-Revision-Date: 2024-02-19 22:27+0000\n"
 "Last-Translator: Siri Gauthier, 2024\n"
 "Language-Team: French (Canada) (https://app.transifex.com/pressbooks/teams/9194/fr_CA/)\n"
@@ -94,30 +94,30 @@ msgstr ""
 msgid "Administer Institution"
 msgstr ""
 
-#: src/Bootstrap.php:49 src/Bootstrap.php:50
+#: src/Bootstrap.php:50 src/Bootstrap.php:51
 msgid "Institutions"
 msgstr "Institutions"
 
-#: src/Bootstrap.php:60 src/Bootstrap.php:61
+#: src/Bootstrap.php:61 src/Bootstrap.php:62
 #: resources/views/institutions/index.blade.php:8
 msgid "Institution List"
 msgstr "Liste des institutions"
 
-#: src/Bootstrap.php:71 src/Bootstrap.php:72
+#: src/Bootstrap.php:72 src/Bootstrap.php:73
 msgid "Add Institution"
 msgstr "Ajouter une institution"
 
-#: src/Bootstrap.php:82 src/Bootstrap.php:83
+#: src/Bootstrap.php:83 src/Bootstrap.php:84
 #: resources/views/users/assign.blade.php:8
 msgid "Assign Users"
 msgstr "Assigner des utilisateurs"
 
-#: src/Bootstrap.php:93 src/Bootstrap.php:94
+#: src/Bootstrap.php:94 src/Bootstrap.php:95
 #: resources/views/books/assign.blade.php:8
 msgid "Assign Books"
 msgstr "Assigner des livres"
 
-#: src/Bootstrap.php:140
+#: src/Bootstrap.php:142
 msgid "Are you sure you want to delete the selected institutions?"
 msgstr "Voulez-vous vraiment supprimer cette institution?"
 
@@ -180,6 +180,10 @@ msgstr ""
 "%s est déjà assigné en tant que gestionnaire institutionnel à %s. Un "
 "utilisateur ne peut pas être assigné pour gérer deux institutions en même "
 "temps."
+
+#: src/Services/InstitutionStatsService.php:39
+msgid "%s Stats"
+msgstr ""
 
 #: src/Support/BookList.php:110
 msgid "%s' Book List"
