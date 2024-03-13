@@ -11,7 +11,7 @@ use function PressbooksMultiInstitution\Support\is_network_unlimited;
 
 class InstitutionsTable extends WP_List_Table
 {
-    protected int $paginationSize = 1000;
+    protected int $paginationSize = 50;
 
     public function __construct()
     {
@@ -37,7 +37,7 @@ class InstitutionsTable extends WP_List_Table
     public function column_default($item, $column_name): string
     {
         $allowed_tags = [
-            'p' => [],
+            'div' => [],
             'a' => [
                 'href' => [],
                 'title' => []

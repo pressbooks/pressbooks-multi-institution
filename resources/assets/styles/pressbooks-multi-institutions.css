@@ -6,16 +6,28 @@ table.institutions #the-list tr:not(.totals-row):nth-child(even) {
 	background-color: #F6F7F7;
 }
 
-table.institutions #the-list tr td,th {
+table.institutions #the-list tr td,th, #pressbooks-multi-institution-assign-users .wp-list-table td, #pressbooks-multi-institution-assign-books .wp-list-table td {
 	border-bottom: 1px solid #e5e5e5;
 }
 
-table.institutions #the-list tr td p {
+table.institutions #the-list tr td {
 	margin: 0 0 10px;
 }
 
-.striped .totals-row {
+table.institutions #the-list .row-title {
+	font-size: 13px !important;
+}
+
+#users, #book_limit {
+	width: 10%;
+}
+
+table.institutions #the-list .totals-row {
 	background-color: #E0E0E0 !important;
+}
+
+table.institutions #the-list .totals-row td, .striped .totals-row th {
+	border-bottom: 1px solid #C3C4C7;
 }
 
 .striped .totals-row .text-right {
@@ -68,4 +80,14 @@ body.institutions_page_pb_multi_institutions .filtering a {
 
 .pb-dashboard-content i.dashicons-before {
 	margin-right: 4px !important;
+}
+
+form .form-table th, form .form-table td {
+	vertical-align: top;
+	padding-top: 10px;
+}
+
+form .form-table .institutional-managers-component {
+	margin-top: -30px;
+	display: flex;
 }
