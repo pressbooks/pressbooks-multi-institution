@@ -234,7 +234,7 @@ msgstr "Domaines de messagerie électronique"
 
 #: src/Views/InstitutionsTable.php:105
 msgid "Buy-in"
-msgstr ""
+msgstr "Adhésion"
 
 #: src/Views/InstitutionsTable.php:107
 #: resources/views/institutions/form.blade.php:154
@@ -318,7 +318,7 @@ msgstr "Afficher la liste des livres"
 
 #: resources/views/dashboard/institutional.blade.php:47
 msgid "View user list"
-msgstr ""
+msgstr "Afficher la liste des utilisateurs"
 
 #: resources/views/dashboard/institutional.blade.php:56
 msgid "Explore Stats"
