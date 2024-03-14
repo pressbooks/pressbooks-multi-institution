@@ -251,7 +251,7 @@ msgstr "Utilisateurs"
 
 #: src/Views/InstitutionsTable.php:154
 msgid "Delete"
-msgstr ""
+msgstr "Supprimer"
 
 #: src/Views/InstitutionsTable.php:188 src/Views/InstitutionsTable.php:243
 msgid "unlimited"
