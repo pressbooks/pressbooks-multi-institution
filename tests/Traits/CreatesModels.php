@@ -77,7 +77,9 @@ trait CreatesModels
 
         $blog = $this->factory()->blog->create($properties);
 
-        DataCollector::init()->copyBookMetaIntoSiteTable($blog);
+        if(!isset($properties['no_collector'])) {
+            DataCollector::init()->copyBookMetaIntoSiteTable($blog);
+        }
 
         $wpdb->query('COMMIT');
 

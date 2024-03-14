@@ -74,11 +74,8 @@ HTML;
     public function it_renders_the_title_column(): void
     {
         $expected = <<<HTML
-<div>
-    <span style="display: block">Fake Book</span>
-
-    <a href="https://fakeinstitution.edu">https://fakeinstitution.edu</a>
-</div>
+<span style="display: block">Fake Book</span>
+<a href="https://fakeinstitution.edu/wp-admin">https://fakeinstitution.edu/wp-admin</a>
 
 HTML;
 
@@ -109,13 +106,11 @@ HTML;
     {
         $expected = <<<HTML
 <div style="margin-bottom: .5rem">
-    <p style="margin-bottom: .125rem">
-        <strong>John Doe</strong>
-        <a href="mailto:johndoe@example.com">johndoe@example.com</a>
-    </p>
-
-    <span>Fake Institution</span>
-</div>
+		<strong>John Doe</strong>
+		<a href="mailto:johndoe@example.com">johndoe@example.com</a>
+		<br />
+		<span>Fake Institution</span>
+	</div>
 
 HTML;
 
@@ -143,21 +138,17 @@ HTML;
     {
         $expected = <<<HTML
 <div style="margin-bottom: .5rem">
-    <p style="margin-bottom: .125rem">
-        <strong>John Doe</strong>
-        <a href="mailto:johndoe@example.com">johndoe@example.com</a>
-    </p>
-
-    <span>Fake Institution</span>
-</div>
-<div style="margin-bottom: .5rem">
-    <p style="margin-bottom: .125rem">
-        <strong>Jane Doe</strong>
-        <a href="mailto:janedoe@example.com">janedoe@example.com</a>
-    </p>
-
-    <span>Another Fake Institution</span>
-</div>
+		<strong>John Doe</strong>
+		<a href="mailto:johndoe@example.com">johndoe@example.com</a>
+		<br />
+		<span>Fake Institution</span>
+	</div>
+	<div style="margin-bottom: .5rem">
+		<strong>Jane Doe</strong>
+		<a href="mailto:janedoe@example.com">janedoe@example.com</a>
+		<br />
+		<span>Another Fake Institution</span>
+	</div>
 
 HTML;
 

@@ -16,7 +16,7 @@ class AssignBooksTable extends WP_List_Table
 {
     use OverridesBulkActions;
 
-    protected int $paginationSize = 15;
+    protected int $paginationSize = 50;
 
     public function __construct()
     {
@@ -61,7 +61,7 @@ class AssignBooksTable extends WP_List_Table
     {
         return app('Blade')->render('PressbooksMultiInstitution::table.book-title', [
             'title' => $item->title,
-            'url' => $item->url,
+            'url' => "$item->url/wp-admin",
         ]);
     }
 

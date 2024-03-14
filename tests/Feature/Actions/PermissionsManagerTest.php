@@ -4,9 +4,11 @@ namespace Tests\Feature\Actions;
 
 use PressbooksMultiInstitution\Actions\PermissionsManager;
 use PressbooksMultiInstitution\Models\Institution;
+use PressbooksMultiInstitution\Models\InstitutionBook;
 use PressbooksMultiInstitution\Models\InstitutionUser;
 use Tests\TestCase;
 use Tests\Traits\CreatesModels;
+use Tests\Traits\Utils;
 
 /**
  * @group permissions-manager
@@ -14,6 +16,7 @@ use Tests\Traits\CreatesModels;
 class PermissionsManagerTest extends TestCase
 {
     use CreatesModels;
+    use Utils;
 
     private PermissionsManager $permissionsManager;
 
@@ -201,12 +204,25 @@ class PermissionsManagerTest extends TestCase
         $this->setSuperAdminUser();
         $this->createInstitutionsUsers(2, 10);
 
+        $bookId1 = $this->runWithoutFilter('pb_new_blog', fn () => $this->newBook(
+            ['path' => 'fakepath', 'title' => 'Book 1', 'no_collector' => true]
+        ));
+        $bookId2 = $this->runWithoutFilter('pb_new_blog', fn () => $this->newBook(
+            ['path' => 'anotherfakepath', 'title' => 'Book 2', 'no_collector' => true]
+        ));
+
+        $institutions = Institution::query()->get();
+
+        $institution1 = $institutions[0];
+        $institution2 = $institutions[1];
+
+        $institution1->books()->create(['blog_id' => $bookId1]);
+        $institution2->books()->create(['blog_id' => $bookId2]);
+
         $data = $this->permissionsManager->addInstitutionsFilterTab([])[0];
 
         $this->assertArrayHasKey('tab', $data);
         $this->assertArrayHasKey('content', $data);
-
-        $institutions = Institution::query()->get();
 
         // asssert that tab content template is rendered with regex
         $this->assertMatchesRegularExpression(
@@ -238,6 +254,9 @@ class PermissionsManagerTest extends TestCase
         wp_set_current_user($regularUserId);
 
         $this->assertEmpty($this->permissionsManager->addInstitutionsFilterTab([]));
+        InstitutionBook::query()->delete();
+        wp_delete_site($bookId1);
+        wp_delete_site($bookId2);
     }
 
     /**

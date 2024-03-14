@@ -52,6 +52,7 @@ final class Bootstrap
             capability: 'manage_network',
             menu_slug: $slug,
             icon_url: 'dashicons-building',
+            position: 4,
         );
 
         add_action('admin_bar_init', fn () => remove_submenu_page($slug, $slug));

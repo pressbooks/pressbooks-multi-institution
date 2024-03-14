@@ -9,7 +9,7 @@ class AssignUsersTable extends WP_List_Table
 {
     use OverridesBulkActions;
 
-    protected int $paginationSize = 20;
+    protected int $paginationSize = 50;
 
     public function __construct()
     {
@@ -53,6 +53,14 @@ class AssignUsersTable extends WP_List_Table
             'email' => ['email', false],
             'institution' => ['institution', false],
         ];
+    }
+
+    public function column_username(array $item): string
+    {
+        return app('Blade')->render('PressbooksMultiInstitution::table.user', [
+            'editUrl' => admin_url('user-edit.php?user_id=' . $item['ID']),
+            'username' => $item['username'],
+        ]);
     }
 
     public function prepare_items(): void

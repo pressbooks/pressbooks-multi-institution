@@ -28,6 +28,8 @@
         {{ __( 'Institution', 'pressbooks-multi-institution') }}
     </h1>
 
+	<p class="error">{{ __('An asterisk (*) indicates a required field', 'pressbooks-multi-institution') }}</p>
+
     <hr class="wp-header-end">
 
     <p>
@@ -47,7 +49,7 @@
             <tr>
                 <th>
                     <label for="name">
-                        {{ __('Name', 'pressbooks-multi-institution') }}*
+                        {{ __('Name', 'pressbooks-multi-institution') }} <span class="error">*</span>
                     </label>
                 </th>
                 <td>
@@ -148,7 +150,7 @@
                         {{ __('Enter username or email to find existing user(s). Limit 3.', 'pressbooks-multi-institution') }}
                     </p>
                 </th>
-                <td>
+                <td class="institutional-managers-component">
                     <pressbooks-multiselect
                         @if(! $institution->allowsInstitutionalManagers() && ! $isSuperAdmin)
                             disabled
