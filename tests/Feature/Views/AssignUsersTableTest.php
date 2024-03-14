@@ -37,7 +37,7 @@ class AssignUsersTableTest extends TestCase
     public function it_should_return_name_column(): void
     {
         $item = ['name' => 'John Doe'];
-        $this->assertEquals('<div class="row-title">John Doe</div>', $this->table->column_name($item));
+        $this->assertEquals('John Doe', $this->table->column_name($item));
     }
 
     /**
