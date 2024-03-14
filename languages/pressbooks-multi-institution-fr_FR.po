@@ -298,7 +298,7 @@ msgstr "Bienvenue à"
 
 #: resources/views/dashboard/institutional.blade.php:13
 msgid "Visit network homepage"
-msgstr ""
+msgstr "Visitez la page d'accueil du réseau"
 
 #: resources/views/dashboard/institutional.blade.php:17
 msgid "%s has %s books and %s users. "
