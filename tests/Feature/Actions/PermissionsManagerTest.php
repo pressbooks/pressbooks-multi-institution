@@ -4,6 +4,7 @@ namespace Tests\Feature\Actions;
 
 use PressbooksMultiInstitution\Actions\PermissionsManager;
 use PressbooksMultiInstitution\Models\Institution;
+use PressbooksMultiInstitution\Models\InstitutionBook;
 use PressbooksMultiInstitution\Models\InstitutionUser;
 use Tests\TestCase;
 use Tests\Traits\CreatesModels;
@@ -204,10 +205,10 @@ class PermissionsManagerTest extends TestCase
         $this->createInstitutionsUsers(2, 10);
 
         $bookId1 = $this->runWithoutFilter('pb_new_blog', fn () => $this->newBook(
-            ['path' => '/book1', 'title' => 'Book 1']
+            ['path' => '/book1', 'title' => 'Book 1', 'no_collector' => true]
         ));
         $bookId2 = $this->runWithoutFilter('pb_new_blog', fn () => $this->newBook(
-            ['path' => '/book2', 'title' => 'Book 2']
+            ['path' => '/book2', 'title' => 'Book 2', 'no_collector' => true]
         ));
 
         $institutions = Institution::query()->get();
@@ -253,6 +254,9 @@ class PermissionsManagerTest extends TestCase
         wp_set_current_user($regularUserId);
 
         $this->assertEmpty($this->permissionsManager->addInstitutionsFilterTab([]));
+        InstitutionBook::query()->delete();
+		wp_delete_site($bookId1);
+		wp_delete_site($bookId2);
     }
 
     /**
