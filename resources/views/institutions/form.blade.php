@@ -28,7 +28,7 @@
         {{ __( 'Institution', 'pressbooks-multi-institution') }}
     </h1>
 
-	<p class="error">An asterisk (*) indicates a required field</p>
+	<p class="error">{{ __('An asterisk (*) indicates a required field', 'pressbooks-multi-institution') }}</p>
 
     <hr class="wp-header-end">
 
