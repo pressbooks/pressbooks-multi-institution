@@ -205,10 +205,10 @@ class PermissionsManagerTest extends TestCase
         $this->createInstitutionsUsers(2, 10);
 
         $bookId1 = $this->runWithoutFilter('pb_new_blog', fn () => $this->newBook(
-            ['path' => '/book1', 'title' => 'Book 1', 'no_collector' => true]
+            ['path' => 'fakepath', 'title' => 'Book 1', 'no_collector' => true]
         ));
         $bookId2 = $this->runWithoutFilter('pb_new_blog', fn () => $this->newBook(
-            ['path' => '/book2', 'title' => 'Book 2', 'no_collector' => true]
+            ['path' => 'anotherfakepath', 'title' => 'Book 2', 'no_collector' => true]
         ));
 
         $institutions = Institution::query()->get();
