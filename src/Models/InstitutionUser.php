@@ -2,6 +2,7 @@
 
 namespace PressbooksMultiInstitution\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -37,17 +38,22 @@ class InstitutionUser extends Model
         return $this->belongsTo(Institution::class);
     }
 
-    public function scopeManagers($query)
+    public function scopeNotManagers(Builder $query): Builder
+    {
+        return $query->where('manager', false);
+    }
+
+    public function scopeManagers(Builder $query): Builder
     {
         return $query->where('manager', true);
     }
 
-    public function scopeByInstitution($query, $institution_id)
+    public function scopeByInstitution(Builder $query, int $institution_id): Builder
     {
         return $query->where('institution_id', $institution_id);
     }
 
-    public function scopeIsManager($query, $user_id)
+    public function scopeIsManager(Builder $query, int $user_id): Builder
     {
         return $query->managers()->where('user_id', $user_id);
     }

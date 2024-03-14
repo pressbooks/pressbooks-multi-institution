@@ -2,7 +2,8 @@
 
 namespace PressbooksMultiInstitution\Controllers;
 
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use PressbooksMultiInstitution\Models\EmailDomain;
@@ -51,23 +52,15 @@ class InstitutionsController extends BaseController
 
         $institution = $this->fetchInstitution();
 
+        $users = $this->fetchUsers($institution);
+
         return $this->renderView('institutions.form', [
             'back_url' => network_admin_url('admin.php?page=pb_multi_institutions'),
             'isSuperAdmin' =>  $isSuperAdmin,
             'institution' => $institution,
             'old' => $result['success'] ? [] : $_POST,
             'result' => $result,
-            'users' => get_users([
-                'blog_id' => 0,
-                'orderby' => [
-                    'display_name',
-                    'email',
-                    'name'
-                ],
-                'exclude' => InstitutionUser::query()
-                    ->where('institution_id', '<>', $institution->id)
-                    ->pluck('user_id')->toArray(),
-            ]),
+            'users' => $users,
         ]);
     }
 
@@ -157,14 +150,15 @@ class InstitutionsController extends BaseController
         );
 
         if ($institution->allowsInstitutionalManagers() || $isSuperAdmin) {
-            // TODO: handle the super admin removal while syncing managers
-            $managersToBeRemoved = $institution->managers()->whereNotIn('user_id', $managers)->get()->toArray();
+            $managers = array_map(fn (string $id) => (int) $id, $managers);
 
-            $institution->syncManagers(
-                array_map(fn (string $id) => (int) $id, $managers),
-            );
+            InstitutionUser::query()
+                ->notManagers()
+                ->whereIn('user_id', $managers)
+                ->where('institution_id', '<>', $institution->id)
+                ->delete();
 
-            apply_filters('pb_institutional_after_save', $managers, $managersToBeRemoved);
+            $institution->syncManagers($managers);
         }
 
         return [
@@ -233,6 +227,34 @@ class InstitutionsController extends BaseController
         return $institution;
     }
 
+    protected function fetchUsers(?Institution $institution): array
+    {
+        $usersToSkip = app('db')
+            ->table('users')
+            ->whereIn('ID', function (Builder $query) use ($institution) {
+                $query
+                    ->select('ID')
+                    ->from('users')
+                    ->whereIn('user_login', get_super_admins())
+                    ->when(
+                        $institution,
+                        fn (Builder $query) => $query->whereNotIn('ID', $institution->managers->pluck('user_id'))
+                    );
+            })
+            ->pluck('ID')
+            ->toArray();
+
+        return get_users([
+            'blog_id' => 0, // all users from the network
+            'orderby' => [
+                'display_name',
+                'email',
+                'name',
+            ],
+            'exclude' => $usersToSkip
+        ]);
+    }
+
     protected function checkForDuplicateDomains(array $domains, ?int $id): array
     {
         $domains = array_filter($domains);
@@ -245,7 +267,7 @@ class InstitutionsController extends BaseController
         $duplicates = EmailDomain::query()
             ->with('institution:id,name')
             ->whereIn('domain', $domains)
-            ->when($id, fn (Builder $query) => $query->where('institution_id', '<>', $id))
+            ->when($id, fn (EloquentBuilder $query) => $query->where('institution_id', '<>', $id))
             ->get();
 
         return $duplicates->map(function (EmailDomain $duplicate) {
@@ -278,7 +300,7 @@ class InstitutionsController extends BaseController
             ->join('institutions_users', 'institutions.id', '=', 'institutions_users.institution_id')
             ->whereIn('institutions_users.user_id', $managers)
             ->where('institutions_users.manager', true)
-            ->when($id, fn (Builder $query) => $query->where('institutions.id', '<>', $id))
+            ->when($id, fn (EloquentBuilder $query) => $query->where('institutions.id', '<>', $id))
             ->get();
 
         return $duplicates->map(function (object $duplicate) {
