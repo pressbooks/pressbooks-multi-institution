@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use PressbooksMultiInstitution\Models\EmailDomain;
 use PressbooksMultiInstitution\Models\Institution;
 use PressbooksMultiInstitution\Models\InstitutionUser;
@@ -146,7 +147,7 @@ class InstitutionsController extends BaseController
         }
 
         $institution->updateDomains(
-            array_map(fn (string $domain) => ['domain' => $domain], $domains)
+            array_map(fn (string $domain) => ['domain' => Str::of($domain)->lower()], $domains)
         );
 
         if ($institution->allowsInstitutionalManagers() || $isSuperAdmin) {
@@ -199,8 +200,15 @@ class InstitutionsController extends BaseController
             $errors['book_limit'][] = __('The book limit field should be numeric.', 'pressbooks-multi-institution');
         }
 
-        if ($domainErrors = $this->checkForDuplicateDomains($data['domains'] ?? [], $id)) {
+        if ($domainErrors = $this->checkForInvalidDomains($data['domains'] ?? [])) {
             $errors['domains'] = $domainErrors;
+        }
+
+        if ($domainErrors = $this->checkForDuplicateDomains($data['domains'] ?? [], $id)) {
+            $errors['domains'] = [
+                ...$errors['domains'] ?? [],
+                ...$domainErrors
+            ];
         }
 
         if ($managerErrors = $this->checkForDuplicateManagers($data['managers'] ?? [], $id)) {
@@ -253,6 +261,46 @@ class InstitutionsController extends BaseController
             ],
             'exclude' => $usersToSkip
         ]);
+    }
+
+    protected function checkForInvalidDomains(array $domains): array
+    {
+        $domains = array_filter($domains);
+
+        if (! $domains) {
+            return [];
+        }
+
+        $domains = array_map(function (string $domain) {
+            $pattern = '/^(?:(?:[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]|[a-zA-Z0-9])+\.)+[a-zA-Z]{2,}$/';
+
+            if (preg_match($pattern, $domain) === 1) {
+                return false;
+            }
+
+            return "<strong>{$domain}</strong>";
+        }, $domains);
+
+        $invalidDomains = array_filter($domains);
+
+        if (! $invalidDomains) {
+            return [];
+        }
+
+        return [
+            sprintf(
+                _n(
+                    'Email domains can only contain alphanumeric characters, periods, and dashes. The following entry contained invalid content:<br/>
+                    %s <br/>
+                    Please correct the invalid content and resubmit the form.',
+                    'Email domains can only contain alphanumeric characters, periods, and dashes. The following entries contained invalid content:<br/>
+                    %s <br/>
+                    Please correct the invalid content and resubmit the form.',
+                    count($invalidDomains)
+                ),
+                implode('<br/>', $invalidDomains)
+            )
+        ];
     }
 
     protected function checkForDuplicateDomains(array $domains, ?int $id): array
