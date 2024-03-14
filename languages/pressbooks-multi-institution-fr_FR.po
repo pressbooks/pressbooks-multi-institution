@@ -1,8 +1,8 @@
 # Copyright (C) 2024 Pressbooks (Book Oven Inc.)
 # This file is distributed under the GPL v3 or later.
 # Translators:
-# Steel Wagstaff <steel@pressbooks.com>, 2024
 # Mich Spieler, 2024
+# Steel Wagstaff <steel@pressbooks.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-multi-institution/issues\n"
 "POT-Creation-Date: 2024-03-14T17:42:58+00:00\n"
 "PO-Revision-Date: 2024-02-19 22:27+0000\n"
-"Last-Translator: Mich Spieler, 2024\n"
+"Last-Translator: Steel Wagstaff <steel@pressbooks.com>, 2024\n"
 "Language-Team: French (https://app.transifex.com/pressbooks/teams/9194/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -290,7 +290,7 @@ msgstr "Recherche"
 
 #: resources/views/dashboard/institutional.blade.php:6
 msgid "Institutional Manager Dashboard"
-msgstr ""
+msgstr "Tableau de bord du gestionnaire institutionnel"
 
 #: resources/views/dashboard/institutional.blade.php:8
 msgid "Welcome to"
