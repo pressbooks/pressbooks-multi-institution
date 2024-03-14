@@ -306,7 +306,7 @@ msgstr "%s a %s livres et %s utilisateurs."
 
 #: resources/views/dashboard/institutional.blade.php:24
 msgid "Administer"
-msgstr ""
+msgstr "Administrer"
 
 #: resources/views/dashboard/institutional.blade.php:30
 msgid "Administer network art"
