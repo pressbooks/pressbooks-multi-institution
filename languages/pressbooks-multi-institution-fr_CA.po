@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks Multi Institution 0.1.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-multi-institution/issues\n"
-"POT-Creation-Date: 2024-03-13T21:06:44+00:00\n"
+"POT-Creation-Date: 2024-03-14T15:27:21+00:00\n"
 "PO-Revision-Date: 2024-02-19 22:27+0000\n"
 "Last-Translator: Siri Gauthier, 2024\n"
 "Language-Team: French (Canada) (https://app.transifex.com/pressbooks/teams/9194/fr_CA/)\n"
@@ -58,18 +58,18 @@ msgstr ""
 "Veuillez exécuter <code>composer install</code> à partir de la racine du "
 "répertoire du plugin."
 
-#: src/Actions/PermissionsManager.php:140
+#: src/Actions/PermissionsManager.php:142
 msgid "%s's User List"
 msgstr ""
 
-#: src/Actions/PermissionsManager.php:142
+#: src/Actions/PermissionsManager.php:144
 msgid "There is %s user assigned to %s."
 msgid_plural "There are %s users assigned to %s."
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: src/Actions/PermissionsManager.php:216 src/Support/BookList.php:73
+#: src/Actions/PermissionsManager.php:218 src/Support/BookList.php:51
 #: src/Views/AssignBooksTable.php:35 src/Views/AssignUsersTable.php:44
 #: resources/views/institutions/form.blade.php:33
 #: resources/views/partials/filters/institutions/content.blade.php:3
@@ -77,20 +77,21 @@ msgstr[2] ""
 msgid "Institution"
 msgstr "Institution"
 
-#: src/Actions/PermissionsManager.php:234
-#: src/Traits/OverridesBulkActions.php:14 src/Views/AssignUsersTable.php:70
+#: src/Actions/PermissionsManager.php:236
+#: src/Actions/PermissionsManager.php:248
+#: src/Traits/OverridesBulkActions.php:14 src/Views/AssignUsersTable.php:78
 #: src/Views/InstitutionsTable.php:234
 #: resources/views/partials/filters/institutions/content.blade.php:14
-#: resources/views/table/book-admins.blade.php:10
+#: resources/views/table/book-admins.blade.php:8
 #: resources/views/table/institution.blade.php:1
 msgid "Unassigned"
 msgstr "Non assigné."
 
-#: src/Actions/PermissionsManager.php:359
+#: src/Actions/PermissionsManager.php:370
 msgid "Sorry, you are not allowed to access this page."
 msgstr ""
 
-#: src/Actions/PermissionsManager.php:371
+#: src/Actions/PermissionsManager.php:382
 msgid "Administer Institution"
 msgstr ""
 
@@ -98,26 +99,26 @@ msgstr ""
 msgid "Institutions"
 msgstr "Institutions"
 
-#: src/Bootstrap.php:61 src/Bootstrap.php:62
+#: src/Bootstrap.php:62 src/Bootstrap.php:63
 #: resources/views/institutions/index.blade.php:8
 msgid "Institution List"
 msgstr "Liste des institutions"
 
-#: src/Bootstrap.php:72 src/Bootstrap.php:73
+#: src/Bootstrap.php:73 src/Bootstrap.php:74
 msgid "Add Institution"
 msgstr "Ajouter une institution"
 
-#: src/Bootstrap.php:83 src/Bootstrap.php:84
+#: src/Bootstrap.php:84 src/Bootstrap.php:85
 #: resources/views/users/assign.blade.php:8
 msgid "Assign Users"
 msgstr "Assigner des utilisateurs"
 
-#: src/Bootstrap.php:94 src/Bootstrap.php:95
+#: src/Bootstrap.php:95 src/Bootstrap.php:96
 #: resources/views/books/assign.blade.php:8
 msgid "Assign Books"
 msgstr "Assigner des livres"
 
-#: src/Bootstrap.php:142
+#: src/Bootstrap.php:143
 msgid "Are you sure you want to delete the selected institutions?"
 msgstr "Voulez-vous vraiment supprimer cette institution?"
 
@@ -185,15 +186,15 @@ msgstr ""
 msgid "%s Stats"
 msgstr ""
 
-#: src/Support/BookList.php:110
+#: src/Support/BookList.php:88
 msgid "%s' Book List"
 msgstr ""
 
-#: src/Support/BookList.php:111
+#: src/Support/BookList.php:89
 msgid "%s's Book List"
 msgstr ""
 
-#: src/Support/BookList.php:115
+#: src/Support/BookList.php:93
 msgid "There are %d books owned by %s. They use %s of storage."
 msgstr ""
 
@@ -214,7 +215,7 @@ msgid "Username"
 msgstr "Identifiant"
 
 #: src/Views/AssignUsersTable.php:42 src/Views/InstitutionsTable.php:103
-#: resources/views/institutions/form.blade.php:58
+#: resources/views/institutions/form.blade.php:60
 msgid "Name"
 msgstr "Nom"
 
@@ -227,7 +228,7 @@ msgid "Are you sure you want to delete this?"
 msgstr "Voulez-vous vraiment supprimer cette entrée ?"
 
 #: src/Views/InstitutionsTable.php:104
-#: resources/views/institutions/form.blade.php:69
+#: resources/views/institutions/form.blade.php:71
 msgid "Email Domains"
 msgstr "Domaines de messagerie"
 
@@ -236,7 +237,7 @@ msgid "Buy-in"
 msgstr ""
 
 #: src/Views/InstitutionsTable.php:107
-#: resources/views/institutions/form.blade.php:156
+#: resources/views/institutions/form.blade.php:158
 msgid "Institutional Managers"
 msgstr "Gestionnaires institutionnels"
 
@@ -339,11 +340,15 @@ msgstr "Modifier"
 msgid "Add"
 msgstr "Ajouter"
 
-#: resources/views/institutions/form.blade.php:41
+#: resources/views/institutions/form.blade.php:37
+msgid "An asterisk (*) indicates a required field"
+msgstr ""
+
+#: resources/views/institutions/form.blade.php:43
 msgid "Back to Institution List"
 msgstr "Retour à la liste des institutions"
 
-#: resources/views/institutions/form.blade.php:73
+#: resources/views/institutions/form.blade.php:75
 msgid ""
 "Enter exclusive email domains for this institution. One per line (e.g. "
 "utopia.edu)."
@@ -351,23 +356,23 @@ msgstr ""
 "Saisissez les domaines de messagerie exclusifs pour cette institution. Un "
 "par ligne (par ex. utopia.edu)."
 
-#: resources/views/institutions/form.blade.php:135
+#: resources/views/institutions/form.blade.php:137
 msgid "Institutional Managers Allowed"
 msgstr ""
 
-#: resources/views/institutions/form.blade.php:160
+#: resources/views/institutions/form.blade.php:162
 msgid "Enter username or email to find existing user(s). Limit 3."
 msgstr ""
 
-#: resources/views/institutions/form.blade.php:209
+#: resources/views/institutions/form.blade.php:211
 msgid "Premium Member Buy-in"
 msgstr ""
 
-#: resources/views/institutions/form.blade.php:229
+#: resources/views/institutions/form.blade.php:231
 msgid "Book Limit"
 msgstr "Limite de livres"
 
-#: resources/views/institutions/form.blade.php:233
+#: resources/views/institutions/form.blade.php:235
 msgid "For an unlimited institution, enter 0."
 msgstr ""
 
