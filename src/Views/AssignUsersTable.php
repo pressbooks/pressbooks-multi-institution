@@ -24,11 +24,6 @@ class AssignUsersTable extends WP_List_Table
         return $item[$column_name] ?? '';
     }
 
-    public function column_name(array $item): string
-    {
-        return sprintf('<div class="row-title">%s</div>', $item['name']);
-    }
-
     public function column_cb($item): string
     {
         return sprintf('<input type="checkbox" name="ID[]" value="%s" />', $item['ID']);

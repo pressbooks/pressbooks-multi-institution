@@ -1,11 +1,12 @@
 :root {
 	--odd-row-bg-color: #FFFFFF;
 	--even-row-bg-color: #F6F7F7;
-	--totals-row-bg-color: #E0E0E0;
+	--totals-row-bg-color: #dedede;
 	--border-color: #e5e5e5;
 	--totals-row-border-color: #C3C4C7;
 	--pb-count-td-width: 10%;
 	--pb-error-color: #d4002d;
+	--table-text-color: #333;
 }
 
 table.institutions {
@@ -22,6 +23,7 @@ table.institutions {
 		tr {
 			td, th {
 				border-bottom: 1px solid var(--border-color);
+				color: var(--table-text-color);
 			}
 
 			td {
@@ -131,14 +133,17 @@ body.institutions_page_pb_multi_institutions {
 }
 
 form {
-	.form-table {
+	.form-table.institution {
+		th {
+			width: 260px;
+		}
 		th, td {
 			vertical-align: top;
 			padding-top: 10px;
 		}
 
 		.institutional-managers-component {
-			margin-top: -30px;
+			margin-top: -15px;
 			display: flex;
 		}
 	}
@@ -146,4 +151,8 @@ form {
 
 th#book_limit, th#users {
 	width: var(--pb-count-td-width);
+}
+
+th#buy_in {
+	width: 65px;
 }
