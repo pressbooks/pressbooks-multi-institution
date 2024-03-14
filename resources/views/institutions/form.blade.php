@@ -27,16 +27,12 @@
 
         {{ __( 'Institution', 'pressbooks-multi-institution') }}
     </h1>
-
+	<a href='{{ $back_url }}' rel='previous'>
+		<span aria-hidden='true'>&larr;</span> {{ __( 'Back to Institution List', 'pressbooks-multi-institution') }}
+	</a>
 	<p class="error">{{ __('An asterisk (*) indicates a required field', 'pressbooks-multi-institution') }}</p>
 
     <hr class="wp-header-end">
-
-    <p>
-        <a href='{{ $back_url }}' rel='previous'>
-            <span aria-hidden='true'>&larr;</span> {{ __( 'Back to Institution List', 'pressbooks-multi-institution') }}
-        </a>
-    </p>
 
     <form method="post">
         {!! wp_nonce_field( 'pb_multi_institution_form' ) !!}
@@ -45,7 +41,7 @@
             <input type="hidden" name="ID" value="{{ $institution->id }}"/>
         @endif
 
-        <table class="form-table" role="none">
+        <table class="form-table institution" role="none">
             <tr>
                 <th>
                     <label for="name">

@@ -133,14 +133,17 @@ body.institutions_page_pb_multi_institutions {
 }
 
 form {
-	.form-table {
+	.form-table.institution {
+		th {
+			width: 260px;
+		}
 		th, td {
 			vertical-align: top;
 			padding-top: 10px;
 		}
 
 		.institutional-managers-component {
-			margin-top: -30px;
+			margin-top: -15px;
 			display: flex;
 		}
 	}
