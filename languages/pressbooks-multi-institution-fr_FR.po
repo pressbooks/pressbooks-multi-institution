@@ -263,7 +263,7 @@ msgstr "Totaux du réseau partagé"
 
 #: src/Views/InstitutionsTable.php:259
 msgid "Premium Member Totals"
-msgstr ""
+msgstr "Totaux des membres Premium"
 
 #: src/Views/InstitutionsTable.php:267
 msgid "Total Items"
@@ -322,7 +322,7 @@ msgstr "Afficher la liste des utilisateurs"
 
 #: resources/views/dashboard/institutional.blade.php:56
 msgid "Explore Stats"
-msgstr ""
+msgstr "Explorer les statistiques"
 
 #: resources/views/institutions/form.blade.php:4
 msgid "Success"
