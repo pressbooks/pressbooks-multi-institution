@@ -374,7 +374,7 @@ msgstr "Limite de livres"
 
 #: resources/views/institutions/form.blade.php:231
 msgid "For an unlimited institution, enter 0."
-msgstr ""
+msgstr "Pour une institution illimitée, saisissez 0."
 
 #: resources/views/institutions/index.blade.php:10
 msgid "Add new"
