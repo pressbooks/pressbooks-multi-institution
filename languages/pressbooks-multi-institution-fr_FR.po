@@ -192,7 +192,7 @@ msgstr "Liste de livres de %s"
 
 #: src/Support/BookList.php:89
 msgid "%s's Book List"
-msgstr ""
+msgstr "Liste des livres de %s"
 
 #: src/Support/BookList.php:93
 msgid "There are %d books owned by %s. They use %s of storage."
