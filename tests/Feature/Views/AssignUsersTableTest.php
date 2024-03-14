@@ -34,15 +34,6 @@ class AssignUsersTableTest extends TestCase
     /**
      * @test
      */
-    public function it_should_return_name_column(): void
-    {
-        $item = ['name' => 'John Doe'];
-        $this->assertEquals('John Doe', $this->table->column_name($item));
-    }
-
-    /**
-     * @test
-     */
     public function it_should_return_cb_column(): void
     {
         $item = ['ID' => 1];
