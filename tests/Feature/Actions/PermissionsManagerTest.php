@@ -255,8 +255,8 @@ class PermissionsManagerTest extends TestCase
 
         $this->assertEmpty($this->permissionsManager->addInstitutionsFilterTab([]));
         InstitutionBook::query()->delete();
-		wp_delete_site($bookId1);
-		wp_delete_site($bookId2);
+        wp_delete_site($bookId1);
+        wp_delete_site($bookId2);
     }
 
     /**
