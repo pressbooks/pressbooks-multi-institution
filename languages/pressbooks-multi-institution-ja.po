@@ -240,7 +240,7 @@ msgstr "削除"
 
 #: src/Views/InstitutionsTable.php:188 src/Views/InstitutionsTable.php:243
 msgid "unlimited"
-msgstr ""
+msgstr "無制限"
 
 #: src/Views/InstitutionsTable.php:251
 msgid "Shared Network Totals"
