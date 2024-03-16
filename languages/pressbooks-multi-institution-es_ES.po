@@ -358,7 +358,7 @@ msgstr ""
 
 #: resources/views/institutions/form.blade.php:133
 msgid "Institutional Managers Allowed"
-msgstr ""
+msgstr "Gestores institucionales permitidos"
 
 #: resources/views/institutions/form.blade.php:158
 msgid "Enter username or email to find existing user(s). Limit 3."
