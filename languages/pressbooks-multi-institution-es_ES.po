@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks Multi Institution 0.1.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-multi-institution/issues\n"
-"POT-Creation-Date: 2024-03-14T15:27:21+00:00\n"
+"POT-Creation-Date: 2024-03-14T17:42:58+00:00\n"
 "PO-Revision-Date: 2024-02-19 22:27+0000\n"
 "Last-Translator: Eduardo Vera, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/pressbooks/teams/9194/es/)\n"
@@ -70,7 +70,7 @@ msgstr[1] "Hay %s usuarios asignados a %s."
 msgstr[2] "Hay %s usuarios asignados a %s."
 
 #: src/Actions/PermissionsManager.php:218 src/Support/BookList.php:51
-#: src/Views/AssignBooksTable.php:35 src/Views/AssignUsersTable.php:44
+#: src/Views/AssignBooksTable.php:35 src/Views/AssignUsersTable.php:39
 #: resources/views/institutions/form.blade.php:33
 #: resources/views/partials/filters/institutions/content.blade.php:3
 #: resources/views/partials/filters/institutions/tab.blade.php:3
@@ -79,7 +79,7 @@ msgstr "Institución"
 
 #: src/Actions/PermissionsManager.php:236
 #: src/Actions/PermissionsManager.php:248
-#: src/Traits/OverridesBulkActions.php:14 src/Views/AssignUsersTable.php:78
+#: src/Traits/OverridesBulkActions.php:14 src/Views/AssignUsersTable.php:73
 #: src/Views/InstitutionsTable.php:234
 #: resources/views/partials/filters/institutions/content.blade.php:14
 #: resources/views/table/book-admins.blade.php:8
@@ -118,7 +118,7 @@ msgstr "Asignar usuarios"
 msgid "Assign Books"
 msgstr "Asignar libros"
 
-#: src/Bootstrap.php:143
+#: src/Bootstrap.php:146
 msgid "Are you sure you want to delete the selected institutions?"
 msgstr "¿Confirmas que quieres borrar las instituciones seleccionadas?"
 
@@ -183,7 +183,7 @@ msgstr ""
 
 #: src/Services/InstitutionStatsService.php:39
 msgid "%s Stats"
-msgstr ""
+msgstr "Estadísticas de %s"
 
 #: src/Support/BookList.php:88
 msgid "%s' Book List"
@@ -210,16 +210,16 @@ msgstr "Título"
 msgid "Book Administrators"
 msgstr "Administradores del libro"
 
-#: src/Views/AssignUsersTable.php:41
+#: src/Views/AssignUsersTable.php:36
 msgid "Username"
 msgstr "Nombre de usuario"
 
-#: src/Views/AssignUsersTable.php:42 src/Views/InstitutionsTable.php:103
-#: resources/views/institutions/form.blade.php:60
+#: src/Views/AssignUsersTable.php:37 src/Views/InstitutionsTable.php:103
+#: resources/views/institutions/form.blade.php:56
 msgid "Name"
 msgstr "Nombre"
 
-#: src/Views/AssignUsersTable.php:43
+#: src/Views/AssignUsersTable.php:38
 msgid "Email"
 msgstr "Correo electrónico"
 
@@ -228,7 +228,7 @@ msgid "Are you sure you want to delete this?"
 msgstr "¿Confirmas que quieres borrar esto?"
 
 #: src/Views/InstitutionsTable.php:104
-#: resources/views/institutions/form.blade.php:71
+#: resources/views/institutions/form.blade.php:67
 msgid "Email Domains"
 msgstr "Dominios de correo electrónico"
 
@@ -237,7 +237,7 @@ msgid "Buy-in"
 msgstr ""
 
 #: src/Views/InstitutionsTable.php:107
-#: resources/views/institutions/form.blade.php:158
+#: resources/views/institutions/form.blade.php:154
 msgid "Institutional Managers"
 msgstr "Gestores institucionales"
 
@@ -341,14 +341,14 @@ msgid "Add"
 msgstr "Añadir"
 
 #: resources/views/institutions/form.blade.php:37
-msgid "An asterisk (*) indicates a required field"
-msgstr ""
-
-#: resources/views/institutions/form.blade.php:43
 msgid "Back to Institution List"
 msgstr "Volver a la lista de instituciones"
 
-#: resources/views/institutions/form.blade.php:75
+#: resources/views/institutions/form.blade.php:40
+msgid "An asterisk (*) indicates a required field"
+msgstr ""
+
+#: resources/views/institutions/form.blade.php:71
 msgid ""
 "Enter exclusive email domains for this institution. One per line (e.g. "
 "utopia.edu)."
@@ -356,23 +356,23 @@ msgstr ""
 "Escribe dominios de correo electrónico exclusivos para esta institución. Una"
 " dirección por línea (por ejemplo: utopia.edu)."
 
-#: resources/views/institutions/form.blade.php:137
+#: resources/views/institutions/form.blade.php:133
 msgid "Institutional Managers Allowed"
 msgstr ""
 
-#: resources/views/institutions/form.blade.php:162
+#: resources/views/institutions/form.blade.php:158
 msgid "Enter username or email to find existing user(s). Limit 3."
 msgstr ""
 
-#: resources/views/institutions/form.blade.php:211
+#: resources/views/institutions/form.blade.php:207
 msgid "Premium Member Buy-in"
 msgstr ""
 
-#: resources/views/institutions/form.blade.php:231
+#: resources/views/institutions/form.blade.php:227
 msgid "Book Limit"
 msgstr "Límite de libros"
 
-#: resources/views/institutions/form.blade.php:235
+#: resources/views/institutions/form.blade.php:231
 msgid "For an unlimited institution, enter 0."
 msgstr ""
 
