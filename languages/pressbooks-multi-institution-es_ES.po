@@ -255,7 +255,7 @@ msgstr "Borrar"
 
 #: src/Views/InstitutionsTable.php:188 src/Views/InstitutionsTable.php:243
 msgid "unlimited"
-msgstr ""
+msgstr "ilimitado"
 
 #: src/Views/InstitutionsTable.php:251
 msgid "Shared Network Totals"
