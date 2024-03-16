@@ -234,7 +234,7 @@ msgstr "Dominios de correo electrónico"
 
 #: src/Views/InstitutionsTable.php:105
 msgid "Buy-in"
-msgstr ""
+msgstr "Comprar"
 
 #: src/Views/InstitutionsTable.php:107
 #: resources/views/institutions/form.blade.php:154
