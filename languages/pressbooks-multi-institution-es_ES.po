@@ -346,7 +346,7 @@ msgstr "Volver a la lista de instituciones"
 
 #: resources/views/institutions/form.blade.php:40
 msgid "An asterisk (*) indicates a required field"
-msgstr ""
+msgstr "Un asterisco (*) indica que el campo es obligatorio"
 
 #: resources/views/institutions/form.blade.php:71
 msgid ""
