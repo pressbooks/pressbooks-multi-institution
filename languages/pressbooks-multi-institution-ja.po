@@ -219,7 +219,7 @@ msgstr "メールドメイン"
 
 #: src/Views/InstitutionsTable.php:105
 msgid "Buy-in"
-msgstr ""
+msgstr "購入"
 
 #: src/Views/InstitutionsTable.php:107
 #: resources/views/institutions/form.blade.php:154
