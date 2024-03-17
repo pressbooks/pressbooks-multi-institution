@@ -259,7 +259,7 @@ msgstr "ilimitado"
 
 #: src/Views/InstitutionsTable.php:251
 msgid "Shared Network Totals"
-msgstr ""
+msgstr "Total para la red compartida"
 
 #: src/Views/InstitutionsTable.php:259
 msgid "Premium Member Totals"
