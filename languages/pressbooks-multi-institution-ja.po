@@ -345,7 +345,7 @@ msgstr "許可された機関管理者"
 
 #: resources/views/institutions/form.blade.php:158
 msgid "Enter username or email to find existing user(s). Limit 3."
-msgstr ""
+msgstr "ユーザー名またはメールアドレスを入力して既存のユーザーを検索します。制限は 3 件。"
 
 #: resources/views/institutions/form.blade.php:207
 msgid "Premium Member Buy-in"
