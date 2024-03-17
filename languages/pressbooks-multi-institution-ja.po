@@ -244,7 +244,7 @@ msgstr "無制限"
 
 #: src/Views/InstitutionsTable.php:251
 msgid "Shared Network Totals"
-msgstr ""
+msgstr "共有サイトネットワークの合計"
 
 #: src/Views/InstitutionsTable.php:259
 msgid "Premium Member Totals"
