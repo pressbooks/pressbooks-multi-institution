@@ -248,7 +248,7 @@ msgstr "共有サイトネットワークの合計"
 
 #: src/Views/InstitutionsTable.php:259
 msgid "Premium Member Totals"
-msgstr ""
+msgstr "プレミアムメンバーの合計"
 
 #: src/Views/InstitutionsTable.php:267
 msgid "Total Items"
