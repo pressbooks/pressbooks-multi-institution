@@ -341,7 +341,7 @@ msgstr "この機関の排他的なメールドメインを入力します。ド
 
 #: resources/views/institutions/form.blade.php:133
 msgid "Institutional Managers Allowed"
-msgstr ""
+msgstr "許可された機関管理者"
 
 #: resources/views/institutions/form.blade.php:158
 msgid "Enter username or email to find existing user(s). Limit 3."
