@@ -263,7 +263,7 @@ msgstr "Total para la red compartida"
 
 #: src/Views/InstitutionsTable.php:259
 msgid "Premium Member Totals"
-msgstr ""
+msgstr "Total de miembro Premium"
 
 #: src/Views/InstitutionsTable.php:267
 msgid "Total Items"
