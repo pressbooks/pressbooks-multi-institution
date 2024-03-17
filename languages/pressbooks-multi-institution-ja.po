@@ -331,7 +331,7 @@ msgstr "機関リストに戻る"
 
 #: resources/views/institutions/form.blade.php:40
 msgid "An asterisk (*) indicates a required field"
-msgstr ""
+msgstr "アステリスク (*) は必須フィールドを示す"
 
 #: resources/views/institutions/form.blade.php:71
 msgid ""
