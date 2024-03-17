@@ -357,7 +357,7 @@ msgstr "本数制限"
 
 #: resources/views/institutions/form.blade.php:231
 msgid "For an unlimited institution, enter 0."
-msgstr ""
+msgstr "無制限な機関の場合は、0 を入力してください。"
 
 #: resources/views/institutions/index.blade.php:10
 msgid "Add new"
