@@ -368,7 +368,7 @@ msgstr ""
 
 #: resources/views/institutions/form.blade.php:207
 msgid "Premium Member Buy-in"
-msgstr ""
+msgstr "Membresía Premium"
 
 #: resources/views/institutions/form.blade.php:227
 msgid "Book Limit"
