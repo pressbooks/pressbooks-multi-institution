@@ -88,6 +88,7 @@ class AssignUsersTable extends WP_List_Table
         $search = $request['s'] ?? '';
         $orderBy = $request['orderby'] ?? 'ID';
         $order = $request['order'] ?? 'ASC';
+		$unassigned = $request['unassigned'] ?? '';
 
         $search = sanitize_text_field($search);
 
@@ -110,8 +111,11 @@ class AssignUsersTable extends WP_List_Table
                     ->where('meta_key', 'last_name')
                     ->whereColumn('usermeta.user_id', 'users.ID'),
             ])
-            ->leftJoin('institutions_users', 'users.ID', '=', 'institutions_users.user_id')
-            ->leftJoin('institutions', 'institutions_users.institution_id', '=', 'institutions.id')
+			->leftJoin('institutions_users', 'users.ID', '=', 'institutions_users.user_id')
+			->leftJoin('institutions', 'institutions_users.institution_id', '=', 'institutions.id')
+			->when($unassigned, function ($query) {
+				return $query->whereNull('institutions_users.user_id');
+			})
             ->whereNotIn('users.user_login', $superAdmins)
             ->when($search, function ($query, $search) use ($superAdmins) {
                 return $query
@@ -141,6 +145,18 @@ class AssignUsersTable extends WP_List_Table
             })
             ->paginate($this->paginationSize, ['*'], 'page', $request['paged'] ?? 1);
     }
+
+	public function getTotalUsers(): int
+	{
+		return count($this->items);
+	}
+
+	public function getUnassignedUsersCount(): int
+	{
+		return count(array_filter($this->items, function ($user) {
+			return $user['institution'] === __('Unassigned', 'pressbooks-multi-institution');
+		}));
+	}
 
     private function validateRequest(array $request): array
     {
