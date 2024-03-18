@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks Multi Institution 0.1.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-multi-institution/issues\n"
-"POT-Creation-Date: 2024-02-29T18:40:14+00:00\n"
+"POT-Creation-Date: 2024-03-14T17:42:58+00:00\n"
 "PO-Revision-Date: 2024-02-19 22:27+0000\n"
 "Last-Translator: Eduardo Vera, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/pressbooks/teams/9194/ja/)\n"
@@ -22,12 +22,12 @@ msgstr ""
 #. Plugin Name of the plugin
 #: pressbooks-multi-institution.php
 msgid "Pressbooks Shared Network"
-msgstr ""
+msgstr "Pressbooks Shared Network"
 
 #. Plugin URI of the plugin
 #: pressbooks-multi-institution.php
 msgid "https://github.com/pressbooks/pressbooks-multi-institution"
-msgstr ""
+msgstr "https://github.com/pressbooks/pressbooks-multi-institution"
 
 #. Description of the plugin
 #: pressbooks-multi-institution.php
@@ -44,70 +44,75 @@ msgstr "Pressbooks (Book Oven Inc.)"
 msgid "https://pressbooks.org"
 msgstr "https://pressbooks.org"
 
+#: pressbooks-multi-institution.php:25
+msgid "Missing dependencies"
+msgstr "依存関係が見つかりません"
+
 #: pressbooks-multi-institution.php:26
 msgid ""
 "Please run <code>composer install</code> from the root of the plugin "
 "directory."
 msgstr "プラグインディレクトリのルートから <code>composer install</code> を実行してください。"
 
-#: src/Actions/PermissionsManager.php:139
+#: src/Actions/PermissionsManager.php:142
 msgid "%s's User List"
-msgstr ""
+msgstr "%s のユーザーリスト"
 
-#: src/Actions/PermissionsManager.php:141
+#: src/Actions/PermissionsManager.php:144
 msgid "There is %s user assigned to %s."
 msgid_plural "There are %s users assigned to %s."
-msgstr[0] ""
+msgstr[0] "%s 人のユーザーは %s に割り当てられた。"
 
-#: src/Actions/PermissionsManager.php:215 src/Support/BookList.php:73
-#: src/Views/AssignBooksTable.php:35 src/Views/AssignUsersTable.php:44
+#: src/Actions/PermissionsManager.php:218 src/Support/BookList.php:51
+#: src/Views/AssignBooksTable.php:35 src/Views/AssignUsersTable.php:39
 #: resources/views/institutions/form.blade.php:33
 #: resources/views/partials/filters/institutions/content.blade.php:3
 #: resources/views/partials/filters/institutions/tab.blade.php:3
 msgid "Institution"
 msgstr "機関"
 
-#: src/Actions/PermissionsManager.php:233
-#: src/Traits/OverridesBulkActions.php:14 src/Views/AssignUsersTable.php:70
-#: src/Views/InstitutionsTable.php:226
+#: src/Actions/PermissionsManager.php:236
+#: src/Actions/PermissionsManager.php:248
+#: src/Traits/OverridesBulkActions.php:14 src/Views/AssignUsersTable.php:73
+#: src/Views/InstitutionsTable.php:234
 #: resources/views/partials/filters/institutions/content.blade.php:14
-#: resources/views/table/book-admins.blade.php:10
+#: resources/views/table/book-admins.blade.php:8
 #: resources/views/table/institution.blade.php:1
 msgid "Unassigned"
 msgstr "未割り当て"
 
-#: src/Actions/PermissionsManager.php:353
+#: src/Actions/PermissionsManager.php:370
 msgid "Sorry, you are not allowed to access this page."
-msgstr ""
+msgstr "このページにアクセスする権限がありません。"
 
-#: src/Actions/PermissionsManager.php:365
+#: src/Actions/PermissionsManager.php:382
 msgid "Administer Institution"
-msgstr ""
+msgstr "機関管理"
 
-#: src/Bootstrap.php:49 src/Bootstrap.php:50
+#: src/Bootstrap.php:50 src/Bootstrap.php:51
 msgid "Institutions"
 msgstr "機関"
 
-#: src/Bootstrap.php:60 src/Bootstrap.php:61
+#: src/Bootstrap.php:62 src/Bootstrap.php:63
 #: resources/views/institutions/index.blade.php:8
 msgid "Institution List"
 msgstr "機関リスト"
 
-#: src/Bootstrap.php:71 src/Bootstrap.php:72
+#: src/Bootstrap.php:73 src/Bootstrap.php:74
 msgid "Add Institution"
 msgstr "機関を追加"
 
-#: src/Bootstrap.php:82 src/Bootstrap.php:83
+#: src/Bootstrap.php:84 src/Bootstrap.php:85
 #: resources/views/users/assign.blade.php:8
 msgid "Assign Users"
 msgstr "ユーザーを割り当てる"
 
-#: src/Bootstrap.php:93 src/Bootstrap.php:94
+#: src/Bootstrap.php:95 src/Bootstrap.php:96
 #: resources/views/books/assign.blade.php:8
 msgid "Assign Books"
 msgstr "本を割り当てる"
 
-#: src/Bootstrap.php:140
+#: src/Bootstrap.php:146
 msgid "Are you sure you want to delete the selected institutions?"
 msgstr "本当に選択した機関を削除しますか ?"
 
@@ -118,37 +123,38 @@ msgid_plural "Books updated."
 msgstr[0] "本は更新しました。"
 
 #: src/Controllers/AssignBooksController.php:72
-#: src/Controllers/InstitutionsUsersController.php:71
+#: src/Controllers/AssignUsersController.php:71
 msgid "Institution not found."
 msgstr "機関が見つかりません。"
 
-#: src/Controllers/InstitutionsController.php:102
+#: src/Controllers/AssignUsersController.php:57
+msgid "User updated."
+msgid_plural "Users updated."
+msgstr[0] "ユーザーは更新しました。"
+
+#: src/Controllers/InstitutionsController.php:101
 msgid "Action completed."
 msgstr "アクションが完了しました。"
 
-#: src/Controllers/InstitutionsController.php:129
+#: src/Controllers/InstitutionsController.php:128
 msgid "The form is invalid."
 msgstr "無効なフォーム。"
 
-#: src/Controllers/InstitutionsController.php:170
+#: src/Controllers/InstitutionsController.php:173
 msgid "Institution has been added."
 msgstr "機関は追加しました。"
 
-#: src/Controllers/InstitutionsController.php:171
+#: src/Controllers/InstitutionsController.php:174
 msgid "Institution has been updated."
 msgstr "機関は更新しました。"
 
-#: src/Controllers/InstitutionsController.php:197
+#: src/Controllers/InstitutionsController.php:201
 msgid "The name field is required."
 msgstr "名前フィールドは必要です。"
 
-#: src/Controllers/InstitutionsController.php:201
+#: src/Controllers/InstitutionsController.php:205
 msgid "The book limit field should be numeric."
 msgstr "本数制限フィールドは数値にする必要があります。"
-
-#: src/Controllers/InstitutionsController.php:205
-msgid "The user limit field should be numeric."
-msgstr "ユーザー数制限フィールドは数値にする必要があります。"
 
 #: src/Controllers/InstitutionsController.php:252
 msgid ""
@@ -161,22 +167,21 @@ msgid ""
 "assigned to manage two institutions at the same time."
 msgstr "%s は、既に %sの機関管理者として割り当てられている。同時に二つの機関を管理するように割り当てることはできません。"
 
-#: src/Controllers/InstitutionsUsersController.php:57
-msgid "User updated."
-msgid_plural "Users updated."
-msgstr[0] "ユーザーは更新しました。"
+#: src/Services/InstitutionStatsService.php:39
+msgid "%s Stats"
+msgstr "%s の統計"
 
-#: src/Support/BookList.php:110
+#: src/Support/BookList.php:88
 msgid "%s' Book List"
-msgstr ""
+msgstr "%s の本リスト"
 
-#: src/Support/BookList.php:111
+#: src/Support/BookList.php:89
 msgid "%s's Book List"
-msgstr ""
+msgstr "%s の本リスト"
 
-#: src/Support/BookList.php:115
+#: src/Support/BookList.php:93
 msgid "There are %d books owned by %s. They use %s of storage."
-msgstr ""
+msgstr "%d 冊の本は %s が所有しているものがあります。%s のストレージを使用します。"
 
 #: src/Views/AssignBooksTable.php:33
 msgid "Cover"
@@ -190,42 +195,62 @@ msgstr "書名"
 msgid "Book Administrators"
 msgstr "本管理者"
 
-#: src/Views/AssignUsersTable.php:41
+#: src/Views/AssignUsersTable.php:36
 msgid "Username"
 msgstr "ユーザー名"
 
-#: src/Views/AssignUsersTable.php:42 src/Views/InstitutionsTable.php:108
-#: resources/views/institutions/form.blade.php:58
+#: src/Views/AssignUsersTable.php:37 src/Views/InstitutionsTable.php:103
+#: resources/views/institutions/form.blade.php:56
 msgid "Name"
 msgstr "名前"
 
-#: src/Views/AssignUsersTable.php:43
+#: src/Views/AssignUsersTable.php:38
 msgid "Email"
 msgstr "メール"
 
-#: src/Views/InstitutionsTable.php:70
+#: src/Views/InstitutionsTable.php:73
 msgid "Are you sure you want to delete this?"
 msgstr "本当に削除してもよいですか ?"
 
-#: src/Views/InstitutionsTable.php:109
-#: resources/views/institutions/form.blade.php:70
+#: src/Views/InstitutionsTable.php:104
+#: resources/views/institutions/form.blade.php:67
 msgid "Email Domains"
 msgstr "メールドメイン"
 
-#: src/Views/InstitutionsTable.php:110
-#: resources/views/institutions/form.blade.php:135
+#: src/Views/InstitutionsTable.php:105
+msgid "Buy-in"
+msgstr "購入"
+
+#: src/Views/InstitutionsTable.php:107
+#: resources/views/institutions/form.blade.php:154
 msgid "Institutional Managers"
 msgstr "機関管理者"
 
-#: src/Views/InstitutionsTable.php:111
+#: src/Views/InstitutionsTable.php:108
 msgid "Books"
 msgstr "本"
 
-#: src/Views/InstitutionsTable.php:112
+#: src/Views/InstitutionsTable.php:109
 msgid "Users"
 msgstr "ユーザー"
 
-#: src/Views/InstitutionsTable.php:236
+#: src/Views/InstitutionsTable.php:154
+msgid "Delete"
+msgstr "削除"
+
+#: src/Views/InstitutionsTable.php:188 src/Views/InstitutionsTable.php:243
+msgid "unlimited"
+msgstr "無制限"
+
+#: src/Views/InstitutionsTable.php:251
+msgid "Shared Network Totals"
+msgstr "共有サイトネットワークの合計"
+
+#: src/Views/InstitutionsTable.php:259
+msgid "Premium Member Totals"
+msgstr "プレミアムメンバーの合計"
+
+#: src/Views/InstitutionsTable.php:267
 msgid "Total Items"
 msgstr "総数"
 
@@ -250,79 +275,39 @@ msgstr "検索"
 
 #: resources/views/dashboard/institutional.blade.php:6
 msgid "Institutional Manager Dashboard"
-msgstr ""
+msgstr "機関管理者ダッシュボード"
 
 #: resources/views/dashboard/institutional.blade.php:8
 msgid "Welcome to"
-msgstr ""
+msgstr "ようこそ"
 
 #: resources/views/dashboard/institutional.blade.php:13
 msgid "Visit network homepage"
-msgstr ""
+msgstr "サイトネットワークのホームページを表示"
 
 #: resources/views/dashboard/institutional.blade.php:17
 msgid "%s has %s books and %s users. "
-msgstr ""
+msgstr "%s は %s 冊の本と %s 人のユーザーがいます。"
 
 #: resources/views/dashboard/institutional.blade.php:24
 msgid "Administer"
-msgstr ""
+msgstr "管理"
 
 #: resources/views/dashboard/institutional.blade.php:30
 msgid "Administer network art"
-msgstr ""
+msgstr "サイトネットワーク管理の絵"
 
 #: resources/views/dashboard/institutional.blade.php:39
 msgid "View book list"
-msgstr ""
+msgstr "本リストを表示"
 
 #: resources/views/dashboard/institutional.blade.php:47
 msgid "View user list"
-msgstr ""
+msgstr "ユーザーリストを表示"
 
 #: resources/views/dashboard/institutional.blade.php:56
 msgid "Explore Stats"
-msgstr ""
-
-#: resources/views/dashboard/institutional.blade.php:69
-msgid "Support resources"
-msgstr ""
-
-#: resources/views/dashboard/institutional.blade.php:78
-msgid "Getting started with Pressbooks"
-msgstr ""
-
-#: resources/views/dashboard/institutional.blade.php:81
-msgid "Watch a short video series on how to get started with Pressbooks."
-msgstr ""
-
-#: resources/views/dashboard/institutional.blade.php:89
-msgid "Pressbooks user guide"
-msgstr ""
-
-#: resources/views/dashboard/institutional.blade.php:92
-msgid ""
-"Find help and how-tos for your publishing project in this detailed handbook."
-msgstr ""
-
-#: resources/views/dashboard/institutional.blade.php:100
-msgid "Pressbooks community forum"
-msgstr ""
-
-#: resources/views/dashboard/institutional.blade.php:103
-msgid ""
-"Discuss Pressbooks related questions with other users in our public forum."
-msgstr ""
-
-#: resources/views/dashboard/institutional.blade.php:111
-msgid "Pressbooks training webinars"
-msgstr ""
-
-#: resources/views/dashboard/institutional.blade.php:114
-msgid ""
-"Register for free webinars to learn about Pressbooks features and best "
-"practices."
-msgstr ""
+msgstr "統計を調べる"
 
 #: resources/views/institutions/form.blade.php:4
 msgid "Success"
@@ -340,32 +325,39 @@ msgstr "編集"
 msgid "Add"
 msgstr "追加"
 
-#: resources/views/institutions/form.blade.php:41
+#: resources/views/institutions/form.blade.php:37
 msgid "Back to Institution List"
 msgstr "機関リストに戻る"
 
-#: resources/views/institutions/form.blade.php:74
+#: resources/views/institutions/form.blade.php:40
+msgid "An asterisk (*) indicates a required field"
+msgstr "アステリスク (*) は必須フィールドを示す"
+
+#: resources/views/institutions/form.blade.php:71
 msgid ""
 "Enter exclusive email domains for this institution. One per line (e.g. "
 "utopia.edu)."
 msgstr "この機関の排他的なメールドメインを入力します。ドメインを改行で区切って入力してください (例: utopia.edu)。"
 
-#: resources/views/institutions/form.blade.php:139
-msgid "Enter username or email to find existing user(s)"
-msgstr "既存のユーザーを検索するには、ユーザー名またはメールを入力してください。"
+#: resources/views/institutions/form.blade.php:133
+msgid "Institutional Managers Allowed"
+msgstr "許可された機関管理者"
 
-#: resources/views/institutions/form.blade.php:183
+#: resources/views/institutions/form.blade.php:158
+msgid "Enter username or email to find existing user(s). Limit 3."
+msgstr "ユーザー名またはメールアドレスを入力して既存のユーザーを検索します。制限は 3 件。"
+
+#: resources/views/institutions/form.blade.php:207
+msgid "Premium Member Buy-in"
+msgstr "プレミアムメンバーバイイン"
+
+#: resources/views/institutions/form.blade.php:227
 msgid "Book Limit"
 msgstr "本数制限"
 
-#: resources/views/institutions/form.blade.php:187
-#: resources/views/institutions/form.blade.php:212
-msgid "As defined in contract. Contact Pressbooks for adjustments."
-msgstr "契約上の定義どおり。 調整については Pressbooks にお問い合わせください。"
-
-#: resources/views/institutions/form.blade.php:208
-msgid "User Limit"
-msgstr "ユーザー数制限"
+#: resources/views/institutions/form.blade.php:231
+msgid "For an unlimited institution, enter 0."
+msgstr "無制限な機関の場合は、0 を入力してください。"
 
 #: resources/views/institutions/index.blade.php:10
 msgid "Add new"
