@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks Multi Institution 0.1.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-multi-institution/issues\n"
-"POT-Creation-Date: 2024-03-19T17:35:42+00:00\n"
+"POT-Creation-Date: 2024-03-19T18:13:00+00:00\n"
 "PO-Revision-Date: 2024-02-19 22:27+0000\n"
 "Last-Translator: Steel Wagstaff <steel@pressbooks.com>, 2024\n"
 "Language-Team: French (France) (https://app.transifex.com/pressbooks/teams/9194/fr_FR/)\n"
@@ -69,7 +69,7 @@ msgstr[1] ""
 msgstr[2] ""
 
 #: src/Actions/PermissionsManager.php:219 src/Support/BookList.php:51
-#: src/Views/AssignBooksTable.php:35 src/Views/AssignUsersTable.php:39
+#: src/Views/AssignBooksTable.php:35 src/Views/AssignUsersTable.php:40
 #: resources/views/institutions/form.blade.php:34
 #: resources/views/partials/filters/institutions/content.blade.php:3
 #: resources/views/partials/filters/institutions/tab.blade.php:3
@@ -78,8 +78,9 @@ msgstr "Institution"
 
 #: src/Actions/PermissionsManager.php:237
 #: src/Actions/PermissionsManager.php:249
-#: src/Traits/OverridesBulkActions.php:14 src/Views/AssignUsersTable.php:73
+#: src/Traits/OverridesBulkActions.php:14 src/Views/AssignUsersTable.php:74
 #: src/Views/InstitutionsTable.php:234
+#: resources/views/assign/index.blade.php:48
 #: resources/views/partials/filters/institutions/content.blade.php:14
 #: resources/views/table/book-admins.blade.php:8
 #: resources/views/table/institution.blade.php:1
@@ -108,12 +109,12 @@ msgid "Add Institution"
 msgstr "Ajouter Institution"
 
 #: src/Bootstrap.php:84 src/Bootstrap.php:85
-#: resources/views/users/assign.blade.php:8
+#: src/Controllers/AssignUsersController.php:33
 msgid "Assign Users"
 msgstr "Assigner des utilisateurs"
 
 #: src/Bootstrap.php:95 src/Bootstrap.php:96
-#: resources/views/books/assign.blade.php:8
+#: src/Controllers/AssignBooksController.php:34
 msgid "Assign Books"
 msgstr "Assigner des livres"
 
@@ -121,20 +122,20 @@ msgstr "Assigner des livres"
 msgid "Are you sure you want to delete the selected institutions?"
 msgstr "Êtes-vous sûr de vouloir supprimer ceci ?"
 
-#: src/Controllers/AssignBooksController.php:63
-#: src/Controllers/AssignBooksController.php:85
+#: src/Controllers/AssignBooksController.php:66
+#: src/Controllers/AssignBooksController.php:88
 msgid "Book updated."
 msgid_plural "Books updated."
 msgstr[0] "Livre mis à jour."
 msgstr[1] "Livres mis à jour."
 msgstr[2] "Livres mis à jour."
 
-#: src/Controllers/AssignBooksController.php:72
-#: src/Controllers/AssignUsersController.php:71
+#: src/Controllers/AssignBooksController.php:75
+#: src/Controllers/AssignUsersController.php:74
 msgid "Institution not found."
 msgstr "Institution non trouvée."
 
-#: src/Controllers/AssignUsersController.php:57
+#: src/Controllers/AssignUsersController.php:60
 msgid "User updated."
 msgid_plural "Users updated."
 msgstr[0] "Utilisateur mis à jour."
@@ -193,16 +194,16 @@ msgstr "Titre"
 msgid "Book Administrators"
 msgstr "Administrateurs de livres"
 
-#: src/Views/AssignUsersTable.php:36
+#: src/Views/AssignUsersTable.php:37
 msgid "Username"
 msgstr "Nom d'utilisateur"
 
-#: src/Views/AssignUsersTable.php:37 src/Views/InstitutionsTable.php:103
+#: src/Views/AssignUsersTable.php:38 src/Views/InstitutionsTable.php:103
 #: resources/views/institutions/form.blade.php:57
 msgid "Name"
 msgstr "Nom"
 
-#: src/Views/AssignUsersTable.php:38
+#: src/Views/AssignUsersTable.php:39
 msgid "Email"
 msgstr "Adresse e-mail"
 
@@ -252,24 +253,26 @@ msgstr ""
 msgid "Total Items"
 msgstr "Total des articles"
 
-#: resources/views/books/assign.blade.php:14
-msgid "Showing results for:"
-msgstr "Affichage des résultats pour :"
+#: resources/views/assign/index.blade.php:14
+#: resources/views/institutions/index.blade.php:15
+msgid "Showing results for: %s"
+msgstr "Affichage des résultats pour : %s"
 
-#: resources/views/books/assign.blade.php:18
+#: resources/views/assign/index.blade.php:17
 #: resources/views/institutions/index.blade.php:17
-#: resources/views/users/assign.blade.php:15
 msgid "Clear filters"
 msgstr "Supprimer tous les filtres"
 
-#: resources/views/books/assign.blade.php:26
-#: resources/views/books/assign.blade.php:28
+#: resources/views/assign/index.blade.php:25
+#: resources/views/assign/index.blade.php:27
 #: resources/views/institutions/index.blade.php:25
 #: resources/views/institutions/index.blade.php:27
-#: resources/views/users/assign.blade.php:23
-#: resources/views/users/assign.blade.php:25
 msgid "Search"
 msgstr "Recherche"
+
+#: resources/views/assign/index.blade.php:41
+msgid "All"
+msgstr ""
 
 #: resources/views/dashboard/institutional.blade.php:6
 msgid "Institutional Manager Dashboard"
@@ -362,11 +365,6 @@ msgstr ""
 #: resources/views/institutions/index.blade.php:10
 msgid "Add new"
 msgstr "Ajouter nouveau"
-
-#: resources/views/institutions/index.blade.php:15
-#: resources/views/users/assign.blade.php:13
-msgid "Showing results for: %s"
-msgstr "Affichage des résultats pour : %s"
 
 #: resources/views/partials/errors/duplicate-domain.blade.php:2
 msgid ""
