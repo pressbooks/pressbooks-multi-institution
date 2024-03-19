@@ -25,7 +25,6 @@ class AssignUsersController extends BaseController
             'order' => 'asc',
             'paged' => 1,
             's' => '',
-            'unassigned' => ''
         ];
 
         $this->table->prepare_items();

@@ -168,7 +168,6 @@ class AssignUsersTable extends WP_List_Table
         $request['order'] = sanitize_text_field($request['order'] ?? '');
         $request['s'] = sanitize_text_field($request['s'] ?? '');
         $request['paged'] = sanitize_text_field($request['paged'] ?? '');
-        $request['unassigned'] = isset($request['unassigned']) ? 1 : '';
 
         if (isset($request['ID'])) {
             $request['ID'] = array_map('intval', $request['ID']);
