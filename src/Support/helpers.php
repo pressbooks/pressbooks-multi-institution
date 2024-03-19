@@ -5,6 +5,7 @@ namespace PressbooksMultiInstitution\Support;
 use PressbooksMultiInstitution\Models\InstitutionUser;
 
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
+use function Pressbooks\Admin\NetworkManagers\_restricted_users;
 
 function get_institution_by_manager(): int
 {
