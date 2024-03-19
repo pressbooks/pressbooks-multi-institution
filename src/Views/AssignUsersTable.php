@@ -88,35 +88,16 @@ class AssignUsersTable extends WP_List_Table
         $search = $request['s'] ?? '';
         $orderBy = $request['orderby'] ?? 'ID';
         $order = $request['order'] ?? 'ASC';
-		$unassigned = $request['unassigned'] ?? '';
-
-        $search = sanitize_text_field($search);
+        $unassigned = $request['unassigned'] ?? '';
 
         $superAdmins = get_super_admins();
 
-        $db = app('db');
+        $search = sanitize_text_field($search);
 
-        return $db
-            ->table('users')
-            ->select('users.ID', 'users.user_login AS username', 'users.user_email AS email', 'institutions.name as institution')
-            ->addSelect([
-                'first_name' => $db
-                    ->table('usermeta')
-                    ->select('meta_value')
-                    ->where('meta_key', 'first_name')
-                    ->whereColumn('usermeta.user_id', 'users.ID'),
-                'last_name' => $db
-                    ->table('usermeta')
-                    ->select('meta_value')
-                    ->where('meta_key', 'last_name')
-                    ->whereColumn('usermeta.user_id', 'users.ID'),
-            ])
-			->leftJoin('institutions_users', 'users.ID', '=', 'institutions_users.user_id')
-			->leftJoin('institutions', 'institutions_users.institution_id', '=', 'institutions.id')
-			->when($unassigned, function ($query) {
-				return $query->whereNull('institutions_users.user_id');
-			})
-            ->whereNotIn('users.user_login', $superAdmins)
+        return $this->getBaseQuery()
+            ->when($unassigned, function ($query) {
+                return $query->whereNull('institutions_users.user_id');
+            })
             ->when($search, function ($query, $search) use ($superAdmins) {
                 return $query
                     ->whereNotIn('users.user_login', $superAdmins)
@@ -146,17 +127,39 @@ class AssignUsersTable extends WP_List_Table
             ->paginate($this->paginationSize, ['*'], 'page', $request['paged'] ?? 1);
     }
 
-	public function getTotalUsers(): int
-	{
-		return count($this->items);
-	}
+    public function getBaseQuery(): object
+    {
+        $db = app('db');
 
-	public function getUnassignedUsersCount(): int
-	{
-		return count(array_filter($this->items, function ($user) {
-			return $user['institution'] === __('Unassigned', 'pressbooks-multi-institution');
-		}));
-	}
+        return $db
+            ->table('users')
+            ->select('users.ID', 'users.user_login AS username', 'users.user_email AS email', 'institutions.name as institution')
+            ->addSelect([
+                'first_name' => $db
+                    ->table('usermeta')
+                    ->select('meta_value')
+                    ->where('meta_key', 'first_name')
+                    ->whereColumn('usermeta.user_id', 'users.ID'),
+                'last_name' => $db
+                    ->table('usermeta')
+                    ->select('meta_value')
+                    ->where('meta_key', 'last_name')
+                    ->whereColumn('usermeta.user_id', 'users.ID'),
+            ])
+            ->leftJoin('institutions_users', 'users.ID', '=', 'institutions_users.user_id')
+            ->leftJoin('institutions', 'institutions_users.institution_id', '=', 'institutions.id')
+            ->whereNotIn('users.user_login', get_super_admins());
+    }
+
+    public function getTotalUsers(): int
+    {
+        return $this->getBaseQuery()->count();
+    }
+
+    public function getUnassignedUsersCount(): int
+    {
+        return $this->getBaseQuery()->whereNull('institutions_users.user_id')->count();
+    }
 
     private function validateRequest(array $request): array
     {
