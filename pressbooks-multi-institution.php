@@ -15,6 +15,7 @@
  */
 
 use PressbooksMultiInstitution\Bootstrap;
+use PressbooksMultiInstitution\Commands\ResetDbSchemaCommand;
 use PressbooksMultiInstitution\Database\Migration;
 
 // TODO: Check if this is the best way to check for Pressbooks.
@@ -33,6 +34,11 @@ if (!class_exists('PressbooksMultiInstitution\Bootstrap')) {
 }
 
 register_activation_hook(__FILE__, [Migration::class, 'migrate']);
-register_deactivation_hook(__FILE__, [Migration::class, 'rollback']);
 
 add_action('plugins_loaded', [Bootstrap::class, 'run']);
+
+add_action('cli_init', function () {
+    if (defined('WP_CLI') && WP_CLI) {
+        WP_CLI::add_command('reset-db-schema', ResetDbSchemaCommand::class);
+    }
+});
