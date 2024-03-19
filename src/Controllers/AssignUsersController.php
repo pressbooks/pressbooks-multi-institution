@@ -30,13 +30,13 @@ class AssignUsersController extends BaseController
         $this->table->prepare_items();
 
         return $this->renderView('assign.index', [
-			'title' => __('Assign Users', 'pressbooks-multi-institution'),
+            'title' => __('Assign Users', 'pressbooks-multi-institution'),
             'page' => 'pb_multi_institutions_users',
             'list_url' => network_admin_url('admin.php?page=pb_multi_institutions_users'),
             'table' => $this->table,
             'result' => $result,
-			'all_count' => $this->table->getTotalUsersCount(),
-			'unassigned_count' => $this->table->getUnassignedUsersCount(),
+            'all_count' => $this->table->getTotalUsersCount(),
+            'unassigned_count' => $this->table->getUnassignedUsersCount(),
             'params' => collect($filters)
                 ->flatMap(fn (string $filter, string $key) => [$key => sanitize_text_field($_REQUEST[$key] ?? $filter)])
                 ->toArray(),
