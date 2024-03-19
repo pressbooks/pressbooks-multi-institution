@@ -9,6 +9,9 @@ use Tests\TestCase;
 use Tests\Traits\Assertions;
 use Tests\Traits\CreatesModels;
 
+/**
+ * @group assign-books-controller
+ */
 class AssignBooksControllerTest extends TestCase
 {
     use Assertions;
@@ -243,5 +246,65 @@ class AssignBooksControllerTest extends TestCase
                 ->where('institution_id', $institution->id)
                 ->count()
         );
+    }
+
+    /**
+     * @test
+     */
+    public function it_renders_total_books_and_total_unassigned_books_count(): void
+    {
+        $book1 = $this->newBook([
+            'title' => 'Assigned Book',
+            'path' => 'fakepath',
+        ]);
+        $this->newBook([
+            'title' => 'Unassigned Book',
+            'path' => 'anotherfakepath',
+        ]);
+        /** @var Institution $institution */
+        $institution = Institution::query()->create([
+            'name' => 'Fake Institution',
+        ]);
+
+        InstitutionBook::query()->create([
+            'blog_id' => $book1,
+            'institution_id' => $institution->id,
+        ]);
+
+        $index = app(AssignBooksController::class)->index();
+
+        $this->assertMatchesRegularExpression('/All[\s\S]*<span class="count">[\s\S]*\(1\)[\s\S]*<\/span>/i', $index);
+        $this->assertMatchesRegularExpression('/Unassigned[\s\S]*<span class="count">[\s\S]*\(1\)[\s\S]*<\/span>/i', $index);
+    }
+
+    /**
+     * @test
+     */
+    public function it_filters_by_unassigned_books(): void
+    {
+        $book1 = $this->newBook([
+            'title' => 'Assigned Book',
+            'path' => 'fakepath',
+        ]);
+        $this->newBook([
+            'title' => 'Unassigned Book',
+            'path' => 'anotherfakepath',
+        ]);
+        /** @var Institution $institution */
+        $institution = Institution::query()->create([
+            'name' => 'Fake Institution',
+        ]);
+
+        InstitutionBook::query()->create([
+            'blog_id' => $book1,
+            'institution_id' => $institution->id,
+        ]);
+
+        $_REQUEST['unassigned'] = '1';
+
+        $index = app(AssignBooksController::class)->index();
+
+        $this->assertDoesNotMatchRegularExpression('/Assigned Book/', $index);
+        $this->assertMatchesRegularExpression('/Unassigned Book/', $index);
     }
 }

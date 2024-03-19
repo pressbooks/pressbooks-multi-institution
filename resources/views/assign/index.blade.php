@@ -5,12 +5,14 @@
 @endif
 
 <div class="wrap">
-	<h1 class="wp-heading-inline">{{ __('Assign Users', 'pressbooks-multi-institution') }}</h1>
+	<h1 class="wp-heading-inline">{{ $title }}</h1>
 
 	@if(!empty($params['s']))
 		<div class="filtering">
 			<ul>
-				<li><strong>{!! sprintf( __( 'Showing results for: %s', 'pressbooks-multi-institution' ), $params['s'] ) !!}</strong></li>
+				<li>
+					<strong>{!! sprintf( __( 'Showing results for: %s', 'pressbooks-multi-institution' ), $params['s'] ) !!}</strong>
+				</li>
 			</ul>
 			<a href="{{ $list_url }}" class="button">{{ __('Clear filters', 'pressbooks-multi-institution') }}</a>
 		</div>
@@ -18,7 +20,7 @@
 
 	<hr class="wp-header-end">
 
-	<form id="pressbooks-multi-institution-assign-users" method="GET">
+	<form id="pressbooks-multi-institution-assign-table" method="GET">
 		<p class="search-box">
 			<label class="screen-reader-text" for="search-input">{{ __( 'Search', 'pressbooks-multi-institution') }}:</label>
 			<input type="search" id="search-input" name="s" value="{{ $params['s'] ?? '' }}">
@@ -36,13 +38,13 @@
 				<li class="all">
 					<a href="?page=pb_multi_institutions_users" class="{{ ! empty($params['unassigned']) ? '' : 'current' }}">
 						{{ __('All', 'pressbooks-multi-institution') }}
-						<span class="count">({{ $table->getTotalUsersCount() }})</span>
+						<span class="count">({{ $all_count }})</span>
 					</a> |
 				</li>
 				<li class="unassigned">
 					<a href="?page=pb_multi_institutions_users&unassigned=1" class="{{ empty($params['unassigned']) ? '' : 'current' }}">
 						{{ __('Unassigned', 'pressbooks-multi-institution') }}
-						<span class="count">({{ $table->getUnassignedUsersCount() }})</span>
+						<span class="count">({{ $unassigned_count }})</span>
 					</a>
 				</li>
 			</ul>

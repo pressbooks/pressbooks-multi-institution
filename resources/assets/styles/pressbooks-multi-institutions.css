@@ -57,8 +57,7 @@ table.users, table.assign-books {
 	}
 }
 
-#pressbooks-multi-institution-assign-users .wp-list-table td,
-#pressbooks-multi-institution-assign-books .wp-list-table td {
+#pressbooks-multi-institution-assign-table .wp-list-table td {
 	border-bottom: 1px solid var(--border-color);
 }
 
