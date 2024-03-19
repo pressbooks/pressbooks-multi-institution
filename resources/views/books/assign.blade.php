@@ -34,6 +34,23 @@
             @endif
         @endforeach
 
+		<div>
+			<ul class="subsubsub">
+				<li class="all">
+					<a href="?page=pb_multi_institution_assign_book" class="{{ ! empty($params['unassigned']) ? '' : 'current' }}">
+						{{ __('All', 'pressbooks-multi-institution') }}
+						<span class="count">({{ $table->getTotalBooksCount() }})</span>
+					</a> |
+				</li>
+				<li class="unassigned">
+					<a href="?page=pb_multi_institution_assign_book&unassigned=1" class="{{ empty($params['unassigned']) ? '' : 'current' }}">
+						{{ __('Unassigned', 'pressbooks-multi-institution') }}
+						<span class="count">({{ $table->getUnassignedBooksCount() }})</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+
         {!! $table->display()!!}
     </form>
 </div>

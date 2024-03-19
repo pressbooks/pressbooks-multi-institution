@@ -35,8 +35,6 @@ class AssignUsersController extends BaseController
             'list_url' => network_admin_url('admin.php?page=pb_multi_institutions_users'),
             'table' => $this->table,
             'result' => $result,
-            'users_count' => $this->table->getTotalUsers(),
-            'unassigned_users_count' => $this->table->getUnassignedUsersCount(),
             'params' => collect($filters)
                 ->flatMap(fn (string $filter, string $key) => [$key => sanitize_text_field($_REQUEST[$key] ?? $filter)])
                 ->toArray(),

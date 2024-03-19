@@ -31,19 +31,18 @@
 			@endif
 		@endforeach
 
-
 		<div>
 			<ul class="subsubsub">
 				<li class="all">
 					<a href="?page=pb_multi_institutions_users" class="{{ ! empty($params['unassigned']) ? '' : 'current' }}">
 						{{ __('All', 'pressbooks-multi-institution') }}
-						<span class="count">({{$users_count}})</span>
+						<span class="count">({{ $table->getTotalUsersCount() }})</span>
 					</a> |
 				</li>
 				<li class="unassigned">
 					<a href="?page=pb_multi_institutions_users&unassigned=1" class="{{ empty($params['unassigned']) ? '' : 'current' }}">
 						{{ __('Unassigned', 'pressbooks-multi-institution') }}
-						<span class="count">({{$unassigned_users_count}})</span>
+						<span class="count">({{ $table->getUnassignedUsersCount() }})</span>
 					</a>
 				</li>
 			</ul>
