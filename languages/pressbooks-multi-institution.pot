@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-03-14T17:42:58+00:00\n"
+"POT-Creation-Date: 2024-03-19T17:35:42+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: pressbooks-multi-institution\n"
@@ -47,28 +47,28 @@ msgstr ""
 msgid "Please run <code>composer install</code> from the root of the plugin directory."
 msgstr ""
 
-#: src/Actions/PermissionsManager.php:142
+#: src/Actions/PermissionsManager.php:143
 msgid "%s's User List"
 msgstr ""
 
-#: src/Actions/PermissionsManager.php:144
+#: src/Actions/PermissionsManager.php:145
 msgid "There is %s user assigned to %s."
 msgid_plural "There are %s users assigned to %s."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Actions/PermissionsManager.php:218
+#: src/Actions/PermissionsManager.php:219
 #: src/Support/BookList.php:51
 #: src/Views/AssignBooksTable.php:35
 #: src/Views/AssignUsersTable.php:39
-#: resources/views/institutions/form.blade.php:33
+#: resources/views/institutions/form.blade.php:34
 #: resources/views/partials/filters/institutions/content.blade.php:3
 #: resources/views/partials/filters/institutions/tab.blade.php:3
 msgid "Institution"
 msgstr ""
 
-#: src/Actions/PermissionsManager.php:236
-#: src/Actions/PermissionsManager.php:248
+#: src/Actions/PermissionsManager.php:237
+#: src/Actions/PermissionsManager.php:249
 #: src/Traits/OverridesBulkActions.php:14
 #: src/Views/AssignUsersTable.php:73
 #: src/Views/InstitutionsTable.php:234
@@ -78,11 +78,11 @@ msgstr ""
 msgid "Unassigned"
 msgstr ""
 
-#: src/Actions/PermissionsManager.php:370
+#: src/Actions/PermissionsManager.php:371
 msgid "Sorry, you are not allowed to access this page."
 msgstr ""
 
-#: src/Actions/PermissionsManager.php:382
+#: src/Actions/PermissionsManager.php:383
 msgid "Administer Institution"
 msgstr ""
 
@@ -136,36 +136,28 @@ msgid_plural "Users updated."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Controllers/InstitutionsController.php:101
+#: src/Controllers/InstitutionsController.php:95
 msgid "Action completed."
 msgstr ""
 
-#: src/Controllers/InstitutionsController.php:128
+#: src/Controllers/InstitutionsController.php:122
 msgid "The form is invalid."
 msgstr ""
 
-#: src/Controllers/InstitutionsController.php:173
+#: src/Controllers/InstitutionsController.php:168
 msgid "Institution has been added."
 msgstr ""
 
-#: src/Controllers/InstitutionsController.php:174
+#: src/Controllers/InstitutionsController.php:169
 msgid "Institution has been updated."
 msgstr ""
 
-#: src/Controllers/InstitutionsController.php:201
+#: src/Controllers/InstitutionsController.php:196
 msgid "The name field is required."
 msgstr ""
 
-#: src/Controllers/InstitutionsController.php:205
+#: src/Controllers/InstitutionsController.php:200
 msgid "The book limit field should be numeric."
-msgstr ""
-
-#: src/Controllers/InstitutionsController.php:252
-msgid "Email domain %s is already in use with %s. Please use a different address."
-msgstr ""
-
-#: src/Controllers/InstitutionsController.php:285
-msgid "%s is already assigned as an institutional manager for %s. They cannot be assigned to manage two institutions at the same time."
 msgstr ""
 
 #: src/Services/InstitutionStatsService.php:39
@@ -202,7 +194,7 @@ msgstr ""
 
 #: src/Views/AssignUsersTable.php:37
 #: src/Views/InstitutionsTable.php:103
-#: resources/views/institutions/form.blade.php:56
+#: resources/views/institutions/form.blade.php:57
 msgid "Name"
 msgstr ""
 
@@ -215,7 +207,7 @@ msgid "Are you sure you want to delete this?"
 msgstr ""
 
 #: src/Views/InstitutionsTable.php:104
-#: resources/views/institutions/form.blade.php:67
+#: resources/views/institutions/form.blade.php:68
 msgid "Email Domains"
 msgstr ""
 
@@ -224,7 +216,7 @@ msgid "Buy-in"
 msgstr ""
 
 #: src/Views/InstitutionsTable.php:107
-#: resources/views/institutions/form.blade.php:154
+#: resources/views/institutions/form.blade.php:155
 msgid "Institutional Managers"
 msgstr ""
 
@@ -320,43 +312,43 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: resources/views/institutions/form.blade.php:26
+#: resources/views/institutions/form.blade.php:27
 msgid "Edit"
 msgstr ""
 
-#: resources/views/institutions/form.blade.php:29
+#: resources/views/institutions/form.blade.php:30
 msgid "Add"
 msgstr ""
 
-#: resources/views/institutions/form.blade.php:37
+#: resources/views/institutions/form.blade.php:38
 msgid "Back to Institution List"
 msgstr ""
 
-#: resources/views/institutions/form.blade.php:40
+#: resources/views/institutions/form.blade.php:41
 msgid "An asterisk (*) indicates a required field"
 msgstr ""
 
-#: resources/views/institutions/form.blade.php:71
+#: resources/views/institutions/form.blade.php:72
 msgid "Enter exclusive email domains for this institution. One per line (e.g. utopia.edu)."
 msgstr ""
 
-#: resources/views/institutions/form.blade.php:133
+#: resources/views/institutions/form.blade.php:134
 msgid "Institutional Managers Allowed"
 msgstr ""
 
-#: resources/views/institutions/form.blade.php:158
+#: resources/views/institutions/form.blade.php:159
 msgid "Enter username or email to find existing user(s). Limit 3."
 msgstr ""
 
-#: resources/views/institutions/form.blade.php:207
+#: resources/views/institutions/form.blade.php:208
 msgid "Premium Member Buy-in"
 msgstr ""
 
-#: resources/views/institutions/form.blade.php:227
+#: resources/views/institutions/form.blade.php:228
 msgid "Book Limit"
 msgstr ""
 
-#: resources/views/institutions/form.blade.php:231
+#: resources/views/institutions/form.blade.php:232
 msgid "For an unlimited institution, enter 0."
 msgstr ""
 
@@ -367,6 +359,24 @@ msgstr ""
 #: resources/views/institutions/index.blade.php:15
 #: resources/views/users/assign.blade.php:13
 msgid "Showing results for: %s"
+msgstr ""
+
+#: resources/views/partials/errors/duplicate-domain.blade.php:2
+msgid "Email domain %s is already in use with %s. Please use a different address."
+msgstr ""
+
+#: resources/views/partials/errors/duplicate-manager.blade.php:2
+msgid "%s is already assigned as an institutional manager for %s. They cannot be assigned to manage two institutions at the same time."
+msgstr ""
+
+#: resources/views/partials/errors/invalid-domains.blade.php:2
+msgid "Email domains can only contain alphanumeric characters, periods, and dashes. The following entry contained invalid content:"
+msgid_plural "Email domains can only contain alphanumeric characters, periods, and dashes. The following entries contained invalid content:"
+msgstr[0] ""
+msgstr[1] ""
+
+#: resources/views/partials/errors/invalid-domains.blade.php:10
+msgid "Please correct the invalid content and resubmit the form."
 msgstr ""
 
 #: resources/views/table/bulk-actions.blade.php:6
