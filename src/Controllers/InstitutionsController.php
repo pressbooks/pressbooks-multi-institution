@@ -278,7 +278,7 @@ class InstitutionsController extends BaseController
                 return false;
             }
 
-            return "<strong>{$domain}</strong>";
+            return $domain;
         }, $domains);
 
         $invalidDomains = array_filter($domains);
@@ -288,18 +288,9 @@ class InstitutionsController extends BaseController
         }
 
         return [
-            sprintf(
-                _n(
-                    'Email domains can only contain alphanumeric characters, periods, and dashes. The following entry contained invalid content:<br/>
-                    %s <br/>
-                    Please correct the invalid content and resubmit the form.',
-                    'Email domains can only contain alphanumeric characters, periods, and dashes. The following entries contained invalid content:<br/>
-                    %s <br/>
-                    Please correct the invalid content and resubmit the form.',
-                    count($invalidDomains)
-                ),
-                implode('<br/>', $invalidDomains)
-            )
+            $this->renderView('partials.errors.invalid-domains', [
+                'domains' => $invalidDomains
+            ])
         ];
     }
 
@@ -318,14 +309,10 @@ class InstitutionsController extends BaseController
             ->when($id, fn (EloquentBuilder $query) => $query->where('institution_id', '<>', $id))
             ->get();
 
-        return $duplicates->map(function (EmailDomain $duplicate) {
-            $message = __(
-                'Email domain %s is already in use with %s. Please use a different address.',
-                'pressbooks-multi-institution',
-            );
-
-            return sprintf($message, "<strong>{$duplicate->domain}</strong>", "<strong>{$duplicate->institution->name}</strong>");
-        })->toArray();
+        return $duplicates->map(fn (EmailDomain $duplicate) => $this->renderView('partials.errors.duplicate-domain', [
+            'domain' => "<strong>{$duplicate->domain}</strong>",
+            'institution' => "<strong>{$duplicate->institution->name}</strong>",
+        ]))->toArray();
     }
 
     protected function checkForDuplicateManagers(array $managers, ?int $id): array
@@ -351,13 +338,9 @@ class InstitutionsController extends BaseController
             ->when($id, fn (EloquentBuilder $query) => $query->where('institutions.id', '<>', $id))
             ->get();
 
-        return $duplicates->map(function (object $duplicate) {
-            $message = __(
-                "%s is already assigned as an institutional manager for %s. They cannot be assigned to manage two institutions at the same time.",
-                'pressbooks-multi-institution'
-            );
-
-            return sprintf($message, "<strong>{$duplicate->user}</strong>", "<strong>{$duplicate->institution}</strong>");
-        })->toArray();
+        return $duplicates->map(fn (object $duplicate) => $this->renderView('partials.errors.duplicate-manager', [
+            'user' => "<strong>{$duplicate->user}</strong>",
+            'institution' => "<strong>{$duplicate->institution}</strong>",
+        ]))->toArray();
     }
 }
