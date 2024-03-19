@@ -62,8 +62,6 @@ class Institution extends Model
 
     public function syncManagers(array $ids): self
     {
-        // TODO: if a user is assigned to a different institution, we should remove
-        // them from the old institution and assign them to the new one instead.
         $current = $this->users()->pluck('manager', 'user_id')->all();
 
         $managers = array_keys(array_filter($current));
@@ -90,6 +88,8 @@ class Institution extends Model
                 'manager' => true,
             ]);
         }
+
+        apply_filters('pb_institutional_after_save', $ids, $detach);
 
         return $this;
     }
