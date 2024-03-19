@@ -2,9 +2,11 @@
 
 namespace PressbooksMultiInstitution\Controllers;
 
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use PressbooksMultiInstitution\Models\EmailDomain;
 use PressbooksMultiInstitution\Models\Institution;
 use PressbooksMultiInstitution\Models\InstitutionUser;
@@ -51,23 +53,15 @@ class InstitutionsController extends BaseController
 
         $institution = $this->fetchInstitution();
 
+        $users = $this->fetchUsers($institution);
+
         return $this->renderView('institutions.form', [
             'back_url' => network_admin_url('admin.php?page=pb_multi_institutions'),
             'isSuperAdmin' =>  $isSuperAdmin,
             'institution' => $institution,
             'old' => $result['success'] ? [] : $_POST,
             'result' => $result,
-            'users' => get_users([
-                'blog_id' => 0,
-                'orderby' => [
-                    'display_name',
-                    'email',
-                    'name'
-                ],
-                'exclude' => InstitutionUser::query()
-                    ->where('institution_id', '<>', $institution->id)
-                    ->pluck('user_id')->toArray(),
-            ]),
+            'users' => $users,
         ]);
     }
 
@@ -153,18 +147,19 @@ class InstitutionsController extends BaseController
         }
 
         $institution->updateDomains(
-            array_map(fn (string $domain) => ['domain' => $domain], $domains)
+            array_map(fn (string $domain) => ['domain' => Str::of($domain)->lower()], $domains)
         );
 
         if ($institution->allowsInstitutionalManagers() || $isSuperAdmin) {
-            // TODO: handle the super admin removal while syncing managers
-            $managersToBeRemoved = $institution->managers()->whereNotIn('user_id', $managers)->get()->toArray();
+            $managers = array_map(fn (string $id) => (int) $id, $managers);
 
-            $institution->syncManagers(
-                array_map(fn (string $id) => (int) $id, $managers),
-            );
+            InstitutionUser::query()
+                ->notManagers()
+                ->whereIn('user_id', $managers)
+                ->where('institution_id', '<>', $institution->id)
+                ->delete();
 
-            apply_filters('pb_institutional_after_save', $managers, $managersToBeRemoved);
+            $institution->syncManagers($managers);
         }
 
         return [
@@ -205,8 +200,15 @@ class InstitutionsController extends BaseController
             $errors['book_limit'][] = __('The book limit field should be numeric.', 'pressbooks-multi-institution');
         }
 
-        if ($domainErrors = $this->checkForDuplicateDomains($data['domains'] ?? [], $id)) {
+        if ($domainErrors = $this->checkForInvalidDomains($data['domains'] ?? [])) {
             $errors['domains'] = $domainErrors;
+        }
+
+        if ($domainErrors = $this->checkForDuplicateDomains($data['domains'] ?? [], $id)) {
+            $errors['domains'] = [
+                ...$errors['domains'] ?? [],
+                ...$domainErrors
+            ];
         }
 
         if ($managerErrors = $this->checkForDuplicateManagers($data['managers'] ?? [], $id)) {
@@ -233,6 +235,65 @@ class InstitutionsController extends BaseController
         return $institution;
     }
 
+    protected function fetchUsers(?Institution $institution): array
+    {
+        $usersToSkip = app('db')
+            ->table('users')
+            ->whereIn('ID', function (Builder $query) use ($institution) {
+                $query
+                    ->select('ID')
+                    ->from('users')
+                    ->whereIn('user_login', get_super_admins())
+                    ->when(
+                        $institution,
+                        fn (Builder $query) => $query->whereNotIn('ID', $institution->managers->pluck('user_id'))
+                    );
+            })
+            ->pluck('ID')
+            ->toArray();
+
+        return get_users([
+            'blog_id' => 0, // all users from the network
+            'orderby' => [
+                'display_name',
+                'email',
+                'name',
+            ],
+            'exclude' => $usersToSkip
+        ]);
+    }
+
+    protected function checkForInvalidDomains(array $domains): array
+    {
+        $domains = array_filter($domains);
+
+        if (! $domains) {
+            return [];
+        }
+
+        $domains = array_map(function (string $domain) {
+            $pattern = '/^(?:(?:[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]|[a-zA-Z0-9])+\.)+[a-zA-Z]{2,}$/';
+
+            if (preg_match($pattern, $domain) === 1) {
+                return false;
+            }
+
+            return $domain;
+        }, $domains);
+
+        $invalidDomains = array_filter($domains);
+
+        if (! $invalidDomains) {
+            return [];
+        }
+
+        return [
+            $this->renderView('partials.errors.invalid-domains', [
+                'domains' => $invalidDomains
+            ])
+        ];
+    }
+
     protected function checkForDuplicateDomains(array $domains, ?int $id): array
     {
         $domains = array_filter($domains);
@@ -245,17 +306,13 @@ class InstitutionsController extends BaseController
         $duplicates = EmailDomain::query()
             ->with('institution:id,name')
             ->whereIn('domain', $domains)
-            ->when($id, fn (Builder $query) => $query->where('institution_id', '<>', $id))
+            ->when($id, fn (EloquentBuilder $query) => $query->where('institution_id', '<>', $id))
             ->get();
 
-        return $duplicates->map(function (EmailDomain $duplicate) {
-            $message = __(
-                'Email domain %s is already in use with %s. Please use a different address.',
-                'pressbooks-multi-institution',
-            );
-
-            return sprintf($message, "<strong>{$duplicate->domain}</strong>", "<strong>{$duplicate->institution->name}</strong>");
-        })->toArray();
+        return $duplicates->map(fn (EmailDomain $duplicate) => $this->renderView('partials.errors.duplicate-domain', [
+            'domain' => "<strong>{$duplicate->domain}</strong>",
+            'institution' => "<strong>{$duplicate->institution->name}</strong>",
+        ]))->toArray();
     }
 
     protected function checkForDuplicateManagers(array $managers, ?int $id): array
@@ -278,16 +335,12 @@ class InstitutionsController extends BaseController
             ->join('institutions_users', 'institutions.id', '=', 'institutions_users.institution_id')
             ->whereIn('institutions_users.user_id', $managers)
             ->where('institutions_users.manager', true)
-            ->when($id, fn (Builder $query) => $query->where('institutions.id', '<>', $id))
+            ->when($id, fn (EloquentBuilder $query) => $query->where('institutions.id', '<>', $id))
             ->get();
 
-        return $duplicates->map(function (object $duplicate) {
-            $message = __(
-                "%s is already assigned as an institutional manager for %s. They cannot be assigned to manage two institutions at the same time.",
-                'pressbooks-multi-institution'
-            );
-
-            return sprintf($message, "<strong>{$duplicate->user}</strong>", "<strong>{$duplicate->institution}</strong>");
-        })->toArray();
+        return $duplicates->map(fn (object $duplicate) => $this->renderView('partials.errors.duplicate-manager', [
+            'user' => "<strong>{$duplicate->user}</strong>",
+            'institution' => "<strong>{$duplicate->institution}</strong>",
+        ]))->toArray();
     }
 }
