@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks Multi Institution 0.1.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-multi-institution/issues\n"
-"POT-Creation-Date: 2024-03-19T17:35:42+00:00\n"
+"POT-Creation-Date: 2024-03-19T18:13:00+00:00\n"
 "PO-Revision-Date: 2024-02-19 22:27+0000\n"
 "Last-Translator: Eduardo Vera, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/pressbooks/teams/9194/ja/)\n"
@@ -64,7 +64,7 @@ msgid_plural "There are %s users assigned to %s."
 msgstr[0] "%s 人のユーザーは %s に割り当てられた。"
 
 #: src/Actions/PermissionsManager.php:219 src/Support/BookList.php:51
-#: src/Views/AssignBooksTable.php:35 src/Views/AssignUsersTable.php:39
+#: src/Views/AssignBooksTable.php:35 src/Views/AssignUsersTable.php:40
 #: resources/views/institutions/form.blade.php:34
 #: resources/views/partials/filters/institutions/content.blade.php:3
 #: resources/views/partials/filters/institutions/tab.blade.php:3
@@ -73,8 +73,9 @@ msgstr "機関"
 
 #: src/Actions/PermissionsManager.php:237
 #: src/Actions/PermissionsManager.php:249
-#: src/Traits/OverridesBulkActions.php:14 src/Views/AssignUsersTable.php:73
+#: src/Traits/OverridesBulkActions.php:14 src/Views/AssignUsersTable.php:74
 #: src/Views/InstitutionsTable.php:234
+#: resources/views/assign/index.blade.php:48
 #: resources/views/partials/filters/institutions/content.blade.php:14
 #: resources/views/table/book-admins.blade.php:8
 #: resources/views/table/institution.blade.php:1
@@ -103,12 +104,12 @@ msgid "Add Institution"
 msgstr "機関を追加"
 
 #: src/Bootstrap.php:84 src/Bootstrap.php:85
-#: resources/views/users/assign.blade.php:8
+#: src/Controllers/AssignUsersController.php:33
 msgid "Assign Users"
 msgstr "ユーザーを割り当てる"
 
 #: src/Bootstrap.php:95 src/Bootstrap.php:96
-#: resources/views/books/assign.blade.php:8
+#: src/Controllers/AssignBooksController.php:34
 msgid "Assign Books"
 msgstr "本を割り当てる"
 
@@ -116,18 +117,18 @@ msgstr "本を割り当てる"
 msgid "Are you sure you want to delete the selected institutions?"
 msgstr "本当に選択した機関を削除しますか ?"
 
-#: src/Controllers/AssignBooksController.php:63
-#: src/Controllers/AssignBooksController.php:85
+#: src/Controllers/AssignBooksController.php:66
+#: src/Controllers/AssignBooksController.php:88
 msgid "Book updated."
 msgid_plural "Books updated."
 msgstr[0] "本は更新しました。"
 
-#: src/Controllers/AssignBooksController.php:72
-#: src/Controllers/AssignUsersController.php:71
+#: src/Controllers/AssignBooksController.php:75
+#: src/Controllers/AssignUsersController.php:74
 msgid "Institution not found."
 msgstr "機関が見つかりません。"
 
-#: src/Controllers/AssignUsersController.php:57
+#: src/Controllers/AssignUsersController.php:60
 msgid "User updated."
 msgid_plural "Users updated."
 msgstr[0] "ユーザーは更新しました。"
@@ -184,16 +185,16 @@ msgstr "書名"
 msgid "Book Administrators"
 msgstr "本管理者"
 
-#: src/Views/AssignUsersTable.php:36
+#: src/Views/AssignUsersTable.php:37
 msgid "Username"
 msgstr "ユーザー名"
 
-#: src/Views/AssignUsersTable.php:37 src/Views/InstitutionsTable.php:103
+#: src/Views/AssignUsersTable.php:38 src/Views/InstitutionsTable.php:103
 #: resources/views/institutions/form.blade.php:57
 msgid "Name"
 msgstr "名前"
 
-#: src/Views/AssignUsersTable.php:38
+#: src/Views/AssignUsersTable.php:39
 msgid "Email"
 msgstr "メール"
 
@@ -243,24 +244,26 @@ msgstr "プレミアムメンバーの合計"
 msgid "Total Items"
 msgstr "総数"
 
-#: resources/views/books/assign.blade.php:14
-msgid "Showing results for:"
-msgstr "表示する結果: "
+#: resources/views/assign/index.blade.php:14
+#: resources/views/institutions/index.blade.php:15
+msgid "Showing results for: %s"
+msgstr "表示する結果: %s"
 
-#: resources/views/books/assign.blade.php:18
+#: resources/views/assign/index.blade.php:17
 #: resources/views/institutions/index.blade.php:17
-#: resources/views/users/assign.blade.php:15
 msgid "Clear filters"
 msgstr "絞り込みをクリア"
 
-#: resources/views/books/assign.blade.php:26
-#: resources/views/books/assign.blade.php:28
+#: resources/views/assign/index.blade.php:25
+#: resources/views/assign/index.blade.php:27
 #: resources/views/institutions/index.blade.php:25
 #: resources/views/institutions/index.blade.php:27
-#: resources/views/users/assign.blade.php:23
-#: resources/views/users/assign.blade.php:25
 msgid "Search"
 msgstr "検索"
+
+#: resources/views/assign/index.blade.php:41
+msgid "All"
+msgstr ""
 
 #: resources/views/dashboard/institutional.blade.php:6
 msgid "Institutional Manager Dashboard"
@@ -351,11 +354,6 @@ msgstr "無制限な機関の場合は、0 を入力してください。"
 #: resources/views/institutions/index.blade.php:10
 msgid "Add new"
 msgstr "新規追加"
-
-#: resources/views/institutions/index.blade.php:15
-#: resources/views/users/assign.blade.php:13
-msgid "Showing results for: %s"
-msgstr "表示する結果: %s"
 
 #: resources/views/partials/errors/duplicate-domain.blade.php:2
 msgid ""
