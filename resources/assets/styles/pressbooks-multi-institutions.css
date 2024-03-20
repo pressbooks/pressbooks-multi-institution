@@ -97,10 +97,13 @@ body.institutions_page_pb_multi_institutions {
 			margin: 0.5rem 0;
 		}
 
-		.invalid li {
-			margin: 0 0 .25rem 0;
-		}
+		.invalid {
+			padding: 0 2px;
 
+			li {
+				margin: 0 0 .25rem 0;
+			}
+		}
 	}
 
 	.description {
