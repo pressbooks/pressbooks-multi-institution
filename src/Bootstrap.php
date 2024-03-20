@@ -84,7 +84,7 @@ final class Bootstrap
             page_title: __('Assign Users', 'pressbooks-multi-institution'),
             menu_title: __('Assign Users', 'pressbooks-multi-institution'),
             capability: 'manage_network',
-            menu_slug: 'pb_multi_institutions_users',
+            menu_slug: 'pb_assign_users',
             callback: function () {
                 echo app(AssignUsersController::class)->assign();
             },
@@ -95,7 +95,7 @@ final class Bootstrap
             page_title: __('Assign Books', 'pressbooks-multi-institution'),
             menu_title: __('Assign Books', 'pressbooks-multi-institution'),
             capability: 'manage_network',
-            menu_slug: 'pb_multi_institution_assign_book',
+            menu_slug: 'pb_assign_books',
             callback: function () {
                 echo app(AssignBooksController::class)->index();
             }

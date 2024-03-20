@@ -31,8 +31,8 @@ class AssignUsersController extends BaseController
 
         return $this->renderView('assign.index', [
             'title' => __('Assign Users', 'pressbooks-multi-institution'),
-            'page' => 'pb_multi_institutions_users',
-            'list_url' => network_admin_url('admin.php?page=pb_multi_institutions_users'),
+            'page' => 'pb_assign_users',
+            'list_url' => network_admin_url('admin.php?page=pb_assign_users'),
             'table' => $this->table,
             'result' => $result,
             'all_count' => $this->table->getTotalUsersCount(),

@@ -125,7 +125,7 @@ body.institutions_page_pb_multi_institutions {
 	}
 }
 
-.institutions_page_pb_multi_institution_assign_book {
+#pressbooks-multi-institution-assign-table {
 	.assign-books {
 		.column-cover {
 			min-width: 50px;
