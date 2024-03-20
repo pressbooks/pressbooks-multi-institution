@@ -46,14 +46,16 @@ class PermissionsManager
     }
 
     /**
-     * This method is called after an institution is saved, and it updates the restricted users list
+     * This method is called after an institution is updated or deleted, and it updates the restricted users list
      *
      * @param array<int, int> $newManagers
      * @param array<int, int> $revokedManagers
      */
-    public function afterSaveInstitution(array $newManagers, array $revokedManagers): void
+    public static function syncRestrictedUsers(?array $newManagers, array $revokedManagers): void
     {
         $restricted = _restricted_users();
+
+        $newManagers = $newManagers ?? [];
 
         // Grant super admin privileges to new institution managers and add them to the restricted users list
         foreach ($newManagers as $id) {
@@ -71,6 +73,13 @@ class PermissionsManager
 
         // Update the restricted users list
         update_site_option('pressbooks_network_managers', $restricted);
+    }
+
+    public static function revokeSuperAdminPrivilegesToInstitutionalManagers(): void
+    {
+        $managerIds = InstitutionUser::query()->where(['manager' => true])->pluck('user_id')->toArray();
+
+        self::syncRestrictedUsers([], $managerIds);
     }
 
     public function setupInstitutionalFilters(): void

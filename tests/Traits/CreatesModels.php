@@ -2,6 +2,7 @@
 
 namespace Tests\Traits;
 
+use PressbooksMultiInstitution\Actions\PermissionsManager;
 use PressbooksMultiInstitution\Models\Institution;
 use PressbooksMultiInstitution\Models\InstitutionUser;
 use Pressbooks\DataCollector\Book as DataCollector;
@@ -118,5 +119,18 @@ trait CreatesModels
                 'institution_id' => $institutions[array_rand($institutions)]->id,
             ]);
         }
+    }
+
+    private function assignAnInstitutionalManager(Institution $institution): InstitutionUser
+    {
+        $userManager = $institution->users()->first();
+
+        InstitutionUser::query()
+            ->where('user_id', $userManager->user_id)
+            ->update(['manager' => true]);
+
+        PermissionsManager::syncRestrictedUsers([$userManager->user_id], []);
+
+        return $userManager;
     }
 }

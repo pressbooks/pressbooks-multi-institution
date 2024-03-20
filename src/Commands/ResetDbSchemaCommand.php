@@ -2,13 +2,10 @@
 
 namespace PressbooksMultiInstitution\Commands;
 
+use PressbooksMultiInstitution\Actions\PermissionsManager;
 use PressbooksMultiInstitution\Database\Migration;
-use WP_CLI;
-use WP_CLI_Command;
 
-use function PressbooksMultiInstitution\Support\revoke_institutional_manager_privileges;
-
-class ResetDbSchemaCommand extends WP_CLI_Command
+class ResetDbSchemaCommand
 {
     /**
      * Dump DB data generated.
@@ -18,12 +15,12 @@ class ResetDbSchemaCommand extends WP_CLI_Command
     public function __invoke($args, $assoc_args)
     {
         try {
-            revoke_institutional_manager_privileges();
+            PermissionsManager::revokeSuperAdminPrivilegesToInstitutionalManagers();
             Migration::rollback();
             Migration::migrate();
-            WP_CLI::success('Database schema reset successfully.');
+            echo "Database schema reset successfully. \n";
         } catch (\Exception $e) {
-            WP_CLI::error('Error dumping data: ' . $e->getMessage());
+            echo 'Error: ' . $e->getMessage() . "/n";
         }
     }
 }

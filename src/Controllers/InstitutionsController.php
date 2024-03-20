@@ -85,17 +85,21 @@ class InstitutionsController extends BaseController
 
         $base = Institution::query()->whereIn('id', $items);
 
+        $institutionalManagerIds = InstitutionUser::query()
+            ->whereIn('institution_id', $items)
+            ->managers()->pluck('user_id')->toArray();
+
         match($action) {
             'delete' => $base->delete(),
             default => null,
         };
 
+        apply_filters('pb_institutional_after_delete', [], $institutionalManagerIds);
+
         return [
             'success' => true,
             'message' => __('Action completed.', 'pressbooks-multi-institution'),
         ];
-
-
     }
 
     protected function save(bool $isSuperAdmin): array

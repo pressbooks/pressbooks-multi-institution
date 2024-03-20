@@ -181,7 +181,7 @@ class AssignBooksControllerTest extends TestCase
             'path' => 'fakepath',
         ]);
 
-        $secondBookId = $this->newBook([
+        $this->newBook([
             'title' => 'Another Fake Book',
             'path' => 'anotherfakepath',
         ]);

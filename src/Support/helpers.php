@@ -5,7 +5,6 @@ namespace PressbooksMultiInstitution\Support;
 use PressbooksMultiInstitution\Models\InstitutionUser;
 
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
-use function Pressbooks\Admin\NetworkManagers\_restricted_users;
 
 function get_institution_by_manager(): int
 {
@@ -29,15 +28,4 @@ function is_network_unlimited(): bool
     $bookLimit = (int) $bookLimit;
 
     return $bookLimit === 0;
-}
-
-function revoke_institutional_manager_privileges(array $managerUserIds = []): void
-{
-    $restrictedUsers = _restricted_users();
-
-	$managerUserIds = InstitutionUser::query()->managers()->pluck('user_id');
-
-	$managerUserIds->each('revoke_super_admin');
-
-    update_site_option('pressbooks_network_managers', array_diff($restrictedUsers, $managerUserIds->toArray()));
 }

@@ -14,9 +14,11 @@
  * Network: True
  */
 
+use PressbooksMultiInstitution\Actions\PermissionsManager;
 use PressbooksMultiInstitution\Bootstrap;
 use PressbooksMultiInstitution\Commands\ResetDbSchemaCommand;
 use PressbooksMultiInstitution\Database\Migration;
+use PressbooksMultiInstitution\Models\InstitutionUser;
 
 // TODO: Check if this is the best way to check for Pressbooks.
 if (!class_exists('PressbooksMultiInstitution\Bootstrap')) {
@@ -34,6 +36,12 @@ if (!class_exists('PressbooksMultiInstitution\Bootstrap')) {
 }
 
 register_activation_hook(__FILE__, [Migration::class, 'migrate']);
+register_activation_hook(__FILE__, function () {
+    $managerIds = InstitutionUser::query()->where(['manager' => true])->pluck('user_id')->toArray();
+    PermissionsManager::syncRestrictedUsers($managerIds, []);
+});
+
+register_deactivation_hook(__FILE__, [PermissionsManager::class, 'revokeSuperAdminPrivilegesToInstitutionalManagers']);
 
 add_action('plugins_loaded', [Bootstrap::class, 'run']);
 
