@@ -57,8 +57,18 @@ table.users, table.assign-books {
 	}
 }
 
-#pressbooks-multi-institution-assign-table .wp-list-table td {
-	border-bottom: 1px solid var(--border-color);
+#pressbooks-multi-institution-assign-table {
+	.assign-books {
+		.column-cover {
+			min-width: 50px;
+			text-align: center;
+			width: 5%;
+		}
+	}
+
+	.wp-list-table td {
+		border-bottom: 1px solid var(--border-color);
+	}
 }
 
 .striped {
@@ -122,16 +132,6 @@ body.institutions_page_pb_multi_institutions {
 		display: grid;
 		grid-template-columns: 1fr;
 		gap: .5rem;
-	}
-}
-
-#pressbooks-multi-institution-assign-table {
-	.assign-books {
-		.column-cover {
-			min-width: 50px;
-			text-align: center;
-			width: 5%;
-		}
 	}
 }
 
