@@ -3,9 +3,9 @@
 	<p>
 		{{ _n('The following entry contained invalid content:', 'The following entries contained invalid content:', count($domains), 'pressbooks-multi-institution') }}
 	</p>
-		<ul class="invalid">
+		<ul>
 		@foreach($domains as $domain)
-			<li><strong>{{ $domain }}</strong></li>
+			<li class="invalid"><strong>{{ $domain }}</strong></li>
 		@endforeach
 		</ul>
 	<p>
