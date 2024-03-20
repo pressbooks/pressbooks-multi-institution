@@ -148,6 +148,7 @@
 				</th>
 				<td class="institutional-managers-component">
 					<pressbooks-multiselect
+						max="3"
 						@if(! $institution->allowsInstitutionalManagers() && ! $isSuperAdmin)
 							disabled
 						@endif
