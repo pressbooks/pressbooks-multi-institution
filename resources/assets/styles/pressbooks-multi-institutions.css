@@ -93,15 +93,14 @@ body.institutions_page_pb_multi_institutions {
 	.error {
 		color: var(--pb-error-color);
 
-		span.indented {
-			display: flex;
-			flex-direction: column;
-			padding-left: 0.75rem;
-		}
-
 		li {
 			margin: 0.5rem 0;
 		}
+
+		.invalid li {
+			margin: 0 0 .25rem 0;
+		}
+
 	}
 
 	.description {
