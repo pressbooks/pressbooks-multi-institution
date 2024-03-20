@@ -7,7 +7,7 @@
 	</p>
 		<ul>
 		@foreach($domains as $domain)
-			<li class="invalid"><strong>{{ $domain }}</strong></li>
+			<li class="padding invalid"><strong>{{ $domain }}</strong></li>
 		@endforeach
 		</ul>
 	<p>
