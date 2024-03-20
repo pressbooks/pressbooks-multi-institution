@@ -31,13 +31,13 @@ function is_network_unlimited(): bool
     return $bookLimit === 0;
 }
 
-function revoke_institutional_manager_privileges(): void
+function revoke_institutional_manager_privileges(array $managerUserIds = []): void
 {
     $restrictedUsers = _restricted_users();
 
-    $managerIds = InstitutionUser::query()->managers()->pluck('user_id');
+	$managerUserIds = InstitutionUser::query()->managers()->pluck('user_id');
 
-    $managerIds->each('revoke_super_admin');
+	$managerUserIds->each('revoke_super_admin');
 
-    update_site_option('pressbooks_network_managers', array_diff($restrictedUsers, $managerIds->toArray()));
+    update_site_option('pressbooks_network_managers', array_diff($restrictedUsers, $managerUserIds->toArray()));
 }
