@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-03-19T18:13:00+00:00\n"
+"POT-Creation-Date: 2024-03-20T12:52:32+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: pressbooks-multi-institution\n"
@@ -343,15 +343,15 @@ msgstr ""
 msgid "Enter username or email to find existing user(s). Limit 3."
 msgstr ""
 
-#: resources/views/institutions/form.blade.php:208
+#: resources/views/institutions/form.blade.php:209
 msgid "Premium Member Buy-in"
 msgstr ""
 
-#: resources/views/institutions/form.blade.php:228
+#: resources/views/institutions/form.blade.php:229
 msgid "Book Limit"
 msgstr ""
 
-#: resources/views/institutions/form.blade.php:232
+#: resources/views/institutions/form.blade.php:233
 msgid "For an unlimited institution, enter 0."
 msgstr ""
 
