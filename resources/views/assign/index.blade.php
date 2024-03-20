@@ -36,13 +36,13 @@
 		<div>
 			<ul class="subsubsub">
 				<li class="all">
-					<a href="{{$list_url}}" class="{{ ! empty($_GET['unassigned']) ? '' : 'current' }}">
+					<a href="{{ $list_url }}" class="{{ ! empty($_GET['unassigned']) ? '' : 'current' }}">
 						{{ __('All', 'pressbooks-multi-institution') }}
 						<span class="count">({{ $all_count }})</span>
 					</a> |
 				</li>
 				<li class="unassigned">
-					<a href="{{$list_url . '&unassigned=1'}}" class="{{ empty($_GET['unassigned']) ? '' : 'current' }}">
+					<a href="{{ $list_url . '&unassigned=1' }}" class="{{ empty($_GET['unassigned']) ? '' : 'current' }}">
 						{{ __('Unassigned', 'pressbooks-multi-institution') }}
 						<span class="count">({{ $unassigned_count }})</span>
 					</a>
