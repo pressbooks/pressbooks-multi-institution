@@ -52,6 +52,6 @@ add_action('cli_init', function () {
 
     WP_CLI::add_command('pb:reset-db-schema', function ($args, $assoc_args) {
         (new ResetDbSchemaCommand)->__invoke($args, $assoc_args) ?
-            WP_CLI::success('works') : WP_CLI::error('it does not');
+            WP_CLI::success('Database successfully reset.') : WP_CLI::error('Error resetting database.');
     });
 });
