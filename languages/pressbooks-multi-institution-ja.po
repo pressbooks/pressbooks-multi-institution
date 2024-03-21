@@ -374,7 +374,7 @@ msgstr[0] "次のエントリには無効なコンテンツを含みました:"
 
 #: resources/views/partials/errors/invalid-domains.blade.php:17
 msgid "Please correct the invalid content and resubmit the form."
-msgstr ""
+msgstr "無効な内容を修正してフォームを再送信してください。"
 
 #: resources/views/table/bulk-actions.blade.php:6
 msgid "- Set Institution -"
