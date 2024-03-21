@@ -359,7 +359,7 @@ msgstr "新規追加"
 msgid ""
 "The email domain %s is already in use with %s. Please use a different "
 "address."
-msgstr ""
+msgstr "メールドメイン %s は、既に %s に使用されている。別のアドレスを使用してください。"
 
 #: resources/views/partials/errors/duplicate-manager.blade.php:2
 msgid ""
