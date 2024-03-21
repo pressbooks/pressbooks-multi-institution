@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks Multi Institution 0.1.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-multi-institution/issues\n"
-"POT-Creation-Date: 2024-03-21T13:44:07+00:00\n"
+"POT-Creation-Date: 2024-03-21T17:35:37+00:00\n"
 "PO-Revision-Date: 2024-02-19 22:27+0000\n"
 "Last-Translator: Eduardo Vera, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/pressbooks/teams/9194/ja/)\n"
@@ -44,26 +44,26 @@ msgstr "Pressbooks (Book Oven Inc.)"
 msgid "https://pressbooks.org"
 msgstr "https://pressbooks.org"
 
-#: pressbooks-multi-institution.php:25
+#: pressbooks-multi-institution.php:28
 msgid "Missing dependencies"
 msgstr "依存関係が見つかりません"
 
-#: pressbooks-multi-institution.php:26
+#: pressbooks-multi-institution.php:29
 msgid ""
 "Please run <code>composer install</code> from the root of the plugin "
 "directory."
 msgstr "プラグインディレクトリのルートから <code>composer install</code> を実行してください。"
 
-#: src/Actions/PermissionsManager.php:143
+#: src/Actions/PermissionsManager.php:150
 msgid "%s's User List"
 msgstr "%s のユーザーリスト"
 
-#: src/Actions/PermissionsManager.php:145
+#: src/Actions/PermissionsManager.php:152
 msgid "There is %s user assigned to %s."
 msgid_plural "There are %s users assigned to %s."
 msgstr[0] "%s 人のユーザーは %s に割り当てられた。"
 
-#: src/Actions/PermissionsManager.php:219 src/Support/BookList.php:51
+#: src/Actions/PermissionsManager.php:226 src/Support/BookList.php:51
 #: src/Views/AssignBooksTable.php:35 src/Views/AssignUsersTable.php:40
 #: resources/views/institutions/form.blade.php:34
 #: resources/views/partials/filters/institutions/content.blade.php:3
@@ -71,8 +71,8 @@ msgstr[0] "%s 人のユーザーは %s に割り当てられた。"
 msgid "Institution"
 msgstr "機関"
 
-#: src/Actions/PermissionsManager.php:237
-#: src/Actions/PermissionsManager.php:249
+#: src/Actions/PermissionsManager.php:244
+#: src/Actions/PermissionsManager.php:256
 #: src/Traits/OverridesBulkActions.php:14 src/Views/AssignUsersTable.php:74
 #: src/Views/InstitutionsTable.php:234
 #: resources/views/assign/index.blade.php:48
@@ -82,11 +82,11 @@ msgstr "機関"
 msgid "Unassigned"
 msgstr "未割り当て"
 
-#: src/Actions/PermissionsManager.php:371
+#: src/Actions/PermissionsManager.php:378
 msgid "Sorry, you are not allowed to access this page."
 msgstr "このページにアクセスする権限がありません。"
 
-#: src/Actions/PermissionsManager.php:383
+#: src/Actions/PermissionsManager.php:390
 msgid "Administer Institution"
 msgstr "機関管理"
 
@@ -113,7 +113,7 @@ msgstr "ユーザーを割り当てる"
 msgid "Assign Books"
 msgstr "本を割り当てる"
 
-#: src/Bootstrap.php:146
+#: src/Bootstrap.php:142
 msgid "Are you sure you want to delete the selected institutions?"
 msgstr "本当に選択した機関を削除しますか ?"
 
@@ -133,27 +133,27 @@ msgid "User updated."
 msgid_plural "Users updated."
 msgstr[0] "ユーザーは更新しました。"
 
-#: src/Controllers/InstitutionsController.php:95
+#: src/Controllers/InstitutionsController.php:99
 msgid "Action completed."
 msgstr "アクションが完了しました。"
 
-#: src/Controllers/InstitutionsController.php:122
+#: src/Controllers/InstitutionsController.php:124
 msgid "The form is invalid."
 msgstr "無効なフォーム。"
 
-#: src/Controllers/InstitutionsController.php:168
+#: src/Controllers/InstitutionsController.php:170
 msgid "Institution has been added."
 msgstr "機関は追加しました。"
 
-#: src/Controllers/InstitutionsController.php:169
+#: src/Controllers/InstitutionsController.php:171
 msgid "Institution has been updated."
 msgstr "機関は更新しました。"
 
-#: src/Controllers/InstitutionsController.php:196
+#: src/Controllers/InstitutionsController.php:198
 msgid "The name field is required."
 msgstr "名前フィールドは必要です。"
 
-#: src/Controllers/InstitutionsController.php:200
+#: src/Controllers/InstitutionsController.php:202
 msgid "The book limit field should be numeric."
 msgstr "本数制限フィールドは数値にする必要があります。"
 
@@ -263,7 +263,7 @@ msgstr "検索"
 
 #: resources/views/assign/index.blade.php:41
 msgid "All"
-msgstr ""
+msgstr "すべて"
 
 #: resources/views/dashboard/institutional.blade.php:6
 msgid "Institutional Manager Dashboard"
