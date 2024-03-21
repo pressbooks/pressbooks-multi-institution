@@ -389,9 +389,9 @@ msgstr ""
 #: resources/views/partials/errors/invalid-domains.blade.php:7
 msgid "The following entry contained invalid content:"
 msgid_plural "The following entries contained invalid content:"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "El contenido de las siguiente entrada no es válido:"
+msgstr[1] "El contenido de las siguientes entradas no es válido:"
+msgstr[2] "El contenido de las siguientes entradas no es válido:"
 
 #: resources/views/partials/errors/invalid-domains.blade.php:17
 msgid "Please correct the invalid content and resubmit the form."
