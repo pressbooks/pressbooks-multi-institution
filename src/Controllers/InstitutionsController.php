@@ -83,14 +83,12 @@ class InstitutionsController extends BaseController
             return [];
         }
 
-        $base = Institution::query()->whereIn('id', $items);
-
         $institutionalManagerIds = InstitutionUser::query()
             ->whereIn('institution_id', $items)
             ->managers()->pluck('user_id')->toArray();
 
         match($action) {
-            'delete' => $base->delete(),
+            'delete' => Institution::query()->whereIn('id', $items)->delete(),
             default => null,
         };
 

@@ -15,7 +15,7 @@ class ResetDbSchemaCommand
     public function __invoke($args, $assoc_args)
     {
         try {
-            PermissionsManager::revokeSuperAdminPrivilegesToInstitutionalManagers();
+            PermissionsManager::revokeInstitutionalManagersPrivileges();
             Migration::rollback();
             Migration::migrate();
             echo "Database schema reset successfully. \n";

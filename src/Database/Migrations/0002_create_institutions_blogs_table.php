@@ -10,24 +10,25 @@ return new class implements MigrationInterface {
         /** @var Builder $schema */
         $schema = app('db')->schema();
 
-        if (! $schema->hasTable('institutions_blogs')) {
-            $schema->create('institutions_blogs', function (Blueprint $table) {
-                $table->id();
-                $table->bigInteger('blog_id');
-                $table->unsignedBigInteger('institution_id');
-
-                $table->foreign('blog_id')
-                    ->references('blog_id')
-                    ->on('blogs')
-                    ->cascadeOnDelete();
-                $table->foreign('institution_id')
-                    ->references('id')
-                    ->on('institutions')
-                    ->cascadeOnDelete();
-
-                $table->unique(['blog_id']);
-            });
+        if ($schema->hasTable('institutions_blogs')) {
+            return;
         }
+        $schema->create('institutions_blogs', function (Blueprint $table) {
+            $table->id();
+            $table->bigInteger('blog_id');
+            $table->unsignedBigInteger('institution_id');
+
+            $table->foreign('blog_id')
+                ->references('blog_id')
+                ->on('blogs')
+                ->cascadeOnDelete();
+            $table->foreign('institution_id')
+                ->references('id')
+                ->on('institutions')
+                ->cascadeOnDelete();
+
+            $table->unique(['blog_id']);
+        });
     }
 
     public function down(): void

@@ -37,16 +37,16 @@ if (!class_exists('PressbooksMultiInstitution\Bootstrap')) {
 
 register_activation_hook(__FILE__, [Migration::class, 'migrate']);
 register_activation_hook(__FILE__, function () {
-    $managerIds = InstitutionUser::query()->where(['manager' => true])->pluck('user_id')->toArray();
+    $managerIds = InstitutionUser::query()->managers()->pluck('user_id')->toArray();
     PermissionsManager::syncRestrictedUsers($managerIds, []);
 });
 
-register_deactivation_hook(__FILE__, [PermissionsManager::class, 'revokeSuperAdminPrivilegesToInstitutionalManagers']);
+register_deactivation_hook(__FILE__, [PermissionsManager::class, 'revokeInstitutionalManagersPrivileges']);
 
 add_action('plugins_loaded', [Bootstrap::class, 'run']);
 
 add_action('cli_init', function () {
     if (defined('WP_CLI') && WP_CLI) {
-        WP_CLI::add_command('reset-db-schema', ResetDbSchemaCommand::class);
+        WP_CLI::add_command('pb:reset-db-schema', ResetDbSchemaCommand::class);
     }
 });

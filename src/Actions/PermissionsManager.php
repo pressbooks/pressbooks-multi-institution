@@ -51,11 +51,9 @@ class PermissionsManager
      * @param array<int, int> $newManagers
      * @param array<int, int> $revokedManagers
      */
-    public static function syncRestrictedUsers(?array $newManagers, array $revokedManagers): void
+    public static function syncRestrictedUsers(array $newManagers, array $revokedManagers): void
     {
         $restricted = _restricted_users();
-
-        $newManagers = $newManagers ?? [];
 
         // Grant super admin privileges to new institution managers and add them to the restricted users list
         foreach ($newManagers as $id) {
@@ -75,9 +73,9 @@ class PermissionsManager
         update_site_option('pressbooks_network_managers', $restricted);
     }
 
-    public static function revokeSuperAdminPrivilegesToInstitutionalManagers(): void
+    public static function revokeInstitutionalManagersPrivileges(): void
     {
-        $managerIds = InstitutionUser::query()->where(['manager' => true])->pluck('user_id')->toArray();
+        $managerIds = InstitutionUser::query()->managers()->pluck('user_id')->toArray();
 
         self::syncRestrictedUsers([], $managerIds);
     }

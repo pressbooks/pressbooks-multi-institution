@@ -89,7 +89,7 @@ trait CreatesModels
         return $blog;
     }
 
-    public function createInstitution(array $properties = []): Institution
+    protected function createInstitution(array $properties = []): Institution
     {
         return Institution::create([
             'name' => $properties['name'] ?? 'Fake Institution',
@@ -99,7 +99,7 @@ trait CreatesModels
         ]);
     }
 
-    public function createInstitutionsUsers(int $institutionsLimit, int $usersLimit): void
+    protected function createInstitutionsUsers(int $institutionsLimit, int $usersLimit): void
     {
         $institutions = [];
         for ($i = 0; $i < $institutionsLimit; $i++) {
@@ -121,7 +121,7 @@ trait CreatesModels
         }
     }
 
-    private function assignAnInstitutionalManager(Institution $institution): InstitutionUser
+    protected function assignAnInstitutionalManager(Institution $institution): InstitutionUser
     {
         $userManager = $institution->users()->first();
 
