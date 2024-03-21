@@ -32,12 +32,7 @@ class ResetDbSchemaCommandTest extends TestCase
         $this->assertDatabaseCount('institutions', 2);
         $this->assertDatabaseCount('institutions_users', 10);
 
-        $resetCommand = new ResetDbSchemaCommand;
-        ob_start();
-        $resetCommand->__invoke([], []);
-        $output = ob_get_clean();
-
-        $this->assertStringContainsString('Database schema reset successfully.', $output);
+        $this->assertTrue((new ResetDbSchemaCommand)->__invoke([], []));
 
         $this->assertDatabaseCount('institutions', 0);
         $this->assertDatabaseCount('institutions_users', 0);
@@ -52,8 +47,7 @@ class ResetDbSchemaCommandTest extends TestCase
 
         $userManager = $this->assignAnInstitutionalManager($institution);
 
-        $resetCommand = new ResetDbSchemaCommand;
-        $resetCommand->__invoke([], []);
+        $this->assertTrue((new ResetDbSchemaCommand)->__invoke([], []));
 
         $this->assertNotContains($userManager->user_id, _restricted_users());
 

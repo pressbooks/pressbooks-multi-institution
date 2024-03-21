@@ -8,19 +8,17 @@ use PressbooksMultiInstitution\Database\Migration;
 class ResetDbSchemaCommand
 {
     /**
-     * Dump DB data generated.
-     *
-     * @when after_wp_load
+     * Reset DB Schema.
      */
-    public function __invoke($args, $assoc_args)
+    public function __invoke($args, $assoc_args): bool
     {
         try {
             PermissionsManager::revokeInstitutionalManagersPrivileges();
             Migration::rollback();
             Migration::migrate();
-            echo "Database schema successfully reset. \n";
+            return true;
         } catch (\Exception $e) {
-            echo 'Error: ' . $e->getMessage() . "/n";
+            return false;
         }
     }
 }

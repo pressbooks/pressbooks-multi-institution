@@ -46,7 +46,12 @@ register_deactivation_hook(__FILE__, [PermissionsManager::class, 'revokeInstitut
 add_action('plugins_loaded', [Bootstrap::class, 'run']);
 
 add_action('cli_init', function () {
-    if (defined('WP_CLI') && WP_CLI) {
-        WP_CLI::add_command('pb:reset-db-schema', ResetDbSchemaCommand::class);
+    if (! defined('WP_CLI')) {
+        return;
     }
+
+    WP_CLI::add_command('pb:reset-db-schema', function ($args, $assoc_args) {
+        (new ResetDbSchemaCommand)->__invoke($args, $assoc_args) ?
+            WP_CLI::success('works') : WP_CLI::error('it does not');
+    });
 });
