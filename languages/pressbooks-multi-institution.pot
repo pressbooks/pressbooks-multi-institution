@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-03-21T13:44:07+00:00\n"
+"POT-Creation-Date: 2024-03-21T17:35:37+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: pressbooks-multi-institution\n"
@@ -39,25 +39,25 @@ msgstr ""
 msgid "https://pressbooks.org"
 msgstr ""
 
-#: pressbooks-multi-institution.php:25
+#: pressbooks-multi-institution.php:28
 msgid "Missing dependencies"
 msgstr ""
 
-#: pressbooks-multi-institution.php:26
+#: pressbooks-multi-institution.php:29
 msgid "Please run <code>composer install</code> from the root of the plugin directory."
 msgstr ""
 
-#: src/Actions/PermissionsManager.php:143
+#: src/Actions/PermissionsManager.php:150
 msgid "%s's User List"
 msgstr ""
 
-#: src/Actions/PermissionsManager.php:145
+#: src/Actions/PermissionsManager.php:152
 msgid "There is %s user assigned to %s."
 msgid_plural "There are %s users assigned to %s."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Actions/PermissionsManager.php:219
+#: src/Actions/PermissionsManager.php:226
 #: src/Support/BookList.php:51
 #: src/Views/AssignBooksTable.php:35
 #: src/Views/AssignUsersTable.php:40
@@ -67,8 +67,8 @@ msgstr[1] ""
 msgid "Institution"
 msgstr ""
 
-#: src/Actions/PermissionsManager.php:237
-#: src/Actions/PermissionsManager.php:249
+#: src/Actions/PermissionsManager.php:244
+#: src/Actions/PermissionsManager.php:256
 #: src/Traits/OverridesBulkActions.php:14
 #: src/Views/AssignUsersTable.php:74
 #: src/Views/InstitutionsTable.php:234
@@ -79,11 +79,11 @@ msgstr ""
 msgid "Unassigned"
 msgstr ""
 
-#: src/Actions/PermissionsManager.php:371
+#: src/Actions/PermissionsManager.php:378
 msgid "Sorry, you are not allowed to access this page."
 msgstr ""
 
-#: src/Actions/PermissionsManager.php:383
+#: src/Actions/PermissionsManager.php:390
 msgid "Administer Institution"
 msgstr ""
 
@@ -115,7 +115,7 @@ msgstr ""
 msgid "Assign Books"
 msgstr ""
 
-#: src/Bootstrap.php:146
+#: src/Bootstrap.php:142
 msgid "Are you sure you want to delete the selected institutions?"
 msgstr ""
 
@@ -137,27 +137,27 @@ msgid_plural "Users updated."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Controllers/InstitutionsController.php:95
+#: src/Controllers/InstitutionsController.php:99
 msgid "Action completed."
 msgstr ""
 
-#: src/Controllers/InstitutionsController.php:122
+#: src/Controllers/InstitutionsController.php:124
 msgid "The form is invalid."
 msgstr ""
 
-#: src/Controllers/InstitutionsController.php:168
+#: src/Controllers/InstitutionsController.php:170
 msgid "Institution has been added."
 msgstr ""
 
-#: src/Controllers/InstitutionsController.php:169
+#: src/Controllers/InstitutionsController.php:171
 msgid "Institution has been updated."
 msgstr ""
 
-#: src/Controllers/InstitutionsController.php:196
+#: src/Controllers/InstitutionsController.php:198
 msgid "The name field is required."
 msgstr ""
 
-#: src/Controllers/InstitutionsController.php:200
+#: src/Controllers/InstitutionsController.php:202
 msgid "The book limit field should be numeric."
 msgstr ""
 
