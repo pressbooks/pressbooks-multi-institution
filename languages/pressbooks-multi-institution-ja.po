@@ -370,7 +370,7 @@ msgstr "%s は、既に %sの機関管理者として割り当てられている
 #: resources/views/partials/errors/invalid-domains.blade.php:7
 msgid "The following entry contained invalid content:"
 msgid_plural "The following entries contained invalid content:"
-msgstr[0] ""
+msgstr[0] "次のエントリには無効なコンテンツを含みました:"
 
 #: resources/views/partials/errors/invalid-domains.blade.php:17
 msgid "Please correct the invalid content and resubmit the form."
