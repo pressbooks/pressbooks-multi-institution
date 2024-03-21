@@ -375,6 +375,8 @@ msgid ""
 "The email domain %s is already in use with %s. Please use a different "
 "address."
 msgstr ""
+"El dominio de correo electrónico %s ya está siendo usado por %s. Utiliza una"
+" dirección diferente."
 
 #: resources/views/partials/errors/duplicate-manager.blade.php:2
 msgid ""
