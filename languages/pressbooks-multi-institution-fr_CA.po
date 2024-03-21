@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks Multi Institution 0.1.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-multi-institution/issues\n"
-"POT-Creation-Date: 2024-03-19T18:13:00+00:00\n"
+"POT-Creation-Date: 2024-03-21T13:44:07+00:00\n"
 "PO-Revision-Date: 2024-02-19 22:27+0000\n"
 "Last-Translator: Siri Gauthier, 2024\n"
 "Language-Team: French (Canada) (https://app.transifex.com/pressbooks/teams/9194/fr_CA/)\n"
@@ -351,15 +351,15 @@ msgstr ""
 msgid "Enter username or email to find existing user(s). Limit 3."
 msgstr ""
 
-#: resources/views/institutions/form.blade.php:208
+#: resources/views/institutions/form.blade.php:209
 msgid "Premium Member Buy-in"
 msgstr ""
 
-#: resources/views/institutions/form.blade.php:228
+#: resources/views/institutions/form.blade.php:229
 msgid "Book Limit"
 msgstr "Limite de livres"
 
-#: resources/views/institutions/form.blade.php:232
+#: resources/views/institutions/form.blade.php:233
 msgid "For an unlimited institution, enter 0."
 msgstr ""
 
@@ -369,10 +369,9 @@ msgstr "Ajouter un domaine"
 
 #: resources/views/partials/errors/duplicate-domain.blade.php:2
 msgid ""
-"Email domain %s is already in use with %s. Please use a different address."
+"The email domain %s is already in use with %s. Please use a different "
+"address."
 msgstr ""
-"Le domaine de messagerie %s est déjà utilisé avec %s. Veuillez utiliser une "
-"adresse différente."
 
 #: resources/views/partials/errors/duplicate-manager.blade.php:2
 msgid ""
@@ -383,18 +382,14 @@ msgstr ""
 "utilisateur ne peut pas être assigné pour gérer deux institutions en même "
 "temps."
 
-#: resources/views/partials/errors/invalid-domains.blade.php:2
-msgid ""
-"Email domains can only contain alphanumeric characters, periods, and dashes."
-" The following entry contained invalid content:"
-msgid_plural ""
-"Email domains can only contain alphanumeric characters, periods, and dashes."
-" The following entries contained invalid content:"
+#: resources/views/partials/errors/invalid-domains.blade.php:7
+msgid "The following entry contained invalid content:"
+msgid_plural "The following entries contained invalid content:"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: resources/views/partials/errors/invalid-domains.blade.php:10
+#: resources/views/partials/errors/invalid-domains.blade.php:17
 msgid "Please correct the invalid content and resubmit the form."
 msgstr ""
 
