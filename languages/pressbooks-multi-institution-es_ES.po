@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks Multi Institution 0.1.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-multi-institution/issues\n"
-"POT-Creation-Date: 2024-03-21T13:44:07+00:00\n"
+"POT-Creation-Date: 2024-03-21T17:35:37+00:00\n"
 "PO-Revision-Date: 2024-02-19 22:27+0000\n"
 "Last-Translator: Eduardo Vera, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/pressbooks/teams/9194/es/)\n"
@@ -46,11 +46,11 @@ msgstr "Pressbooks (Book Oven Inc.)"
 msgid "https://pressbooks.org"
 msgstr "https://pressbooks.org"
 
-#: pressbooks-multi-institution.php:25
+#: pressbooks-multi-institution.php:28
 msgid "Missing dependencies"
 msgstr "Hay dependencias faltantes"
 
-#: pressbooks-multi-institution.php:26
+#: pressbooks-multi-institution.php:29
 msgid ""
 "Please run <code>composer install</code> from the root of the plugin "
 "directory."
@@ -58,18 +58,18 @@ msgstr ""
 "Ejecuta <code>composer install</code> desde la raíz del directorio del "
 "plugin."
 
-#: src/Actions/PermissionsManager.php:143
+#: src/Actions/PermissionsManager.php:150
 msgid "%s's User List"
 msgstr "Lista de usuarios de %s"
 
-#: src/Actions/PermissionsManager.php:145
+#: src/Actions/PermissionsManager.php:152
 msgid "There is %s user assigned to %s."
 msgid_plural "There are %s users assigned to %s."
 msgstr[0] "Hay %s usuario asignado a %s."
 msgstr[1] "Hay %s usuarios asignados a %s."
 msgstr[2] "Hay %s usuarios asignados a %s."
 
-#: src/Actions/PermissionsManager.php:219 src/Support/BookList.php:51
+#: src/Actions/PermissionsManager.php:226 src/Support/BookList.php:51
 #: src/Views/AssignBooksTable.php:35 src/Views/AssignUsersTable.php:40
 #: resources/views/institutions/form.blade.php:34
 #: resources/views/partials/filters/institutions/content.blade.php:3
@@ -77,8 +77,8 @@ msgstr[2] "Hay %s usuarios asignados a %s."
 msgid "Institution"
 msgstr "Institución"
 
-#: src/Actions/PermissionsManager.php:237
-#: src/Actions/PermissionsManager.php:249
+#: src/Actions/PermissionsManager.php:244
+#: src/Actions/PermissionsManager.php:256
 #: src/Traits/OverridesBulkActions.php:14 src/Views/AssignUsersTable.php:74
 #: src/Views/InstitutionsTable.php:234
 #: resources/views/assign/index.blade.php:48
@@ -88,11 +88,11 @@ msgstr "Institución"
 msgid "Unassigned"
 msgstr "Sin asignar"
 
-#: src/Actions/PermissionsManager.php:371
+#: src/Actions/PermissionsManager.php:378
 msgid "Sorry, you are not allowed to access this page."
 msgstr "Lo siento, no tienes permisos para acceder a esta página."
 
-#: src/Actions/PermissionsManager.php:383
+#: src/Actions/PermissionsManager.php:390
 msgid "Administer Institution"
 msgstr "Administrar institución"
 
@@ -119,7 +119,7 @@ msgstr "Asignar usuarios"
 msgid "Assign Books"
 msgstr "Asignar libros"
 
-#: src/Bootstrap.php:146
+#: src/Bootstrap.php:142
 msgid "Are you sure you want to delete the selected institutions?"
 msgstr "¿Confirmas que quieres borrar las instituciones seleccionadas?"
 
@@ -143,27 +143,27 @@ msgstr[0] "Usuario actualizado."
 msgstr[1] "Usuarios actualizados."
 msgstr[2] "Usuarios actualizados."
 
-#: src/Controllers/InstitutionsController.php:95
+#: src/Controllers/InstitutionsController.php:99
 msgid "Action completed."
 msgstr "Acción completada."
 
-#: src/Controllers/InstitutionsController.php:122
+#: src/Controllers/InstitutionsController.php:124
 msgid "The form is invalid."
 msgstr "El formulario no es válido."
 
-#: src/Controllers/InstitutionsController.php:168
+#: src/Controllers/InstitutionsController.php:170
 msgid "Institution has been added."
 msgstr "Se ha añadido la institución."
 
-#: src/Controllers/InstitutionsController.php:169
+#: src/Controllers/InstitutionsController.php:171
 msgid "Institution has been updated."
 msgstr "Se ha actualizado la institución."
 
-#: src/Controllers/InstitutionsController.php:196
+#: src/Controllers/InstitutionsController.php:198
 msgid "The name field is required."
 msgstr "El campo de nombre es obligatorio."
 
-#: src/Controllers/InstitutionsController.php:200
+#: src/Controllers/InstitutionsController.php:202
 msgid "The book limit field should be numeric."
 msgstr "El campo de límite de libros debe ser numérico."
 
@@ -274,7 +274,7 @@ msgstr "Buscar"
 
 #: resources/views/assign/index.blade.php:41
 msgid "All"
-msgstr ""
+msgstr "Todo"
 
 #: resources/views/dashboard/institutional.blade.php:6
 msgid "Institutional Manager Dashboard"
