@@ -395,7 +395,7 @@ msgstr[2] "El contenido de las siguientes entradas no es válido:"
 
 #: resources/views/partials/errors/invalid-domains.blade.php:17
 msgid "Please correct the invalid content and resubmit the form."
-msgstr ""
+msgstr "Corrige el contenido no válido y reenvía el formulario."
 
 #: resources/views/table/bulk-actions.blade.php:6
 msgid "- Set Institution -"
