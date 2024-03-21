@@ -113,12 +113,8 @@ final class Bootstrap
         add_action('network_admin_menu', fn () => app(PermissionsManager::class)->handleMenus(), 1000);
         add_action('admin_menu', fn () => app(PermissionsManager::class)->handleMenus(), 1000);
         add_action('init', fn () => app(PermissionsManager::class)->setupInstitutionalFilters());
-        add_action(
-            'pb_institutional_after_save',
-            fn ($newManagers, $revokedManagers) => app(PermissionsManager::class)->afterSaveInstitution($newManagers, $revokedManagers),
-            10,
-            2
-        );
+        add_action('pb_institutional_after_save', [PermissionsManager::class, 'syncRestrictedUsers'], 10, 2);
+        add_action('pb_institutional_after_delete', [PermissionsManager::class, 'syncRestrictedUsers'], 10, 2);
         add_action(
             'pb_institutional_filters_created',
             fn ($institution, $institutionalManagers, $institutionalUsers) => app(PermissionsManager::class)->handlePagesPermissions($institution, $institutionalManagers, $institutionalUsers),

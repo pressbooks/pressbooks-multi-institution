@@ -46,12 +46,12 @@ class PermissionsManager
     }
 
     /**
-     * This method is called after an institution is saved, and it updates the restricted users list
+     * This method is called after an institution is updated or deleted, and it updates the restricted users list
      *
      * @param array<int, int> $newManagers
      * @param array<int, int> $revokedManagers
      */
-    public function afterSaveInstitution(array $newManagers, array $revokedManagers): void
+    public static function syncRestrictedUsers(array $newManagers, array $revokedManagers): void
     {
         $restricted = _restricted_users();
 
@@ -71,6 +71,13 @@ class PermissionsManager
 
         // Update the restricted users list
         update_site_option('pressbooks_network_managers', $restricted);
+    }
+
+    public static function revokeInstitutionalManagersPrivileges(): void
+    {
+        $managerIds = InstitutionUser::query()->managers()->pluck('user_id')->toArray();
+
+        self::syncRestrictedUsers([], $managerIds);
     }
 
     public function setupInstitutionalFilters(): void
@@ -351,8 +358,8 @@ class PermissionsManager
             $institutionalUsers = apply_filters('pb_institutional_users', []);
 
             if ($currentPageParam === 'pb_network_analytics_userlist' || $currentPage === 'users.php' || $currentPage === 'user-edit.php') {
-                if (isset($_GET['user_id']) && !in_array($_GET['user_id'], $institutionalUsers)) {
-                    $isAccessAllowed = false;
+                if (isset($_GET['user_id']) && in_array($_GET['user_id'], $institutionalUsers)) {
+                    $isAccessAllowed = true;
                 }
 
                 if (isset($_GET['id']) && !in_array($_GET['id'], $institutionalUsers)) {
