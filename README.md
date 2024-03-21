@@ -30,7 +30,8 @@ Then activate and configure the plugin at the Network level in Pressbooks.
 `composer test`: run unit tests with PHPUnit \
 `composer readme`: generate a Markdown readme from readme.txt \
 `npm run dev`:  build assets for development \
-`npm run build`: build assets for distribution
+`npm run build`: build assets for distribution \
+`wp pb:reset-db-schema`: deletes the plugin's data and reset the database schema
 
 ## Directory Structure
 

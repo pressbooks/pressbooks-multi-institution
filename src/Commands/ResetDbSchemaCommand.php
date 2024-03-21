@@ -18,7 +18,7 @@ class ResetDbSchemaCommand
             PermissionsManager::revokeInstitutionalManagersPrivileges();
             Migration::rollback();
             Migration::migrate();
-            echo "Database schema reset successfully. \n";
+            echo "Database schema successfully reset. \n";
         } catch (\Exception $e) {
             echo 'Error: ' . $e->getMessage() . "/n";
         }
