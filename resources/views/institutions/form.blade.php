@@ -6,7 +6,7 @@
 		</p>
 
 		@if(isset($result['errors']))
-			<ul>
+			<ul class="error-list">
 				@foreach($result['errors'] as $fieldErrors)
 					@foreach($fieldErrors as $error)
 						{!! $error !!}
