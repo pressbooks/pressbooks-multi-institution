@@ -2,10 +2,10 @@
 
 namespace Tests\Feature\Actions;
 
-use PressbooksMultiInstitution\Actions\PermissionsManager;
 use PressbooksMultiInstitution\Models\Institution;
 use PressbooksMultiInstitution\Models\InstitutionBook;
 use PressbooksMultiInstitution\Models\InstitutionUser;
+use PressbooksMultiInstitution\Services\PermissionsManager;
 use Tests\TestCase;
 use Tests\Traits\CreatesModels;
 use Tests\Traits\Utils;

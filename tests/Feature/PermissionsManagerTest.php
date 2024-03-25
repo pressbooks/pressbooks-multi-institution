@@ -3,8 +3,8 @@
 namespace Tests\Feature;
 
 use PressbooksMultiInstitution\Actions\InstitutionalManagerDashboard;
-use PressbooksMultiInstitution\Actions\PermissionsManager;
 use PressbooksMultiInstitution\Models\Institution;
+use PressbooksMultiInstitution\Services\PermissionsManager;
 use Tests\TestCase;
 use Tests\Traits\CreatesModels;
 use Tests\Traits\Utils;

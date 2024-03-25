@@ -3,7 +3,7 @@
 namespace Tests\Feature\Support;
 
 use Pressbooks\Container;
-use PressbooksMultiInstitution\Support\BookList;
+use PressbooksMultiInstitution\Views\BookList;
 use Tests\TestCase;
 use Tests\Traits\Assertions;
 use Tests\Traits\CreatesModels;
