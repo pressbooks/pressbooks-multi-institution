@@ -4,15 +4,12 @@ namespace Tests\Unit;
 
 use PressbooksMultiInstitution\Bootstrap;
 use Tests\TestCase;
-use Tests\Traits\CreatesModels;
 
 /**
  * @group bootstrap
  */
 class BootstrapTest extends TestCase
 {
-    use CreatesModels;
-
     /**
      * @test
      */
