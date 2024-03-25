@@ -23,6 +23,8 @@ final class Bootstrap
 {
     private static ?Bootstrap $instance = null;
 
+    private string $menuSlug = 'pb_multi_institution';
+
     public static function run(): void
     {
         if (!self::$instance) {
@@ -44,21 +46,18 @@ final class Bootstrap
 
     public function registerMenus(): void
     {
-        $slug = 'pb_multi_institution';
-
         add_menu_page(
             page_title: __('Institutions', 'pressbooks-multi-institution'),
             menu_title: __('Institutions', 'pressbooks-multi-institution'),
             capability: 'manage_network',
-            menu_slug: $slug,
+            menu_slug: $this->menuSlug,
             icon_url: 'dashicons-building',
-            position: 4,
         );
 
-        add_action('admin_bar_init', fn () => remove_submenu_page($slug, $slug));
+        add_action('admin_bar_init', fn () => remove_submenu_page($this->menuSlug, $slug));
 
         add_submenu_page(
-            parent_slug: $slug,
+            parent_slug: $this->menuSlug,
             page_title: __('Institution List', 'pressbooks-multi-institution'),
             menu_title: __('Institution List', 'pressbooks-multi-institution'),
             capability: 'manage_network',
@@ -69,7 +68,7 @@ final class Bootstrap
         );
 
         add_submenu_page(
-            parent_slug: $slug,
+            parent_slug: $this->menuSlug,
             page_title: __('Add Institution', 'pressbooks-multi-institution'),
             menu_title: __('Add Institution', 'pressbooks-multi-institution'),
             capability: 'manage_network',
@@ -80,7 +79,7 @@ final class Bootstrap
         );
 
         add_submenu_page(
-            parent_slug: $slug,
+            parent_slug: $this->menuSlug,
             page_title: __('Assign Users', 'pressbooks-multi-institution'),
             menu_title: __('Assign Users', 'pressbooks-multi-institution'),
             capability: 'manage_network',
@@ -91,7 +90,7 @@ final class Bootstrap
         );
 
         add_submenu_page(
-            parent_slug: $slug,
+            parent_slug: $this->menuSlug,
             page_title: __('Assign Books', 'pressbooks-multi-institution'),
             menu_title: __('Assign Books', 'pressbooks-multi-institution'),
             capability: 'manage_network',
@@ -102,12 +101,24 @@ final class Bootstrap
         );
     }
 
+    public function reOrderMenuItems(array $menu): array
+    {
+        $key = array_search($this->menuSlug, $menu);
+        unset($menu[$key]);
+
+        array_splice($menu, 3, 0, $this->menuSlug);
+        return $menu;
+    }
+
     private function registerActions(): void
     {
         add_action('network_admin_menu', [$this, 'registerMenus'], 11);
         if (is_main_site()) {
             add_action('admin_menu', [$this, 'registerMenus'], 11);
         }
+        add_filter('custom_menu_order', '__return_true');
+        add_action('menu_order', [$this, 'reOrderMenuItems'], 999);
+
         add_action('user_register', fn (int $id) => app(AssignUserToInstitution::class)->handle($id));
         add_action('pb_new_blog', fn () => app(AssignBookToInstitution::class)->handle());
         add_action('network_admin_menu', fn () => app(PermissionsManager::class)->handleMenus(), 1000);
