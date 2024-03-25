@@ -2,6 +2,7 @@
 
 namespace PressbooksMultiInstitution\Views;
 
+use Illuminate\Database\Query\Builder;
 use PressbooksMultiInstitution\Traits\OverridesBulkActions;
 use WP_List_Table;
 
@@ -88,11 +89,47 @@ class AssignUsersTable extends WP_List_Table
         $search = $request['s'] ?? '';
         $orderBy = $request['orderby'] ?? 'ID';
         $order = $request['order'] ?? 'ASC';
-
-        $search = sanitize_text_field($search);
+        $unassigned = $request['unassigned'] ?? '';
 
         $superAdmins = get_super_admins();
 
+        $search = sanitize_text_field($search);
+
+        return $this->getBaseQuery()
+            ->when($unassigned, function (Builder $query) {
+                return $query->whereNull('institutions_users.user_id');
+            })
+            ->when($search, function (Builder $query, string $search) use ($superAdmins) {
+                return $query
+                    ->whereNotIn('users.user_login', $superAdmins)
+                    ->where(function ($query) use ($search, $superAdmins) {
+                        $query->where('users.user_login', 'like', "%$search%")
+                            ->orWhere('users.user_email', 'like', "%$search%")
+                            ->orWhere('institutions.name', 'like', "%$search%");
+                    })
+                    ->orWhereExists(function (Builder $query) use ($search, $superAdmins) {
+                        $query->select('meta_value')
+                            ->from('usermeta')
+                            ->whereColumn('usermeta.user_id', 'users.ID')
+                            ->whereNotIn('users.user_login', $superAdmins)
+                            ->where(function (Builder $query) {
+                                $query->where('meta_key', 'first_name')
+                                ->orWhere('meta_key', 'last_name');
+                            })
+                            ->where('meta_value', 'like', "%$search%");
+                    });
+            })
+            ->when($orderBy === 'name', function (Builder $query) use ($order) {
+                return $query->orderBy('first_name', $order)
+                    ->orderBy('last_name', $order);
+            }, function (Builder $query) use ($orderBy, $order) {
+                return $query->orderBy($orderBy, $order);
+            })
+            ->paginate($this->paginationSize, ['*'], 'page', $request['paged'] ?? 1);
+    }
+
+    public function getBaseQuery(): object
+    {
         $db = app('db');
 
         return $db
@@ -112,34 +149,17 @@ class AssignUsersTable extends WP_List_Table
             ])
             ->leftJoin('institutions_users', 'users.ID', '=', 'institutions_users.user_id')
             ->leftJoin('institutions', 'institutions_users.institution_id', '=', 'institutions.id')
-            ->whereNotIn('users.user_login', $superAdmins)
-            ->when($search, function ($query, $search) use ($superAdmins) {
-                return $query
-                    ->whereNotIn('users.user_login', $superAdmins)
-                    ->where(function ($query) use ($search, $superAdmins) {
-                        $query->where('users.user_login', 'like', "%$search%")
-                            ->orWhere('users.user_email', 'like', "%$search%")
-                            ->orWhere('institutions.name', 'like', "%$search%");
-                    })
-                    ->orWhereExists(function ($query) use ($search, $superAdmins) {
-                        $query->select('meta_value')
-                            ->from('usermeta')
-                            ->whereColumn('usermeta.user_id', 'users.ID')
-                            ->whereNotIn('users.user_login', $superAdmins)
-                            ->where(function ($query) {
-                                $query->where('meta_key', 'first_name')
-                                ->orWhere('meta_key', 'last_name');
-                            })
-                            ->where('meta_value', 'like', "%$search%");
-                    });
-            })
-            ->when($orderBy === 'name', function ($query) use ($order) {
-                return $query->orderBy('first_name', $order)
-                    ->orderBy('last_name', $order);
-            }, function ($query) use ($orderBy, $order) {
-                return $query->orderBy($orderBy, $order);
-            })
-            ->paginate($this->paginationSize, ['*'], 'page', $request['paged'] ?? 1);
+            ->whereNotIn('users.user_login', get_super_admins());
+    }
+
+    public function getTotalUsersCount(): int
+    {
+        return $this->getBaseQuery()->count();
+    }
+
+    public function getUnassignedUsersCount(): int
+    {
+        return $this->getBaseQuery()->whereNull('institutions_users.user_id')->count();
     }
 
     private function validateRequest(array $request): array

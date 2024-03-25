@@ -14,8 +14,11 @@
  * Network: True
  */
 
+use PressbooksMultiInstitution\Actions\PermissionsManager;
 use PressbooksMultiInstitution\Bootstrap;
+use PressbooksMultiInstitution\Commands\ResetDbSchemaCommand;
 use PressbooksMultiInstitution\Database\Migration;
+use PressbooksMultiInstitution\Models\InstitutionUser;
 
 // TODO: Check if this is the best way to check for Pressbooks.
 //if (!class_exists('PressbooksMultiInstitution\Bootstrap')) {
@@ -33,6 +36,22 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
 //}
 
 register_activation_hook(__FILE__, [Migration::class, 'migrate']);
-register_deactivation_hook(__FILE__, [Migration::class, 'rollback']);
+register_activation_hook(__FILE__, function () {
+    $managerIds = InstitutionUser::query()->managers()->pluck('user_id')->toArray();
+    PermissionsManager::syncRestrictedUsers($managerIds, []);
+});
+
+register_deactivation_hook(__FILE__, [PermissionsManager::class, 'revokeInstitutionalManagersPrivileges']);
 
 add_action('plugins_loaded', [Bootstrap::class, 'run']);
+
+add_action('cli_init', function () {
+    if (! defined('WP_CLI')) {
+        return;
+    }
+
+    WP_CLI::add_command('pb:reset-db-schema', function ($args, $assoc_args) {
+        (new ResetDbSchemaCommand)->__invoke($args, $assoc_args) ?
+            WP_CLI::success('Database successfully reset.') : WP_CLI::error('Error resetting database.');
+    });
+});

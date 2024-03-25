@@ -6,7 +6,7 @@
 		</p>
 
 		@if(isset($result['errors']))
-			<ul>
+			<ul class="error-list">
 				@foreach($result['errors'] as $fieldErrors)
 					@foreach($fieldErrors as $error)
 						{!! $error !!}
@@ -148,6 +148,7 @@
 				</th>
 				<td class="institutional-managers-component">
 					<pressbooks-multiselect
+						max="3"
 						@if(! $institution->allowsInstitutionalManagers() && ! $isSuperAdmin)
 							disabled
 						@endif

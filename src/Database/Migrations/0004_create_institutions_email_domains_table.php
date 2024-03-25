@@ -10,6 +10,10 @@ return new class implements MigrationInterface {
         /** @var Builder $schema */
         $schema = app('db')->schema();
 
+        if ($schema->hasTable('institutions_email_domains')) {
+            return;
+        }
+
         $schema->create('institutions_email_domains', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('institution_id');

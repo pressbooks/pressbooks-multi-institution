@@ -53,7 +53,7 @@ class PermissionsManagerTest extends TestCase
         ]);
 
         $permissionsManager = new PermissionsManager;
-        $permissionsManager->afterSaveInstitution([
+        $permissionsManager->syncRestrictedUsers([
             $userId
         ], []);
 

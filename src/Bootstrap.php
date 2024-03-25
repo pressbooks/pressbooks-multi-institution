@@ -86,7 +86,7 @@ final class Bootstrap
             page_title: __('Assign Users', 'pressbooks-multi-institution'),
             menu_title: __('Assign Users', 'pressbooks-multi-institution'),
             capability: 'manage_network',
-            menu_slug: 'pb_multi_institutions_users',
+            menu_slug: 'pb_assign_users',
             callback: function () {
                 echo app(AssignUsersController::class)->assign();
             },
@@ -97,7 +97,7 @@ final class Bootstrap
             page_title: __('Assign Books', 'pressbooks-multi-institution'),
             menu_title: __('Assign Books', 'pressbooks-multi-institution'),
             capability: 'manage_network',
-            menu_slug: 'pb_multi_institution_assign_book',
+            menu_slug: 'pb_assign_books',
             callback: function () {
                 echo app(AssignBooksController::class)->index();
             }
@@ -114,13 +114,9 @@ final class Bootstrap
         add_action('pb_new_blog', fn () => app(AssignBookToInstitution::class)->handle());
         add_action('network_admin_menu', fn () => app(PermissionsManager::class)->handleMenus(), 1000);
         add_action('admin_menu', fn () => app(PermissionsManager::class)->handleMenus(), 1000);
-        add_action('init', fn () => app(PermissionsManager::class)->setupFilters());
-        add_action(
-            'pb_institutional_after_save',
-            fn ($newManagers, $revokedManagers) => app(PermissionsManager::class)->afterSaveInstitution($newManagers, $revokedManagers),
-            10,
-            2
-        );
+        add_action('init', fn () => app(PermissionsManager::class)->setupInstitutionalFilters());
+        add_action('pb_institutional_after_save', [PermissionsManager::class, 'syncRestrictedUsers'], 10, 2);
+        add_action('pb_institutional_after_delete', [PermissionsManager::class, 'syncRestrictedUsers'], 10, 2);
         add_action(
             'pb_institutional_filters_created',
             fn ($institution, $institutionalManagers, $institutionalUsers) => app(PermissionsManager::class)->handlePagesPermissions($institution, $institutionalManagers, $institutionalUsers),

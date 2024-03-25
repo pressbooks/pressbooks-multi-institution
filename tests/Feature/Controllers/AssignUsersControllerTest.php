@@ -97,4 +97,43 @@ class AssignUsersControllerTest extends TestCase
         $this->assertMatchesRegularExpression('/johndoe9/', $index);
         $this->assertMatchesRegularExpression('/johndoe0/', $index);
     }
+
+    /**
+     * @test
+     */
+    public function it_renders_total_users_and_unassigned_total_users(): void
+    {
+        $this->newUser();
+
+        $index = $this->controller->assign();
+
+        $this->assertMatchesRegularExpression('/All[\s\S]*<span class="count">[\s\S]*\(11\)[\s\S]*<\/span>/i', $index);
+        $this->assertMatchesRegularExpression('/Unassigned[\s\S]*<span class="count">[\s\S]*\(1\)[\s\S]*<\/span>/i', $index);
+    }
+
+    /**
+     * @test
+     */
+    public function it_filters_by_unassigned_users(): void
+    {
+        $this->newUser([
+            'user_login' => 'unassigned_user1',
+            'user_email' => 'unassigned1@pressbooks.test',
+        ]);
+        $this->newUser([
+            'user_login' => 'unassigned_user2',
+            'user_email' => 'unassigned2@pressbooks.test',
+        ]);
+
+        $_REQUEST['unassigned'] = '1';
+
+        $index = $this->controller->assign();
+
+        $this->assertDoesNotMatchRegularExpression('/johndoe1/', $index);
+        $this->assertDoesNotMatchRegularExpression('/johndoe5/', $index);
+        $this->assertDoesNotMatchRegularExpression('/johndoe9/', $index);
+
+        $this->assertMatchesRegularExpression('/unassigned_user1/', $index);
+        $this->assertMatchesRegularExpression('/unassigned_user2/', $index);
+    }
 }

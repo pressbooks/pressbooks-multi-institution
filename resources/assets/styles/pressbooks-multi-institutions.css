@@ -57,9 +57,18 @@ table.users, table.assign-books {
 	}
 }
 
-#pressbooks-multi-institution-assign-users .wp-list-table td,
-#pressbooks-multi-institution-assign-books .wp-list-table td {
-	border-bottom: 1px solid var(--border-color);
+#pressbooks-multi-institution-assign-table {
+	.assign-books {
+		.column-cover {
+			min-width: 50px;
+			text-align: center;
+			width: 5%;
+		}
+	}
+
+	.wp-list-table td {
+		border-bottom: 1px solid var(--border-color);
+	}
 }
 
 .striped {
@@ -94,14 +103,20 @@ body.institutions_page_pb_multi_institutions {
 	.error {
 		color: var(--pb-error-color);
 
-		span.indented {
-			display: flex;
-			flex-direction: column;
-			padding-left: 0.75rem;
+		.error-list {
+			margin: 0;
 		}
 
 		li {
 			margin: 0.5rem 0;
+		}
+
+		.padding {
+			padding: 0 2px;
+		}
+
+		.invalid {
+			margin: .2rem 0 0 1rem;
 		}
 	}
 
@@ -121,16 +136,6 @@ body.institutions_page_pb_multi_institutions {
 		display: grid;
 		grid-template-columns: 1fr;
 		gap: .5rem;
-	}
-}
-
-.institutions_page_pb_multi_institution_assign_book {
-	.assign-books {
-		.column-cover {
-			min-width: 50px;
-			text-align: center;
-			width: 5%;
-		}
 	}
 }
 

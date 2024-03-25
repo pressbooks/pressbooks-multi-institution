@@ -117,39 +117,12 @@ class AssignBooksTable extends WP_List_Table
         $search = sanitize_text_field($request['s'] ?? '');
         $order = sanitize_string($request['orderby'] ?? 'title');
         $direction = in_array($request['order'] ?? '', ['asc', 'desc']) ? $request['order'] : 'asc';
+        $unassigned = $request['unassigned'] ?? '';
 
-        /** @var Manager $db */
-        $db = app('db');
-
-        return $db
-            ->table('blogs')
-            ->select(
-                'blogs.blog_id as id',
-                'institutions.name as institution'
-            )
-            ->addSelect([
-                'title' => $db
-                    ->table('blogmeta')
-                    ->select('meta_value')
-                    ->where('meta_key', 'pb_title')
-                    ->whereColumn('blogmeta.blog_id', 'blogs.blog_id'),
-                'url' => $db
-                    ->table('blogmeta')
-                    ->select('meta_value')
-                    ->where('meta_key', 'pb_book_url')
-                    ->whereColumn('blogmeta.blog_id', 'blogs.blog_id'),
-                'cover' => $db
-                    ->table('blogmeta')
-                    ->select('meta_value')
-                    ->where('meta_key', 'pb_cover_image')
-                    ->whereColumn('blogmeta.blog_id', 'blogs.blog_id')
-            ])
-            ->leftJoin('institutions_blogs', 'institutions_blogs.blog_id', '=', 'blogs.blog_id')
-            ->leftJoin('institutions', 'institutions.id', '=', 'institutions_blogs.institution_id')
-            ->where('blogs.blog_id', '<>', get_main_site_id())
-            ->where('blogs.archived', false)
-            ->where('blogs.spam', false)
-            ->where('blogs.deleted', false)
+        return $this->getBaseQuery()
+            ->when($unassigned, function (Builder $query) {
+                $query->whereNull('institutions_blogs.blog_id');
+            })
             ->when($search, function (Builder $query, string $search) {
                 $query->where(function (Builder $query) use ($search) {
                     $query
@@ -230,6 +203,52 @@ class AssignBooksTable extends WP_List_Table
                 pageName: 'paged',
                 page: $this->get_pagenum(),
             );
+    }
+
+    public function getBaseQuery(): object
+    {
+        /** @var Manager $db */
+        $db = app('db');
+
+        return $db
+            ->table('blogs')
+            ->select(
+                'blogs.blog_id as id',
+                'institutions.name as institution'
+            )
+            ->addSelect([
+                'title' => $db
+                    ->table('blogmeta')
+                    ->select('meta_value')
+                    ->where('meta_key', 'pb_title')
+                    ->whereColumn('blogmeta.blog_id', 'blogs.blog_id'),
+                'url' => $db
+                    ->table('blogmeta')
+                    ->select('meta_value')
+                    ->where('meta_key', 'pb_book_url')
+                    ->whereColumn('blogmeta.blog_id', 'blogs.blog_id'),
+                'cover' => $db
+                    ->table('blogmeta')
+                    ->select('meta_value')
+                    ->where('meta_key', 'pb_cover_image')
+                    ->whereColumn('blogmeta.blog_id', 'blogs.blog_id')
+            ])
+            ->leftJoin('institutions_blogs', 'institutions_blogs.blog_id', '=', 'blogs.blog_id')
+            ->leftJoin('institutions', 'institutions.id', '=', 'institutions_blogs.institution_id')
+            ->where('blogs.blog_id', '<>', get_main_site_id())
+            ->where('blogs.archived', false)
+            ->where('blogs.spam', false)
+            ->where('blogs.deleted', false);
+    }
+
+    public function getTotalBooksCount(): int
+    {
+        return $this->getBaseQuery()->count();
+    }
+
+    public function getUnassignedBooksCount(): int
+    {
+        return $this->getBaseQuery()->whereNull('institutions_blogs.blog_id')->count();
     }
 
     /**

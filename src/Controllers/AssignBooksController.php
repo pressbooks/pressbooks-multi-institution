@@ -30,9 +30,12 @@ class AssignBooksController extends BaseController
 
         $this->table->prepare_items();
 
-        return $this->renderView('books.assign', [
-            'list_url' => network_admin_url('admin.php?page=pb_multi_institution_assign_book'),
-            'page' => 'pb_multi_institution_assign_book',
+        return $this->renderView('assign.index', [
+            'title' => __('Assign Books', 'pressbooks-multi-institution'),
+            'list_url' => network_admin_url('admin.php?page=pb_assign_books'),
+            'page' => 'pb_assign_books',
+            'all_count' => $this->table->getTotalBooksCount(),
+            'unassigned_count' => $this->table->getUnassignedBooksCount(),
             'params' => collect($filters)
                 ->flatMap(fn (string $filter, string $key) => [$key => $_REQUEST[$key] ?? $filter])
                 ->toArray(),

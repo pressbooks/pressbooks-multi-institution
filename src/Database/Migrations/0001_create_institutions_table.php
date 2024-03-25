@@ -10,6 +10,9 @@ return new class implements MigrationInterface {
         /** @var Builder $schema */
         $schema = app('db')->schema();
 
+        if ($schema->hasTable('institutions')) {
+            return;
+        }
         $schema->create('institutions', function (Blueprint $table) {
             $table->id();
             $table->string('name');
