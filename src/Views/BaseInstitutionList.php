@@ -100,6 +100,15 @@ abstract class BaseInstitutionList
 
         return $where;
     }
+
+    public function filterInstitutionListItems($bookList): array
+    {
+        return array_map(function (\stdClass $item) {
+            unset($item->institution_id);
+            $item->institution = $item->institution ?? __('Unassigned', 'pressbooks-multi-institution');
+            return $item;
+        }, $bookList);
+    }
     abstract public function addColumns(array $columns): array;
     abstract public function getCustomTexts(array $texts): array;
 }

@@ -3,7 +3,6 @@
 namespace PressbooksMultiInstitution\Views;
 
 use PressbooksMultiInstitution\Models\Institution;
-use PressbooksMultiInstitution\Models\InstitutionUser;
 
 use function PressbooksMultiInstitution\Support\get_institution_by_manager;
 
@@ -16,8 +15,7 @@ class UserList extends BaseInstitutionList
         add_filter('pb_network_analytics_user_list_select_clause', [$this, 'appendAdditionalColumnsToQuery']);
         add_filter('pb_network_analytics_user_list_where_clause', [$this, 'appendAdditionalWhereClausesToQuery']);
         add_filter('pb_network_analytics_user_list_filter', [$this, 'addFilters']);
-        //This probably would be removed
-        add_filter('pb_network_analytics_userslist', [$this, 'addInstitutionFieldToUsersTable']);
+        add_filter('pb_network_analytics_user_list_fields', [$this, 'filterInstitutionListItems']);
     }
     public function getCustomTexts(array $texts): array
     {
@@ -57,22 +55,27 @@ class UserList extends BaseInstitutionList
         return $columns;
     }
 
-    public function addInstitutionFieldToUsersTable(array $users): array
+    public function appendAdditionalColumnsToQuery(): string
     {
-        $institutionUsers = InstitutionUser::query()->with('institution')->get();
+        $prefix = $this->db
+            ->getDatabaseManager()
+            ->getTablePrefix();
 
-        return array_map(function ($user) use ($institutionUsers) {
-            $institutionUser = $institutionUsers->where('user_id', $user->id)->first();
-            $properties = get_object_vars($user);
-            $propertiesBeforeEmail = array_slice($properties, 0, 3, true);
-            $propertiesAfterEmail = array_slice($properties, 3, null, true);
-            $properties = array_merge(
-                $propertiesBeforeEmail,
-                ['institution' => $institutionUser?->institution->name ?? __('Unassigned', 'pressbooks-multi-institution')],
-                $propertiesAfterEmail
-            );
+        $idSubQuery = $this->db
+            ->table('institutions')
+            ->select('institutions.id')
+            ->join('institutions_blogs', 'institutions.id', '=', 'institutions_blogs.institution_id')
+            ->join('institutions_users', 'institutions.id', '=', 'institutions_users.institution_id')
+            ->whereRaw("{$prefix}institutions_users.user_id = us.id")->limit(1);
 
-            return (object) $properties;
-        }, $users);
+        $nameSubQuery = $this->db
+            ->table('institutions')
+            ->select('institutions.name')
+            ->join('institutions_blogs', 'institutions.id', '=', 'institutions_blogs.institution_id')
+            ->join('institutions_users', 'institutions.id', '=', 'institutions_users.institution_id')
+            ->whereRaw("{$prefix}institutions_users.user_id = us.id")->limit(1);
+
+        return "({$idSubQuery->toSql()}) as institution_id, ({$nameSubQuery->toSql()}) as institution";
     }
+
 }

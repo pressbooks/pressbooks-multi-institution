@@ -73,13 +73,4 @@ class BookList extends BaseInstitutionList
             ),
         ];
     }
-
-    public function filterInstitutionListItems($bookList): array
-    {
-        return array_map(function (\stdClass $item) {
-            unset($item->institution_id);
-            $item->institution = $item->institution ?? __('Unassigned', 'pressbooks-multi-institution');
-            return $item;
-        }, $bookList);
-    }
 }
