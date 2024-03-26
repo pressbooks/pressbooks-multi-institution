@@ -11,8 +11,11 @@ use PressbooksMultiInstitution\Controllers\AssignBooksController;
 use PressbooksMultiInstitution\Actions\PermissionsManager;
 use PressbooksMultiInstitution\Controllers\InstitutionsController;
 use PressbooksMultiInstitution\Controllers\AssignUsersController;
+use PressbooksMultiInstitution\Models\Institution;
 use PressbooksMultiInstitution\Services\InstitutionStatsService;
 use PressbooksMultiInstitution\Support\BookList;
+
+use function PressbooksMultiInstitution\Support\get_institution_by_manager;
 
 /**
  * Class Bootstrap
@@ -23,7 +26,10 @@ final class Bootstrap
 {
     private static ?Bootstrap $instance = null;
 
-    private string $menuSlug = 'pb_multi_institution';
+    private array $menuItem = [
+        'slug' => 'pb_multi_institution',
+        'position' => 3
+    ];
 
     public static function run(): void
     {
@@ -50,14 +56,14 @@ final class Bootstrap
             page_title: __('Institutions', 'pressbooks-multi-institution'),
             menu_title: __('Institutions', 'pressbooks-multi-institution'),
             capability: 'manage_network',
-            menu_slug: $this->menuSlug,
+            menu_slug: $this->menuItem['slug'],
             icon_url: 'dashicons-building',
         );
 
-        add_action('admin_bar_init', fn () => remove_submenu_page($this->menuSlug, $this->menuSlug));
+        add_action('admin_bar_init', fn () => remove_submenu_page($this->menuItem['slug'], $this->menuItem['slug']));
 
         add_submenu_page(
-            parent_slug: $this->menuSlug,
+            parent_slug: $this->menuItem['slug'],
             page_title: __('Institution List', 'pressbooks-multi-institution'),
             menu_title: __('Institution List', 'pressbooks-multi-institution'),
             capability: 'manage_network',
@@ -68,7 +74,7 @@ final class Bootstrap
         );
 
         add_submenu_page(
-            parent_slug: $this->menuSlug,
+            parent_slug: $this->menuItem['slug'],
             page_title: __('Add Institution', 'pressbooks-multi-institution'),
             menu_title: __('Add Institution', 'pressbooks-multi-institution'),
             capability: 'manage_network',
@@ -79,7 +85,7 @@ final class Bootstrap
         );
 
         add_submenu_page(
-            parent_slug: $this->menuSlug,
+            parent_slug: $this->menuItem['slug'],
             page_title: __('Assign Users', 'pressbooks-multi-institution'),
             menu_title: __('Assign Users', 'pressbooks-multi-institution'),
             capability: 'manage_network',
@@ -90,7 +96,7 @@ final class Bootstrap
         );
 
         add_submenu_page(
-            parent_slug: $this->menuSlug,
+            parent_slug: $this->menuItem['slug'],
             page_title: __('Assign Books', 'pressbooks-multi-institution'),
             menu_title: __('Assign Books', 'pressbooks-multi-institution'),
             capability: 'manage_network',
@@ -101,16 +107,55 @@ final class Bootstrap
         );
     }
 
-    public function reOrderMenuItems(array $menu): array
+    public function handleMenu(array $menu): array
     {
-        $key = array_search($this->menuSlug, $menu);
+        $this->handleStatsMenuItem();
 
+        return $this->moveInstitutionsItem($menu);
+    }
+
+    private function handleStatsMenuItem(): void
+    {
+        $institutionId = get_institution_by_manager();
+        if ($institutionId === 0) {
+            return;
+        }
+
+        global $submenu;
+
+        $analyticsStatsSlug = is_network_admin() ?
+            'pb_network_analytics_admin' : network_admin_url('admin.php?page=pb_network_analytics_admin');
+
+        $kokoSlug = ! is_network_admin() ?
+            'koko-analytics' : admin_url('admin.php?page=koko-analytics');
+
+        if (! isset($submenu[$analyticsStatsSlug])) {
+            return;
+        }
+
+        foreach ($submenu[$analyticsStatsSlug] as &$submenuItem) {
+            if (in_array($analyticsStatsSlug, $submenuItem)) {
+                $institutionName = Institution::find($institutionId)?->name ?? '';
+                $submenuItem[0] = sprintf(__('%s Stats', 'pressbooks-multi-institution'), $institutionName);
+            }
+
+            if (in_array($kokoSlug, $submenuItem)) {
+                remove_submenu_page($analyticsStatsSlug, $kokoSlug);
+            }
+        }
+    }
+
+    private function moveInstitutionsItem(array $menu): array
+    {
+        $key = array_search($this->menuItem['slug'], $menu);
         if (! $key) {
             return $menu;
         }
+
         unset($menu[$key]);
 
-        array_splice($menu, 3, 0, $this->menuSlug);
+        array_splice($menu, $this->menuItem['position'], 0, $this->menuItem['slug']);
+
         return $menu;
     }
 
@@ -121,7 +166,7 @@ final class Bootstrap
             add_action('admin_menu', [$this, 'registerMenus'], 11);
         }
         add_filter('custom_menu_order', '__return_true');
-        add_action('menu_order', [$this, 'reOrderMenuItems'], 999);
+        add_action('menu_order', [$this, 'handleMenu'], 999);
 
         add_action('user_register', fn (int $id) => app(AssignUserToInstitution::class)->handle($id));
         add_action('pb_new_blog', fn () => app(AssignBookToInstitution::class)->handle());
