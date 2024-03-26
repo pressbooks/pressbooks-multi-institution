@@ -54,7 +54,7 @@ final class Bootstrap
             icon_url: 'dashicons-building',
         );
 
-        add_action('admin_bar_init', fn () => remove_submenu_page($this->menuSlug, $slug));
+        add_action('admin_bar_init', fn () => remove_submenu_page($this->menuSlug, $this->menuSlug));
 
         add_submenu_page(
             parent_slug: $this->menuSlug,
@@ -104,6 +104,10 @@ final class Bootstrap
     public function reOrderMenuItems(array $menu): array
     {
         $key = array_search($this->menuSlug, $menu);
+
+        if (! $key) {
+            return $menu;
+        }
         unset($menu[$key]);
 
         array_splice($menu, 3, 0, $this->menuSlug);

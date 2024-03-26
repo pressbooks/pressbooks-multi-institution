@@ -62,4 +62,21 @@ class BootstrapTest extends TestCase
         $menu = $bootstrap->reOrderMenuItems($rootSiteMenu);
         $this->assertEquals('pb_multi_institution', $menu[3]);
     }
+
+    /**
+     * @test
+     */
+    public function it_does_not_change_menu_order_without_institutions_item(): void
+    {
+        $institutionalManagerMenu = [
+            'https://pressbooks.test/wp-admin/network/index.php',
+            'pb_network_analytics_booklist',
+            'pb_network_analytics_userlist',
+            'https://pressbooks.test/wp-admin/network/admin.php?page=pb_network_analytics_admin',
+            'h5p',
+            'https://pressbooks.test/wp-admin/network/admin.php?page=pb_network_integrations',
+        ];
+
+        $this->assertNotContains('pb_multi_institution', (new Bootstrap)->reOrderMenuItems($institutionalManagerMenu));
+    }
 }
