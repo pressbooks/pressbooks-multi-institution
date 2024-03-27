@@ -10,6 +10,7 @@ use PressbooksMultiInstitution\Models\InstitutionUser;
 use PressbooksMultiInstitution\Views\BookList;
 use PressbooksMultiInstitution\Views\UserList;
 
+use function Pressbooks\Admin\NetworkManagers\_restricted_users;
 use function PressbooksMultiInstitution\Support\get_institution_by_manager;
 
 class PermissionsManager
