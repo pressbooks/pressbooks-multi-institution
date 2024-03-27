@@ -2,6 +2,7 @@
 
 namespace Tests\Traits;
 
+use PressbooksMultiInstitution\Actions\PermissionsManager;
 use PressbooksMultiInstitution\Models\Institution;
 use PressbooksMultiInstitution\Models\InstitutionUser;
 use Pressbooks\DataCollector\Book as DataCollector;
@@ -88,7 +89,7 @@ trait CreatesModels
         return $blog;
     }
 
-    public function createInstitution(array $properties = []): Institution
+    protected function createInstitution(array $properties = []): Institution
     {
         return Institution::create([
             'name' => $properties['name'] ?? 'Fake Institution',
@@ -98,7 +99,7 @@ trait CreatesModels
         ]);
     }
 
-    public function createInstitutionsUsers(int $institutionsLimit, int $usersLimit): void
+    protected function createInstitutionsUsers(int $institutionsLimit, int $usersLimit): void
     {
         $institutions = [];
         for ($i = 0; $i < $institutionsLimit; $i++) {
@@ -118,5 +119,18 @@ trait CreatesModels
                 'institution_id' => $institutions[array_rand($institutions)]->id,
             ]);
         }
+    }
+
+    protected function assignAnInstitutionalManager(Institution $institution): InstitutionUser
+    {
+        $userManager = $institution->users()->first();
+
+        InstitutionUser::query()
+            ->where('user_id', $userManager->user_id)
+            ->update(['manager' => true]);
+
+        PermissionsManager::syncRestrictedUsers([$userManager->user_id], []);
+
+        return $userManager;
     }
 }
