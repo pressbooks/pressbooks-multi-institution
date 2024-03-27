@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-03-27T17:50:50+00:00\n"
+"POT-Creation-Date: 2024-03-27T17:51:50+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: pressbooks-multi-institution\n"
@@ -87,35 +87,40 @@ msgstr ""
 msgid "Administer Institution"
 msgstr ""
 
-#: src/Bootstrap.php:50
-#: src/Bootstrap.php:51
+#: src/Bootstrap.php:56
+#: src/Bootstrap.php:57
 msgid "Institutions"
 msgstr ""
 
-#: src/Bootstrap.php:62
-#: src/Bootstrap.php:63
+#: src/Bootstrap.php:67
+#: src/Bootstrap.php:68
 #: resources/views/institutions/index.blade.php:8
 msgid "Institution List"
 msgstr ""
 
-#: src/Bootstrap.php:73
-#: src/Bootstrap.php:74
+#: src/Bootstrap.php:78
+#: src/Bootstrap.php:79
 msgid "Add Institution"
 msgstr ""
 
-#: src/Bootstrap.php:84
-#: src/Bootstrap.php:85
+#: src/Bootstrap.php:89
+#: src/Bootstrap.php:90
 #: src/Controllers/AssignUsersController.php:33
 msgid "Assign Users"
 msgstr ""
 
-#: src/Bootstrap.php:95
-#: src/Bootstrap.php:96
+#: src/Bootstrap.php:100
+#: src/Bootstrap.php:101
 #: src/Controllers/AssignBooksController.php:34
 msgid "Assign Books"
 msgstr ""
 
-#: src/Bootstrap.php:142
+#: src/Bootstrap.php:139
+#: src/Services/InstitutionStatsService.php:39
+msgid "%s Stats"
+msgstr ""
+
+#: src/Bootstrap.php:202
 msgid "Are you sure you want to delete the selected institutions?"
 msgstr ""
 
@@ -159,10 +164,6 @@ msgstr ""
 
 #: src/Controllers/InstitutionsController.php:202
 msgid "The book limit field should be numeric."
-msgstr ""
-
-#: src/Services/InstitutionStatsService.php:39
-msgid "%s Stats"
 msgstr ""
 
 #: src/Support/BookList.php:88
