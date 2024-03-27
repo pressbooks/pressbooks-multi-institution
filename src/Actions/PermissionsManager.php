@@ -193,16 +193,20 @@ class PermissionsManager
 
     public function addInstitutionsFilterTab(array $filters): array
     {
-        if (! is_super_admin() || get_institution_by_manager() > 0) {
+        $currentPage = $_GET['page'] ?? false;
+
+        if (! $currentPage || ! is_super_admin() || get_institution_by_manager() > 0) {
             return $filters;
         }
+
+        $associatedEntity = $currentPage === 'pb_network_analytics_booklist' ? 'books' : 'users';
 
         return [
             ...$filters,
             [
                 'tab' => app('Blade')->render('PressbooksMultiInstitution::partials.filters.institutions.tab'),
                 'content' => app('Blade')->render('PressbooksMultiInstitution::partials.filters.institutions.content', [
-                    'institutions' => Institution::query()->whereHas('books')->orderBy('name')->get(),
+                    'institutions' => Institution::query()->whereHas($associatedEntity)->orderBy('name')->get(),
                 ])
             ]
         ];
