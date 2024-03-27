@@ -362,7 +362,7 @@ class PermissionsManager
             $institutionalUsers = apply_filters('pb_institutional_users', []);
 
             if ($currentPageParam === 'pb_network_analytics_userlist' || $currentPage === 'users.php' || $currentPage === 'user-edit.php') {
-                if (isset($_GET['user_id']) && in_array($_GET['user_id'], $institutionalUsers)) {
+                if (isset($_REQUEST['user_id']) && in_array($_REQUEST['user_id'], $institutionalUsers)) {
                     $isAccessAllowed = true;
                 }
 
