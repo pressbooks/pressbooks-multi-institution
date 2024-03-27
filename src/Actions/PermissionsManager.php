@@ -193,11 +193,12 @@ class PermissionsManager
 
     public function addInstitutionsFilterTab(array $filters): array
     {
-        if (! is_super_admin() || get_institution_by_manager() > 0) {
+        $current_page = $_GET['page'] ?? false;
+
+        if (! $current_page || ! is_super_admin() || get_institution_by_manager() > 0) {
             return $filters;
         }
 
-        $current_page = $_GET['page'] ?? '';
         $whereHas = $current_page === 'pb_network_analytics_booklist' ? 'books' : 'users';
 
         return [
