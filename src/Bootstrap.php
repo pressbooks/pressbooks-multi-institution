@@ -8,11 +8,13 @@ use PressbooksMultiInstitution\Actions\AssignBookToInstitution;
 use PressbooksMultiInstitution\Actions\AssignUserToInstitution;
 use PressbooksMultiInstitution\Actions\InstitutionalManagerDashboard;
 use PressbooksMultiInstitution\Controllers\AssignBooksController;
-use PressbooksMultiInstitution\Actions\PermissionsManager;
-use PressbooksMultiInstitution\Controllers\InstitutionsController;
 use PressbooksMultiInstitution\Controllers\AssignUsersController;
+use PressbooksMultiInstitution\Controllers\InstitutionsController;
 use PressbooksMultiInstitution\Services\InstitutionStatsService;
-use PressbooksMultiInstitution\Support\BookList;
+use PressbooksMultiInstitution\Services\MenuManager;
+use PressbooksMultiInstitution\Services\PermissionsManager;
+use PressbooksMultiInstitution\Views\BookList;
+use PressbooksMultiInstitution\Views\UserList;
 
 /**
  * Class Bootstrap
@@ -40,6 +42,7 @@ final class Bootstrap
         $this->loadTranslations();
 
         Container::getInstance()->singleton(BookList::class, fn () => new BookList(app('db')));
+        Container::getInstance()->singleton(UserList::class, fn () => new UserList(app('db')));
     }
 
     public function registerMenus(): void
@@ -110,9 +113,9 @@ final class Bootstrap
         }
         add_action('user_register', fn (int $id) => app(AssignUserToInstitution::class)->handle($id));
         add_action('pb_new_blog', fn () => app(AssignBookToInstitution::class)->handle());
-        add_action('network_admin_menu', fn () => app(PermissionsManager::class)->handleMenus(), 1000);
-        add_action('admin_menu', fn () => app(PermissionsManager::class)->handleMenus(), 1000);
-        add_action('init', fn () => app(PermissionsManager::class)->setupInstitutionalFilters());
+        add_action('network_admin_menu', fn () => app(MenuManager::class)->handleMenus(), 1000);
+        add_action('admin_menu', fn () => app(MenuManager::class)->handleMenus(), 1000);
+        add_action('init', fn () => app(PermissionsManager::class)->setupFilters());
         add_action('pb_institutional_after_save', [PermissionsManager::class, 'syncRestrictedUsers'], 10, 2);
         add_action('pb_institutional_after_delete', [PermissionsManager::class, 'syncRestrictedUsers'], 10, 2);
         add_action(

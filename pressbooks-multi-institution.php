@@ -14,11 +14,11 @@
  * Network: True
  */
 
-use PressbooksMultiInstitution\Actions\PermissionsManager;
 use PressbooksMultiInstitution\Bootstrap;
 use PressbooksMultiInstitution\Commands\ResetDbSchemaCommand;
 use PressbooksMultiInstitution\Database\Migration;
 use PressbooksMultiInstitution\Models\InstitutionUser;
+use PressbooksMultiInstitution\Services\PermissionsManager;
 
 // TODO: Check if this is the best way to check for Pressbooks.
 if (!class_exists('PressbooksMultiInstitution\Bootstrap')) {
