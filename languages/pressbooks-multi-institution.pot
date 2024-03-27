@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-03-21T17:35:37+00:00\n"
+"POT-Creation-Date: 2024-03-27T17:50:50+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: pressbooks-multi-institution\n"
@@ -57,7 +57,7 @@ msgid_plural "There are %s users assigned to %s."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Actions/PermissionsManager.php:226
+#: src/Actions/PermissionsManager.php:230
 #: src/Support/BookList.php:51
 #: src/Views/AssignBooksTable.php:35
 #: src/Views/AssignUsersTable.php:40
@@ -67,8 +67,8 @@ msgstr[1] ""
 msgid "Institution"
 msgstr ""
 
-#: src/Actions/PermissionsManager.php:244
-#: src/Actions/PermissionsManager.php:256
+#: src/Actions/PermissionsManager.php:248
+#: src/Actions/PermissionsManager.php:260
 #: src/Traits/OverridesBulkActions.php:14
 #: src/Views/AssignUsersTable.php:74
 #: src/Views/InstitutionsTable.php:234
@@ -79,11 +79,11 @@ msgstr ""
 msgid "Unassigned"
 msgstr ""
 
-#: src/Actions/PermissionsManager.php:378
+#: src/Actions/PermissionsManager.php:382
 msgid "Sorry, you are not allowed to access this page."
 msgstr ""
 
-#: src/Actions/PermissionsManager.php:390
+#: src/Actions/PermissionsManager.php:394
 msgid "Administer Institution"
 msgstr ""
 
