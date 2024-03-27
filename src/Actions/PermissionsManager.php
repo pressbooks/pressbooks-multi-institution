@@ -197,12 +197,15 @@ class PermissionsManager
             return $filters;
         }
 
+        $current_page = $_GET['page'] ?? '';
+        $whereHas = $current_page === 'pb_network_analytics_booklist' ? 'books' : 'users';
+
         return [
             ...$filters,
             [
                 'tab' => app('Blade')->render('PressbooksMultiInstitution::partials.filters.institutions.tab'),
                 'content' => app('Blade')->render('PressbooksMultiInstitution::partials.filters.institutions.content', [
-                    'institutions' => Institution::query()->whereHas('books')->orderBy('name')->get(),
+                    'institutions' => Institution::query()->whereHas($whereHas)->orderBy('name')->get(),
                 ])
             ]
         ];
