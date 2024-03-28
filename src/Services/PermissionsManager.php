@@ -188,11 +188,11 @@ class PermissionsManager
         $institutionalUsers = apply_filters('pb_institutional_users', []);
 
         if ($currentPageParam === 'pb_network_analytics_userlist' || $pagenow === 'users.php' || $pagenow === 'user-edit.php') {
-            if (isset($_GET['user_id']) && in_array($_GET['user_id'], $institutionalUsers)) {
+            if (isset($_REQUEST['user_id']) && in_array($_REQUEST['user_id'], $institutionalUsers)) {
                 $isAccessAllowed = true;
             }
 
-            if (isset($_GET['id']) && !in_array($_GET['id'], $institutionalUsers)) {
+            if (isset($_REQUEST['id']) && !in_array($_REQUEST['id'], $institutionalUsers)) {
                 $isAccessAllowed = false;
             }
         }
