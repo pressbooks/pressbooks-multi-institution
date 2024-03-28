@@ -2,14 +2,14 @@
 
 namespace Tests\Unit;
 
-use PressbooksMultiInstitution\Bootstrap;
+use PressbooksMultiInstitution\Services\MenuManager;
 use Tests\TestCase;
 use Tests\Traits\CreatesModels;
 
 /**
- * @group bootstrap
+ * @group menu-manager
  */
-class BootstrapTest extends TestCase
+class MenuManagerTest extends TestCase
 {
     use CreatesModels;
 
@@ -18,11 +18,11 @@ class BootstrapTest extends TestCase
      */
     public function it_adds_the_menu_page(): void
     {
-        (new Bootstrap)->registerMenus();
+        (new MenuManager)->registerMenus();
 
         global $menu;
 
-        $this->assertContains('Institutions', $menu[0]);
+        $this->assertContains('Institutions', $menu[4]);
     }
 
     /**
@@ -30,7 +30,7 @@ class BootstrapTest extends TestCase
      */
     public function it_adds_menu_item_in_the_4th_position(): void
     {
-        $bootstrap = new Bootstrap;
+        $menuManager = new MenuManager;
 
         $networkAdminMenu = [
             'index.php',
@@ -45,7 +45,7 @@ class BootstrapTest extends TestCase
             'pb_multi_institution',
         ];
 
-        $menu = $bootstrap->handleMenu($networkAdminMenu);
+        $menu = $menuManager->handleItems($networkAdminMenu);
         $this->assertEquals('pb_multi_institution', $menu[3]);
 
         $rootSiteMenu = [
@@ -62,7 +62,7 @@ class BootstrapTest extends TestCase
             'https://pressbooks.test/wp-admin/network/admin.php?page=pb_network_integrations',
         ];
 
-        $menu = $bootstrap->handleMenu($rootSiteMenu);
+        $menu = $menuManager->handleItems($rootSiteMenu);
         $this->assertEquals('pb_multi_institution', $menu[3]);
     }
 
@@ -80,7 +80,7 @@ class BootstrapTest extends TestCase
             'https://pressbooks.test/wp-admin/network/admin.php?page=pb_network_integrations',
         ];
 
-        $this->assertNotContains('pb_multi_institution', (new Bootstrap)->handleMenu($institutionalManagerMenu));
+        $this->assertNotContains('pb_multi_institution', (new MenuManager)->handleItems($institutionalManagerMenu));
     }
 
     /**
@@ -123,7 +123,7 @@ class BootstrapTest extends TestCase
         );
 
 
-        (new Bootstrap)->handleMenu([]);
+        (new MenuManager)->handleItems([]);
         global $submenu;
 
         $this->assertArrayHasKey($menuSlug, $submenu);
