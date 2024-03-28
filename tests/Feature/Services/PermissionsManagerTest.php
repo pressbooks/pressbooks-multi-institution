@@ -103,7 +103,6 @@ class PermissionsManagerTest extends TestCase
     }
 
     /**
-     * @group pressbooks-multi-institution
      * @test
      */
     public function it_test_institutional_managers_hooks(): void
@@ -143,7 +142,6 @@ class PermissionsManagerTest extends TestCase
         $this->assertTrue(has_filter('pb_institutional_users'));
     }
     /**
-     * @group pressbooks-multi-institution
      * @test
      */
     public function it_redirects_super_admins_if_tries_to_reach_institutional_manager_dashboard(): void
