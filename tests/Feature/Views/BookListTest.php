@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Feature\Support;
+namespace Tests\Feature\Views;
 
 use Pressbooks\Container;
-use PressbooksMultiInstitution\Support\BookList;
+use PressbooksMultiInstitution\Views\BookList;
 use Tests\TestCase;
 use Tests\Traits\Assertions;
 use Tests\Traits\CreatesModels;
@@ -24,7 +24,6 @@ class BookListTest extends TestCase
         $this->assertFalse(has_action('pb_network_analytics_book_list_columns'));
         $this->assertFalse(has_action('pb_network_analytics_book_list_select_clause'));
         $this->assertFalse(has_action('pb_network_analytics_book_list_where_clause'));
-        //        $this->assertFalse(has_action('pb_network_analytics_filter_tabs'));
         $this->assertFalse(has_action('pb_network_analytics_book_list_filter'));
 
         Container::get(BookList::class)->init();
@@ -33,7 +32,6 @@ class BookListTest extends TestCase
         $this->assertTrue(has_action('pb_network_analytics_book_list_columns'));
         $this->assertTrue(has_action('pb_network_analytics_book_list_select_clause'));
         $this->assertTrue(has_action('pb_network_analytics_book_list_where_clause'));
-        //        $this->assertTrue(has_action('pb_network_analytics_filter_tabs'));
         $this->assertTrue(has_action('pb_network_analytics_book_list_filter'));
     }
 
@@ -178,56 +176,6 @@ class BookListTest extends TestCase
         $this->assertEquals($expected, apply_filters('pb_network_analytics_book_list_where_clause', ''));
     }
 
-    //    /**
-    //     * @test
-    //     */
-    //    public function it_returns_additional_filter_tabs_to_super_admins(): void
-    //    {
-    //        wp_set_current_user(
-    //            $this->newSuperAdmin(),
-    //        );
-    //
-    //        $this->createInstitution();
-    //
-    //        Container::get(BookList::class)->init();
-    //
-    //        $this->assertTabsExist(
-    //            apply_filters('pb_network_analytics_filter_tabs', [])
-    //        );
-    //    }
-
-    //    /**
-    //     * @test
-    //     */
-    //    public function it_returns_additional_filter_tabs_to_network_managers(): void
-    //    {
-    //        wp_set_current_user(
-    //            $this->newNetworkManager(),
-    //        );
-    //
-    //        $this->createInstitution();
-    //
-    //        Container::get(BookList::class)->init();
-    //
-    //        $this->assertTabsExist(
-    //            apply_filters('pb_network_analytics_filter_tabs', [])
-    //        );
-    //    }
-
-    //    /**
-    //     * @test
-    //     */
-    //    public function it_does_not_return_additional_filter_tabs_to_institutional_managers(): void
-    //    {
-    //        wp_set_current_user(
-    //            $this->newInstitutionalManager(institution: $this->createInstitution()),
-    //        );
-    //
-    //        Container::get(BookList::class)->init();
-    //
-    //        $this->assertEmpty(apply_filters('pb_network_analytics_filter_tabs', []));
-    //    }
-
     /**
      * @test
      */
@@ -279,44 +227,6 @@ class BookListTest extends TestCase
             apply_filters('pb_network_analytics_book_list_filter', [])
         );
     }
-
-    //    protected function assertTabsExist(array $tabs): void
-    //    {
-    //        $expected = [
-    //            'tab' => <<<HTML
-    //<li>
-    //    <a href="#institutions-tab">
-    //        Institution (<span id="institutions-tab-counter">0</span>)
-    //    </a>
-    //</li>
-    //
-    //HTML,
-    //            'content' => <<<HTML
-    //<div id="institutions-tab" class="table-controls">
-    //    <fieldset>
-    //        <legend>Institution</legend>
-    //        <div class="grid-container">
-    //                            <label>
-    //                    <input name="institution[]" type="checkbox" value="1" /> Fake Institution
-    //                </label>
-    //                        <label>
-    //                <input name="institution[]" type="checkbox" value="0" /> Unassigned
-    //            </label>
-    //        </div>
-    //    </fieldset>
-    //</div>
-    //
-    //HTML,
-    //        ];
-    //
-    //        $result = $tabs[0] ?? [];
-    //
-    //        foreach ($expected as $key => $value) {
-    //            $this->assertArrayHasKey($key, $result);
-    //
-    //            $this->assertEquals($value, $result[$key]);
-    //        }
-    //    }
 
     protected function assertFilterExists(array $filters): void
     {

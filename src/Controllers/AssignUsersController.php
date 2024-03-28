@@ -13,7 +13,7 @@ class AssignUsersController extends BaseController
     public function __construct()
     {
         parent::__construct();
-        $this->table = new AssignUsersTable;
+        $this->table = app(AssignUsersTable::class);
     }
 
     public function assign(): string

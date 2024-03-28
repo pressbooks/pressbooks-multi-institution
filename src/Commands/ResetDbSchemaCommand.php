@@ -2,8 +2,8 @@
 
 namespace PressbooksMultiInstitution\Commands;
 
-use PressbooksMultiInstitution\Actions\PermissionsManager;
 use PressbooksMultiInstitution\Database\Migration;
+use PressbooksMultiInstitution\Services\PermissionsManager;
 
 class ResetDbSchemaCommand
 {
@@ -17,7 +17,7 @@ class ResetDbSchemaCommand
             Migration::rollback();
             Migration::migrate();
             return true;
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             return false;
         }
     }

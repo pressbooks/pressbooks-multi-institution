@@ -2,7 +2,7 @@
 
 namespace Tests\Traits;
 
-use PressbooksMultiInstitution\Actions\PermissionsManager;
+use PressbooksMultiInstitution\Services\PermissionsManager;
 use PressbooksMultiInstitution\Models\Institution;
 use PressbooksMultiInstitution\Models\InstitutionUser;
 use Pressbooks\DataCollector\Book as DataCollector;
