@@ -7,9 +7,6 @@ use Pressbooks\Container;
 use PressbooksMultiInstitution\Actions\AssignBookToInstitution;
 use PressbooksMultiInstitution\Actions\AssignUserToInstitution;
 use PressbooksMultiInstitution\Actions\InstitutionalManagerDashboard;
-use PressbooksMultiInstitution\Controllers\AssignBooksController;
-use PressbooksMultiInstitution\Controllers\AssignUsersController;
-use PressbooksMultiInstitution\Controllers\InstitutionsController;
 use PressbooksMultiInstitution\Services\InstitutionStatsService;
 use PressbooksMultiInstitution\Services\MenuManager;
 use PressbooksMultiInstitution\Services\PermissionsManager;
@@ -45,76 +42,14 @@ final class Bootstrap
         Container::getInstance()->singleton(UserList::class, fn () => new UserList(app('db')));
     }
 
-    public function registerMenus(): void
-    {
-        $slug = 'pb_multi_institution';
-
-        add_menu_page(
-            page_title: __('Institutions', 'pressbooks-multi-institution'),
-            menu_title: __('Institutions', 'pressbooks-multi-institution'),
-            capability: 'manage_network',
-            menu_slug: $slug,
-            icon_url: 'dashicons-building',
-            position: 4,
-        );
-
-        add_action('admin_bar_init', fn () => remove_submenu_page($slug, $slug));
-
-        add_submenu_page(
-            parent_slug: $slug,
-            page_title: __('Institution List', 'pressbooks-multi-institution'),
-            menu_title: __('Institution List', 'pressbooks-multi-institution'),
-            capability: 'manage_network',
-            menu_slug: 'pb_multi_institutions',
-            callback: function () {
-                echo app(InstitutionsController::class)->index();
-            },
-        );
-
-        add_submenu_page(
-            parent_slug: $slug,
-            page_title: __('Add Institution', 'pressbooks-multi-institution'),
-            menu_title: __('Add Institution', 'pressbooks-multi-institution'),
-            capability: 'manage_network',
-            menu_slug: 'pb_multi_institution_form',
-            callback: function () {
-                echo app(InstitutionsController::class)->form();
-            },
-        );
-
-        add_submenu_page(
-            parent_slug: $slug,
-            page_title: __('Assign Users', 'pressbooks-multi-institution'),
-            menu_title: __('Assign Users', 'pressbooks-multi-institution'),
-            capability: 'manage_network',
-            menu_slug: 'pb_assign_users',
-            callback: function () {
-                echo app(AssignUsersController::class)->assign();
-            },
-        );
-
-        add_submenu_page(
-            parent_slug: $slug,
-            page_title: __('Assign Books', 'pressbooks-multi-institution'),
-            menu_title: __('Assign Books', 'pressbooks-multi-institution'),
-            capability: 'manage_network',
-            menu_slug: 'pb_assign_books',
-            callback: function () {
-                echo app(AssignBooksController::class)->index();
-            }
-        );
-    }
-
     private function registerActions(): void
     {
-        add_action('network_admin_menu', [$this, 'registerMenus'], 11);
-        if (is_main_site()) {
-            add_action('admin_menu', [$this, 'registerMenus'], 11);
-        }
         add_action('user_register', fn (int $id) => app(AssignUserToInstitution::class)->handle($id));
         add_action('pb_new_blog', fn () => app(AssignBookToInstitution::class)->handle());
         add_action('network_admin_menu', fn () => app(MenuManager::class)->handleMenus(), 1000);
         add_action('admin_menu', fn () => app(MenuManager::class)->handleMenus(), 1000);
+        add_filter('custom_menu_order', '__return_true');
+        add_action('menu_order', fn ($menu) => app(MenuManager::class)->handleItems($menu), 999);
         add_action('init', fn () => app(PermissionsManager::class)->setupFilters());
         add_action('pb_institutional_after_save', [PermissionsManager::class, 'syncRestrictedUsers'], 10, 2);
         add_action('pb_institutional_after_delete', [PermissionsManager::class, 'syncRestrictedUsers'], 10, 2);

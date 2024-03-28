@@ -12,6 +12,9 @@ use Tests\TestCase;
 use Tests\Traits\CreatesModels;
 use Tests\Traits\Utils;
 
+/**
+ * @group permissions-manager
+ */
 class PermissionsManagerTest extends TestCase
 {
     use CreatesModels;
@@ -52,20 +55,9 @@ class PermissionsManagerTest extends TestCase
         $this->setSuperAdminUser();
         $this->createInstitutionsUsers(2, 10);
 
-        $bookId1 = $this->runWithoutFilter('pb_new_blog', fn () => $this->newBook(
-            ['path' => 'fakepath', 'title' => 'Book 1', 'no_collector' => true]
-        ));
-        $bookId2 = $this->runWithoutFilter('pb_new_blog', fn () => $this->newBook(
-            ['path' => 'anotherfakepath', 'title' => 'Book 2', 'no_collector' => true]
-        ));
-
         $institutions = Institution::query()->get();
 
-        $institution1 = $institutions[0];
-        $institution2 = $institutions[1];
-
-        $institution1->books()->create(['blog_id' => $bookId1]);
-        $institution2->books()->create(['blog_id' => $bookId2]);
+        $_GET['page'] = 'pb_network_analytics_userlist';
 
         $tableViews = new TableViews;
         $tableViews->init();
@@ -104,10 +96,10 @@ class PermissionsManagerTest extends TestCase
         ]);
         wp_set_current_user($regularUserId);
 
+        $_GET['page'] = 'pb_network_analytics_booklist';
+
         $this->assertEmpty($tableViews->addInstitutionsFilterTab([]));
         InstitutionBook::query()->delete();
-        wp_delete_site($bookId1);
-        wp_delete_site($bookId2);
     }
 
     /**
