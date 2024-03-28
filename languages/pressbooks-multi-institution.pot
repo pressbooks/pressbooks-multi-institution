@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-03-27T18:30:55+00:00\n"
+"POT-Creation-Date: 2024-03-28T19:07:23+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: pressbooks-multi-institution\n"
@@ -47,81 +47,14 @@ msgstr ""
 msgid "Please run <code>composer install</code> from the root of the plugin directory."
 msgstr ""
 
-#: src/Actions/PermissionsManager.php:150
-msgid "%s's User List"
-msgstr ""
-
-#: src/Actions/PermissionsManager.php:152
-msgid "There is %s user assigned to %s."
-msgid_plural "There are %s users assigned to %s."
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/Actions/PermissionsManager.php:230
-#: src/Support/BookList.php:51
-#: src/Views/AssignBooksTable.php:35
-#: src/Views/AssignUsersTable.php:40
-#: resources/views/institutions/form.blade.php:34
-#: resources/views/partials/filters/institutions/content.blade.php:3
-#: resources/views/partials/filters/institutions/tab.blade.php:3
-msgid "Institution"
-msgstr ""
-
-#: src/Actions/PermissionsManager.php:248
-#: src/Actions/PermissionsManager.php:260
-#: src/Traits/OverridesBulkActions.php:14
-#: src/Views/AssignUsersTable.php:74
-#: src/Views/InstitutionsTable.php:234
-#: resources/views/assign/index.blade.php:48
-#: resources/views/partials/filters/institutions/content.blade.php:14
-#: resources/views/table/book-admins.blade.php:8
-#: resources/views/table/institution.blade.php:1
-msgid "Unassigned"
-msgstr ""
-
-#: src/Actions/PermissionsManager.php:382
-msgid "Sorry, you are not allowed to access this page."
-msgstr ""
-
-#: src/Actions/PermissionsManager.php:394
-msgid "Administer Institution"
-msgstr ""
-
-#: src/Bootstrap.php:56
-#: src/Bootstrap.php:57
-msgid "Institutions"
-msgstr ""
-
-#: src/Bootstrap.php:67
-#: src/Bootstrap.php:68
-#: resources/views/institutions/index.blade.php:8
-msgid "Institution List"
-msgstr ""
-
-#: src/Bootstrap.php:78
-#: src/Bootstrap.php:79
-msgid "Add Institution"
-msgstr ""
-
-#: src/Bootstrap.php:89
-#: src/Bootstrap.php:90
-#: src/Controllers/AssignUsersController.php:33
-msgid "Assign Users"
-msgstr ""
-
-#: src/Bootstrap.php:100
-#: src/Bootstrap.php:101
-#: src/Controllers/AssignBooksController.php:34
-msgid "Assign Books"
-msgstr ""
-
-#: src/Bootstrap.php:139
-#: src/Services/InstitutionStatsService.php:39
-msgid "%s Stats"
-msgstr ""
-
-#: src/Bootstrap.php:202
+#: src/Bootstrap.php:80
 msgid "Are you sure you want to delete the selected institutions?"
+msgstr ""
+
+#: src/Controllers/AssignBooksController.php:34
+#: src/Services/MenuManager.php:67
+#: src/Services/MenuManager.php:68
+msgid "Assign Books"
 msgstr ""
 
 #: src/Controllers/AssignBooksController.php:66
@@ -134,6 +67,12 @@ msgstr[1] ""
 #: src/Controllers/AssignBooksController.php:75
 #: src/Controllers/AssignUsersController.php:74
 msgid "Institution not found."
+msgstr ""
+
+#: src/Controllers/AssignUsersController.php:33
+#: src/Services/MenuManager.php:56
+#: src/Services/MenuManager.php:57
+msgid "Assign Users"
 msgstr ""
 
 #: src/Controllers/AssignUsersController.php:60
@@ -166,16 +105,44 @@ msgstr ""
 msgid "The book limit field should be numeric."
 msgstr ""
 
-#: src/Support/BookList.php:88
-msgid "%s' Book List"
+#: src/Services/InstitutionStatsService.php:39
+#: src/Services/MenuManager.php:162
+msgid "%s Stats"
 msgstr ""
 
-#: src/Support/BookList.php:89
-msgid "%s's Book List"
+#: src/Services/MenuManager.php:22
+#: src/Services/MenuManager.php:23
+msgid "Institutions"
 msgstr ""
 
-#: src/Support/BookList.php:93
-msgid "There are %d books owned by %s. They use %s of storage."
+#: src/Services/MenuManager.php:34
+#: src/Services/MenuManager.php:35
+#: resources/views/institutions/index.blade.php:8
+msgid "Institution List"
+msgstr ""
+
+#: src/Services/MenuManager.php:45
+#: src/Services/MenuManager.php:46
+msgid "Add Institution"
+msgstr ""
+
+#: src/Services/MenuManager.php:114
+msgid "Administer Institution"
+msgstr ""
+
+#: src/Services/PermissionsManager.php:95
+msgid "Sorry, you are not allowed to access this page."
+msgstr ""
+
+#: src/Traits/OverridesBulkActions.php:14
+#: src/Views/AssignUsersTable.php:74
+#: src/Views/BaseInstitutionList.php:108
+#: src/Views/InstitutionsTable.php:234
+#: resources/views/assign/index.blade.php:48
+#: resources/views/partials/filters/institutions/content.blade.php:14
+#: resources/views/table/book-admins.blade.php:8
+#: resources/views/table/institution.blade.php:1
+msgid "Unassigned"
 msgstr ""
 
 #: src/Views/AssignBooksTable.php:33
@@ -184,6 +151,16 @@ msgstr ""
 
 #: src/Views/AssignBooksTable.php:34
 msgid "Title"
+msgstr ""
+
+#: src/Views/AssignBooksTable.php:35
+#: src/Views/AssignUsersTable.php:40
+#: src/Views/BookList.php:27
+#: src/Views/UserList.php:51
+#: resources/views/institutions/form.blade.php:34
+#: resources/views/partials/filters/institutions/content.blade.php:3
+#: resources/views/partials/filters/institutions/tab.blade.php:3
+msgid "Institution"
 msgstr ""
 
 #: src/Views/AssignBooksTable.php:36
@@ -202,6 +179,18 @@ msgstr ""
 
 #: src/Views/AssignUsersTable.php:39
 msgid "Email"
+msgstr ""
+
+#: src/Views/BookList.php:64
+msgid "%s' Book List"
+msgstr ""
+
+#: src/Views/BookList.php:65
+msgid "%s's Book List"
+msgstr ""
+
+#: src/Views/BookList.php:69
+msgid "There are %d books owned by %s. They use %s of storage."
 msgstr ""
 
 #: src/Views/InstitutionsTable.php:73
@@ -250,6 +239,16 @@ msgstr ""
 #: src/Views/InstitutionsTable.php:267
 msgid "Total Items"
 msgstr ""
+
+#: src/Views/UserList.php:33
+msgid "%s's User List"
+msgstr ""
+
+#: src/Views/UserList.php:35
+msgid "There is %s user assigned to %s."
+msgid_plural "There are %s users assigned to %s."
+msgstr[0] ""
+msgstr[1] ""
 
 #: resources/views/assign/index.blade.php:14
 #: resources/views/institutions/index.blade.php:15
