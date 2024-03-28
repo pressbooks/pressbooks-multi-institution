@@ -2,6 +2,7 @@
 
 namespace PressbooksMultiInstitution\Support;
 
+use PressbooksMultiInstitution\Models\InstitutionBook;
 use PressbooksMultiInstitution\Models\InstitutionUser;
 
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
@@ -38,7 +39,12 @@ function get_institution_books(): array
         return [];
     }
 
-    return InstitutionUser::query()->byInstitution($institution)->pluck('user_id')->toArray();
+    return InstitutionBook::query()
+        ->select('blog_id')
+        ->where('institution_id', $institution)
+        ->get()
+        ->pluck('blog_id')
+        ->toArray();
 }
 
 function get_allowed_pages(): array
@@ -46,7 +52,7 @@ function get_allowed_pages(): array
     return [
         'admin.php' => ['pb_network_analytics_booklist', 'pb_network_analytics_userlist', 'pb_network_analytics_admin', 'pb_cloner'],
         'sites.php' => ['confirm', 'delete', 'pb_network_analytics_booklist', 'pb_network_analytics_userlist', 'pb_network_analytics_admin', 'pb_cloner'],
-        'index.php' => ['', 'book_dashboard', 'pb_institutional_manager', 'pb_home_page', 'pb_catalog'],
+        'index.php' => ['', 'book_dashboard', 'pb_institutional_manager', 'pb_home_page', 'pb_catalog','pb_network_page'],
         'tools.php',
         'users.php',
         'admin-ajax.php',

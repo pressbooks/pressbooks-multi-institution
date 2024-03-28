@@ -45,6 +45,11 @@ class PermissionsManager
 
     public function handlePagesPermissions($institution, $institutionalManagers, $institutionalUsers): void
     {
+        // It's not an institution manager, meaning it's a REAL super admin
+        if ($institution === 0) {
+            return;
+        }
+
         $allowedBooks = get_institution_books();
 
         /*
