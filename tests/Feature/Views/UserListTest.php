@@ -127,7 +127,7 @@ class UserListTest extends TestCase
     {
         Container::get(UserList::class)->init();
 
-        $expected = "(select `wptests_institutions`.`id` from `wptests_institutions` inner join `wptests_institutions_blogs` on `wptests_institutions`.`id` = `wptests_institutions_blogs`.`institution_id` inner join `wptests_institutions_users` on `wptests_institutions`.`id` = `wptests_institutions_users`.`institution_id` where wptests_institutions_users.user_id = us.id limit 1) as institution_id, (select `wptests_institutions`.`name` from `wptests_institutions` inner join `wptests_institutions_blogs` on `wptests_institutions`.`id` = `wptests_institutions_blogs`.`institution_id` inner join `wptests_institutions_users` on `wptests_institutions`.`id` = `wptests_institutions_users`.`institution_id` where wptests_institutions_users.user_id = us.id limit 1) as institution";
+        $expected = "(select `wptests_institutions`.`id` from `wptests_institutions` left join `wptests_institutions_blogs` on `wptests_institutions`.`id` = `wptests_institutions_blogs`.`institution_id` inner join `wptests_institutions_users` on `wptests_institutions`.`id` = `wptests_institutions_users`.`institution_id` where wptests_institutions_users.user_id = us.id limit 1) as institution_id, (select `wptests_institutions`.`name` from `wptests_institutions` left join `wptests_institutions_blogs` on `wptests_institutions`.`id` = `wptests_institutions_blogs`.`institution_id` inner join `wptests_institutions_users` on `wptests_institutions`.`id` = `wptests_institutions_users`.`institution_id` where wptests_institutions_users.user_id = us.id limit 1) as institution";
         $this->assertEquals($expected, apply_filters('pb_network_analytics_user_list_select_clause', ''));
     }
 
