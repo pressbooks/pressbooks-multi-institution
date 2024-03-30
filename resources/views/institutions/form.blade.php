@@ -66,7 +66,7 @@
 						{{ __('Email Domains', 'pressbooks-multi-institution') }}
 					</label>
 					<p id="domains-description" class="description">
-						{{ __('Enter exclusive email domains for this institution. One per line (e.g. utopia.edu).', 'pressbooks-multi-institution') }}
+						{{ __('Enter exclusive email domains for this institution (e.g. utopia.edu).', 'pressbooks-multi-institution') }}
 					</p>
 				</th>
 				<td>
@@ -126,7 +126,7 @@
 							/>
 						</template>
 						<div>
-							<button class="button" type="button" @click="addNew">{{ __('Add New') }}</button>
+							<button class="button" type="button" @click="addNew">{{ __('Add New') }}<span class="screen-reader-text"> {{ __('domain', 'pressbooks-multi-institution')}}</span></button>
 						</div>
 					</div>
 				</td>
@@ -169,12 +169,11 @@
 							disabled
 						@endif
 					>
-						<label class="screen-reader-text">Test</label>
+						<label class="screen-reader-text">Institutional Managers</label>
 						<select
 							id="managers"
 							name="managers[]"
 							multiple
-							aria-labelledby="managers-label"
 							aria-describedby="managers-description {{ isset($result['errors']['managers']) ? 'managers-errors' : '' }}"
 						>
 							@foreach($users as $user)
@@ -228,7 +227,7 @@
 						<label for="book_limit">
 							{{ __('Book Limit', 'pressbooks-multi-institution') }}
 						</label>
-						<p class="description">
+						<p class="description" id="book_limit-description">
 							{{ __('For an unlimited institution, enter 0.', 'pressbooks-multi-institution') }}
 						</p>
 					</th>
@@ -238,6 +237,7 @@
 							id="book_limit"
 							type="number"
 							min="0"
+							aria-describedby="book_limit-description"
 							value="{{ $old['book_limit'] ?? $institution->book_limit }}"
 						/>
 					</td>
@@ -245,6 +245,6 @@
 			@endif
 		</table>
 
-		{!! get_submit_button() !!}
+		{!! get_submit_button($institution->exists ? __('Save Changes', 'pressbooks-multi-institution') : __('Add Institution')) !!}
 	</form>
 </div>
