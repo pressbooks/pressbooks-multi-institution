@@ -94,7 +94,7 @@ class InstitutionsTable extends WP_List_Table
         return app('Blade')->render('PressbooksMultiInstitution::table.checkbox', [
             'name' => 'ID',
             'value' => $item['ID'],
-			'label' => sprintf(__('Select %s'), $item['name']),
+            'label' => sprintf(__('Select %s'), $item['name']),
         ]);
     }
 

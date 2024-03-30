@@ -42,7 +42,7 @@ class MenuManager
 
         add_submenu_page(
             parent_slug: $this->slug,
-            page_title: isset($_REQUEST['action']) && $_REQUEST['action'] === 'new' ?  __('Add Institution', 'pressbooks-multi-institution') : __('Edit Institution', 'pressbooks-multi-institution'),
+            page_title: isset($_REQUEST['action']) && $_REQUEST['action'] === 'new' ? __('Add Institution', 'pressbooks-multi-institution') : __('Edit Institution', 'pressbooks-multi-institution'),
             menu_title: __('Add Institution', 'pressbooks-multi-institution'),
             capability: 'manage_network',
             menu_slug: 'pb_multi_institution_form',
