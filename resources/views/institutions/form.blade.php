@@ -7,10 +7,12 @@
 
 		@if(isset($result['errors']))
 			<ul class="error-list">
-				@foreach($result['errors'] as $fieldErrors)
-					@foreach($fieldErrors as $error)
+				@foreach($result['errors'] as $field => $fieldErrors)
+					<li class="padding" id="{{ $field }}-errors">
+					@foreach($fieldErrors as $key => $error)
 						{!! $error !!}
 					@endforeach
+					</li>
 				@endforeach
 			</ul>
 		@endif
@@ -34,7 +36,7 @@
 
 	<hr class="wp-header-end">
 
-	<form method="post">
+	<form method="post" novalidate>
 		{!! wp_nonce_field( 'pb_multi_institution_form' ) !!}
 
 		@if($institution->exists)
@@ -49,7 +51,12 @@
 					</label>
 				</th>
 				<td>
-					<input name="name" id="name" type="text" value="{{ $old['name'] ?? $institution->name }}" class="regular-text" required />
+					<input name="name" id="name" type="text" value="{{ $old['name'] ?? $institution->name }}" class="regular-text"
+					@isset($result['errors']['name'])
+					aria-invalid="true"
+					aria-describedby="name-errors"
+					@endisset
+					required />
 				</td>
 			</tr>
 
@@ -85,7 +92,10 @@
 								value="{{ is_string($domain) ? $domain : $domain->domain }}"
 								class="regular-text"
 								aria-labelledby="domains-label"
-								aria-describedby="domains-description"
+								aria-describedby="domains-description {{ isset($result['errors']['domains']) ? 'domains-errors' : '' }}"
+								@isset($result['errors']['domains'])
+								aria-invalid="true"
+								@endisset
 							/>
 						@empty
 							<input
@@ -94,8 +104,11 @@
 								type="text"
 								value=""
 								class="regular-text"
-								aria-labelledby="{{ $name }}-label"
-								aria-describedby="{{ $name }}-description"
+								aria-labelledby="domains-label"
+								aria-describedby="domains-description {{ isset($result['errors']['domains']) ? 'domains-errors' : '' }}"
+								@isset($result['errors']['domains'])
+								aria-invalid="true"
+								@endisset
 							/>
 						@endforelse
 						<template x-ref="template">
@@ -106,7 +119,10 @@
 								value=""
 								class="regular-text"
 								aria-labelledby="domains-label"
-								aria-describedby="domains-description"
+								aria-describedby="domains-description {{ isset($result['errors']['domains']) ? 'domains-errors' : '' }}"
+								@isset($result['errors']['domains'])
+								aria-invalid="true"
+								@endisset
 							/>
 						</template>
 						<div>
@@ -159,7 +175,7 @@
 							name="managers[]"
 							multiple
 							aria-labelledby="managers-label"
-							aria-describedby="managers-description"
+							aria-describedby="managers-description {{ isset($result['errors']['managers']) ? 'managers-errors' : '' }}"
 						>
 							@foreach($users as $user)
 								@isset($old['managers'])
