@@ -112,7 +112,7 @@ class MenuManager
         $mainMenu = $wp_admin_bar->get_node('pb-administer-network');
         if ($mainMenu) {
             $title = __('Administer Institution', 'pressbooks-multi-institution');
-            $mainMenu->title = "<i class='pb-heroicons pb-heroicons-building-library'></i><span>{$title}</span>";
+            $mainMenu->title = "<i class='pb-heroicons pb-heroicons-building-library' aria-hidden='true'></i><span>{$title}</span>";
             $mainMenu->href = network_site_url('wp-admin/index.php?page=pb_institutional_manager');
             $subMenu = $wp_admin_bar->get_node('pb-administer-network-d');
             if ($subMenu) {
