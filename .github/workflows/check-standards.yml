@@ -38,8 +38,6 @@ jobs:
           coverage: none
 
       - name: Install dependencies
-        env:
-          COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{secrets.PAT_FOR_GITHUB_ACTIONS}}"} }'
         run: |
           export PATH="$HOME/.composer/vendor/bin:$PATH"
           composer install --prefer-dist --no-interaction --no-progress
