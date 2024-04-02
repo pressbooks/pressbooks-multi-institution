@@ -12,7 +12,7 @@ coverage:
     patch: true
     changes: false
 
-  notify:
+ # notify:
     # slack:
     #   default:
     #     url: ""
