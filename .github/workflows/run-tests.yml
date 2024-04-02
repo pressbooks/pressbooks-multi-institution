@@ -27,6 +27,9 @@ jobs:
 
     name: Tests - PHP ${{ matrix.php }} - WP ${{ matrix.wordpress }}
 
+    outputs:
+      coverage: ${{ matrix.experimental == false }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
