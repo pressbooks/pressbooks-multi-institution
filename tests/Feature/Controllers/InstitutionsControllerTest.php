@@ -23,8 +23,6 @@ class InstitutionsControllerTest extends TestCase
         parent::setUp();
 
         $this->institutionsController = new InstitutionsController;
-
-        $this->createInstitutionsUsers(2, 10);
     }
 
     /**
@@ -32,6 +30,8 @@ class InstitutionsControllerTest extends TestCase
      */
     public function it_deletes_institutions(): void
     {
+        $this->createInstitutionsUsers(2, 10);
+
         $institution = Institution::query()->first();
 
         $userManager = $this->assignAnInstitutionalManager($institution);
@@ -68,7 +68,7 @@ class InstitutionsControllerTest extends TestCase
 
         $form = $this->institutionsController->form();
 
-        $this->assertEquals(3, Institution::all()->count());
+        $this->assertEquals(1, Institution::all()->count());
         $this->assertStringContainsString('Institution has been added.', $form);
     }
 
@@ -77,9 +77,8 @@ class InstitutionsControllerTest extends TestCase
      */
     public function it_does_not_save_duplicated_institution_name(): void
     {
+        $this->createInstitution();
         $institutionName = Institution::query()->first()->name;
-
-        $this->assertEquals(2, Institution::all()->count());
 
         $_POST['name'] = $institutionName;
         $_POST['domains'] = ['pressbooks.test', 'institution.pressbooks.test'];
@@ -87,7 +86,7 @@ class InstitutionsControllerTest extends TestCase
 
         $form = $this->institutionsController->form();
 
-        $this->assertEquals(2, Institution::all()->count());
+        $this->assertEquals(1, Institution::all()->count());
         $this->assertStringContainsString('The form is invalid.', $form);
         $this->assertStringContainsString("An institution with the name {$institutionName} already exists. Please use a different name.", $form);
     }
