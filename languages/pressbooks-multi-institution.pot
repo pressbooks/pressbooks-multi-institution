@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-04-02T18:33:01+00:00\n"
+"POT-Creation-Date: 2024-04-03T15:45:33+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: pressbooks-multi-institution\n"
@@ -101,7 +101,11 @@ msgstr ""
 msgid "The name field is required."
 msgstr ""
 
-#: src/Controllers/InstitutionsController.php:202
+#: src/Controllers/InstitutionsController.php:203
+msgid "An institution with the name %s already exists. Please use a different name."
+msgstr ""
+
+#: src/Controllers/InstitutionsController.php:209
 msgid "The book limit field should be numeric."
 msgstr ""
 
