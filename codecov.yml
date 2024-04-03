@@ -12,11 +12,6 @@ coverage:
     patch: true
     changes: false
 
- # notify:
-    # slack:
-    #   default:
-    #     url: ""
-    #     threshold: 1%
 parsers:
   gcov:
     branch_detection:
