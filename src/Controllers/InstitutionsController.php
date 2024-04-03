@@ -198,7 +198,7 @@ class InstitutionsController extends BaseController
             $errors['name'][] = __('The name field is required.', 'pressbooks-multi-institution');
         }
 
-        if ($this->checkForDuplicateName($data['name'])) {
+        if (! $this->checkForDuplicateName($data['name'])) {
             $errors['name'][] = sprintf(
                 __('An institution with the name %s already exists. Please use a different name.', 'pressbooks-multi-institution'),
                 $data['name']
@@ -229,7 +229,7 @@ class InstitutionsController extends BaseController
 
     protected function checkForDuplicateName(string $name): bool
     {
-        return Institution::query()->where('name', $name)->exists();
+        return Institution::query()->where('name', $name)->doesntExist();
     }
 
     protected function fetchInstitution(): Institution
