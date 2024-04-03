@@ -200,7 +200,7 @@ class InstitutionsController extends BaseController
 
         if ($this->nameExists($data['name'])) {
             $errors['name'][] = sprintf(
-                __('%s institution already exists. Please, choose another name.', 'pressbooks-multi-institution'),
+                __('An institution with the name %s already exists. Please, choose another name.', 'pressbooks-multi-institution'),
                 $data['name']
             );
         }
