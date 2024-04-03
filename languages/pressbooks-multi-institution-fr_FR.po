@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks Multi Institution 0.1.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-multi-institution/issues\n"
-"POT-Creation-Date: 2024-03-21T13:44:07+00:00\n"
+"POT-Creation-Date: 2024-04-03T15:45:33+00:00\n"
 "PO-Revision-Date: 2024-02-19 22:27+0000\n"
 "Last-Translator: Steel Wagstaff <steel@pressbooks.com>, 2024\n"
 "Language-Team: French (https://app.transifex.com/pressbooks/teams/9194/fr/)\n"
@@ -46,11 +46,11 @@ msgstr "Pressbooks (Book Oven Inc.)"
 msgid "https://pressbooks.org"
 msgstr "https://pressbooks.org"
 
-#: pressbooks-multi-institution.php:25
+#: pressbooks-multi-institution.php:28
 msgid "Missing dependencies"
 msgstr "Dépendances manquantes"
 
-#: pressbooks-multi-institution.php:26
+#: pressbooks-multi-institution.php:29
 msgid ""
 "Please run <code>composer install</code> from the root of the plugin "
 "directory."
@@ -58,70 +58,14 @@ msgstr ""
 "Veuillez exécuter <code>composer install</code> à partir de la racine du "
 "répertoire du plugin."
 
-#: src/Actions/PermissionsManager.php:143
-msgid "%s's User List"
-msgstr "Liste des utilisateurs de %s"
-
-#: src/Actions/PermissionsManager.php:145
-msgid "There is %s user assigned to %s."
-msgid_plural "There are %s users assigned to %s."
-msgstr[0] "Il y a %s utilisateur assigné à %s."
-msgstr[1] "Il y a %s utilisateurs assignés à %s."
-msgstr[2] "Il y a %s utilisateurs assignés à %s."
-
-#: src/Actions/PermissionsManager.php:219 src/Support/BookList.php:51
-#: src/Views/AssignBooksTable.php:35 src/Views/AssignUsersTable.php:40
-#: resources/views/institutions/form.blade.php:34
-#: resources/views/partials/filters/institutions/content.blade.php:3
-#: resources/views/partials/filters/institutions/tab.blade.php:3
-msgid "Institution"
-msgstr "Institution"
-
-#: src/Actions/PermissionsManager.php:237
-#: src/Actions/PermissionsManager.php:249
-#: src/Traits/OverridesBulkActions.php:14 src/Views/AssignUsersTable.php:74
-#: src/Views/InstitutionsTable.php:234
-#: resources/views/assign/index.blade.php:48
-#: resources/views/partials/filters/institutions/content.blade.php:14
-#: resources/views/table/book-admins.blade.php:8
-#: resources/views/table/institution.blade.php:1
-msgid "Unassigned"
-msgstr "Non attribué"
-
-#: src/Actions/PermissionsManager.php:371
-msgid "Sorry, you are not allowed to access this page."
-msgstr "Désolé, vous n'êtes pas autorisé à accéder à cette page."
-
-#: src/Actions/PermissionsManager.php:383
-msgid "Administer Institution"
-msgstr "Administrer Institution"
-
-#: src/Bootstrap.php:50 src/Bootstrap.php:51
-msgid "Institutions"
-msgstr "Institutions"
-
-#: src/Bootstrap.php:62 src/Bootstrap.php:63
-#: resources/views/institutions/index.blade.php:8
-msgid "Institution List"
-msgstr "Liste des institutions"
-
-#: src/Bootstrap.php:73 src/Bootstrap.php:74
-msgid "Add Institution"
-msgstr "Ajouter institution"
-
-#: src/Bootstrap.php:84 src/Bootstrap.php:85
-#: src/Controllers/AssignUsersController.php:33
-msgid "Assign Users"
-msgstr "Assigner des utilisateurs"
-
-#: src/Bootstrap.php:95 src/Bootstrap.php:96
-#: src/Controllers/AssignBooksController.php:34
-msgid "Assign Books"
-msgstr "Assigner des livres"
-
-#: src/Bootstrap.php:146
+#: src/Bootstrap.php:80
 msgid "Are you sure you want to delete the selected institutions?"
 msgstr "Voulez-vous vraiment supprimer l'institution sélectionnée ?"
+
+#: src/Controllers/AssignBooksController.php:34
+#: src/Services/MenuManager.php:67 src/Services/MenuManager.php:68
+msgid "Assign Books"
+msgstr "Assigner des livres"
 
 #: src/Controllers/AssignBooksController.php:66
 #: src/Controllers/AssignBooksController.php:88
@@ -136,6 +80,11 @@ msgstr[2] "Livres mis à jour."
 msgid "Institution not found."
 msgstr "Institution non trouvée."
 
+#: src/Controllers/AssignUsersController.php:33
+#: src/Services/MenuManager.php:56 src/Services/MenuManager.php:57
+msgid "Assign Users"
+msgstr "Assigner des utilisateurs"
+
 #: src/Controllers/AssignUsersController.php:60
 msgid "User updated."
 msgid_plural "Users updated."
@@ -143,45 +92,69 @@ msgstr[0] "Utilisateur mis à jour."
 msgstr[1] "Utilisateurs mis à jour."
 msgstr[2] "Utilisateurs mis à jour."
 
-#: src/Controllers/InstitutionsController.php:95
+#: src/Controllers/InstitutionsController.php:99
 msgid "Action completed."
 msgstr "Action terminée."
 
-#: src/Controllers/InstitutionsController.php:122
+#: src/Controllers/InstitutionsController.php:124
 msgid "The form is invalid."
 msgstr "Le formulaire est invalide."
 
-#: src/Controllers/InstitutionsController.php:168
+#: src/Controllers/InstitutionsController.php:170
 msgid "Institution has been added."
 msgstr "L'institution a été ajoutée."
 
-#: src/Controllers/InstitutionsController.php:169
+#: src/Controllers/InstitutionsController.php:171
 msgid "Institution has been updated."
 msgstr "L'institution a été mise à jour."
 
-#: src/Controllers/InstitutionsController.php:196
+#: src/Controllers/InstitutionsController.php:198
 msgid "The name field is required."
 msgstr "Le champ \"nom\" est requis."
 
-#: src/Controllers/InstitutionsController.php:200
+#: src/Controllers/InstitutionsController.php:203
+msgid ""
+"An institution with the name %s already exists. Please use a different name."
+msgstr ""
+
+#: src/Controllers/InstitutionsController.php:209
 msgid "The book limit field should be numeric."
 msgstr "Le champ de limite du livre doit être numérique."
 
 #: src/Services/InstitutionStatsService.php:39
+#: src/Services/MenuManager.php:162
 msgid "%s Stats"
 msgstr "%s Statistiques"
 
-#: src/Support/BookList.php:88
-msgid "%s' Book List"
-msgstr "Liste de livres de %s"
+#: src/Services/MenuManager.php:22 src/Services/MenuManager.php:23
+msgid "Institutions"
+msgstr "Institutions"
 
-#: src/Support/BookList.php:89
-msgid "%s's Book List"
-msgstr "Liste des livres de %s"
+#: src/Services/MenuManager.php:34 src/Services/MenuManager.php:35
+#: resources/views/institutions/index.blade.php:8
+msgid "Institution List"
+msgstr "Liste des institutions"
 
-#: src/Support/BookList.php:93
-msgid "There are %d books owned by %s. They use %s of storage."
-msgstr "Il y a %d livres possédés par %s. Ils utilisent %s de stockage."
+#: src/Services/MenuManager.php:45 src/Services/MenuManager.php:46
+msgid "Add Institution"
+msgstr "Ajouter institution"
+
+#: src/Services/MenuManager.php:114
+msgid "Administer Institution"
+msgstr "Administrer Institution"
+
+#: src/Services/PermissionsManager.php:95
+msgid "Sorry, you are not allowed to access this page."
+msgstr "Désolé, vous n'êtes pas autorisé à accéder à cette page."
+
+#: src/Traits/OverridesBulkActions.php:14 src/Views/AssignUsersTable.php:74
+#: src/Views/BaseInstitutionList.php:108 src/Views/InstitutionsTable.php:234
+#: resources/views/assign/index.blade.php:48
+#: resources/views/partials/filters/institutions/content.blade.php:14
+#: resources/views/table/book-admins.blade.php:8
+#: resources/views/table/institution.blade.php:1
+msgid "Unassigned"
+msgstr "Non attribué"
 
 #: src/Views/AssignBooksTable.php:33
 msgid "Cover"
@@ -190,6 +163,14 @@ msgstr "Couverture"
 #: src/Views/AssignBooksTable.php:34
 msgid "Title"
 msgstr "Titre"
+
+#: src/Views/AssignBooksTable.php:35 src/Views/AssignUsersTable.php:40
+#: src/Views/BookList.php:27 src/Views/UserList.php:51
+#: resources/views/institutions/form.blade.php:34
+#: resources/views/partials/filters/institutions/content.blade.php:3
+#: resources/views/partials/filters/institutions/tab.blade.php:3
+msgid "Institution"
+msgstr "Institution"
 
 #: src/Views/AssignBooksTable.php:36
 msgid "Book Administrators"
@@ -207,6 +188,18 @@ msgstr "Nom"
 #: src/Views/AssignUsersTable.php:39
 msgid "Email"
 msgstr "Adresse e-mail"
+
+#: src/Views/BookList.php:64
+msgid "%s' Book List"
+msgstr "Liste de livres de %s"
+
+#: src/Views/BookList.php:65
+msgid "%s's Book List"
+msgstr "Liste des livres de %s"
+
+#: src/Views/BookList.php:69
+msgid "There are %d books owned by %s. They use %s of storage."
+msgstr "Il y a %d livres possédés par %s. Ils utilisent %s de stockage."
 
 #: src/Views/InstitutionsTable.php:73
 msgid "Are you sure you want to delete this?"
@@ -253,6 +246,17 @@ msgstr "Totaux des membres Premium"
 #: src/Views/InstitutionsTable.php:267
 msgid "Total Items"
 msgstr "Total des articles"
+
+#: src/Views/UserList.php:33
+msgid "%s's User List"
+msgstr "Liste des utilisateurs de %s"
+
+#: src/Views/UserList.php:35
+msgid "There is %s user assigned to %s."
+msgid_plural "There are %s users assigned to %s."
+msgstr[0] "Il y a %s utilisateur assigné à %s."
+msgstr[1] "Il y a %s utilisateurs assignés à %s."
+msgstr[2] "Il y a %s utilisateurs assignés à %s."
 
 #: resources/views/assign/index.blade.php:14
 #: resources/views/institutions/index.blade.php:15
