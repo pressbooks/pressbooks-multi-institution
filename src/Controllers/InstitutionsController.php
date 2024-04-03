@@ -198,7 +198,7 @@ class InstitutionsController extends BaseController
             $errors['name'][] = __('The name field is required.', 'pressbooks-multi-institution');
         }
 
-        if (! $this->nameExists($data['name'])) {
+        if ($this->nameExists($data['name'])) {
             $errors['name'][] = sprintf(
                 __('An institution with the name %s already exists. Please use a different name.', 'pressbooks-multi-institution'),
                 $data['name']
