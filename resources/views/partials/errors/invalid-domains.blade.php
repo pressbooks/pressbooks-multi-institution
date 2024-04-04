@@ -11,6 +11,6 @@
 		@endforeach
 		</ul>
 	<p>
-		{{ __('Please correct the invalid content and resubmit the form.', 'pressbooks-multi-institution') }}
+		<strong>{{ __('Please correct the invalid content and resubmit the form.', 'pressbooks-multi-institution') }}</strong>
 	</p>
 </li>

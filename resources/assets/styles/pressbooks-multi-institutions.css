@@ -101,7 +101,10 @@ body.institutions_page_pb_multi_institutions {
 	--pb-selected-options-flex-direction: column;
 
 	.error {
-		color: var(--pb-error-color);
+
+		strong {
+			color: var(--pb-error-color);
+		}
 
 		.error-list {
 			margin: 0;
