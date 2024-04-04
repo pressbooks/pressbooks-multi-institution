@@ -23,8 +23,6 @@ class InstitutionsControllerTest extends TestCase
         parent::setUp();
 
         $this->institutionsController = new InstitutionsController;
-
-        $this->createInstitutionsUsers(2, 10);
     }
 
     /**
@@ -32,6 +30,8 @@ class InstitutionsControllerTest extends TestCase
      */
     public function it_deletes_institutions(): void
     {
+        $this->createInstitutionsUsers(2, 10);
+
         $institution = Institution::query()->first();
 
         $userManager = $this->assignAnInstitutionalManager($institution);
@@ -55,6 +55,39 @@ class InstitutionsControllerTest extends TestCase
         $this->assertNotContains($userManager->user_id, _restricted_users());
 
         $this->assertFalse(is_super_admin($userManager->user_id));
+    }
 
+    /**
+     * @test
+     */
+    public function it_saves_institution(): void
+    {
+        $_POST['name'] = 'New Institution';
+        $_POST['domains'] = ['pressbooks.test', 'institution.pressbooks.test'];
+        $_REQUEST['_wpnonce'] = wp_create_nonce('pb_multi_institution_form');
+
+        $form = $this->institutionsController->form();
+
+        $this->assertEquals(1, Institution::all()->count());
+        $this->assertStringContainsString('Institution has been added.', $form);
+    }
+
+    /**
+     * @test
+     */
+    public function it_does_not_save_duplicated_institution_name(): void
+    {
+        $this->createInstitution();
+        $institutionName = Institution::query()->first()->name;
+
+        $_POST['name'] = $institutionName;
+        $_POST['domains'] = ['pressbooks.test', 'institution.pressbooks.test'];
+        $_REQUEST['_wpnonce'] = wp_create_nonce('pb_multi_institution_form');
+
+        $form = $this->institutionsController->form();
+
+        $this->assertEquals(1, Institution::all()->count());
+        $this->assertStringContainsString('The form is invalid.', $form);
+        $this->assertStringContainsString("An institution with the name {$institutionName} already exists. Please use a different name.", $form);
     }
 }
