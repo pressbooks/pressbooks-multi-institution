@@ -88,6 +88,7 @@ class InstitutionsControllerTest extends TestCase
 
         $this->assertEquals(1, Institution::all()->count());
         $this->assertStringContainsString('The form is invalid.', $form);
-        $this->assertStringContainsString("An institution with the name {$institutionName} already exists. Please use a different name.", $form);
+        $this->assertStringContainsString("An institution with the name {$institutionName} already exists.", $form);
+        $this->assertStringContainsString('<span class="red">Please use a different name.</span>', $form);
     }
 }
