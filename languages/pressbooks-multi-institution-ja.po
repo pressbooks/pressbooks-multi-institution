@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks Multi Institution 0.1.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-multi-institution/issues\n"
-"POT-Creation-Date: 2024-04-03T15:45:33+00:00\n"
+"POT-Creation-Date: 2024-04-04T20:49:17+00:00\n"
 "PO-Revision-Date: 2024-02-19 22:27+0000\n"
 "Last-Translator: Eduardo Vera, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/pressbooks/teams/9194/ja/)\n"
@@ -104,12 +104,7 @@ msgstr "機関は更新しました。"
 msgid "The name field is required."
 msgstr "名前フィールドは必要です。"
 
-#: src/Controllers/InstitutionsController.php:203
-msgid ""
-"An institution with the name %s already exists. Please use a different name."
-msgstr ""
-
-#: src/Controllers/InstitutionsController.php:209
+#: src/Controllers/InstitutionsController.php:208
 msgid "The book limit field should be numeric."
 msgstr "本数制限フィールドは数値にする必要があります。"
 
@@ -360,10 +355,12 @@ msgid "Add new"
 msgstr "新規追加"
 
 #: resources/views/partials/errors/duplicate-domain.blade.php:2
-msgid ""
-"The email domain %s is already in use with %s. Please use a different "
-"address."
-msgstr "メールドメイン %s は、既に %s に使用されている。別のアドレスを使用してください。"
+msgid "The email domain %s is already in use with %s."
+msgstr ""
+
+#: resources/views/partials/errors/duplicate-domain.blade.php:4
+msgid "Please use a different address."
+msgstr ""
 
 #: resources/views/partials/errors/duplicate-manager.blade.php:2
 msgid ""
@@ -371,12 +368,20 @@ msgid ""
 "assigned to manage two institutions at the same time."
 msgstr "%s は、既に %sの機関管理者として割り当てられている。同時に二つの機関を管理するように割り当てることはできません。"
 
+#: resources/views/partials/errors/duplicate-name.blade.php:2
+msgid "An institution with the name %s already exists."
+msgstr ""
+
+#: resources/views/partials/errors/duplicate-name.blade.php:4
+msgid "Please use a different name."
+msgstr ""
+
 #: resources/views/partials/errors/invalid-domains.blade.php:7
 msgid "The following entry contained invalid content:"
 msgid_plural "The following entries contained invalid content:"
 msgstr[0] "次のエントリには無効なコンテンツを含みました:"
 
-#: resources/views/partials/errors/invalid-domains.blade.php:17
+#: resources/views/partials/errors/invalid-domains.blade.php:19
 msgid "Please correct the invalid content and resubmit the form."
 msgstr "無効な内容を修正してフォームを再送信してください。"
 
