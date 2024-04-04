@@ -7,10 +7,12 @@
 	</p>
 		<ul>
 		@foreach($domains as $domain)
-			<li class="padding invalid"><strong>{{ $domain }}</strong></li>
+			<li class="padding invalid red">
+				<strong>{{ $domain }}</strong>
+			</li>
 		@endforeach
 		</ul>
 	<p>
-		<strong>{{ __('Please correct the invalid content and resubmit the form.', 'pressbooks-multi-institution') }}</strong>
+		<span class="red">{{ __('Please correct the invalid content and resubmit the form.', 'pressbooks-multi-institution') }}</span>
 	</p>
 </li>

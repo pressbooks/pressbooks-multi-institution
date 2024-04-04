@@ -199,10 +199,9 @@ class InstitutionsController extends BaseController
         }
 
         if ($this->nameExists($data['name'])) {
-            $errors['name'][] = sprintf(
-                __('An institution with the name %s already exists. Please use a different name.', 'pressbooks-multi-institution'),
-                $data['name']
-            );
+            $errors['name'][] = $this->renderView('partials.errors.duplicate-name', [
+                'name' => $data['name']
+            ]);
         }
 
         if (! is_numeric($data['book_limit']) && ! is_null($data['book_limit'])) {
@@ -324,8 +323,8 @@ class InstitutionsController extends BaseController
             ->get();
 
         return $duplicates->map(fn (EmailDomain $duplicate) => $this->renderView('partials.errors.duplicate-domain', [
-            'domain' => "<strong>{$duplicate->domain}</strong>",
-            'institution' => "<strong>{$duplicate->institution->name}</strong>",
+            'domain' => "<strong class='red'>{$duplicate->domain}</strong>",
+            'institution' => "<strong class='red'>{$duplicate->institution->name}</strong>",
         ]))->toArray();
     }
 
@@ -353,8 +352,8 @@ class InstitutionsController extends BaseController
             ->get();
 
         return $duplicates->map(fn (object $duplicate) => $this->renderView('partials.errors.duplicate-manager', [
-            'user' => "<strong>{$duplicate->user}</strong>",
-            'institution' => "<strong>{$duplicate->institution}</strong>",
+            'user' => "<strong class='red'>{$duplicate->user}</strong>",
+            'institution' => "<strong class='red'>{$duplicate->institution}</strong>",
         ]))->toArray();
     }
 }
