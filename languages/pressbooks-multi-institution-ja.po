@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks Multi Institution 0.1.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-multi-institution/issues\n"
-"POT-Creation-Date: 2024-03-21T17:35:37+00:00\n"
+"POT-Creation-Date: 2024-04-04T20:55:25+00:00\n"
 "PO-Revision-Date: 2024-02-19 22:27+0000\n"
 "Last-Translator: Eduardo Vera, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/pressbooks/teams/9194/ja/)\n"
@@ -44,78 +44,14 @@ msgstr "Pressbooks (Book Oven Inc.)"
 msgid "https://pressbooks.org"
 msgstr "https://pressbooks.org"
 
-#: pressbooks-multi-institution.php:28
-msgid "Missing dependencies"
-msgstr "依存関係が見つかりません"
-
-#: pressbooks-multi-institution.php:29
-msgid ""
-"Please run <code>composer install</code> from the root of the plugin "
-"directory."
-msgstr "プラグインディレクトリのルートから <code>composer install</code> を実行してください。"
-
-#: src/Actions/PermissionsManager.php:150
-msgid "%s's User List"
-msgstr "%s のユーザーリスト"
-
-#: src/Actions/PermissionsManager.php:152
-msgid "There is %s user assigned to %s."
-msgid_plural "There are %s users assigned to %s."
-msgstr[0] "%s 人のユーザーは %s に割り当てられた。"
-
-#: src/Actions/PermissionsManager.php:226 src/Support/BookList.php:51
-#: src/Views/AssignBooksTable.php:35 src/Views/AssignUsersTable.php:40
-#: resources/views/institutions/form.blade.php:34
-#: resources/views/partials/filters/institutions/content.blade.php:3
-#: resources/views/partials/filters/institutions/tab.blade.php:3
-msgid "Institution"
-msgstr "機関"
-
-#: src/Actions/PermissionsManager.php:244
-#: src/Actions/PermissionsManager.php:256
-#: src/Traits/OverridesBulkActions.php:14 src/Views/AssignUsersTable.php:74
-#: src/Views/InstitutionsTable.php:234
-#: resources/views/assign/index.blade.php:48
-#: resources/views/partials/filters/institutions/content.blade.php:14
-#: resources/views/table/book-admins.blade.php:8
-#: resources/views/table/institution.blade.php:1
-msgid "Unassigned"
-msgstr "未割り当て"
-
-#: src/Actions/PermissionsManager.php:378
-msgid "Sorry, you are not allowed to access this page."
-msgstr "このページにアクセスする権限がありません。"
-
-#: src/Actions/PermissionsManager.php:390
-msgid "Administer Institution"
-msgstr "機関管理"
-
-#: src/Bootstrap.php:50 src/Bootstrap.php:51
-msgid "Institutions"
-msgstr "機関"
-
-#: src/Bootstrap.php:62 src/Bootstrap.php:63
-#: resources/views/institutions/index.blade.php:8
-msgid "Institution List"
-msgstr "機関リスト"
-
-#: src/Bootstrap.php:73 src/Bootstrap.php:74
-msgid "Add Institution"
-msgstr "機関を追加"
-
-#: src/Bootstrap.php:84 src/Bootstrap.php:85
-#: src/Controllers/AssignUsersController.php:33
-msgid "Assign Users"
-msgstr "ユーザーを割り当てる"
-
-#: src/Bootstrap.php:95 src/Bootstrap.php:96
-#: src/Controllers/AssignBooksController.php:34
-msgid "Assign Books"
-msgstr "本を割り当てる"
-
-#: src/Bootstrap.php:142
+#: src/Bootstrap.php:80
 msgid "Are you sure you want to delete the selected institutions?"
 msgstr "本当に選択した機関を削除しますか ?"
+
+#: src/Controllers/AssignBooksController.php:34
+#: src/Services/MenuManager.php:67 src/Services/MenuManager.php:68
+msgid "Assign Books"
+msgstr "本を割り当てる"
 
 #: src/Controllers/AssignBooksController.php:66
 #: src/Controllers/AssignBooksController.php:88
@@ -127,6 +63,11 @@ msgstr[0] "本は更新しました。"
 #: src/Controllers/AssignUsersController.php:74
 msgid "Institution not found."
 msgstr "機関が見つかりません。"
+
+#: src/Controllers/AssignUsersController.php:33
+#: src/Services/MenuManager.php:56 src/Services/MenuManager.php:57
+msgid "Assign Users"
+msgstr "ユーザーを割り当てる"
 
 #: src/Controllers/AssignUsersController.php:60
 msgid "User updated."
@@ -153,25 +94,44 @@ msgstr "機関は更新しました。"
 msgid "The name field is required."
 msgstr "名前フィールドは必要です。"
 
-#: src/Controllers/InstitutionsController.php:202
+#: src/Controllers/InstitutionsController.php:208
 msgid "The book limit field should be numeric."
 msgstr "本数制限フィールドは数値にする必要があります。"
 
 #: src/Services/InstitutionStatsService.php:39
+#: src/Services/MenuManager.php:162
 msgid "%s Stats"
 msgstr "%s の統計"
 
-#: src/Support/BookList.php:88
-msgid "%s' Book List"
-msgstr "%s の本リスト"
+#: src/Services/MenuManager.php:22 src/Services/MenuManager.php:23
+msgid "Institutions"
+msgstr "機関"
 
-#: src/Support/BookList.php:89
-msgid "%s's Book List"
-msgstr "%s の本リスト"
+#: src/Services/MenuManager.php:34 src/Services/MenuManager.php:35
+#: resources/views/institutions/index.blade.php:8
+msgid "Institution List"
+msgstr "機関リスト"
 
-#: src/Support/BookList.php:93
-msgid "There are %d books owned by %s. They use %s of storage."
-msgstr "%d 冊の本は %s が所有しているものがあります。%s のストレージを使用します。"
+#: src/Services/MenuManager.php:45 src/Services/MenuManager.php:46
+msgid "Add Institution"
+msgstr "機関を追加"
+
+#: src/Services/MenuManager.php:114
+msgid "Administer Institution"
+msgstr "機関管理"
+
+#: src/Services/PermissionsManager.php:95
+msgid "Sorry, you are not allowed to access this page."
+msgstr "このページにアクセスする権限がありません。"
+
+#: src/Traits/OverridesBulkActions.php:14 src/Views/AssignUsersTable.php:74
+#: src/Views/BaseInstitutionList.php:108 src/Views/InstitutionsTable.php:234
+#: resources/views/assign/index.blade.php:48
+#: resources/views/partials/filters/institutions/content.blade.php:14
+#: resources/views/table/book-admins.blade.php:8
+#: resources/views/table/institution.blade.php:1
+msgid "Unassigned"
+msgstr "未割り当て"
 
 #: src/Views/AssignBooksTable.php:33
 msgid "Cover"
@@ -180,6 +140,14 @@ msgstr "表紙"
 #: src/Views/AssignBooksTable.php:34
 msgid "Title"
 msgstr "書名"
+
+#: src/Views/AssignBooksTable.php:35 src/Views/AssignUsersTable.php:40
+#: src/Views/BookList.php:27 src/Views/UserList.php:51
+#: resources/views/institutions/form.blade.php:34
+#: resources/views/partials/filters/institutions/content.blade.php:3
+#: resources/views/partials/filters/institutions/tab.blade.php:3
+msgid "Institution"
+msgstr "機関"
 
 #: src/Views/AssignBooksTable.php:36
 msgid "Book Administrators"
@@ -197,6 +165,18 @@ msgstr "名前"
 #: src/Views/AssignUsersTable.php:39
 msgid "Email"
 msgstr "メール"
+
+#: src/Views/BookList.php:64
+msgid "%s' Book List"
+msgstr "%s の本リスト"
+
+#: src/Views/BookList.php:65
+msgid "%s's Book List"
+msgstr "%s の本リスト"
+
+#: src/Views/BookList.php:69
+msgid "There are %d books owned by %s. They use %s of storage."
+msgstr "%d 冊の本は %s が所有しているものがあります。%s のストレージを使用します。"
 
 #: src/Views/InstitutionsTable.php:73
 msgid "Are you sure you want to delete this?"
@@ -243,6 +223,15 @@ msgstr "プレミアムメンバーの合計"
 #: src/Views/InstitutionsTable.php:267
 msgid "Total Items"
 msgstr "総数"
+
+#: src/Views/UserList.php:33
+msgid "%s's User List"
+msgstr "%s のユーザーリスト"
+
+#: src/Views/UserList.php:35
+msgid "There is %s user assigned to %s."
+msgid_plural "There are %s users assigned to %s."
+msgstr[0] "%s 人のユーザーは %s に割り当てられた。"
 
 #: resources/views/assign/index.blade.php:14
 #: resources/views/institutions/index.blade.php:15
@@ -356,10 +345,12 @@ msgid "Add new"
 msgstr "新規追加"
 
 #: resources/views/partials/errors/duplicate-domain.blade.php:2
-msgid ""
-"The email domain %s is already in use with %s. Please use a different "
-"address."
-msgstr "メールドメイン %s は、既に %s に使用されている。別のアドレスを使用してください。"
+msgid "The email domain %s is already in use with %s."
+msgstr ""
+
+#: resources/views/partials/errors/duplicate-domain.blade.php:4
+msgid "Please use a different address."
+msgstr ""
 
 #: resources/views/partials/errors/duplicate-manager.blade.php:2
 msgid ""
@@ -367,12 +358,20 @@ msgid ""
 "assigned to manage two institutions at the same time."
 msgstr "%s は、既に %sの機関管理者として割り当てられている。同時に二つの機関を管理するように割り当てることはできません。"
 
+#: resources/views/partials/errors/duplicate-name.blade.php:2
+msgid "An institution with the name %s already exists."
+msgstr ""
+
+#: resources/views/partials/errors/duplicate-name.blade.php:4
+msgid "Please use a different name."
+msgstr ""
+
 #: resources/views/partials/errors/invalid-domains.blade.php:7
 msgid "The following entry contained invalid content:"
 msgid_plural "The following entries contained invalid content:"
 msgstr[0] "次のエントリには無効なコンテンツを含みました:"
 
-#: resources/views/partials/errors/invalid-domains.blade.php:17
+#: resources/views/partials/errors/invalid-domains.blade.php:19
 msgid "Please correct the invalid content and resubmit the form."
 msgstr "無効な内容を修正してフォームを再送信してください。"
 
