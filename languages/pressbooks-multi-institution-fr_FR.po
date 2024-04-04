@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks Multi Institution 0.1.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-multi-institution/issues\n"
-"POT-Creation-Date: 2024-04-04T20:49:17+00:00\n"
+"POT-Creation-Date: 2024-04-04T20:55:25+00:00\n"
 "PO-Revision-Date: 2024-02-19 22:27+0000\n"
 "Last-Translator: Steel Wagstaff <steel@pressbooks.com>, 2024\n"
 "Language-Team: French (France) (https://app.transifex.com/pressbooks/teams/9194/fr_FR/)\n"
@@ -44,18 +44,6 @@ msgstr "Pressbooks (Book Oven Inc.)"
 #: pressbooks-multi-institution.php
 msgid "https://pressbooks.org"
 msgstr "https://pressbooks.org"
-
-#: pressbooks-multi-institution.php:28
-msgid "Missing dependencies"
-msgstr ""
-
-#: pressbooks-multi-institution.php:29
-msgid ""
-"Please run <code>composer install</code> from the root of the plugin "
-"directory."
-msgstr ""
-"Veuillez exécuter <code>composer install</code> à partir de la racine du "
-"répertoire du plugin."
 
 #: src/Bootstrap.php:80
 msgid "Are you sure you want to delete the selected institutions?"
