@@ -350,7 +350,7 @@ msgstr "メールドメイン %s は、既に %s に使用されている。"
 
 #: resources/views/partials/errors/duplicate-domain.blade.php:4
 msgid "Please use a different address."
-msgstr ""
+msgstr "別のアドレスを使用してください。"
 
 #: resources/views/partials/errors/duplicate-manager.blade.php:2
 msgid ""
