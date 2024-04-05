@@ -375,7 +375,7 @@ msgstr ""
 
 #: resources/views/partials/errors/duplicate-name.blade.php:2
 msgid "An institution with the name %s already exists."
-msgstr ""
+msgstr "Ya existe una institución con el nombre %s."
 
 #: resources/views/partials/errors/duplicate-name.blade.php:4
 msgid "Please use a different name."
