@@ -364,7 +364,7 @@ msgstr ""
 
 #: resources/views/partials/errors/duplicate-name.blade.php:4
 msgid "Please use a different name."
-msgstr ""
+msgstr "別の名を使用してください。"
 
 #: resources/views/partials/errors/invalid-domains.blade.php:7
 msgid "The following entry contained invalid content:"
