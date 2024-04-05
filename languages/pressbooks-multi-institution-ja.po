@@ -346,7 +346,7 @@ msgstr "新規追加"
 
 #: resources/views/partials/errors/duplicate-domain.blade.php:2
 msgid "The email domain %s is already in use with %s."
-msgstr ""
+msgstr "メールドメイン %s は、既に %s に使用されている。"
 
 #: resources/views/partials/errors/duplicate-domain.blade.php:4
 msgid "Please use a different address."
