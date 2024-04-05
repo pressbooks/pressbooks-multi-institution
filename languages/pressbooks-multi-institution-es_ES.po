@@ -379,7 +379,7 @@ msgstr "Ya existe una institución con el nombre %s."
 
 #: resources/views/partials/errors/duplicate-name.blade.php:4
 msgid "Please use a different name."
-msgstr ""
+msgstr "Utiliza un nombre diferente."
 
 #: resources/views/partials/errors/invalid-domains.blade.php:7
 msgid "The following entry contained invalid content:"
