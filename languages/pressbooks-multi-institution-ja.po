@@ -360,7 +360,7 @@ msgstr "%s は、既に %sの機関管理者として割り当てられている
 
 #: resources/views/partials/errors/duplicate-name.blade.php:2
 msgid "An institution with the name %s already exists."
-msgstr ""
+msgstr "%s という名の機関はすでに既存です。"
 
 #: resources/views/partials/errors/duplicate-name.blade.php:4
 msgid "Please use a different name."
