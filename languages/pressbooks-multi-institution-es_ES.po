@@ -359,11 +359,11 @@ msgstr "Añadir nuevo"
 
 #: resources/views/partials/errors/duplicate-domain.blade.php:2
 msgid "The email domain %s is already in use with %s."
-msgstr ""
+msgstr "El dominio de correo electrónico %s ya está siendo usado por %s."
 
 #: resources/views/partials/errors/duplicate-domain.blade.php:4
 msgid "Please use a different address."
-msgstr ""
+msgstr "Utiliza una dirección diferente."
 
 #: resources/views/partials/errors/duplicate-manager.blade.php:2
 msgid ""
