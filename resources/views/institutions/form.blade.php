@@ -1,19 +1,40 @@
 @if (!empty($_POST) && isset($result['success']) && isset($result['message']))
-	<div id="message" role="status" class="updated notice is-dismissible {{ $result['success'] ? '' : 'error' }}">
-		<p>
-			<strong @if(! $result['success']) class="red" @endif>{{ $result['success'] ? __('Success', 'pressbooks-multi-institution') : __('Error', 'pressbooks-multi-institution') }}:</strong>
-			{{ $result['message'] }}
-		</p>
+	<div
+		id="message"
+		role="status"
+		class="updated notice is-dismissible {{ $result['success'] ? '' : 'error' }}"
+		x-data="{
+			data: @js($result),
+			show: false,
+		}"
+		x-init="$nextTick(() => show = true)"
+	>
+		<template x-if="show">
+			<p>
+				<template x-if="data.success">
+					<strong>{{ __('Success', 'pressbooks-multi-institution') }}:</strong>
+				</template>
+				<template x-if="! data.success">
+					<strong>{{ __('Error', 'pressbooks-multi-institution') }}:</strong>
+				</template>
 
-		@if(isset($result['errors']))
-			<ul class="error-list">
-				@foreach($result['errors'] as $fieldErrors)
-					@foreach($fieldErrors as $error)
-						{!! $error !!}
-					@endforeach
-				@endforeach
+				<template x-if="data.message">
+					<span x-text="data.message"></span>
+				</template>
+			</p>
+		</template>
+
+		<template x-if="Object.keys(data.errors).length > 0 && show">
+			<ul>
+				<template x-for="field in Object.keys(data.errors)">
+					<li class="padding" x-bind:id="`${field}-errors`">
+						<template x-for="error in data.errors[field]">
+							<span x-html="error"></span>
+						</template>
+					</li>
+				</template>
 			</ul>
-		@endif
+		</template>
 	</div>
 @endif
 
