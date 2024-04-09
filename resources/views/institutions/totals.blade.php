@@ -1,19 +1,19 @@
-<h1 class="wp-heading-inline">{{ __('Book and User Totals', 'pressbooks-multi-institution') }}</h1>
+<h1 class="wp-heading-inline institutions-totals-heading">{{ __('Book and User Totals', 'pressbooks-multi-institution') }}</h1>
 
-<table class="wp-list-table widefat fixed striped">
+<table class="wp-list-table widefat fixed striped institutions-totals-table">
 	<thead>
 		<tr>
-			<th>{{ __('Name', 'pressbooks-multi-institution') }}</th>
-			<th>{{ __('Books', 'pressbooks-multi-institution') }}</th>
-			<th>{{ __('Users', 'pressbooks-multi-institution') }}</th>
+			<th colspan="2">{{ __('Type', 'pressbooks-multi-institution') }}</th>
+			<th colspan="1">{{ __('Books', 'pressbooks-multi-institution') }}</th>
+			<th colspan="1">{{ __('Users', 'pressbooks-multi-institution') }}</th>
 		</tr>
 	</thead>
 	<tbody>
-		@foreach ($totals as $institution)
+		@foreach ($totals as $total)
 			<tr>
-				<td>{{ $institution['name'] }}</td>
-				<td>{{ $institution['book_total'] }}</td>
-				<td>{{ $institution['user_total'] }}</td>
+				<td colspan="2">{{ $total['type'] }}</td>
+				<td colspan="1">{{ $total['book_total'] }}</td>
+				<td colspan="1">{{ $total['user_total'] }}</td>
 			</tr>
 		@endforeach
 	</tbody>

@@ -57,6 +57,14 @@ table.users, table.assign-books {
 	}
 }
 
+table.institutions-totals-table {
+	width: 50%;
+}
+
+h1.institutions-totals-heading {
+	margin: 20px 0 20px;
+}
+
 #pressbooks-multi-institution-assign-table {
 	.assign-books {
 		.column-cover {
