@@ -68,7 +68,7 @@ class InstitutionsController extends BaseController
         ]);
     }
 
-    protected function processBulkActions(): array
+    public function processBulkActions(): array
     {
         $action = $this->table->current_action();
 
@@ -103,7 +103,7 @@ class InstitutionsController extends BaseController
         ];
     }
 
-    protected function save(bool $isSuperAdmin): array
+    public function save(bool $isSuperAdmin): array
     {
         if (! $_POST) {
             return [
