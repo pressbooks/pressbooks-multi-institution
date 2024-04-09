@@ -201,7 +201,7 @@ class InstitutionsController extends BaseController
             $errors['name'][] = __('The name field is required.', 'pressbooks-multi-institution');
         }
 
-        if ($this->nameExists($data['name'])) {
+        if ($this->nameExists($data['name'], $id)) {
             $errors['name'][] = $this->renderView('partials.errors.duplicate-name', [
                 'name' => $data['name']
             ]);
@@ -229,9 +229,12 @@ class InstitutionsController extends BaseController
         return $errors;
     }
 
-    protected function nameExists(string $name): bool
+    protected function nameExists(string $name, ?int $id): bool
     {
-        return Institution::query()->where('name', $name)->exists();
+        return Institution::query()
+            ->where('name', $name)
+            ->when($id, fn (EloquentBuilder $query) => $query->where('id', '<>', $id))
+            ->exists();
     }
 
     protected function fetchInstitution(): Institution
