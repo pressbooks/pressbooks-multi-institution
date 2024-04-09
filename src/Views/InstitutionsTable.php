@@ -2,7 +2,6 @@
 
 namespace PressbooksMultiInstitution\Views;
 
-use Illuminate\Database\Capsule\Manager;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use PressbooksMultiInstitution\Models\Institution;
 use WP_List_Table;
@@ -157,7 +156,6 @@ class InstitutionsTable extends WP_List_Table
 
     public function prepare_items(): void
     {
-        $networkLimit = get_option('pb_plan_settings_book_limit', null);
         $unlimitedNetwork = is_network_unlimited();
 
         // Retrieve the paginated data using Eloquent
@@ -202,72 +200,6 @@ class InstitutionsTable extends WP_List_Table
                 'users' => $institution->users_count,
             ];
         })->toArray();
-
-        /** @var Manager $db */
-        $db = app('db');
-
-        $prefix = $db->getDatabaseManager()->getTablePrefix();
-
-        $bookCounts = $db->table('blogs')
-            ->selectRaw("count(*) as total")
-            ->selectRaw("count(case when {$prefix}institutions.id is null then 1 end) as unassigned")
-            ->selectRaw("count(case when {$prefix}institutions.id is not null and {$prefix}institutions.buy_in = false then 1 end) as shared")
-            ->selectRaw("count(case when {$prefix}institutions.id is not null then 1 end) as assigned")
-            ->selectRaw("count(case when {$prefix}institutions.id is not null and {$prefix}institutions.buy_in = true then 1 end) as premium")
-            ->leftJoin('institutions_blogs', 'institutions_blogs.blog_id', '=', 'blogs.blog_id')
-            ->leftJoin('institutions', 'institutions.id', '=', 'institutions_blogs.institution_id')
-            ->where('blogs.blog_id', '<>', get_main_site_id())
-            ->first();
-
-        $userCounts = $db->table('users')
-            ->selectRaw("count(*) as total")
-            ->selectRaw("count(case when {$prefix}institutions.id is null then 1 end) as unassigned")
-            ->selectRaw("count(case when {$prefix}institutions.id is not null and {$prefix}institutions.buy_in = false then 1 end) as shared")
-            ->selectRaw("count(case when {$prefix}institutions.id is not null then 1 end) as assigned")
-            ->selectRaw("count(case when {$prefix}institutions.id is not null and {$prefix}institutions.buy_in = true then 1 end) as premium")
-            ->leftJoin('institutions_users', 'institutions_users.user_id', '=', 'users.ID')
-            ->leftJoin('institutions', 'institutions.id', '=', 'institutions_users.institution_id')
-            ->first();
-
-        $this->items[] = [
-            'totals' => true,
-            'name' => __('Unassigned', 'pressbooks-multi-institution'),
-            'book_total' => $bookCounts->unassigned,
-            'user_total' => $userCounts->unassigned,
-        ];
-
-        $sharedBookCount = $bookCounts->unassigned + $bookCounts->shared;
-        $sharedUserCount = $userCounts->unassigned + $userCounts->shared;
-
-        if ($unlimitedNetwork) {
-            $sharedBookCount = $bookCounts->total . '/' . __('unlimited', 'pressbooks-multi-institution');
-            $sharedUserCount = $userCounts->total;
-        } else {
-            $sharedBookCount .= $networkLimit ? '/' . $networkLimit : '';
-        }
-
-        $this->items[] = [
-            'totals' => true,
-            'name' => __('Shared Network Totals', 'pressbooks-multi-institution'),
-            'book_total' => $sharedBookCount,
-            'user_total' => $sharedUserCount,
-        ];
-
-        if (! $unlimitedNetwork) {
-            $this->items[] = [
-                'totals' => true,
-                'name' => __('Premium Member Totals', 'pressbooks-multi-institution'),
-                'book_total' => $bookCounts->premium,
-                'user_total' => $userCounts->premium,
-            ];
-        }
-
-        $this->items[] = [
-            'totals' => true,
-            'name' => __('Total Items', 'pressbooks-multi-institution'),
-            'book_total' => $bookCounts->total,
-            'user_total' => $userCounts->total,
-        ];
 
         $this->set_pagination_args([
             'total_items' => $institutions->total(),

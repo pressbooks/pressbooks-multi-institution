@@ -29,4 +29,6 @@
 		<input type="hidden" name="page" value="{{ $page }}" />
 		{!! $table->display() !!}
 	</form>
+
+	@include('PressbooksMultiInstitution::institutions.totals', ['totals' => $totals])
 </div>

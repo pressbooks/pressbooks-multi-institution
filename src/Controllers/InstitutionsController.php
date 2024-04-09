@@ -13,6 +13,8 @@ use PressbooksMultiInstitution\Models\InstitutionUser;
 use PressbooksMultiInstitution\Views\InstitutionsTable;
 use PressbooksMultiInstitution\Support\ConvertEmptyStringsToNull;
 
+use PressbooksMultiInstitution\Views\InstitutionsTotals;
+
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
 
 class InstitutionsController extends BaseController
@@ -36,6 +38,7 @@ class InstitutionsController extends BaseController
             'list_url' => network_admin_url('admin.php?page=pb_multi_institutions'),
             'add_new_url' => network_admin_url('admin.php?page=pb_multi_institution_form&action=new'),
             'table' => $this->table,
+            'totals' => (new InstitutionsTotals)->getTotals(),
             'result' => $result,
             'params' => [
                 'searchQuery' => $_REQUEST['s'] ?? '',
