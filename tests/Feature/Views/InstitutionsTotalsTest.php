@@ -24,7 +24,7 @@ class InstitutionsTotalsTest extends TestCase
 
         $this->createInstitutionsUsers(3, 10);
 
-        InstitutionUser::create([
+        InstitutionUser::query()->create([
             'institution_id' => Institution::query()->first()->id,
             'user_id' => $users[0]->ID,
         ]);
