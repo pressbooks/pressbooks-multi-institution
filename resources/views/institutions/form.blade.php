@@ -220,8 +220,8 @@
 						<input
 							name="book_limit"
 							id="book_limit"
-							type="number"
-							min="0"
+							inputmode="numeric" pattern="[0-9]*"
+							title="{{ __('Only numbers are allowed', 'pressbooks-multi-institution') }}"
 							value="{{ $old['book_limit'] ?? $institution->book_limit }}"
 						/>
 					</td>
