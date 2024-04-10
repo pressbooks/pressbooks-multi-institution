@@ -356,7 +356,7 @@ msgstr "無制限な機関の場合は、0 を入力してください。"
 
 #: resources/views/institutions/form.blade.php:266
 msgid "Save Changes"
-msgstr ""
+msgstr "変更を保存"
 
 #: resources/views/institutions/index.blade.php:10
 msgid "Add new"
