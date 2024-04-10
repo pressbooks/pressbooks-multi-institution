@@ -210,7 +210,7 @@ msgstr "ユーザー"
 
 #: src/Views/InstitutionsTable.php:134
 msgid "Yes"
-msgstr ""
+msgstr "はい"
 
 #: src/Views/InstitutionsTable.php:135
 msgid "No"
