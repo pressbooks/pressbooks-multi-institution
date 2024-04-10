@@ -7,7 +7,7 @@
 			data: @js($result),
 			show: false,
 		}"
-		x-init="$nextTick(() => show = true)"
+		x-init="setTimeout(() => show = true, 200)"
 	>
 		<template x-if="show">
 			<p>
