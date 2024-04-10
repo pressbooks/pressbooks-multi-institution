@@ -58,8 +58,10 @@ table.users, table.assign-books {
 	}
 }
 
-table.institutions-totals-table {
-	width: 50%;
+@media screen and (min-width: 59.975rem) {
+	table.institutions-totals-table {
+		width: 50%;
+	}
 }
 
 h1.institutions-totals-heading {
