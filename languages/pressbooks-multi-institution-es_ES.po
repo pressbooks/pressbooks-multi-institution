@@ -124,7 +124,7 @@ msgstr "Añadir institución"
 
 #: src/Services/MenuManager.php:45
 msgid "Edit Institution"
-msgstr ""
+msgstr "Editar institución"
 
 #: src/Services/MenuManager.php:114
 msgid "Administer Institution"
@@ -217,11 +217,11 @@ msgstr "Usuarios"
 
 #: src/Views/InstitutionsTable.php:134
 msgid "Yes"
-msgstr ""
+msgstr "Sí"
 
 #: src/Views/InstitutionsTable.php:135
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #: src/Views/InstitutionsTable.php:158
 msgid "Delete"
