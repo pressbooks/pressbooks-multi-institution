@@ -214,7 +214,7 @@ msgstr "はい"
 
 #: src/Views/InstitutionsTable.php:135
 msgid "No"
-msgstr ""
+msgstr "いいえ"
 
 #: src/Views/InstitutionsTable.php:158
 msgid "Delete"
