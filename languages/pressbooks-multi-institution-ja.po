@@ -328,11 +328,11 @@ msgstr "アステリスク (*) は必須フィールドを示す"
 
 #: resources/views/institutions/form.blade.php:79
 msgid "Enter exclusive email domains for this institution (e.g. utopia.edu)."
-msgstr ""
+msgstr "この機関の排他的なメールドメインを入力します (例: utopia.edu)。"
 
 #: resources/views/institutions/form.blade.php:140
 msgid "domain"
-msgstr ""
+msgstr "ドメイン"
 
 #: resources/views/institutions/form.blade.php:150
 msgid "Institutional Managers Allowed"
