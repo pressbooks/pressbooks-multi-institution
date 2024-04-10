@@ -369,7 +369,7 @@ msgstr "Para establecer que la institución no tenga un límite, escribe 0."
 
 #: resources/views/institutions/form.blade.php:266
 msgid "Save Changes"
-msgstr ""
+msgstr "Guardar cambios"
 
 #: resources/views/institutions/index.blade.php:10
 msgid "Add new"
