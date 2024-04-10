@@ -42,7 +42,7 @@ class MenuManager
 
         add_submenu_page(
             parent_slug: $this->slug,
-            page_title: __('Add Institution', 'pressbooks-multi-institution'),
+            page_title: isset($_REQUEST['action']) && $_REQUEST['action'] === 'new' ? __('Add Institution', 'pressbooks-multi-institution') : __('Edit Institution', 'pressbooks-multi-institution'),
             menu_title: __('Add Institution', 'pressbooks-multi-institution'),
             capability: 'manage_network',
             menu_slug: 'pb_multi_institution_form',
@@ -112,7 +112,7 @@ class MenuManager
         $mainMenu = $wp_admin_bar->get_node('pb-administer-network');
         if ($mainMenu) {
             $title = __('Administer Institution', 'pressbooks-multi-institution');
-            $mainMenu->title = "<i class='pb-heroicons pb-heroicons-building-library'></i><span>{$title}</span>";
+            $mainMenu->title = "<i class='pb-heroicons pb-heroicons-building-library' aria-hidden='true'></i><span>{$title}</span>";
             $mainMenu->href = network_site_url('wp-admin/index.php?page=pb_institutional_manager');
             $subMenu = $wp_admin_bar->get_node('pb-administer-network-d');
             if ($subMenu) {

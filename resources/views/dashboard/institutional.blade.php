@@ -32,7 +32,7 @@
 									<a
 										href="{!! network_admin_url( $network_analytics_active ? 'sites.php?page=pb_network_analytics_booklist' : 'sites.php' ) !!}"
 									>
-										<i class="pb-heroicons pb-heroicons-book-open"></i>
+										<i class="pb-heroicons pb-heroicons-book-open" aria-hidden="true"></i>
 										<span>{{ __( 'View book list', 'pressbooks-multi-institution' ) }}</span>
 									</a>
 								</li>
@@ -40,7 +40,7 @@
 									<a
 										href="{!! network_admin_url( $network_analytics_active ? 'users.php?page=pb_network_analytics_userlist' : 'users.php' ) !!}"
 									>
-										<i class="pb-heroicons pb-heroicons-users"></i>
+										<i class="pb-heroicons pb-heroicons-users" aria-hidden="true"></i>
 										<span>{{ __( 'View user list', 'pressbooks-multi-institution' ) }}</span>
 									</a>
 								</li>
@@ -49,7 +49,7 @@
 									<a
 										href="{!! network_admin_url( 'admin.php?page=pb_network_analytics_admin' ) !!}"
 									>
-										<i class="pb-heroicons dashicons-before dashicons-chart-area"></i>
+										<i class="pb-heroicons dashicons-before dashicons-chart-area" aria-hidden="true"></i>
 										<span>{{ __( 'Explore Stats', 'pressbooks-multi-institution' ) }}</span>
 									</a>
 								</li>
