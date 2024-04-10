@@ -338,10 +338,12 @@ msgstr "Un asterisco (*) indica que el campo es obligatorio"
 #: resources/views/institutions/form.blade.php:79
 msgid "Enter exclusive email domains for this institution (e.g. utopia.edu)."
 msgstr ""
+"Escribe dominios de correo electrónico exclusivos para esta institución (por"
+" ejemplo: utopia.edu)."
 
 #: resources/views/institutions/form.blade.php:140
 msgid "domain"
-msgstr ""
+msgstr "dominio"
 
 #: resources/views/institutions/form.blade.php:150
 msgid "Institutional Managers Allowed"
