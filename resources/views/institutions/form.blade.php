@@ -24,7 +24,7 @@
 		</template>
 
 		<template x-if="Object.keys(data.errors).length > 0 && show">
-			<ul>
+			<ul class="error-list">
 				<template x-for="field in Object.keys(data.errors)">
 					<li class="padding" x-bind:id="`${field}-errors`">
 						<template x-for="error in data.errors[field]">
