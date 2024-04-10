@@ -118,7 +118,7 @@ msgstr "機関を追加"
 
 #: src/Services/MenuManager.php:45
 msgid "Edit Institution"
-msgstr ""
+msgstr "機関を編集"
 
 #: src/Services/MenuManager.php:114
 msgid "Administer Institution"
