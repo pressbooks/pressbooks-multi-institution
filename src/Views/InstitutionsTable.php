@@ -41,7 +41,8 @@ class InstitutionsTable extends WP_List_Table
             'a' => [
                 'href' => [],
                 'title' => []
-            ]
+            ],
+            'span'
         ];
         return wp_kses($item[$column_name], $allowed_tags);
     }
@@ -93,6 +94,7 @@ class InstitutionsTable extends WP_List_Table
         return app('Blade')->render('PressbooksMultiInstitution::table.checkbox', [
             'name' => 'ID',
             'value' => $item['ID'],
+            'label' => sprintf(__('Select %s'), $item['name']),
         ]);
     }
 
@@ -128,7 +130,9 @@ class InstitutionsTable extends WP_List_Table
 
     public function column_buy_in(array $item): string
     {
-        return $item['buy_in'] ? '✅' : '❌';
+        return $item['buy_in'] ?
+            sprintf('<span aria-hidden="true">✅</span><span class="screen-reader-text">%s</span>', __('Yes', 'pressbooks-multi-institution')) :
+            sprintf('<span aria-hidden="true">❌</span><span class="screen-reader-text">%s</span>', __('No', 'pressbooks-multi-institution'));
     }
 
     public function column_institutional_managers(array $item): string

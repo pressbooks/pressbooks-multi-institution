@@ -46,6 +46,7 @@ class AssignBooksTable extends WP_List_Table
         return app('Blade')->render('PressbooksMultiInstitution::table.checkbox', [
             'name' => 'id',
             'value' => $item->id,
+            'label' => sprintf(__('Select %s'), $item->title),
         ]);
     }
 

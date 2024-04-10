@@ -6,6 +6,7 @@
 	--totals-row-border-color: #C3C4C7;
 	--pb-count-td-width: 10%;
 	--pb-error-color: #d4002d;
+	--pb-invalid-field-background-color: #fab;
 	--table-text-color: #333;
 }
 
@@ -120,6 +121,10 @@ body.institutions_page_pb_multi_institutions {
 		.red {
 			color: var(--pb-error-color);
 		}
+	}
+
+	[aria-invalid] {
+		background-color: var(--pb-invalid-field-background-color);
 	}
 
 	.description {

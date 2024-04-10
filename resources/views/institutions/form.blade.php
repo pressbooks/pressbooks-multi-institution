@@ -7,10 +7,12 @@
 
 		@if(isset($result['errors']))
 			<ul class="error-list">
-				@foreach($result['errors'] as $fieldErrors)
-					@foreach($fieldErrors as $error)
+				@foreach($result['errors'] as $field => $fieldErrors)
+					<li class="padding" id="{{ $field }}-errors">
+					@foreach($fieldErrors as $key => $error)
 						{!! $error !!}
 					@endforeach
+					</li>
 				@endforeach
 			</ul>
 		@endif
@@ -34,7 +36,7 @@
 
 	<hr class="wp-header-end">
 
-	<form method="post">
+	<form method="post" novalidate>
 		{!! wp_nonce_field( 'pb_multi_institution_form' ) !!}
 
 		@if($institution->exists)
@@ -49,7 +51,12 @@
 					</label>
 				</th>
 				<td>
-					<input name="name" id="name" type="text" value="{{ $old['name'] ?? $institution->name }}" class="regular-text" required />
+					<input name="name" id="name" type="text" value="{{ $old['name'] ?? $institution->name }}" class="regular-text"
+					@isset($result['errors']['name'])
+					aria-invalid="true"
+					aria-describedby="name-errors"
+					@endisset
+					required />
 				</td>
 			</tr>
 
@@ -59,7 +66,7 @@
 						{{ __('Email Domains', 'pressbooks-multi-institution') }}
 					</label>
 					<p id="domains-description" class="description">
-						{{ __('Enter exclusive email domains for this institution. One per line (e.g. utopia.edu).', 'pressbooks-multi-institution') }}
+						{{ __('Enter exclusive email domains for this institution (e.g. utopia.edu).', 'pressbooks-multi-institution') }}
 					</p>
 				</th>
 				<td>
@@ -85,7 +92,10 @@
 								value="{{ is_string($domain) ? $domain : $domain->domain }}"
 								class="regular-text"
 								aria-labelledby="domains-label"
-								aria-describedby="domains-description"
+								aria-describedby="domains-description {{ isset($result['errors']['domains']) ? 'domains-errors' : '' }}"
+								@isset($result['errors']['domains'])
+								aria-invalid="true"
+								@endisset
 							/>
 						@empty
 							<input
@@ -94,8 +104,11 @@
 								type="text"
 								value=""
 								class="regular-text"
-								aria-labelledby="{{ $name }}-label"
-								aria-describedby="{{ $name }}-description"
+								aria-labelledby="domains-label"
+								aria-describedby="domains-description {{ isset($result['errors']['domains']) ? 'domains-errors' : '' }}"
+								@isset($result['errors']['domains'])
+								aria-invalid="true"
+								@endisset
 							/>
 						@endforelse
 						<template x-ref="template">
@@ -106,11 +119,14 @@
 								value=""
 								class="regular-text"
 								aria-labelledby="domains-label"
-								aria-describedby="domains-description"
+								aria-describedby="domains-description {{ isset($result['errors']['domains']) ? 'domains-errors' : '' }}"
+								@isset($result['errors']['domains'])
+								aria-invalid="true"
+								@endisset
 							/>
 						</template>
 						<div>
-							<button class="button" type="button" @click="addNew">{{ __('Add New') }}</button>
+							<button class="button" type="button" @click="addNew">{{ __('Add New') }}<span class="screen-reader-text"> {{ __('domain', 'pressbooks-multi-institution')}}</span></button>
 						</div>
 					</div>
 				</td>
@@ -153,13 +169,12 @@
 							disabled
 						@endif
 					>
-						<label class="screen-reader-text">Test</label>
+						<label class="screen-reader-text">Institutional Managers</label>
 						<select
 							id="managers"
 							name="managers[]"
 							multiple
-							aria-labelledby="managers-label"
-							aria-describedby="managers-description"
+							aria-describedby="managers-description {{ isset($result['errors']['managers']) ? 'managers-errors' : '' }}"
 						>
 							@foreach($users as $user)
 								@isset($old['managers'])
@@ -212,7 +227,7 @@
 						<label for="book_limit">
 							{{ __('Book Limit', 'pressbooks-multi-institution') }}
 						</label>
-						<p class="description">
+						<p class="description" id="book_limit-description">
 							{{ __('For an unlimited institution, enter 0.', 'pressbooks-multi-institution') }}
 						</p>
 					</th>
@@ -222,6 +237,7 @@
 							id="book_limit"
 							type="number"
 							min="0"
+							aria-describedby="book_limit-description"
 							value="{{ $old['book_limit'] ?? $institution->book_limit }}"
 						/>
 					</td>
@@ -229,6 +245,6 @@
 			@endif
 		</table>
 
-		{!! get_submit_button() !!}
+		{!! get_submit_button($institution->exists ? __('Save Changes', 'pressbooks-multi-institution') : __('Add Institution')) !!}
 	</form>
 </div>

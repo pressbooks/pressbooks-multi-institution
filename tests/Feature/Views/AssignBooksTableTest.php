@@ -27,7 +27,7 @@ class AssignBooksTableTest extends TestCase
     public function it_renders_the_checkbox_column(): void
     {
         $expected = <<<HTML
-<input type="checkbox" name="id[]" value="42" />
+<input type="checkbox" name="id[]" value="42" aria-label="Select Fake Book" />
 
 HTML;
 
