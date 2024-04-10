@@ -198,6 +198,12 @@ class InstitutionsController extends BaseController
             $errors['name'][] = __('The name field is required.', 'pressbooks-multi-institution');
         }
 
+        if ($this->nameExists($data['name'])) {
+            $errors['name'][] = $this->renderView('partials.errors.duplicate-name', [
+                'name' => $data['name']
+            ]);
+        }
+
         if (! is_numeric($data['book_limit']) && ! is_null($data['book_limit'])) {
             $errors['book_limit'][] = __('The book limit field should be numeric.', 'pressbooks-multi-institution');
         }
@@ -218,6 +224,11 @@ class InstitutionsController extends BaseController
         }
 
         return $errors;
+    }
+
+    protected function nameExists(string $name): bool
+    {
+        return Institution::query()->where('name', $name)->exists();
     }
 
     protected function fetchInstitution(): Institution
@@ -312,8 +323,8 @@ class InstitutionsController extends BaseController
             ->get();
 
         return $duplicates->map(fn (EmailDomain $duplicate) => $this->renderView('partials.errors.duplicate-domain', [
-            'domain' => "<strong>{$duplicate->domain}</strong>",
-            'institution' => "<strong>{$duplicate->institution->name}</strong>",
+            'domain' => "<strong class='red'>{$duplicate->domain}</strong>",
+            'institution' => "<strong class='red'>{$duplicate->institution->name}</strong>",
         ]))->toArray();
     }
 
@@ -341,8 +352,8 @@ class InstitutionsController extends BaseController
             ->get();
 
         return $duplicates->map(fn (object $duplicate) => $this->renderView('partials.errors.duplicate-manager', [
-            'user' => "<strong>{$duplicate->user}</strong>",
-            'institution' => "<strong>{$duplicate->institution}</strong>",
+            'user' => "<strong class='red'>{$duplicate->user}</strong>",
+            'institution' => "<strong class='red'>{$duplicate->institution}</strong>",
         ]))->toArray();
     }
 }

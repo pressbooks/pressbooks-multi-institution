@@ -64,14 +64,14 @@ class UserList extends BaseInstitutionList
         $idSubQuery = $this->db
             ->table('institutions')
             ->select('institutions.id')
-            ->join('institutions_blogs', 'institutions.id', '=', 'institutions_blogs.institution_id')
+            ->leftjoin('institutions_blogs', 'institutions.id', '=', 'institutions_blogs.institution_id')
             ->join('institutions_users', 'institutions.id', '=', 'institutions_users.institution_id')
             ->whereRaw("{$prefix}institutions_users.user_id = us.id")->limit(1);
 
         $nameSubQuery = $this->db
             ->table('institutions')
             ->select('institutions.name')
-            ->join('institutions_blogs', 'institutions.id', '=', 'institutions_blogs.institution_id')
+            ->leftjoin('institutions_blogs', 'institutions.id', '=', 'institutions_blogs.institution_id')
             ->join('institutions_users', 'institutions.id', '=', 'institutions_users.institution_id')
             ->whereRaw("{$prefix}institutions_users.user_id = us.id")->limit(1);
 

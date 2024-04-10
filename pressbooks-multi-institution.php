@@ -3,6 +3,8 @@
 /**
  * Plugin Name: Pressbooks Shared Network
  * Plugin URI: https://github.com/pressbooks/pressbooks-multi-institution
+ * Requires at least: 6.5
+ * Requires Plugins: pressbooks
  * Description: Tools for managing Pressbooks networks shared by multiple institutions
  * Version: 0.1.0
  * Author: Pressbooks (Book Oven Inc.)
@@ -19,21 +21,6 @@ use PressbooksMultiInstitution\Commands\ResetDbSchemaCommand;
 use PressbooksMultiInstitution\Database\Migration;
 use PressbooksMultiInstitution\Models\InstitutionUser;
 use PressbooksMultiInstitution\Services\PermissionsManager;
-
-// TODO: Check if this is the best way to check for Pressbooks.
-if (!class_exists('Pressbooks\Book')) {
-    if (file_exists(__DIR__ . '/vendor/autoload.php')) {
-        require_once __DIR__ . '/vendor/autoload.php';
-    } else {
-        $title = __('Missing dependencies', 'pressbooks-multi-institution');
-        $body = __(
-            'Please run <code>composer install</code> from the root of the plugin directory.',
-            'pressbooks-multi-institution'
-        );
-
-        wp_die("<h1>{$title}</h1><p>{$body}</p>");
-    }
-}
 
 register_activation_hook(__FILE__, [Migration::class, 'migrate']);
 register_activation_hook(__FILE__, function () {

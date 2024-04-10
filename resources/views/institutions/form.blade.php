@@ -1,7 +1,7 @@
 @if (!empty($_POST) && isset($result['success']) && isset($result['message']))
 	<div id="message" role="status" class="updated notice is-dismissible {{ $result['success'] ? '' : 'error' }}">
 		<p>
-			<strong>{{ $result['success'] ? __('Success', 'pressbooks-multi-institution') : __('Error', 'pressbooks-multi-institution') }}:</strong>
+			<strong @if(! $result['success']) class="red" @endif>{{ $result['success'] ? __('Success', 'pressbooks-multi-institution') : __('Error', 'pressbooks-multi-institution') }}:</strong>
 			{{ $result['message'] }}
 		</p>
 
