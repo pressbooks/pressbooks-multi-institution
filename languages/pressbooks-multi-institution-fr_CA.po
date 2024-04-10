@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks Multi Institution 0.1.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-multi-institution/issues\n"
-"POT-Creation-Date: 2024-04-04T20:55:25+00:00\n"
+"POT-Creation-Date: 2024-04-10T11:17:30+00:00\n"
 "PO-Revision-Date: 2024-02-19 22:27+0000\n"
 "Last-Translator: Siri Gauthier, 2024\n"
 "Language-Team: French (Canada) (https://app.transifex.com/pressbooks/teams/9194/fr_CA/)\n"
@@ -122,6 +122,10 @@ msgstr "Liste des institutions"
 msgid "Add Institution"
 msgstr "Ajouter une institution"
 
+#: src/Services/MenuManager.php:45
+msgid "Edit Institution"
+msgstr ""
+
 #: src/Services/MenuManager.php:114
 msgid "Administer Institution"
 msgstr ""
@@ -131,7 +135,7 @@ msgid "Sorry, you are not allowed to access this page."
 msgstr ""
 
 #: src/Traits/OverridesBulkActions.php:14 src/Views/AssignUsersTable.php:74
-#: src/Views/BaseInstitutionList.php:108 src/Views/InstitutionsTable.php:234
+#: src/Views/BaseInstitutionList.php:108 src/Views/InstitutionsTable.php:238
 #: resources/views/assign/index.blade.php:48
 #: resources/views/partials/filters/institutions/content.blade.php:14
 #: resources/views/table/book-admins.blade.php:8
@@ -149,7 +153,7 @@ msgstr "Titre"
 
 #: src/Views/AssignBooksTable.php:35 src/Views/AssignUsersTable.php:40
 #: src/Views/BookList.php:27 src/Views/UserList.php:51
-#: resources/views/institutions/form.blade.php:34
+#: resources/views/institutions/form.blade.php:36
 #: resources/views/partials/filters/institutions/content.blade.php:3
 #: resources/views/partials/filters/institutions/tab.blade.php:3
 msgid "Institution"
@@ -163,8 +167,8 @@ msgstr "Administrateurs du livre"
 msgid "Username"
 msgstr "Identifiant"
 
-#: src/Views/AssignUsersTable.php:38 src/Views/InstitutionsTable.php:103
-#: resources/views/institutions/form.blade.php:57
+#: src/Views/AssignUsersTable.php:38 src/Views/InstitutionsTable.php:105
+#: resources/views/institutions/form.blade.php:59
 msgid "Name"
 msgstr "Nom"
 
@@ -184,49 +188,57 @@ msgstr ""
 msgid "There are %d books owned by %s. They use %s of storage."
 msgstr ""
 
-#: src/Views/InstitutionsTable.php:73
+#: src/Views/InstitutionsTable.php:74
 msgid "Are you sure you want to delete this?"
 msgstr "Voulez-vous vraiment supprimer cette entrée ?"
 
-#: src/Views/InstitutionsTable.php:104
-#: resources/views/institutions/form.blade.php:68
+#: src/Views/InstitutionsTable.php:106
+#: resources/views/institutions/form.blade.php:75
 msgid "Email Domains"
 msgstr "Domaines de messagerie"
 
-#: src/Views/InstitutionsTable.php:105
+#: src/Views/InstitutionsTable.php:107
 msgid "Buy-in"
 msgstr ""
 
-#: src/Views/InstitutionsTable.php:107
-#: resources/views/institutions/form.blade.php:155
+#: src/Views/InstitutionsTable.php:109
+#: resources/views/institutions/form.blade.php:171
 msgid "Institutional Managers"
 msgstr "Gestionnaires institutionnels"
 
-#: src/Views/InstitutionsTable.php:108
+#: src/Views/InstitutionsTable.php:110
 msgid "Books"
 msgstr "Livres"
 
-#: src/Views/InstitutionsTable.php:109
+#: src/Views/InstitutionsTable.php:111
 msgid "Users"
 msgstr "Utilisateurs"
 
-#: src/Views/InstitutionsTable.php:154
+#: src/Views/InstitutionsTable.php:134
+msgid "Yes"
+msgstr ""
+
+#: src/Views/InstitutionsTable.php:135
+msgid "No"
+msgstr ""
+
+#: src/Views/InstitutionsTable.php:158
 msgid "Delete"
 msgstr ""
 
-#: src/Views/InstitutionsTable.php:188 src/Views/InstitutionsTable.php:243
+#: src/Views/InstitutionsTable.php:192 src/Views/InstitutionsTable.php:247
 msgid "unlimited"
 msgstr ""
 
-#: src/Views/InstitutionsTable.php:251
+#: src/Views/InstitutionsTable.php:255
 msgid "Shared Network Totals"
 msgstr ""
 
-#: src/Views/InstitutionsTable.php:259
+#: src/Views/InstitutionsTable.php:263
 msgid "Premium Member Totals"
 msgstr ""
 
-#: src/Views/InstitutionsTable.php:267
+#: src/Views/InstitutionsTable.php:271
 msgid "Total Items"
 msgstr "Éléments au total"
 
@@ -306,63 +318,67 @@ msgstr "Succès"
 msgid "Error"
 msgstr "Erreur"
 
-#: resources/views/institutions/form.blade.php:27
+#: resources/views/institutions/form.blade.php:29
 msgid "Edit"
 msgstr "Modifier"
 
-#: resources/views/institutions/form.blade.php:30
+#: resources/views/institutions/form.blade.php:32
 msgid "Add"
 msgstr "Ajouter"
 
-#: resources/views/institutions/form.blade.php:38
+#: resources/views/institutions/form.blade.php:40
 msgid "Back to Institution List"
 msgstr "Retour à la liste des institutions"
 
-#: resources/views/institutions/form.blade.php:41
+#: resources/views/institutions/form.blade.php:43
 msgid "An asterisk (*) indicates a required field"
 msgstr ""
 
-#: resources/views/institutions/form.blade.php:72
-msgid ""
-"Enter exclusive email domains for this institution. One per line (e.g. "
-"utopia.edu)."
+#: resources/views/institutions/form.blade.php:79
+msgid "Enter exclusive email domains for this institution (e.g. utopia.edu)."
 msgstr ""
-"Saisissez les domaines de messagerie exclusifs pour cette institution. Un "
-"par ligne (par ex. utopia.edu)."
 
-#: resources/views/institutions/form.blade.php:134
+#: resources/views/institutions/form.blade.php:140
+msgid "domain"
+msgstr ""
+
+#: resources/views/institutions/form.blade.php:150
 msgid "Institutional Managers Allowed"
 msgstr ""
 
-#: resources/views/institutions/form.blade.php:159
+#: resources/views/institutions/form.blade.php:175
 msgid "Enter username or email to find existing user(s). Limit 3."
 msgstr ""
 
-#: resources/views/institutions/form.blade.php:209
+#: resources/views/institutions/form.blade.php:224
 msgid "Premium Member Buy-in"
 msgstr ""
 
-#: resources/views/institutions/form.blade.php:229
+#: resources/views/institutions/form.blade.php:244
 msgid "Book Limit"
 msgstr "Limite de livres"
 
-#: resources/views/institutions/form.blade.php:233
+#: resources/views/institutions/form.blade.php:248
 msgid "For an unlimited institution, enter 0."
+msgstr ""
+
+#: resources/views/institutions/form.blade.php:266
+msgid "Save Changes"
 msgstr ""
 
 #: resources/views/institutions/index.blade.php:10
 msgid "Add new"
 msgstr "Ajouter un domaine"
 
-#: resources/views/partials/errors/duplicate-domain.blade.php:2
+#: resources/views/partials/errors/duplicate-domain.blade.php:1
 msgid "The email domain %s is already in use with %s."
 msgstr ""
 
-#: resources/views/partials/errors/duplicate-domain.blade.php:4
+#: resources/views/partials/errors/duplicate-domain.blade.php:3
 msgid "Please use a different address."
 msgstr ""
 
-#: resources/views/partials/errors/duplicate-manager.blade.php:2
+#: resources/views/partials/errors/duplicate-manager.blade.php:1
 msgid ""
 "%s is already assigned as an institutional manager for %s. They cannot be "
 "assigned to manage two institutions at the same time."
@@ -379,14 +395,14 @@ msgstr ""
 msgid "Please use a different name."
 msgstr ""
 
-#: resources/views/partials/errors/invalid-domains.blade.php:7
+#: resources/views/partials/errors/invalid-domains.blade.php:6
 msgid "The following entry contained invalid content:"
 msgid_plural "The following entries contained invalid content:"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: resources/views/partials/errors/invalid-domains.blade.php:19
+#: resources/views/partials/errors/invalid-domains.blade.php:18
 msgid "Please correct the invalid content and resubmit the form."
 msgstr ""
 
