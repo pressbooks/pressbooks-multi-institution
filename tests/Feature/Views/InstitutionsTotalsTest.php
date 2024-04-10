@@ -54,7 +54,7 @@ class InstitutionsTotalsTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($expected, (new InstitutionsTotals)->getTotals());
+        $this->assertEquals($expected, (new InstitutionsTotals(app('db')))->getTotals());
     }
 
     /**
@@ -98,6 +98,6 @@ class InstitutionsTotalsTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($expected, (new InstitutionsTotals)->getTotals());
+        $this->assertEquals($expected, (new InstitutionsTotals(app('db')))->getTotals());
     }
 }

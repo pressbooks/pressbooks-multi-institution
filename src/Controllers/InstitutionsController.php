@@ -38,7 +38,7 @@ class InstitutionsController extends BaseController
             'list_url' => network_admin_url('admin.php?page=pb_multi_institutions'),
             'add_new_url' => network_admin_url('admin.php?page=pb_multi_institution_form&action=new'),
             'table' => $this->table,
-            'totals' => (new InstitutionsTotals)->getTotals(),
+            'totals' => (new InstitutionsTotals(app('db')))->getTotals(),
             'result' => $result,
             'params' => [
                 'searchQuery' => $_REQUEST['s'] ?? '',

@@ -8,12 +8,18 @@ use function PressbooksMultiInstitution\Support\is_network_unlimited;
 
 class InstitutionsTotals
 {
-    private Manager $db;
     private string $prefix;
 
-    public function __construct()
+    private const UNASSIGNED_ALIAS = 'unassigned';
+
+    private const SHARED_ALIAS = 'shared';
+
+    private const PREIMIUM_ALIAS = 'premium';
+
+    private const TOTAL_ALIAS = 'total';
+
+    public function __construct(private readonly Manager $db)
     {
-        $this->db = app('db');
         $this->prefix = $this->db->getDatabaseManager()->getTablePrefix();
     }
 
@@ -25,19 +31,19 @@ class InstitutionsTotals
 
         $rows[] = [
             'type' => __('Unassigned', 'pressbooks-multi-institution'),
-            'book_total' => $bookCounts->unassigned,
-            'user_total' => $userCounts->unassigned,
+            'book_total' => $bookCounts->{$this::UNASSIGNED_ALIAS},
+            'user_total' => $userCounts->{$this::UNASSIGNED_ALIAS},
         ];
 
-        $sharedBookCount = $bookCounts->unassigned + $bookCounts->shared;
-        $sharedUserCount = $userCounts->unassigned + $userCounts->shared;
+        $sharedBookCount = $bookCounts->{$this::UNASSIGNED_ALIAS} + $bookCounts->{$this::SHARED_ALIAS};
+        $sharedUserCount = $userCounts->{$this::UNASSIGNED_ALIAS} + $userCounts->{$this::SHARED_ALIAS};
 
         $networkLimit = get_option('pb_plan_settings_book_limit', null);
         $unlimitedNetwork = is_network_unlimited();
 
         if ($unlimitedNetwork) {
-            $sharedBookCount = $bookCounts->total . '/' . __('unlimited', 'pressbooks-multi-institution');
-            $sharedUserCount = $userCounts->total;
+            $sharedBookCount = $bookCounts->{$this::TOTAL_ALIAS} . '/' . __('unlimited', 'pressbooks-multi-institution');
+            $sharedUserCount = $userCounts->{$this::TOTAL_ALIAS};
         } else {
             $sharedBookCount .= $networkLimit ? '/' . $networkLimit : '';
         }
@@ -51,15 +57,15 @@ class InstitutionsTotals
         if (! $unlimitedNetwork) {
             $rows[] = [
                 'type' => __('Premium Member Totals', 'pressbooks-multi-institution'),
-                'book_total' => $bookCounts->premium,
-                'user_total' => $userCounts->premium,
+                'book_total' => $bookCounts->{$this::PREIMIUM_ALIAS},
+                'user_total' => $userCounts->{$this::PREIMIUM_ALIAS},
             ];
         }
 
         $rows[] = [
             'type' => __('All Network totals', 'pressbooks-multi-institution'),
-            'book_total' => $bookCounts->total,
-            'user_total' => $userCounts->total,
+            'book_total' => $bookCounts->{$this::TOTAL_ALIAS},
+            'user_total' => $userCounts->{$this::TOTAL_ALIAS},
         ];
 
         return $rows;
@@ -68,11 +74,10 @@ class InstitutionsTotals
     private function getUserCounts(): object
     {
         return $this->db->table('users')
-            ->selectRaw("count(*) as total")
-            ->selectRaw("count(case when {$this->prefix}institutions.id is null then 1 end) as unassigned")
-            ->selectRaw("count(case when {$this->prefix}institutions.id is not null and {$this->prefix}institutions.buy_in = false then 1 end) as shared")
-            ->selectRaw("count(case when {$this->prefix}institutions.id is not null then 1 end) as assigned")
-            ->selectRaw("count(case when {$this->prefix}institutions.id is not null and {$this->prefix}institutions.buy_in = true then 1 end) as premium")
+            ->selectRaw("count(*) as " . $this::TOTAL_ALIAS)
+            ->selectRaw("count(case when {$this->prefix}institutions.id is null then 1 end) as " . $this::UNASSIGNED_ALIAS)
+            ->selectRaw("count(case when {$this->prefix}institutions.id is not null and {$this->prefix}institutions.buy_in = false then 1 end) as " . $this::SHARED_ALIAS)
+            ->selectRaw("count(case when {$this->prefix}institutions.id is not null and {$this->prefix}institutions.buy_in = true then 1 end) as " . $this::PREIMIUM_ALIAS)
             ->leftJoin('institutions_users', 'institutions_users.user_id', '=', 'users.ID')
             ->leftJoin('institutions', 'institutions.id', '=', 'institutions_users.institution_id')
             ->first();
@@ -81,11 +86,10 @@ class InstitutionsTotals
     private function getBookCounts(): object
     {
         return $this->db->table('blogs')
-            ->selectRaw("count(*) as total")
-            ->selectRaw("count(case when {$this->prefix}institutions.id is null then 1 end) as unassigned")
-            ->selectRaw("count(case when {$this->prefix}institutions.id is not null and {$this->prefix}institutions.buy_in = false then 1 end) as shared")
-            ->selectRaw("count(case when {$this->prefix}institutions.id is not null then 1 end) as assigned")
-            ->selectRaw("count(case when {$this->prefix}institutions.id is not null and {$this->prefix}institutions.buy_in = true then 1 end) as premium")
+            ->selectRaw("count(*) as " . $this::TOTAL_ALIAS)
+            ->selectRaw("count(case when {$this->prefix}institutions.id is null then 1 end) as " . $this::UNASSIGNED_ALIAS)
+            ->selectRaw("count(case when {$this->prefix}institutions.id is not null and {$this->prefix}institutions.buy_in = false then 1 end) as " . $this::SHARED_ALIAS)
+            ->selectRaw("count(case when {$this->prefix}institutions.id is not null and {$this->prefix}institutions.buy_in = true then 1 end) as " . $this::PREIMIUM_ALIAS)
             ->leftJoin('institutions_blogs', 'institutions_blogs.blog_id', '=', 'blogs.blog_id')
             ->leftJoin('institutions', 'institutions.id', '=', 'institutions_blogs.institution_id')
             ->where('blogs.blog_id', '<>', get_main_site_id())
