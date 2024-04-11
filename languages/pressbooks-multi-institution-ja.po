@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks Multi Institution 0.1.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-multi-institution/issues\n"
-"POT-Creation-Date: 2024-04-10T11:17:30+00:00\n"
+"POT-Creation-Date: 2024-04-11T15:59:57+00:00\n"
 "PO-Revision-Date: 2024-02-19 22:27+0000\n"
 "Last-Translator: Eduardo Vera, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/pressbooks/teams/9194/ja/)\n"
@@ -74,27 +74,27 @@ msgid "User updated."
 msgid_plural "Users updated."
 msgstr[0] "ユーザーは更新しました。"
 
-#: src/Controllers/InstitutionsController.php:99
+#: src/Controllers/InstitutionsController.php:102
 msgid "Action completed."
 msgstr "アクションが完了しました。"
 
-#: src/Controllers/InstitutionsController.php:124
+#: src/Controllers/InstitutionsController.php:127
 msgid "The form is invalid."
 msgstr "無効なフォーム。"
 
-#: src/Controllers/InstitutionsController.php:170
+#: src/Controllers/InstitutionsController.php:173
 msgid "Institution has been added."
 msgstr "機関は追加しました。"
 
-#: src/Controllers/InstitutionsController.php:171
+#: src/Controllers/InstitutionsController.php:174
 msgid "Institution has been updated."
 msgstr "機関は更新しました。"
 
-#: src/Controllers/InstitutionsController.php:198
+#: src/Controllers/InstitutionsController.php:201
 msgid "The name field is required."
 msgstr "名前フィールドは必要です。"
 
-#: src/Controllers/InstitutionsController.php:208
+#: src/Controllers/InstitutionsController.php:211
 msgid "The book limit field should be numeric."
 msgstr "本数制限フィールドは数値にする必要があります。"
 
@@ -108,7 +108,7 @@ msgid "Institutions"
 msgstr "機関"
 
 #: src/Services/MenuManager.php:34 src/Services/MenuManager.php:35
-#: resources/views/institutions/index.blade.php:8
+#: resources/views/institutions/index.blade.php:18
 msgid "Institution List"
 msgstr "機関リスト"
 
@@ -129,10 +129,9 @@ msgid "Sorry, you are not allowed to access this page."
 msgstr "このページにアクセスする権限がありません。"
 
 #: src/Traits/OverridesBulkActions.php:14 src/Views/AssignUsersTable.php:74
-#: src/Views/BaseInstitutionList.php:108 src/Views/InstitutionsTable.php:238
-#: resources/views/assign/index.blade.php:48
+#: src/Views/BaseInstitutionList.php:108 src/Views/InstitutionsTotals.php:33
+#: resources/views/assign/index.blade.php:58
 #: resources/views/partials/filters/institutions/content.blade.php:14
-#: resources/views/table/book-admins.blade.php:8
 #: resources/views/table/institution.blade.php:1
 msgid "Unassigned"
 msgstr "未割り当て"
@@ -147,7 +146,7 @@ msgstr "書名"
 
 #: src/Views/AssignBooksTable.php:35 src/Views/AssignUsersTable.php:40
 #: src/Views/BookList.php:27 src/Views/UserList.php:51
-#: resources/views/institutions/form.blade.php:36
+#: resources/views/institutions/form.blade.php:49
 #: resources/views/partials/filters/institutions/content.blade.php:3
 #: resources/views/partials/filters/institutions/tab.blade.php:3
 msgid "Institution"
@@ -161,8 +160,8 @@ msgstr "本管理者"
 msgid "Username"
 msgstr "ユーザー名"
 
-#: src/Views/AssignUsersTable.php:38 src/Views/InstitutionsTable.php:105
-#: resources/views/institutions/form.blade.php:59
+#: src/Views/AssignUsersTable.php:38 src/Views/InstitutionsTable.php:104
+#: resources/views/institutions/form.blade.php:72
 msgid "Name"
 msgstr "名前"
 
@@ -182,59 +181,61 @@ msgstr "%s の本リスト"
 msgid "There are %d books owned by %s. They use %s of storage."
 msgstr "%d 冊の本は %s が所有しているものがあります。%s のストレージを使用します。"
 
-#: src/Views/InstitutionsTable.php:74
+#: src/Views/InstitutionsTable.php:73
 msgid "Are you sure you want to delete this?"
 msgstr "本当に削除してもよいですか ?"
 
-#: src/Views/InstitutionsTable.php:106
-#: resources/views/institutions/form.blade.php:75
+#: src/Views/InstitutionsTable.php:105
+#: resources/views/institutions/form.blade.php:88
 msgid "Email Domains"
 msgstr "メールドメイン"
 
-#: src/Views/InstitutionsTable.php:107
+#: src/Views/InstitutionsTable.php:106
 msgid "Buy-in"
 msgstr "購入"
 
-#: src/Views/InstitutionsTable.php:109
-#: resources/views/institutions/form.blade.php:171
+#: src/Views/InstitutionsTable.php:108
+#: resources/views/institutions/form.blade.php:184
 msgid "Institutional Managers"
 msgstr "機関管理者"
 
-#: src/Views/InstitutionsTable.php:110
+#: src/Views/InstitutionsTable.php:109
+#: resources/views/institutions/totals.blade.php:7
 msgid "Books"
 msgstr "本"
 
-#: src/Views/InstitutionsTable.php:111
+#: src/Views/InstitutionsTable.php:110
+#: resources/views/institutions/totals.blade.php:8
 msgid "Users"
 msgstr "ユーザー"
 
-#: src/Views/InstitutionsTable.php:134
+#: src/Views/InstitutionsTable.php:133
 msgid "Yes"
 msgstr "はい"
 
-#: src/Views/InstitutionsTable.php:135
+#: src/Views/InstitutionsTable.php:134
 msgid "No"
 msgstr "いいえ"
 
-#: src/Views/InstitutionsTable.php:158
+#: src/Views/InstitutionsTable.php:157
 msgid "Delete"
 msgstr "削除"
 
-#: src/Views/InstitutionsTable.php:192 src/Views/InstitutionsTable.php:247
+#: src/Views/InstitutionsTable.php:190 src/Views/InstitutionsTotals.php:45
 msgid "unlimited"
 msgstr "無制限"
 
-#: src/Views/InstitutionsTable.php:255
+#: src/Views/InstitutionsTotals.php:52
 msgid "Shared Network Totals"
 msgstr "共有サイトネットワークの合計"
 
-#: src/Views/InstitutionsTable.php:263
+#: src/Views/InstitutionsTotals.php:59
 msgid "Premium Member Totals"
 msgstr "プレミアムメンバーの合計"
 
-#: src/Views/InstitutionsTable.php:271
-msgid "Total Items"
-msgstr "総数"
+#: src/Views/InstitutionsTotals.php:66
+msgid "All Network totals"
+msgstr ""
 
 #: src/Views/UserList.php:33
 msgid "%s's User List"
@@ -245,24 +246,24 @@ msgid "There is %s user assigned to %s."
 msgid_plural "There are %s users assigned to %s."
 msgstr[0] "%s 人のユーザーは %s に割り当てられた。"
 
-#: resources/views/assign/index.blade.php:14
-#: resources/views/institutions/index.blade.php:15
+#: resources/views/assign/index.blade.php:24
+#: resources/views/institutions/index.blade.php:25
 msgid "Showing results for: %s"
 msgstr "表示する結果: %s"
 
-#: resources/views/assign/index.blade.php:17
-#: resources/views/institutions/index.blade.php:17
+#: resources/views/assign/index.blade.php:27
+#: resources/views/institutions/index.blade.php:27
 msgid "Clear filters"
 msgstr "絞り込みをクリア"
 
-#: resources/views/assign/index.blade.php:25
-#: resources/views/assign/index.blade.php:27
-#: resources/views/institutions/index.blade.php:25
-#: resources/views/institutions/index.blade.php:27
+#: resources/views/assign/index.blade.php:35
+#: resources/views/assign/index.blade.php:37
+#: resources/views/institutions/index.blade.php:35
+#: resources/views/institutions/index.blade.php:37
 msgid "Search"
 msgstr "検索"
 
-#: resources/views/assign/index.blade.php:41
+#: resources/views/assign/index.blade.php:51
 msgid "All"
 msgstr "すべて"
 
@@ -302,65 +303,77 @@ msgstr "ユーザーリストを表示"
 msgid "Explore Stats"
 msgstr "統計を調べる"
 
-#: resources/views/institutions/form.blade.php:4
+#: resources/views/institutions/form.blade.php:14
 msgid "Success"
 msgstr "成功"
 
-#: resources/views/institutions/form.blade.php:4
+#: resources/views/institutions/form.blade.php:17
 msgid "Error"
 msgstr "エラー"
 
-#: resources/views/institutions/form.blade.php:29
+#: resources/views/institutions/form.blade.php:42
 msgid "Edit"
 msgstr "編集"
 
-#: resources/views/institutions/form.blade.php:32
+#: resources/views/institutions/form.blade.php:45
 msgid "Add"
 msgstr "追加"
 
-#: resources/views/institutions/form.blade.php:40
+#: resources/views/institutions/form.blade.php:53
 msgid "Back to Institution List"
 msgstr "機関リストに戻る"
 
-#: resources/views/institutions/form.blade.php:43
+#: resources/views/institutions/form.blade.php:56
 msgid "An asterisk (*) indicates a required field"
 msgstr "アステリスク (*) は必須フィールドを示す"
 
-#: resources/views/institutions/form.blade.php:79
+#: resources/views/institutions/form.blade.php:92
 msgid "Enter exclusive email domains for this institution (e.g. utopia.edu)."
 msgstr "この機関の排他的なメールドメインを入力します (例: utopia.edu)。"
 
-#: resources/views/institutions/form.blade.php:140
+#: resources/views/institutions/form.blade.php:153
 msgid "domain"
 msgstr "ドメイン"
 
-#: resources/views/institutions/form.blade.php:150
+#: resources/views/institutions/form.blade.php:163
 msgid "Institutional Managers Allowed"
 msgstr "許可された機関管理者"
 
-#: resources/views/institutions/form.blade.php:175
+#: resources/views/institutions/form.blade.php:188
 msgid "Enter username or email to find existing user(s). Limit 3."
 msgstr "ユーザー名またはメールアドレスを入力して既存のユーザーを検索します。制限は 3 件。"
 
-#: resources/views/institutions/form.blade.php:224
+#: resources/views/institutions/form.blade.php:237
 msgid "Premium Member Buy-in"
 msgstr "プレミアムメンバーバイイン"
 
-#: resources/views/institutions/form.blade.php:244
+#: resources/views/institutions/form.blade.php:257
 msgid "Book Limit"
 msgstr "本数制限"
 
-#: resources/views/institutions/form.blade.php:248
+#: resources/views/institutions/form.blade.php:261
 msgid "For an unlimited institution, enter 0."
 msgstr "無制限な機関の場合は、0 を入力してください。"
 
-#: resources/views/institutions/form.blade.php:266
+#: resources/views/institutions/form.blade.php:276
+msgid "Only numbers are allowed."
+msgstr ""
+
+#: resources/views/institutions/form.blade.php:284
 msgid "Save Changes"
 msgstr "変更を保存"
 
-#: resources/views/institutions/index.blade.php:10
+#: resources/views/institutions/index.blade.php:20
 msgid "Add new"
 msgstr "新規追加"
+
+#: resources/views/institutions/totals.blade.php:1
+msgid "Book and User Totals"
+msgstr ""
+
+#: resources/views/institutions/totals.blade.php:6
+msgid "Type"
+msgstr ""
 
 #: resources/views/partials/errors/duplicate-domain.blade.php:1
 msgid "The email domain %s is already in use with %s."
@@ -392,6 +405,10 @@ msgstr[0] "次のエントリには無効なコンテンツを含みました:"
 #: resources/views/partials/errors/invalid-domains.blade.php:18
 msgid "Please correct the invalid content and resubmit the form."
 msgstr "無効な内容を修正してフォームを再送信してください。"
+
+#: resources/views/table/book-admins.blade.php:8
+msgid "No institution assigned"
+msgstr ""
 
 #: resources/views/table/bulk-actions.blade.php:6
 msgid "- Set Institution -"
