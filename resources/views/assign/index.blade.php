@@ -1,7 +1,6 @@
 @if (isset($result['message']))
 	<div
 		id="message"
-		role="status"
 		class="updated notice {{ $result['success'] ? '' : 'error' }}"
 		x-data="{
 			message: '{{ $result['message'] }}',
