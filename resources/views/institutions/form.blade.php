@@ -252,8 +252,10 @@
 						<input
 							name="book_limit"
 							id="book_limit"
-							inputmode="numeric" pattern="[0-9]*"
 							title="{{ __('Only numbers are allowed', 'pressbooks-multi-institution') }}"
+							type="text"
+							inputmode="numeric"
+							pattern="[0-9]*"
 							aria-describedby="book_limit-description"
 							value="{{ $old['book_limit'] ?? $institution->book_limit }}"
 						/>
