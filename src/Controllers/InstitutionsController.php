@@ -229,7 +229,7 @@ class InstitutionsController extends BaseController
         return $errors;
     }
 
-    protected function nameExists(string $name, ?int $id): bool
+    protected function nameExists(?string $name, ?int $id): bool
     {
         return Institution::query()
             ->where('name', $name)
