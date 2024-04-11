@@ -2,7 +2,7 @@
 	<div
 		id="message"
 		role="status"
-		class="updated notice is-dismissible {{ $result['success'] ? '' : 'error' }}"
+		class="updated notice {{ $result['success'] ? '' : 'error' }}"
 		x-data="{
 			data: @js($result),
 			show: false,
