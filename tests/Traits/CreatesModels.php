@@ -22,10 +22,6 @@ trait CreatesModels
             'user_email' => $properties['user_email'] ?? 'johndoe@fakedomain.edu',
         ];
 
-        $wpdb->delete($wpdb->users, [
-            'user_login' => $properties['user_login'],
-        ]);
-
         $user = $this->factory()->user->create($properties);
 
         $wpdb->query('COMMIT');
@@ -71,10 +67,6 @@ trait CreatesModels
             'path' => $properties['path'] ?? 'fakepath',
             'title' => $properties['title'] ?? 'Fake Book',
         ];
-
-        $wpdb->delete($wpdb->blogs, [
-            'path' => "/{$properties['path']}/",
-        ]);
 
         $blog = $this->factory()->blog->create($properties);
 

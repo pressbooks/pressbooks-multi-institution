@@ -1,6 +1,16 @@
 @if (isset($result['message']))
-	<div id="message" role="status" class="updated {{ $result['success'] ? 'notice' : 'error' }} is-dismissible">
-		<p>{{ $result['message'] }}</p>
+	<div
+		id="message"
+		class="updated notice {{ $result['success'] ? '' : 'error' }}"
+		x-data="{
+			message: '{{ $result['message'] }}',
+			show: false,
+		}"
+		x-init="setTimeout(() => show = true, 200)"
+	>
+		<template x-if="show">
+			<p x-text="message"></p>
+		</template>
 	</div>
 @endif
 

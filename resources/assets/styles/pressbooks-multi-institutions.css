@@ -58,6 +58,16 @@ table.users, table.assign-books {
 	}
 }
 
+@media screen and (min-width: 59.975rem) {
+	table.institutions-totals-table {
+		width: 50%;
+	}
+}
+
+h1.institutions-totals-heading {
+	margin: 20px 0 20px;
+}
+
 #pressbooks-multi-institution-assign-table {
 	.assign-books {
 		.column-cover {

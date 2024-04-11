@@ -13,6 +13,8 @@ use PressbooksMultiInstitution\Models\InstitutionUser;
 use PressbooksMultiInstitution\Views\InstitutionsTable;
 use PressbooksMultiInstitution\Support\ConvertEmptyStringsToNull;
 
+use PressbooksMultiInstitution\Views\InstitutionsTotals;
+
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
 
 class InstitutionsController extends BaseController
@@ -36,6 +38,7 @@ class InstitutionsController extends BaseController
             'list_url' => network_admin_url('admin.php?page=pb_multi_institutions'),
             'add_new_url' => network_admin_url('admin.php?page=pb_multi_institution_form&action=new'),
             'table' => $this->table,
+            'totals' => (new InstitutionsTotals(app('db')))->getTotals(),
             'result' => $result,
             'params' => [
                 'searchQuery' => $_REQUEST['s'] ?? '',
@@ -65,7 +68,7 @@ class InstitutionsController extends BaseController
         ]);
     }
 
-    protected function processBulkActions(): array
+    public function processBulkActions(): array
     {
         $action = $this->table->current_action();
 
@@ -100,7 +103,7 @@ class InstitutionsController extends BaseController
         ];
     }
 
-    protected function save(bool $isSuperAdmin): array
+    public function save(bool $isSuperAdmin): array
     {
         if (! $_POST) {
             return [
@@ -198,7 +201,7 @@ class InstitutionsController extends BaseController
             $errors['name'][] = __('The name field is required.', 'pressbooks-multi-institution');
         }
 
-        if ($this->nameExists($data['name'])) {
+        if ($this->nameExists($data['name'], $id)) {
             $errors['name'][] = $this->renderView('partials.errors.duplicate-name', [
                 'name' => $data['name']
             ]);
@@ -226,9 +229,12 @@ class InstitutionsController extends BaseController
         return $errors;
     }
 
-    protected function nameExists(string $name): bool
+    protected function nameExists(?string $name, ?int $id): bool
     {
-        return Institution::query()->where('name', $name)->exists();
+        return Institution::query()
+            ->where('name', $name)
+            ->when($id, fn (EloquentBuilder $query) => $query->where('id', '<>', $id))
+            ->exists();
     }
 
     protected function fetchInstitution(): Institution

@@ -78,17 +78,43 @@ class InstitutionsControllerTest extends TestCase
     public function it_does_not_save_duplicated_institution_name(): void
     {
         $this->createInstitution();
-        $institutionName = Institution::query()->first()->name;
 
-        $_POST['name'] = $institutionName;
+        $_POST['name'] = 'Fake Institution';
         $_POST['domains'] = ['pressbooks.test', 'institution.pressbooks.test'];
         $_REQUEST['_wpnonce'] = wp_create_nonce('pb_multi_institution_form');
 
-        $form = $this->institutionsController->form();
+        $response = $this->institutionsController->save(isSuperAdmin: true);
 
-        $this->assertEquals(1, Institution::all()->count());
-        $this->assertStringContainsString('The form is invalid.', $form);
-        $this->assertStringContainsString("An institution with the name {$institutionName} already exists.", $form);
-        $this->assertStringContainsString('<span class="red">Please use a different name.</span>', $form);
+        $expected = <<<HTML
+<p>
+	An institution with the name Fake Institution already exists.
+	<span class="red">Please use a different name.</span>
+</p>
+
+HTML;
+
+        $this->assertEquals(1, Institution::query()->count());
+        $this->assertFalse($response['success']);
+        $this->assertEquals('The form is invalid.', $response['message']);
+        $this->assertEquals($expected, $response['errors']['name'][0]);
+    }
+
+    /**
+     * @test
+     */
+    public function it_updates_the_institution_when_using_the_same_name(): void
+    {
+        $institution = $this->createInstitution();
+
+        $_POST['name'] = 'Fake Institution';
+        $_POST['ID'] = $institution->id;
+
+        $_REQUEST['_wpnonce'] = wp_create_nonce('pb_multi_institution_form');
+
+        $response = $this->institutionsController->save(isSuperAdmin: true);
+
+        $this->assertEquals(1, Institution::query()->count());
+        $this->assertTrue($response['success']);
+        $this->assertEquals('Institution has been updated.', $response['message']);
     }
 }
