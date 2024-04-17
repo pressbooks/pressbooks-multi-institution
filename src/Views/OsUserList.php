@@ -2,7 +2,10 @@
 
 namespace PressbooksMultiInstitution\Views;
 
+use PressbooksMultiInstitution\Models\Institution;
 use PressbooksMultiInstitution\Models\InstitutionUser;
+
+use WP_User_Query;
 
 use function PressbooksMultiInstitution\Support\get_institution_by_manager;
 
@@ -16,6 +19,8 @@ class OsUserList
         add_filter('manage_users-network_sortable_columns', [$this, 'makeColumnSortable']);
 
         add_action('pre_user_query', [$this, 'modifyUserQuery']);
+
+        add_filter('views_users-network', [$this, 'removeSuperAdminFilter']);
     }
 
     public function displayInstitutionValue(string $value, string $columnName, int $userId): string
@@ -45,10 +50,10 @@ class OsUserList
         return $columns;
     }
 
-    public function modifyUserQuery(\WP_User_Query $query): void
+    public function modifyUserQuery(WP_User_Query $query): void
     {
         global $pagenow;
-        if (!is_admin() || $pagenow !== 'users.php') {
+        if (! is_super_admin() || ! is_main_site() || $pagenow !== 'users.php') {
             return;
         }
 
@@ -64,5 +69,20 @@ class OsUserList
         $order = (isset($_GET['order']) && $_GET['order'] === 'asc') ? 'ASC' : 'DESC';
 
         $query->query_orderby = "ORDER BY i.name " . $order;
+    }
+
+    public function removeSuperAdminFilter(array $views): array
+    {
+        $institution = get_institution_by_manager();
+        if($institution === 0) {
+            return $views;
+        }
+
+        unset($views['super']);
+
+        $totalUsers = Institution::find($institution)->users()->count();
+        $views['all'] = "<a href='#' class='current' aria-current='page'>All <span class='count'>({$totalUsers})</span></a>";
+
+        return $views;
     }
 }
