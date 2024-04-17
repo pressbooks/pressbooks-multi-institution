@@ -370,7 +370,7 @@ msgstr "Para establecer que la institución no tenga un límite, escribe 0."
 
 #: resources/views/institutions/form.blade.php:276
 msgid "Only numbers are allowed."
-msgstr ""
+msgstr "Solo se permiten números."
 
 #: resources/views/institutions/form.blade.php:284
 msgid "Save Changes"
