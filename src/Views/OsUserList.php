@@ -4,6 +4,8 @@ namespace PressbooksMultiInstitution\Views;
 
 use PressbooksMultiInstitution\Models\InstitutionUser;
 
+use function PressbooksMultiInstitution\Support\get_institution_by_manager;
+
 class OsUserList
 {
     public function setupHooks(): void
@@ -13,7 +15,6 @@ class OsUserList
 
         add_filter('manage_users-network_sortable_columns', [$this, 'makeColumnSortable']);
 
-        add_filter('users_list_table_query_args', [$this, 'addQueryArgsSorting']);
         add_action('pre_user_query', [$this, 'modifyUserQuery']);
     }
 
@@ -44,21 +45,21 @@ class OsUserList
         return $columns;
     }
 
-    public function addQueryArgsSorting(array $args): array
-    {
-        return $args;
-    }
-
     public function modifyUserQuery(\WP_User_Query $query): void
     {
         global $pagenow;
-        if (!is_admin() || $pagenow !== 'users.php' || empty($_GET['orderby']) || $_GET['orderby'] !== 'institution') {
+        if (!is_admin() || $pagenow !== 'users.php') {
             return;
         }
 
         global $wpdb;
         $query->query_from .= " LEFT JOIN {$wpdb->base_prefix}institutions_users AS iu ON {$wpdb->users}.ID = iu.user_id";
         $query->query_from .= " LEFT JOIN {$wpdb->base_prefix}institutions AS i ON iu.institution_id = i.id";
+
+        $institution = get_institution_by_manager();
+        if ($institution !== 0) {
+            $query->query_where .= $wpdb->prepare(" AND iu.institution_id = %d", $institution);
+        }
 
         $order = (isset($_GET['order']) && $_GET['order'] === 'asc') ? 'ASC' : 'DESC';
 

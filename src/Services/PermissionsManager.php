@@ -65,7 +65,7 @@ class PermissionsManager
          */
 
         add_filter('can_edit_network', function ($canEdit) use ($allowedBooks) {
-            if (is_network_admin() && !in_array($_REQUEST['id'], $allowedBooks)) {
+            if (is_network_admin() && isset($_REQUEST['id']) && !in_array($_REQUEST['id'], $allowedBooks)) {
                 $canEdit = false;
             }
             return $canEdit;
@@ -188,8 +188,10 @@ class PermissionsManager
         $institutionalUsers = apply_filters('pb_institutional_users', []);
 
         if ($currentPageParam === 'pb_network_analytics_userlist' || $pagenow === 'users.php' || $pagenow === 'user-edit.php') {
-            if (isset($_REQUEST['user_id']) && in_array($_REQUEST['user_id'], $institutionalUsers)) {
-                $isAccessAllowed = true;
+            $isAccessAllowed = true;
+
+            if (isset($_REQUEST['user_id']) && ! in_array($_REQUEST['user_id'], $institutionalUsers)) {
+                $isAccessAllowed = false;
             }
 
             if (isset($_REQUEST['id']) && !in_array($_REQUEST['id'], $institutionalUsers)) {
