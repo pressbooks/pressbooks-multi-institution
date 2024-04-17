@@ -382,7 +382,7 @@ msgstr "Añadir nuevo"
 
 #: resources/views/institutions/totals.blade.php:1
 msgid "Book and User Totals"
-msgstr ""
+msgstr "Totales de libros y usuarios"
 
 #: resources/views/institutions/totals.blade.php:6
 msgid "Type"
