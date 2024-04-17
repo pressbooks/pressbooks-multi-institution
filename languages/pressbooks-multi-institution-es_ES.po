@@ -242,7 +242,7 @@ msgstr "Total de miembro Premium"
 
 #: src/Views/InstitutionsTotals.php:66
 msgid "All Network totals"
-msgstr ""
+msgstr "Total para toda la red"
 
 #: src/Views/UserList.php:33
 msgid "%s's User List"
