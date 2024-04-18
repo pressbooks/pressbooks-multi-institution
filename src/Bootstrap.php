@@ -11,7 +11,7 @@ use PressbooksMultiInstitution\Services\InstitutionStatsService;
 use PressbooksMultiInstitution\Services\MenuManager;
 use PressbooksMultiInstitution\Services\PermissionsManager;
 use PressbooksMultiInstitution\Views\BookList;
-use PressbooksMultiInstitution\Views\OsUserList;
+use PressbooksMultiInstitution\Views\WpUserList;
 use PressbooksMultiInstitution\Views\UserList;
 
 /**
@@ -62,7 +62,7 @@ final class Bootstrap
         );
         add_action('init', [InstitutionalManagerDashboard::class, 'init']);
         add_action('init', fn () => app(InstitutionStatsService::class)->setupHooks());
-        add_action('init', fn () => app(OsUserList::class)->setupHooks());
+        add_action('init', fn () => app(WpUserList::class)->setupHooks());
     }
 
     private function registerBlade(): void

@@ -9,14 +9,14 @@ use WP_User_Query;
 
 use function PressbooksMultiInstitution\Support\get_institution_by_manager;
 
-class OsUserList
+class WpUserList
 {
     public function setupHooks(): void
     {
-        add_filter('wpmu_users_columns', [$this, 'addColumn']);
+        add_filter('wpmu_users_columns', [$this, 'addInstitutionColumn']);
         add_filter('manage_users_custom_column', [$this, 'displayInstitutionValue'], 10, 3);
 
-        add_filter('manage_users-network_sortable_columns', [$this, 'makeColumnSortable']);
+        add_filter('manage_users-network_sortable_columns', [$this, 'makeInstitutionColumnSortable']);
 
         add_action('pre_user_query', [$this, 'modifyUserQuery']);
 
@@ -29,22 +29,21 @@ class OsUserList
             return $value;
         }
 
-        $institution = InstitutionUser::query()
+        return InstitutionUser::query()
             ->where('user_id', $userId)
             ->first()
             ?->institution
-            ->name;
-        return $institution ?? __('Unassigned', 'pressbooks-multi-institution');
+            ->name ?? __('Unassigned', 'pressbooks-multi-institution');
     }
 
-    public function addColumn(array $columns): array
+    public function addInstitutionColumn(array $columns): array
     {
         return array_slice($columns, 0, 4, true) +
             ['institution' => __('Institution', 'pressbooks-multi-institution')] +
             array_slice($columns, 4, null, true);
     }
 
-    public function makeColumnSortable(array $columns): array
+    public function makeInstitutionColumnSortable(array $columns): array
     {
         $columns['institution'] = 'institution';
         return $columns;
@@ -81,7 +80,8 @@ class OsUserList
         unset($views['super']);
 
         $totalUsers = Institution::find($institution)->users()->count();
-        $views['all'] = "<a href='#' class='current' aria-current='page'>All <span class='count'>({$totalUsers})</span></a>";
+        $views['all'] = "<a href='#' class='current' aria-current='page'> " .
+            __('All', 'pressbooks-multi-institution') . " <span class='count'>({$totalUsers})</span></a>";
 
         return $views;
     }
