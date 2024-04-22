@@ -67,6 +67,7 @@ function get_allowed_pages(): array
         'plugins.php',
         'media-new.php',
         'users.php',
+        'user-new.php',
         'export-personal-data.php',
         'erase-personal-data.php',
         'options-privacy.php'
