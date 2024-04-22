@@ -86,21 +86,35 @@ class MenuManager
         if (!is_main_site() || !is_super_admin()) {
             unset($submenu['index.php'][0]);
         }
+
         if (get_institution_by_manager() !== 0) {
-            remove_menu_page($this->getContextSlug('customize.php', true));
-            remove_menu_page($this->getContextSlug('edit.php?post_type=page', true));
-            // Remove the default dashboard page and point to the institutional dashboard
-            foreach ($menu as &$item) {
-                if ($item[2] == network_admin_url('index.php')) {
-                    $item[2] = network_site_url('wp-admin/index.php?page=pb_institutional_manager');
-                    break;
-                }
-            }
-            remove_menu_page($this->getContextSlug('admin.php?page=pb_network_integrations', false));
-            remove_menu_page('settings.php');
-            remove_menu_page('pb_network_integrations');
-            remove_menu_page($this->slug);
+            $this->removeMenuItems($menu);
+
             add_action('admin_bar_menu', [$this, 'modifyAdminBarMenus'], 1000);
+
+            if (count($submenu['users.php']) > 1) {
+                // remove submenu items for users menu
+                $submenu['users.php'] = array_slice($submenu['users.php'], 0, 1);
+            }
+        }
+    }
+
+    private function removeMenuItems(array &$menu): void
+    {
+        remove_menu_page($this->getContextSlug('customize.php', true));
+        remove_menu_page($this->getContextSlug('edit.php?post_type=page', true));
+        remove_menu_page($this->getContextSlug('admin.php?page=pb_network_integrations', false));
+        remove_menu_page('settings.php');
+        remove_menu_page('pb_network_integrations');
+        remove_menu_page($this->slug);
+        remove_menu_page('h5p');
+
+        // Remove the default dashboard page and point to the institutional dashboard
+        foreach ($menu as &$item) {
+            if ($item[2] == network_admin_url('index.php')) {
+                $item[2] = network_site_url('wp-admin/index.php?page=pb_institutional_manager');
+                break;
+            }
         }
     }
 

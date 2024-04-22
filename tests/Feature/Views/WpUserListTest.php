@@ -26,7 +26,7 @@ class WpUserListTest extends TestCase
         $this->assertFalse(has_action('pre_user_query'));
         $this->assertFalse(has_filter('views_users-network'));
 
-        Container::get(WpUserList::class)->setupHooks();
+        Container::get(WpUserList::class)->init();
 
         $this->assertTrue(has_filter('wpmu_users_columns'));
         $this->assertTrue(has_filter('manage_users_custom_column'));
@@ -38,21 +38,43 @@ class WpUserListTest extends TestCase
     /**
      * @test
      */
-    public function it_displays_institution_value(): void
+    public function it_displays_custom_columns_value(): void
     {
         $this->createInstitutionsUsers(1, 1);
 
         $institution = Institution::query()->first();
         $userId =  $institution->users()->first()->user_id;
 
+        $bookId = $this->newBook();
+
+        // assign $userId to $bookId
+        add_user_to_blog($bookId, $userId, 'administrator');
+
+        $wpUserList = Container::get(WpUserList::class);
+
         $this->assertEquals(
             $institution->name,
-            Container::get(WpUserList::class)->displayInstitutionValue('', 'institution', $userId)
+            $wpUserList->displayCustomColumns('', 'institution', $userId)
         );
 
         $this->assertEquals(
             'Unassigned',
-            Container::get(WpUserList::class)->displayInstitutionValue('', 'institution', 99)
+            $wpUserList->displayCustomColumns('', 'institution', 99)
+        );
+
+        $this->assertStringContainsString(
+            '<a href="http://example.org/fakepath/wp-admin">',
+            $wpUserList->displayCustomColumns('', 'books', $userId)
+        );
+
+        $this->assertStringContainsString(
+            '<a href="http://example.org/fakepath/wp-admin">Dashboard</a>',
+            $wpUserList->displayCustomColumns('', 'books', $userId)
+        );
+
+        $this->assertStringContainsString(
+            '<a href="http://example.org/fakepath">View</a>',
+            $wpUserList->displayCustomColumns('', 'books', $userId)
         );
     }
 
@@ -62,11 +84,11 @@ class WpUserListTest extends TestCase
     public function it_adds_institution_column(): void
     {
         $columns = ['name' => 'Name', 'email' => 'Email', 'registered' => 'Registered'];
-        $expected = ['name' => 'Name', 'email' => 'Email', 'institution' => 'Institution', 'registered' => 'Registered'];
+        $expected = ['name' => 'Name', 'email' => 'Email', 'institution' => 'Institution', 'registered' => 'Registered', 'books' => 'Books'];
 
         $this->assertEquals(
             $expected,
-            Container::get(WpUserList::class)->addInstitutionColumn($columns)
+            Container::get(WpUserList::class)->manageTableColumns($columns)
         );
     }
 

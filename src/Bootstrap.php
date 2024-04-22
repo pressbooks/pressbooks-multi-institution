@@ -41,6 +41,7 @@ final class Bootstrap
 
         Container::getInstance()->singleton(BookList::class, fn () => new BookList(app('db')));
         Container::getInstance()->singleton(UserList::class, fn () => new UserList(app('db')));
+        Container::getInstance()->singleton(WpUserList::class, fn () => new WpUserList);
     }
 
     private function registerActions(): void
@@ -62,7 +63,6 @@ final class Bootstrap
         );
         add_action('init', [InstitutionalManagerDashboard::class, 'init']);
         add_action('init', fn () => app(InstitutionStatsService::class)->setupHooks());
-        add_action('init', fn () => app(WpUserList::class)->setupHooks());
     }
 
     private function registerBlade(): void

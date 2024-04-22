@@ -11,10 +11,10 @@ use function PressbooksMultiInstitution\Support\get_institution_by_manager;
 
 class WpUserList
 {
-    public function setupHooks(): void
+    public function init(): void
     {
-        add_filter('wpmu_users_columns', [$this, 'addInstitutionColumn']);
-        add_filter('manage_users_custom_column', [$this, 'displayInstitutionValue'], 10, 3);
+        add_filter('wpmu_users_columns', [$this, 'manageTableColumns']);
+        add_filter('manage_users_custom_column', [$this, 'displayCustomColumns'], 10, 3);
 
         add_filter('manage_users-network_sortable_columns', [$this, 'makeInstitutionColumnSortable']);
 
@@ -23,24 +23,38 @@ class WpUserList
         add_filter('views_users-network', [$this, 'removeSuperAdminFilter']);
     }
 
-    public function displayInstitutionValue(string $value, string $columnName, int $userId): string
+    public function displayCustomColumns(string $value, string $columnName, int $userId): string
     {
-        if ($columnName !== 'institution') {
-            return $value;
-        }
-
-        return InstitutionUser::query()
-            ->where('user_id', $userId)
-            ->first()
-            ?->institution
-            ->name ?? __('Unassigned', 'pressbooks-multi-institution');
+        return match ($columnName) {
+            'institution' => InstitutionUser::query()
+                ->where('user_id', $userId)
+                ->first()
+                ?->institution
+                ->name ?? __('Unassigned', 'pressbooks-multi-institution'),
+            'books' => $this->getBooksColumnValue($userId),
+            default => $value,
+        };
     }
 
-    public function addInstitutionColumn(array $columns): array
+    private function getBooksColumnValue(int $userId): string
     {
+        $blogs = get_blogs_of_user($userId);
+
+        unset($blogs[get_main_site_id()]);
+
+        return app('Blade')->render('PressbooksMultiInstitution::table.wp-users.books-column', [
+            'books' => $blogs,
+        ]);
+    }
+
+    public function manageTableColumns(array $columns): array
+    {
+        unset($columns['blogs']);
+
         return array_slice($columns, 0, 4, true) +
             ['institution' => __('Institution', 'pressbooks-multi-institution')] +
-            array_slice($columns, 4, null, true);
+            array_slice($columns, 4, null, true) +
+            ['books' => __('Books', 'pressbooks-multi-institution')];
     }
 
     public function makeInstitutionColumnSortable(array $columns): array
@@ -73,6 +87,7 @@ class WpUserList
     public function removeSuperAdminFilter(array $views): array
     {
         $institution = get_institution_by_manager();
+
         if($institution === 0) {
             return $views;
         }
