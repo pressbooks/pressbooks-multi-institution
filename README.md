@@ -3,7 +3,9 @@
 **Tags:** pressbooks, plugin \
 **Requires at least:** 6.4.3 \
 **Tested up to:** 6.4.3 \
+<!-- x-release-please-start-version -->
 **Stable tag:** 0.1.0 \
+<!-- x-release-please-end -->
 **License:** GPLv3 or later \
 **License URI:** https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -53,8 +55,5 @@ Blade templates are located in the `resources/views/{namespace}` directory.
 
 Models are located in the `src/Models` directory.
 
-## Changelog
-
-### 0.1.0
-* See: https://github.com/pressbooks/pressbooks-multi-institution/releases/tag/0.1.0
-* Full release history available at: https://github.com/pressbooks/pressbooks-multi-institution/releases
+### Changelog
+Please see the [CHANGELOG](CHANGELOG.md) file for more information.
