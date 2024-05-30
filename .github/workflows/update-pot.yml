@@ -17,3 +17,4 @@ jobs:
       slug: "pressbooks-multi-institution"
       package_name: "Pressbooks Shared Network"
       headers: '{"Report-Msgid-Bugs-To": "https://github.com/pressbooks/pressbooks-multi-institution/issues"}'
+      pull_request_number: ${{ github.event.pull_request.number }}
