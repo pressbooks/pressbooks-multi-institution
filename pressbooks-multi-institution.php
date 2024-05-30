@@ -6,7 +6,9 @@
  * Requires at least: 6.5
  * Requires Plugins: pressbooks
  * Description: Tools for managing Pressbooks networks shared by multiple institutions
+ * x-release-please-start-version
  * Version: 0.1.0
+ * x-release-please-end
  * Author: Pressbooks (Book Oven Inc.)
  * Author URI: https://pressbooks.org
  * Requires PHP: 8.1
