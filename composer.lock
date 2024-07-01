@@ -434,16 +434,16 @@
         },
         {
             "name": "kucrut/vite-for-wp",
-            "version": "v0.9.1",
+            "version": "v0.9.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kucrut/vite-for-wp.git",
-                "reference": "cc5dfb08d0a48730ff62aa3c30074b0f0a36808a"
+                "reference": "df5a0a7f8aae1eed2d03a3fa4d33f5b6a5fb484a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kucrut/vite-for-wp/zipball/cc5dfb08d0a48730ff62aa3c30074b0f0a36808a",
-                "reference": "cc5dfb08d0a48730ff62aa3c30074b0f0a36808a",
+                "url": "https://api.github.com/repos/kucrut/vite-for-wp/zipball/df5a0a7f8aae1eed2d03a3fa4d33f5b6a5fb484a",
+                "reference": "df5a0a7f8aae1eed2d03a3fa4d33f5b6a5fb484a",
                 "shasum": ""
             },
             "require-dev": {
@@ -467,9 +467,9 @@
             "description": "Vite integration for WordPress plugins and themes development.",
             "support": {
                 "issues": "https://github.com/kucrut/vite-for-wp/issues",
-                "source": "https://github.com/kucrut/vite-for-wp/tree/v0.9.1"
+                "source": "https://github.com/kucrut/vite-for-wp/tree/v0.9.3"
             },
-            "time": "2024-06-13T15:52:35+00:00"
+            "time": "2024-06-30T17:46:55+00:00"
         },
         {
             "name": "nesbot/carbon",
