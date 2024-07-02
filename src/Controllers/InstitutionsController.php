@@ -273,6 +273,7 @@ class InstitutionsController extends BaseController
 
         return get_users([
             'blog_id' => 0, // all users from the network
+            'fields' => ['ID', 'display_name', 'user_email'],
             'orderby' => [
                 'display_name',
                 'email',
