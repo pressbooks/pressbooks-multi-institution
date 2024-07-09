@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.0.0...1.0.1) (2024-07-02)
+
+
+### Bug Fixes
+
+* select only required fields in `get_users` ([#184](https://github.com/pressbooks/pressbooks-multi-institution/issues/184)) ([6db9177](https://github.com/pressbooks/pressbooks-multi-institution/commit/6db9177008aa1893fd07324bd48fc521a5265bd6))
+
 ## [1.0.0](https://github.com/pressbooks/pressbooks-multi-institution/compare/v0.1.0...1.0.0) (2024-05-30)
 
 
