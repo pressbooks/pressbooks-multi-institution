@@ -277,8 +277,8 @@ class InstitutionsController extends BaseController
             'fields' => ['ID', 'display_name', 'user_email'],
             'orderby' => [
                 'display_name',
-                'email',
-                'name',
+                'user_email',
+                'user_login',
             ],
             'exclude' => $usersToSkip
         ]);
