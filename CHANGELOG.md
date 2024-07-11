@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.0.1...1.0.2) (2024-07-11)
+
+
+### Bug Fixes
+
+* map object to `WP_User` class ([#187](https://github.com/pressbooks/pressbooks-multi-institution/issues/187)) ([b8213aa](https://github.com/pressbooks/pressbooks-multi-institution/commit/b8213aa2a23b470d288a445e1ec3dc867a71fb00))
+
 ## [1.0.1](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.0.0...1.0.1) (2024-07-02)
 
 

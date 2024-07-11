@@ -7,7 +7,7 @@
  * Requires Plugins: pressbooks
  * Description: Tools for managing Pressbooks networks shared by multiple institutions
  * x-release-please-start-version
- * Version: 1.0.1
+ * Version: 1.0.2
  * x-release-please-end
  * Author: Pressbooks (Book Oven Inc.)
  * Author URI: https://pressbooks.org
