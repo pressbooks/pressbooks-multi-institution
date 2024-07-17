@@ -4,7 +4,7 @@
 **Requires at least:** 6.4.3 \
 **Tested up to:** 6.4.3 \
 <!-- x-release-please-start-version -->
-**Stable tag:** 1.0.2 \
+**Stable tag:** 1.0.3 \
 <!-- x-release-please-end -->
 **License:** GPLv3 or later \
 **License URI:** https://www.gnu.org/licenses/gpl-3.0.html
