@@ -54,7 +54,7 @@ function get_allowed_pages(): array
         'sites.php' => ['confirm', 'delete', 'pb_network_analytics_booklist', 'pb_network_analytics_userlist', 'pb_network_analytics_admin', 'pb_cloner','activateblog','deactivateblog', 'deleteblog'],
         'index.php' => ['', 'book_dashboard', 'pb_institutional_manager', 'pb_home_page', 'pb_catalog','pb_network_page'],
         'tools.php',
-        'users.php' => ['deleteuser','dodelete'],
+        'users.php' => ['deleteuser','dodelete','user_bulk_new','pb_network_analytics_userlist'],
         'admin-ajax.php',
         'options-general.php',
         'profile.php' => [''],
