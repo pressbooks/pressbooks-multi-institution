@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.0.2...1.0.3) (2024-07-17)
+
+
+### Bug Fixes
+
+* allowed pages for institutional manager ([#189](https://github.com/pressbooks/pressbooks-multi-institution/issues/189)) ([430be90](https://github.com/pressbooks/pressbooks-multi-institution/commit/430be905d53de3d48d02d9b7fdc542f277cfb63a))
+
 ## [1.0.2](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.0.1...1.0.2) (2024-07-11)
 
 
