@@ -13,8 +13,6 @@ use PressbooksMultiInstitution\Models\InstitutionUser;
 use PressbooksMultiInstitution\Views\InstitutionsTable;
 use PressbooksMultiInstitution\Views\InstitutionsTotals;
 use PressbooksMultiInstitution\Support\ConvertEmptyStringsToNull;
-use stdClass;
-use WP_User;
 
 use function Pressbooks\Admin\NetworkManagers\is_restricted;
 
@@ -272,7 +270,7 @@ class InstitutionsController extends BaseController
             ->pluck('ID')
             ->toArray();
 
-        $users = get_users([
+        return get_users([
             'blog_id' => 0, // all users from the network
             'fields' => ['ID', 'display_name', 'user_email'],
             'orderby' => [
@@ -282,8 +280,6 @@ class InstitutionsController extends BaseController
             ],
             'exclude' => $usersToSkip
         ]);
-
-        return array_map(fn (stdClass $value) => new WP_User($value), $users);
     }
 
     protected function checkForInvalidDomains(array $domains): array

@@ -206,7 +206,7 @@
 								@else
 									<option
 										value="{{ $user->ID }}"
-										@if($institution->managers->contains(fn (object $institutionUser) => $institutionUser->user_id === $user->ID)))
+										@if($institution->managers->contains(fn (object $institutionUser) => $institutionUser->user_id === (int) $user->ID)))
 										selected
 										@endif
 									>
