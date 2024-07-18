@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.0.3...1.0.4) (2024-07-18)
+
+
+### Bug Fixes
+
+* reduce memory consumption while loading users ([#191](https://github.com/pressbooks/pressbooks-multi-institution/issues/191)) ([d9f7e4a](https://github.com/pressbooks/pressbooks-multi-institution/commit/d9f7e4a96e92b24c7c966a50445a5a3826b51e8f))
+
 ## [1.0.3](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.0.2...1.0.3) (2024-07-17)
 
 
