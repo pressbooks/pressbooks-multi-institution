@@ -333,7 +333,7 @@ msgstr "输入该机构的专用电子邮件域名（例如 shisu.edu.cn）。"
 
 #: resources/views/institutions/form.blade.php:153
 msgid "domain"
-msgstr ""
+msgstr "域名"
 
 #: resources/views/institutions/form.blade.php:163
 msgid "Institutional Managers Allowed"
