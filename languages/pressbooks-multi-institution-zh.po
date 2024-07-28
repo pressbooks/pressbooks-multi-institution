@@ -293,11 +293,11 @@ msgstr "管理网络art"
 
 #: resources/views/dashboard/institutional.blade.php:39
 msgid "View book list"
-msgstr ""
+msgstr "查看书籍列表"
 
 #: resources/views/dashboard/institutional.blade.php:47
 msgid "View user list"
-msgstr ""
+msgstr "查看用户列表"
 
 #: resources/views/dashboard/institutional.blade.php:56
 msgid "Explore Stats"
