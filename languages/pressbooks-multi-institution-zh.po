@@ -215,15 +215,15 @@ msgstr "是"
 
 #: src/Views/InstitutionsTable.php:134
 msgid "No"
-msgstr ""
+msgstr "否"
 
 #: src/Views/InstitutionsTable.php:157
 msgid "Delete"
-msgstr ""
+msgstr "删除"
 
 #: src/Views/InstitutionsTable.php:190 src/Views/InstitutionsTotals.php:45
 msgid "unlimited"
-msgstr ""
+msgstr "w无限"
 
 #: src/Views/InstitutionsTotals.php:52
 msgid "Shared Network Totals"
