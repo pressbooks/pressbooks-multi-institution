@@ -202,16 +202,16 @@ msgstr "机构管理员"
 #: src/Views/InstitutionsTable.php:109
 #: resources/views/institutions/totals.blade.php:7
 msgid "Books"
-msgstr ""
+msgstr "书籍"
 
 #: src/Views/InstitutionsTable.php:110
 #: resources/views/institutions/totals.blade.php:8
 msgid "Users"
-msgstr ""
+msgstr "用户"
 
 #: src/Views/InstitutionsTable.php:133
 msgid "Yes"
-msgstr ""
+msgstr "是"
 
 #: src/Views/InstitutionsTable.php:134
 msgid "No"
