@@ -325,7 +325,7 @@ msgstr "返回机构列表"
 
 #: resources/views/institutions/form.blade.php:56
 msgid "An asterisk (*) indicates a required field"
-msgstr ""
+msgstr "星号 (*) 表示必填字段"
 
 #: resources/views/institutions/form.blade.php:92
 msgid "Enter exclusive email domains for this institution (e.g. utopia.edu)."
