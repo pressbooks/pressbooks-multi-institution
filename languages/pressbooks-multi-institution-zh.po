@@ -369,11 +369,11 @@ msgstr "新加"
 
 #: resources/views/institutions/totals.blade.php:1
 msgid "Book and User Totals"
-msgstr ""
+msgstr "书籍和用户总数"
 
 #: resources/views/institutions/totals.blade.php:6
 msgid "Type"
-msgstr ""
+msgstr "类型"
 
 #: resources/views/partials/errors/duplicate-domain.blade.php:1
 msgid "The email domain %s is already in use with %s."
