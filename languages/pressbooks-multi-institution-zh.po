@@ -361,11 +361,11 @@ msgstr "只允许数字。"
 
 #: resources/views/institutions/form.blade.php:284
 msgid "Save Changes"
-msgstr ""
+msgstr "保存更改"
 
 #: resources/views/institutions/index.blade.php:20
 msgid "Add new"
-msgstr ""
+msgstr "新加"
 
 #: resources/views/institutions/totals.blade.php:1
 msgid "Book and User Totals"
