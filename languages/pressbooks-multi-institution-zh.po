@@ -387,7 +387,7 @@ msgstr "请使用不同的Email。"
 msgid ""
 "%s is already assigned as an institutional manager for %s. They cannot be "
 "assigned to manage two institutions at the same time."
-msgstr ""
+msgstr "%s已被指定为%s的机构经理。他们不能同时被指定管理两个机构。"
 
 #: resources/views/partials/errors/duplicate-name.blade.php:2
 msgid "An institution with the name %s already exists."
