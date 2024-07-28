@@ -158,12 +158,12 @@ msgstr "书籍管理员"
 
 #: src/Views/AssignUsersTable.php:37
 msgid "Username"
-msgstr ""
+msgstr "用户名"
 
 #: src/Views/AssignUsersTable.php:38 src/Views/InstitutionsTable.php:104
 #: resources/views/institutions/form.blade.php:72
 msgid "Name"
-msgstr ""
+msgstr "名称"
 
 #: src/Views/AssignUsersTable.php:39
 msgid "Email"
