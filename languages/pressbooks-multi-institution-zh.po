@@ -126,7 +126,7 @@ msgstr "管理机构"
 
 #: src/Services/PermissionsManager.php:95
 msgid "Sorry, you are not allowed to access this page."
-msgstr ""
+msgstr "抱歉，您无权访问此页面。"
 
 #: src/Traits/OverridesBulkActions.php:14 src/Views/AssignUsersTable.php:74
 #: src/Views/BaseInstitutionList.php:108 src/Views/InstitutionsTotals.php:33
@@ -134,11 +134,11 @@ msgstr ""
 #: resources/views/partials/filters/institutions/content.blade.php:14
 #: resources/views/table/institution.blade.php:1
 msgid "Unassigned"
-msgstr ""
+msgstr "未分配"
 
 #: src/Views/AssignBooksTable.php:33
 msgid "Cover"
-msgstr ""
+msgstr "封面"
 
 #: src/Views/AssignBooksTable.php:34
 msgid "Title"
