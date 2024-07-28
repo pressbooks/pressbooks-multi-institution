@@ -1,0 +1,415 @@
+# Copyright (C) 2024 Pressbooks (Book Oven Inc.)
+# This file is distributed under the GPL v3 or later.
+# Translators:
+# fish free <winofchina@hotmail.com>, 2024
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Pressbooks Shared Network 1.0.3\n"
+"Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-multi-institution/issues\n"
+"POT-Creation-Date: 2024-07-18T21:42:53+00:00\n"
+"PO-Revision-Date: 2024-02-19 22:27+0000\n"
+"Last-Translator: fish free <winofchina@hotmail.com>, 2024\n"
+"Language-Team: Chinese (https://app.transifex.com/pressbooks/teams/9194/zh/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Domain: pressbooks-multi-institution\n"
+"X-Generator: WP-CLI 2.10.0\n"
+
+#. Plugin Name of the plugin
+#: pressbooks-multi-institution.php
+msgid "Pressbooks Shared Network"
+msgstr "Pressbooks共享网络"
+
+#. Plugin URI of the plugin
+#: pressbooks-multi-institution.php
+msgid "https://github.com/pressbooks/pressbooks-multi-institution"
+msgstr "https://github.com/pressbooks/pressbooks-multi-institution"
+
+#. Description of the plugin
+#: pressbooks-multi-institution.php
+msgid "Tools for managing Pressbooks networks shared by multiple institutions"
+msgstr "用于管理多个机构共享的 Pressbooks 网络的工具"
+
+#. Author of the plugin
+#: pressbooks-multi-institution.php
+msgid "Pressbooks (Book Oven Inc.)"
+msgstr "Pressbooks (Book Oven Inc.)"
+
+#. Author URI of the plugin
+#: pressbooks-multi-institution.php
+msgid "https://pressbooks.org"
+msgstr "https://pressbooks.org"
+
+#: src/Bootstrap.php:80
+msgid "Are you sure you want to delete the selected institutions?"
+msgstr "您确实要删除选定的机构吗？"
+
+#: src/Controllers/AssignBooksController.php:34
+#: src/Services/MenuManager.php:67 src/Services/MenuManager.php:68
+msgid "Assign Books"
+msgstr "分配书籍"
+
+#: src/Controllers/AssignBooksController.php:66
+#: src/Controllers/AssignBooksController.php:88
+msgid "Book updated."
+msgid_plural "Books updated."
+msgstr[0] "书籍已更新。"
+
+#: src/Controllers/AssignBooksController.php:75
+#: src/Controllers/AssignUsersController.php:74
+msgid "Institution not found."
+msgstr "未找到机构。"
+
+#: src/Controllers/AssignUsersController.php:33
+#: src/Services/MenuManager.php:56 src/Services/MenuManager.php:57
+msgid "Assign Users"
+msgstr "分配用户"
+
+#: src/Controllers/AssignUsersController.php:60
+msgid "User updated."
+msgid_plural "Users updated."
+msgstr[0] "用户已更新。"
+
+#: src/Controllers/InstitutionsController.php:101
+msgid "Action completed."
+msgstr "操作已完成。"
+
+#: src/Controllers/InstitutionsController.php:126
+msgid "The form is invalid."
+msgstr "此表单无效。"
+
+#: src/Controllers/InstitutionsController.php:172
+msgid "Institution has been added."
+msgstr "机构已添加。"
+
+#: src/Controllers/InstitutionsController.php:173
+msgid "Institution has been updated."
+msgstr "机构已更新。"
+
+#: src/Controllers/InstitutionsController.php:200
+msgid "The name field is required."
+msgstr "名称字段必填。"
+
+#: src/Controllers/InstitutionsController.php:210
+msgid "The book limit field should be numeric."
+msgstr "书籍限制字段必须为数值。"
+
+#: src/Services/InstitutionStatsService.php:39
+#: src/Services/MenuManager.php:162
+msgid "%s Stats"
+msgstr "%s状态"
+
+#: src/Services/MenuManager.php:22 src/Services/MenuManager.php:23
+msgid "Institutions"
+msgstr "机构"
+
+#: src/Services/MenuManager.php:34 src/Services/MenuManager.php:35
+#: resources/views/institutions/index.blade.php:18
+msgid "Institution List"
+msgstr "机构列表"
+
+#: src/Services/MenuManager.php:45 src/Services/MenuManager.php:46
+msgid "Add Institution"
+msgstr "添加机构"
+
+#: src/Services/MenuManager.php:45
+msgid "Edit Institution"
+msgstr "编辑机构"
+
+#: src/Services/MenuManager.php:114
+msgid "Administer Institution"
+msgstr "管理机构"
+
+#: src/Services/PermissionsManager.php:95
+msgid "Sorry, you are not allowed to access this page."
+msgstr ""
+
+#: src/Traits/OverridesBulkActions.php:14 src/Views/AssignUsersTable.php:74
+#: src/Views/BaseInstitutionList.php:108 src/Views/InstitutionsTotals.php:33
+#: resources/views/assign/index.blade.php:58
+#: resources/views/partials/filters/institutions/content.blade.php:14
+#: resources/views/table/institution.blade.php:1
+msgid "Unassigned"
+msgstr ""
+
+#: src/Views/AssignBooksTable.php:33
+msgid "Cover"
+msgstr ""
+
+#: src/Views/AssignBooksTable.php:34
+msgid "Title"
+msgstr ""
+
+#: src/Views/AssignBooksTable.php:35 src/Views/AssignUsersTable.php:40
+#: src/Views/BookList.php:27 src/Views/UserList.php:51
+#: resources/views/institutions/form.blade.php:49
+#: resources/views/partials/filters/institutions/content.blade.php:3
+#: resources/views/partials/filters/institutions/tab.blade.php:3
+msgid "Institution"
+msgstr ""
+
+#: src/Views/AssignBooksTable.php:36
+msgid "Book Administrators"
+msgstr ""
+
+#: src/Views/AssignUsersTable.php:37
+msgid "Username"
+msgstr ""
+
+#: src/Views/AssignUsersTable.php:38 src/Views/InstitutionsTable.php:104
+#: resources/views/institutions/form.blade.php:72
+msgid "Name"
+msgstr ""
+
+#: src/Views/AssignUsersTable.php:39
+msgid "Email"
+msgstr ""
+
+#: src/Views/BookList.php:64
+msgid "%s' Book List"
+msgstr ""
+
+#: src/Views/BookList.php:65
+msgid "%s's Book List"
+msgstr ""
+
+#: src/Views/BookList.php:69
+msgid "There are %d books owned by %s. They use %s of storage."
+msgstr ""
+
+#: src/Views/InstitutionsTable.php:73
+msgid "Are you sure you want to delete this?"
+msgstr ""
+
+#: src/Views/InstitutionsTable.php:105
+#: resources/views/institutions/form.blade.php:88
+msgid "Email Domains"
+msgstr ""
+
+#: src/Views/InstitutionsTable.php:106
+msgid "Buy-in"
+msgstr ""
+
+#: src/Views/InstitutionsTable.php:108
+#: resources/views/institutions/form.blade.php:184
+msgid "Institutional Managers"
+msgstr ""
+
+#: src/Views/InstitutionsTable.php:109
+#: resources/views/institutions/totals.blade.php:7
+msgid "Books"
+msgstr ""
+
+#: src/Views/InstitutionsTable.php:110
+#: resources/views/institutions/totals.blade.php:8
+msgid "Users"
+msgstr ""
+
+#: src/Views/InstitutionsTable.php:133
+msgid "Yes"
+msgstr ""
+
+#: src/Views/InstitutionsTable.php:134
+msgid "No"
+msgstr ""
+
+#: src/Views/InstitutionsTable.php:157
+msgid "Delete"
+msgstr ""
+
+#: src/Views/InstitutionsTable.php:190 src/Views/InstitutionsTotals.php:45
+msgid "unlimited"
+msgstr ""
+
+#: src/Views/InstitutionsTotals.php:52
+msgid "Shared Network Totals"
+msgstr ""
+
+#: src/Views/InstitutionsTotals.php:59
+msgid "Premium Member Totals"
+msgstr ""
+
+#: src/Views/InstitutionsTotals.php:66
+msgid "All Network totals"
+msgstr ""
+
+#: src/Views/UserList.php:33
+msgid "%s's User List"
+msgstr ""
+
+#: src/Views/UserList.php:35
+msgid "There is %s user assigned to %s."
+msgid_plural "There are %s users assigned to %s."
+msgstr[0] ""
+
+#: resources/views/assign/index.blade.php:24
+#: resources/views/institutions/index.blade.php:25
+msgid "Showing results for: %s"
+msgstr ""
+
+#: resources/views/assign/index.blade.php:27
+#: resources/views/institutions/index.blade.php:27
+msgid "Clear filters"
+msgstr ""
+
+#: resources/views/assign/index.blade.php:35
+#: resources/views/assign/index.blade.php:37
+#: resources/views/institutions/index.blade.php:35
+#: resources/views/institutions/index.blade.php:37
+msgid "Search"
+msgstr ""
+
+#: resources/views/assign/index.blade.php:51
+msgid "All"
+msgstr ""
+
+#: resources/views/dashboard/institutional.blade.php:6
+msgid "Institutional Manager Dashboard"
+msgstr ""
+
+#: resources/views/dashboard/institutional.blade.php:8
+msgid "Welcome to"
+msgstr ""
+
+#: resources/views/dashboard/institutional.blade.php:13
+msgid "Visit network homepage"
+msgstr ""
+
+#: resources/views/dashboard/institutional.blade.php:17
+msgid "%s has %s books and %s users. "
+msgstr ""
+
+#: resources/views/dashboard/institutional.blade.php:24
+msgid "Administer"
+msgstr ""
+
+#: resources/views/dashboard/institutional.blade.php:30
+msgid "Administer network art"
+msgstr ""
+
+#: resources/views/dashboard/institutional.blade.php:39
+msgid "View book list"
+msgstr ""
+
+#: resources/views/dashboard/institutional.blade.php:47
+msgid "View user list"
+msgstr ""
+
+#: resources/views/dashboard/institutional.blade.php:56
+msgid "Explore Stats"
+msgstr ""
+
+#: resources/views/institutions/form.blade.php:14
+msgid "Success"
+msgstr ""
+
+#: resources/views/institutions/form.blade.php:17
+msgid "Error"
+msgstr ""
+
+#: resources/views/institutions/form.blade.php:42
+msgid "Edit"
+msgstr ""
+
+#: resources/views/institutions/form.blade.php:45
+msgid "Add"
+msgstr ""
+
+#: resources/views/institutions/form.blade.php:53
+msgid "Back to Institution List"
+msgstr ""
+
+#: resources/views/institutions/form.blade.php:56
+msgid "An asterisk (*) indicates a required field"
+msgstr ""
+
+#: resources/views/institutions/form.blade.php:92
+msgid "Enter exclusive email domains for this institution (e.g. utopia.edu)."
+msgstr ""
+
+#: resources/views/institutions/form.blade.php:153
+msgid "domain"
+msgstr ""
+
+#: resources/views/institutions/form.blade.php:163
+msgid "Institutional Managers Allowed"
+msgstr ""
+
+#: resources/views/institutions/form.blade.php:188
+msgid "Enter username or email to find existing user(s). Limit 3."
+msgstr ""
+
+#: resources/views/institutions/form.blade.php:237
+msgid "Premium Member Buy-in"
+msgstr ""
+
+#: resources/views/institutions/form.blade.php:257
+msgid "Book Limit"
+msgstr ""
+
+#: resources/views/institutions/form.blade.php:261
+msgid "For an unlimited institution, enter 0."
+msgstr ""
+
+#: resources/views/institutions/form.blade.php:276
+msgid "Only numbers are allowed."
+msgstr ""
+
+#: resources/views/institutions/form.blade.php:284
+msgid "Save Changes"
+msgstr ""
+
+#: resources/views/institutions/index.blade.php:20
+msgid "Add new"
+msgstr ""
+
+#: resources/views/institutions/totals.blade.php:1
+msgid "Book and User Totals"
+msgstr ""
+
+#: resources/views/institutions/totals.blade.php:6
+msgid "Type"
+msgstr ""
+
+#: resources/views/partials/errors/duplicate-domain.blade.php:1
+msgid "The email domain %s is already in use with %s."
+msgstr ""
+
+#: resources/views/partials/errors/duplicate-domain.blade.php:3
+msgid "Please use a different address."
+msgstr ""
+
+#: resources/views/partials/errors/duplicate-manager.blade.php:1
+msgid ""
+"%s is already assigned as an institutional manager for %s. They cannot be "
+"assigned to manage two institutions at the same time."
+msgstr ""
+
+#: resources/views/partials/errors/duplicate-name.blade.php:2
+msgid "An institution with the name %s already exists."
+msgstr ""
+
+#: resources/views/partials/errors/duplicate-name.blade.php:4
+msgid "Please use a different name."
+msgstr ""
+
+#: resources/views/partials/errors/invalid-domains.blade.php:6
+msgid "The following entry contained invalid content:"
+msgid_plural "The following entries contained invalid content:"
+msgstr[0] ""
+
+#: resources/views/partials/errors/invalid-domains.blade.php:18
+msgid "Please correct the invalid content and resubmit the form."
+msgstr ""
+
+#: resources/views/table/book-admins.blade.php:8
+msgid "No institution assigned"
+msgstr ""
+
+#: resources/views/table/bulk-actions.blade.php:6
+msgid "- Set Institution -"
+msgstr ""
