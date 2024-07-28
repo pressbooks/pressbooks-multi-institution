@@ -175,7 +175,7 @@ msgstr "%s的书籍列表"
 
 #: src/Views/BookList.php:65
 msgid "%s's Book List"
-msgstr ""
+msgstr "%s的书籍列表"
 
 #: src/Views/BookList.php:69
 msgid "There are %d books owned by %s. They use %s of storage."
