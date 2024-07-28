@@ -249,7 +249,7 @@ msgstr[0] "有%s个用户分配给了%s。"
 #: resources/views/assign/index.blade.php:24
 #: resources/views/institutions/index.blade.php:25
 msgid "Showing results for: %s"
-msgstr ""
+msgstr "显示%s的结果："
 
 #: resources/views/assign/index.blade.php:27
 #: resources/views/institutions/index.blade.php:27
