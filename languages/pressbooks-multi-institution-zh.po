@@ -239,7 +239,7 @@ msgstr "所有网络总数"
 
 #: src/Views/UserList.php:33
 msgid "%s's User List"
-msgstr ""
+msgstr "%s的用户列表"
 
 #: src/Views/UserList.php:35
 msgid "There is %s user assigned to %s."
