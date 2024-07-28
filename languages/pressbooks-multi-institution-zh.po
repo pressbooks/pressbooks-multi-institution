@@ -179,7 +179,7 @@ msgstr "%s的书籍列表"
 
 #: src/Views/BookList.php:69
 msgid "There are %d books owned by %s. They use %s of storage."
-msgstr ""
+msgstr "%s拥有本书，占用了%d空间。"
 
 #: src/Views/InstitutionsTable.php:73
 msgid "Are you sure you want to delete this?"
