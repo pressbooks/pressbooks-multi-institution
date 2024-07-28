@@ -377,7 +377,7 @@ msgstr "类型"
 
 #: resources/views/partials/errors/duplicate-domain.blade.php:1
 msgid "The email domain %s is already in use with %s."
-msgstr ""
+msgstr "此电子邮件域名%s已被%s使用。"
 
 #: resources/views/partials/errors/duplicate-domain.blade.php:3
 msgid "Please use a different address."
