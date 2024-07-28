@@ -400,7 +400,7 @@ msgstr "请使用不同的名称。"
 #: resources/views/partials/errors/invalid-domains.blade.php:6
 msgid "The following entry contained invalid content:"
 msgid_plural "The following entries contained invalid content:"
-msgstr[0] ""
+msgstr[0] "以下条目包含无效内容："
 
 #: resources/views/partials/errors/invalid-domains.blade.php:18
 msgid "Please correct the invalid content and resubmit the form."
