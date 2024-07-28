@@ -254,18 +254,18 @@ msgstr "显示%s的结果："
 #: resources/views/assign/index.blade.php:27
 #: resources/views/institutions/index.blade.php:27
 msgid "Clear filters"
-msgstr ""
+msgstr "清除过滤条件"
 
 #: resources/views/assign/index.blade.php:35
 #: resources/views/assign/index.blade.php:37
 #: resources/views/institutions/index.blade.php:35
 #: resources/views/institutions/index.blade.php:37
 msgid "Search"
-msgstr ""
+msgstr "搜索"
 
 #: resources/views/assign/index.blade.php:51
 msgid "All"
-msgstr ""
+msgstr "所有"
 
 #: resources/views/dashboard/institutional.blade.php:6
 msgid "Institutional Manager Dashboard"
