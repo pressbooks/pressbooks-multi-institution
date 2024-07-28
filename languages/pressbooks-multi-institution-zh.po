@@ -395,7 +395,7 @@ msgstr "%s同名的机构已存在。"
 
 #: resources/views/partials/errors/duplicate-name.blade.php:4
 msgid "Please use a different name."
-msgstr ""
+msgstr "请使用不同的名称。"
 
 #: resources/views/partials/errors/invalid-domains.blade.php:6
 msgid "The following entry contained invalid content:"
