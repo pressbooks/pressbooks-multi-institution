@@ -313,11 +313,11 @@ msgstr "错误"
 
 #: resources/views/institutions/form.blade.php:42
 msgid "Edit"
-msgstr ""
+msgstr "编辑"
 
 #: resources/views/institutions/form.blade.php:45
 msgid "Add"
-msgstr ""
+msgstr "添加"
 
 #: resources/views/institutions/form.blade.php:53
 msgid "Back to Institution List"
