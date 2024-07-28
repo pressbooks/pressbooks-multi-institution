@@ -404,7 +404,7 @@ msgstr[0] "以下条目包含无效内容："
 
 #: resources/views/partials/errors/invalid-domains.blade.php:18
 msgid "Please correct the invalid content and resubmit the form."
-msgstr ""
+msgstr "请更正无效内容并重新提交表单。"
 
 #: resources/views/table/book-admins.blade.php:8
 msgid "No institution assigned"
