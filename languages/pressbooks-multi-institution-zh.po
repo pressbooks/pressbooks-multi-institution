@@ -192,12 +192,12 @@ msgstr "编辑领域"
 
 #: src/Views/InstitutionsTable.php:106
 msgid "Buy-in"
-msgstr ""
+msgstr "买入"
 
 #: src/Views/InstitutionsTable.php:108
 #: resources/views/institutions/form.blade.php:184
 msgid "Institutional Managers"
-msgstr ""
+msgstr "机构管理员"
 
 #: src/Views/InstitutionsTable.php:109
 #: resources/views/institutions/totals.blade.php:7
