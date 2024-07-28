@@ -345,11 +345,11 @@ msgstr "输入用户名或电子邮件以查找现有用户。最多3人。"
 
 #: resources/views/institutions/form.blade.php:237
 msgid "Premium Member Buy-in"
-msgstr ""
+msgstr "收费用户买入"
 
 #: resources/views/institutions/form.blade.php:257
 msgid "Book Limit"
-msgstr ""
+msgstr "书籍限制"
 
 #: resources/views/institutions/form.blade.php:261
 msgid "For an unlimited institution, enter 0."
