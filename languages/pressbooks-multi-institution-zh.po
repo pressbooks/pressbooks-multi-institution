@@ -381,7 +381,7 @@ msgstr "此电子邮件域名%s已被%s使用。"
 
 #: resources/views/partials/errors/duplicate-domain.blade.php:3
 msgid "Please use a different address."
-msgstr ""
+msgstr "请使用不同的Email。"
 
 #: resources/views/partials/errors/duplicate-manager.blade.php:1
 msgid ""
