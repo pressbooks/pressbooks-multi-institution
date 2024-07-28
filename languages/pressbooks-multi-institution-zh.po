@@ -408,7 +408,7 @@ msgstr "请更正无效内容并重新提交表单。"
 
 #: resources/views/table/book-admins.blade.php:8
 msgid "No institution assigned"
-msgstr ""
+msgstr "未指定机构"
 
 #: resources/views/table/bulk-actions.blade.php:6
 msgid "- Set Institution -"
