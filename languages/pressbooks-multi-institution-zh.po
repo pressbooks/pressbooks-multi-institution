@@ -244,7 +244,7 @@ msgstr "%s的用户列表"
 #: src/Views/UserList.php:35
 msgid "There is %s user assigned to %s."
 msgid_plural "There are %s users assigned to %s."
-msgstr[0] "有%s个用户分配给了%s。"
+msgstr[0] "有%s个用户指定给了%s。"
 
 #: resources/views/assign/index.blade.php:24
 #: resources/views/institutions/index.blade.php:25
