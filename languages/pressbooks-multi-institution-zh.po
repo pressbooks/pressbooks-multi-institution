@@ -188,7 +188,7 @@ msgstr "您确认要删除此项吗？"
 #: src/Views/InstitutionsTable.php:105
 #: resources/views/institutions/form.blade.php:88
 msgid "Email Domains"
-msgstr ""
+msgstr "编辑领域"
 
 #: src/Views/InstitutionsTable.php:106
 msgid "Buy-in"
