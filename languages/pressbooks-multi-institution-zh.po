@@ -391,7 +391,7 @@ msgstr "%s已被指定为%s的机构经理。他们不能同时被指定管理�
 
 #: resources/views/partials/errors/duplicate-name.blade.php:2
 msgid "An institution with the name %s already exists."
-msgstr ""
+msgstr "%s同名的机构已存在。"
 
 #: resources/views/partials/errors/duplicate-name.blade.php:4
 msgid "Please use a different name."
