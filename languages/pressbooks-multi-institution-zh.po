@@ -329,7 +329,7 @@ msgstr "星号 (*) 表示必填字段"
 
 #: resources/views/institutions/form.blade.php:92
 msgid "Enter exclusive email domains for this institution (e.g. utopia.edu)."
-msgstr ""
+msgstr "输入该机构的专用电子邮件域名（例如 shisu.edu.cn）。"
 
 #: resources/views/institutions/form.blade.php:153
 msgid "domain"
