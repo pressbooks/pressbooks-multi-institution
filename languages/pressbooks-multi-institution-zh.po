@@ -337,7 +337,7 @@ msgstr "域名"
 
 #: resources/views/institutions/form.blade.php:163
 msgid "Institutional Managers Allowed"
-msgstr ""
+msgstr "允许的机构管理员"
 
 #: resources/views/institutions/form.blade.php:188
 msgid "Enter username or email to find existing user(s). Limit 3."
