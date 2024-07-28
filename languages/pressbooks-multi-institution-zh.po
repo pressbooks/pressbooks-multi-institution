@@ -231,11 +231,11 @@ msgstr "贡献网络总数"
 
 #: src/Views/InstitutionsTotals.php:59
 msgid "Premium Member Totals"
-msgstr ""
+msgstr "收费用户总数"
 
 #: src/Views/InstitutionsTotals.php:66
 msgid "All Network totals"
-msgstr ""
+msgstr "所有网络总数"
 
 #: src/Views/UserList.php:33
 msgid "%s's User List"
