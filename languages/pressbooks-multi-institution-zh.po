@@ -281,7 +281,7 @@ msgstr "访问网络首页"
 
 #: resources/views/dashboard/institutional.blade.php:17
 msgid "%s has %s books and %s users. "
-msgstr ""
+msgstr "%s有%s本书和%s个用户。"
 
 #: resources/views/dashboard/institutional.blade.php:24
 msgid "Administer"
