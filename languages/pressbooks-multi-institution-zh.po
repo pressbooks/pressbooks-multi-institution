@@ -227,7 +227,7 @@ msgstr "w无限"
 
 #: src/Views/InstitutionsTotals.php:52
 msgid "Shared Network Totals"
-msgstr ""
+msgstr "贡献网络总数"
 
 #: src/Views/InstitutionsTotals.php:59
 msgid "Premium Member Totals"
