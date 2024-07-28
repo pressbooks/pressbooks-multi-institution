@@ -142,7 +142,7 @@ msgstr "封面"
 
 #: src/Views/AssignBooksTable.php:34
 msgid "Title"
-msgstr ""
+msgstr "标题"
 
 #: src/Views/AssignBooksTable.php:35 src/Views/AssignUsersTable.php:40
 #: src/Views/BookList.php:27 src/Views/UserList.php:51
@@ -150,11 +150,11 @@ msgstr ""
 #: resources/views/partials/filters/institutions/content.blade.php:3
 #: resources/views/partials/filters/institutions/tab.blade.php:3
 msgid "Institution"
-msgstr ""
+msgstr "机构"
 
 #: src/Views/AssignBooksTable.php:36
 msgid "Book Administrators"
-msgstr ""
+msgstr "书籍管理员"
 
 #: src/Views/AssignUsersTable.php:37
 msgid "Username"
