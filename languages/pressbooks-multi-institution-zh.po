@@ -353,7 +353,7 @@ msgstr "书籍限制"
 
 #: resources/views/institutions/form.blade.php:261
 msgid "For an unlimited institution, enter 0."
-msgstr ""
+msgstr "填入0表示无限制"
 
 #: resources/views/institutions/form.blade.php:276
 msgid "Only numbers are allowed."
