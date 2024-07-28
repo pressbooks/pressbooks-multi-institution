@@ -269,7 +269,7 @@ msgstr "所有"
 
 #: resources/views/dashboard/institutional.blade.php:6
 msgid "Institutional Manager Dashboard"
-msgstr ""
+msgstr "机构管理员仪表盘"
 
 #: resources/views/dashboard/institutional.blade.php:8
 msgid "Welcome to"
