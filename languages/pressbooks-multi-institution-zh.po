@@ -412,4 +412,4 @@ msgstr "未指定机构"
 
 #: resources/views/table/bulk-actions.blade.php:6
 msgid "- Set Institution -"
-msgstr ""
+msgstr "- 设置机构 -"
