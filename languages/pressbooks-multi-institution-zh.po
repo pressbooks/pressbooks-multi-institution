@@ -273,11 +273,11 @@ msgstr "机构管理员仪表盘"
 
 #: resources/views/dashboard/institutional.blade.php:8
 msgid "Welcome to"
-msgstr ""
+msgstr "欢迎来到"
 
 #: resources/views/dashboard/institutional.blade.php:13
 msgid "Visit network homepage"
-msgstr ""
+msgstr "访问网络首页"
 
 #: resources/views/dashboard/institutional.blade.php:17
 msgid "%s has %s books and %s users. "
