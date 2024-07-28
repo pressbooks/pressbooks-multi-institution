@@ -167,11 +167,11 @@ msgstr "名称"
 
 #: src/Views/AssignUsersTable.php:39
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: src/Views/BookList.php:64
 msgid "%s' Book List"
-msgstr ""
+msgstr "%s的书籍列表"
 
 #: src/Views/BookList.php:65
 msgid "%s's Book List"
