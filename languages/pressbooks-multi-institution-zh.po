@@ -51,7 +51,7 @@ msgstr "您确实要删除选定的机构吗？"
 #: src/Controllers/AssignBooksController.php:34
 #: src/Services/MenuManager.php:67 src/Services/MenuManager.php:68
 msgid "Assign Books"
-msgstr "分配书籍"
+msgstr "指定书籍"
 
 #: src/Controllers/AssignBooksController.php:66
 #: src/Controllers/AssignBooksController.php:88
