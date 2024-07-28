@@ -357,7 +357,7 @@ msgstr "填入0表示无限制"
 
 #: resources/views/institutions/form.blade.php:276
 msgid "Only numbers are allowed."
-msgstr ""
+msgstr "只允许数字。"
 
 #: resources/views/institutions/form.blade.php:284
 msgid "Save Changes"
