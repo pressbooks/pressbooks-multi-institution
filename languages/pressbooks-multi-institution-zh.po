@@ -183,7 +183,7 @@ msgstr "%s拥有本书，占用了%d空间。"
 
 #: src/Views/InstitutionsTable.php:73
 msgid "Are you sure you want to delete this?"
-msgstr ""
+msgstr "您确认要删除此项吗？"
 
 #: src/Views/InstitutionsTable.php:105
 #: resources/views/institutions/form.blade.php:88
