@@ -301,15 +301,15 @@ msgstr "查看用户列表"
 
 #: resources/views/dashboard/institutional.blade.php:56
 msgid "Explore Stats"
-msgstr ""
+msgstr "查看状态"
 
 #: resources/views/institutions/form.blade.php:14
 msgid "Success"
-msgstr ""
+msgstr "成功"
 
 #: resources/views/institutions/form.blade.php:17
 msgid "Error"
-msgstr ""
+msgstr "错误"
 
 #: resources/views/institutions/form.blade.php:42
 msgid "Edit"
