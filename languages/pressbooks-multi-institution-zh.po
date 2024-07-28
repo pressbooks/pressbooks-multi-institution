@@ -341,7 +341,7 @@ msgstr "允许的机构管理员"
 
 #: resources/views/institutions/form.blade.php:188
 msgid "Enter username or email to find existing user(s). Limit 3."
-msgstr ""
+msgstr "输入用户名或电子邮件以查找现有用户。限制 3。"
 
 #: resources/views/institutions/form.blade.php:237
 msgid "Premium Member Buy-in"
