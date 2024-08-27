@@ -18,6 +18,9 @@ class MenuManager
 
     public function registerMenus(): void
     {
+        if(!is_main_site() && !is_network_admin()) {
+            return;
+        }
         add_menu_page(
             page_title: __('Institutions', 'pressbooks-multi-institution'),
             menu_title: __('Institutions', 'pressbooks-multi-institution'),
