@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.5](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.0.4...1.0.5) (2024-08-27)
+
+
+### Bug Fixes
+
+* institutions menu scope ([#200](https://github.com/pressbooks/pressbooks-multi-institution/issues/200)) ([15cdd5a](https://github.com/pressbooks/pressbooks-multi-institution/commit/15cdd5ad59ee9ecdca58720ee79b10c6d6241b76))
+
 ## [1.0.4](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.0.3...1.0.4) (2024-07-18)
 
 
