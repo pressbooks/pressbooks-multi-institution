@@ -70,7 +70,7 @@ trait CreatesModels
 
         $blog = $this->factory()->blog->create($properties);
 
-        if(!isset($properties['no_collector'])) {
+        if (!isset($properties['no_collector'])) {
             DataCollector::init()->copyBookMetaIntoSiteTable($blog);
         }
 

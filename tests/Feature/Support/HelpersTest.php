@@ -3,7 +3,6 @@
 namespace Tests\Feature\Support;
 
 use Tests\TestCase;
-
 use Tests\Traits\CreatesModels;
 
 use function PressbooksMultiInstitution\Support\get_institution_by_manager;
