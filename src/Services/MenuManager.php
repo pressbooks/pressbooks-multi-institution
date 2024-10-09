@@ -18,7 +18,7 @@ class MenuManager
 
     public function registerMenus(): void
     {
-        if(!is_main_site() && !is_network_admin()) {
+        if (!is_main_site() && !is_network_admin()) {
             return;
         }
         add_menu_page(

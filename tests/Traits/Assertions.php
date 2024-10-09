@@ -57,7 +57,7 @@ trait Assertions
 
                 $closure = new ReflectionFunction($callback['function']);
 
-                if($closure->getClosureScopeClass()?->getName() === $expectedClass) {
+                if ($closure->getClosureScopeClass()?->getName() === $expectedClass) {
                     $hasHandler = true;
 
                     break;

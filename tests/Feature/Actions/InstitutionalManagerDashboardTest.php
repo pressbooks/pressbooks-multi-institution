@@ -1,7 +1,6 @@
 <?php
 
 use PressbooksMultiInstitution\Actions\InstitutionalManagerDashboard;
-
 use Tests\TestCase;
 use Tests\Traits\CreatesModels;
 
