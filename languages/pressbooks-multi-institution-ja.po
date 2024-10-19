@@ -369,7 +369,7 @@ msgstr "新規追加"
 
 #: resources/views/institutions/totals.blade.php:1
 msgid "Book and User Totals"
-msgstr ""
+msgstr "本とユーザーの合計"
 
 #: resources/views/institutions/totals.blade.php:6
 msgid "Type"
