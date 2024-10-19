@@ -5,9 +5,9 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks Multi Institution 0.1.0\n"
+"Project-Id-Version: Pressbooks Shared Network 1.0.5\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-multi-institution/issues\n"
-"POT-Creation-Date: 2024-04-11T15:59:57+00:00\n"
+"POT-Creation-Date: 2024-10-09T14:54:43+00:00\n"
 "PO-Revision-Date: 2024-02-19 22:27+0000\n"
 "Last-Translator: Eduardo Vera, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/pressbooks/teams/9194/ja/)\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Domain: pressbooks-multi-institution\n"
-"X-Generator: WP-CLI 2.10.0\n"
+"X-Generator: WP-CLI 2.11.0\n"
 
 #. Plugin Name of the plugin
 #: pressbooks-multi-institution.php
@@ -49,7 +49,7 @@ msgid "Are you sure you want to delete the selected institutions?"
 msgstr "本当に選択した機関を削除しますか ?"
 
 #: src/Controllers/AssignBooksController.php:34
-#: src/Services/MenuManager.php:67 src/Services/MenuManager.php:68
+#: src/Services/MenuManager.php:70 src/Services/MenuManager.php:71
 msgid "Assign Books"
 msgstr "本を割り当てる"
 
@@ -65,7 +65,7 @@ msgid "Institution not found."
 msgstr "機関が見つかりません。"
 
 #: src/Controllers/AssignUsersController.php:33
-#: src/Services/MenuManager.php:56 src/Services/MenuManager.php:57
+#: src/Services/MenuManager.php:59 src/Services/MenuManager.php:60
 msgid "Assign Users"
 msgstr "ユーザーを割り当てる"
 
@@ -74,53 +74,53 @@ msgid "User updated."
 msgid_plural "Users updated."
 msgstr[0] "ユーザーは更新しました。"
 
-#: src/Controllers/InstitutionsController.php:102
+#: src/Controllers/InstitutionsController.php:101
 msgid "Action completed."
 msgstr "アクションが完了しました。"
 
-#: src/Controllers/InstitutionsController.php:127
+#: src/Controllers/InstitutionsController.php:126
 msgid "The form is invalid."
 msgstr "無効なフォーム。"
 
-#: src/Controllers/InstitutionsController.php:173
+#: src/Controllers/InstitutionsController.php:172
 msgid "Institution has been added."
 msgstr "機関は追加しました。"
 
-#: src/Controllers/InstitutionsController.php:174
+#: src/Controllers/InstitutionsController.php:173
 msgid "Institution has been updated."
 msgstr "機関は更新しました。"
 
-#: src/Controllers/InstitutionsController.php:201
+#: src/Controllers/InstitutionsController.php:200
 msgid "The name field is required."
 msgstr "名前フィールドは必要です。"
 
-#: src/Controllers/InstitutionsController.php:211
+#: src/Controllers/InstitutionsController.php:210
 msgid "The book limit field should be numeric."
 msgstr "本数制限フィールドは数値にする必要があります。"
 
 #: src/Services/InstitutionStatsService.php:39
-#: src/Services/MenuManager.php:162
+#: src/Services/MenuManager.php:165
 msgid "%s Stats"
 msgstr "%s の統計"
 
-#: src/Services/MenuManager.php:22 src/Services/MenuManager.php:23
+#: src/Services/MenuManager.php:25 src/Services/MenuManager.php:26
 msgid "Institutions"
 msgstr "機関"
 
-#: src/Services/MenuManager.php:34 src/Services/MenuManager.php:35
+#: src/Services/MenuManager.php:37 src/Services/MenuManager.php:38
 #: resources/views/institutions/index.blade.php:18
 msgid "Institution List"
 msgstr "機関リスト"
 
-#: src/Services/MenuManager.php:45 src/Services/MenuManager.php:46
+#: src/Services/MenuManager.php:48 src/Services/MenuManager.php:49
 msgid "Add Institution"
 msgstr "機関を追加"
 
-#: src/Services/MenuManager.php:45
+#: src/Services/MenuManager.php:48
 msgid "Edit Institution"
 msgstr "機関を編集"
 
-#: src/Services/MenuManager.php:114
+#: src/Services/MenuManager.php:117
 msgid "Administer Institution"
 msgstr "機関管理"
 
@@ -235,7 +235,7 @@ msgstr "プレミアムメンバーの合計"
 
 #: src/Views/InstitutionsTotals.php:66
 msgid "All Network totals"
-msgstr ""
+msgstr "すべてのサイトネットワークの合計"
 
 #: src/Views/UserList.php:33
 msgid "%s's User List"
