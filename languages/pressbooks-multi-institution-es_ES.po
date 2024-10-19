@@ -425,7 +425,7 @@ msgstr "Corrige el contenido no válido y reenvía el formulario."
 
 #: resources/views/table/book-admins.blade.php:8
 msgid "No institution assigned"
-msgstr ""
+msgstr "No se ha asignado ninguna institución"
 
 #: resources/views/table/bulk-actions.blade.php:6
 msgid "- Set Institution -"
