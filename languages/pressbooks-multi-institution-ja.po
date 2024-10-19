@@ -357,7 +357,7 @@ msgstr "無制限な機関の場合は、0 を入力してください。"
 
 #: resources/views/institutions/form.blade.php:276
 msgid "Only numbers are allowed."
-msgstr ""
+msgstr "数字のみ使用できます。"
 
 #: resources/views/institutions/form.blade.php:284
 msgid "Save Changes"
