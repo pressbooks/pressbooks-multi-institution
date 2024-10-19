@@ -408,7 +408,7 @@ msgstr "無効な内容を修正してフォームを再送信してください
 
 #: resources/views/table/book-admins.blade.php:8
 msgid "No institution assigned"
-msgstr ""
+msgstr "機関が割り当てられていません"
 
 #: resources/views/table/bulk-actions.blade.php:6
 msgid "- Set Institution -"
