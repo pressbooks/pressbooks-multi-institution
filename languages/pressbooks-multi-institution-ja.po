@@ -373,7 +373,7 @@ msgstr "本とユーザーの合計"
 
 #: resources/views/institutions/totals.blade.php:6
 msgid "Type"
-msgstr ""
+msgstr "種類"
 
 #: resources/views/partials/errors/duplicate-domain.blade.php:1
 msgid "The email domain %s is already in use with %s."
