@@ -76,7 +76,7 @@ class MenuManager
             }
         );
 
-        apply_filters('pressbooks-multi-institution-add-menu', $this->slug);
+        apply_filters('pressbooks_multi_institution_add_menu', $this->slug);
     }
 
     /**
