@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-10-09T14:54:43+00:00\n"
+"POT-Creation-Date: 2024-11-26T19:11:49+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: pressbooks-multi-institution\n"
@@ -39,7 +39,18 @@ msgstr ""
 msgid "https://pressbooks.org"
 msgstr ""
 
-#: src/Bootstrap.php:80
+#: src/Bootstrap.php:97
+#: src/Traits/OverridesBulkActions.php:14
+#: src/Views/AssignUsersTable.php:74
+#: src/Views/BaseInstitutionList.php:108
+#: src/Views/InstitutionsTotals.php:33
+#: resources/views/assign/index.blade.php:58
+#: resources/views/partials/filters/institutions/content.blade.php:14
+#: resources/views/table/institution.blade.php:1
+msgid "Unassigned"
+msgstr ""
+
+#: src/Bootstrap.php:136
 msgid "Are you sure you want to delete the selected institutions?"
 msgstr ""
 
@@ -98,7 +109,7 @@ msgid "The book limit field should be numeric."
 msgstr ""
 
 #: src/Services/InstitutionStatsService.php:39
-#: src/Services/MenuManager.php:165
+#: src/Services/MenuManager.php:167
 msgid "%s Stats"
 msgstr ""
 
@@ -122,22 +133,12 @@ msgstr ""
 msgid "Edit Institution"
 msgstr ""
 
-#: src/Services/MenuManager.php:117
+#: src/Services/MenuManager.php:119
 msgid "Administer Institution"
 msgstr ""
 
 #: src/Services/PermissionsManager.php:95
 msgid "Sorry, you are not allowed to access this page."
-msgstr ""
-
-#: src/Traits/OverridesBulkActions.php:14
-#: src/Views/AssignUsersTable.php:74
-#: src/Views/BaseInstitutionList.php:108
-#: src/Views/InstitutionsTotals.php:33
-#: resources/views/assign/index.blade.php:58
-#: resources/views/partials/filters/institutions/content.blade.php:14
-#: resources/views/table/institution.blade.php:1
-msgid "Unassigned"
 msgstr ""
 
 #: src/Views/AssignBooksTable.php:33
