@@ -80,7 +80,7 @@ final class Bootstrap
     {
         add_filter(
             hook_name: 'pressbooks_get_institution_by_id',
-            callback: function (bool $default, string|int $id) {
+            callback: function (mixed $default, string|int $id) {
                 $institution = Institution::query()->find($id);
 
                 return $institution?->id ?? $default;
@@ -101,7 +101,7 @@ final class Bootstrap
 
         add_filter(
             hook_name: 'pressbooks_append_institution_to_query',
-            callback: function (EloquentBuilder $query, string $columnToCompare, string $search, string $order, string $direction) {
+            callback: function (EloquentBuilder $query, string $columnToCompare, string $search = '', string $order = '', string $direction = '') {
                 $query
                     ->addSelect([
                         'institution' => Institution::query()
@@ -122,6 +122,8 @@ final class Bootstrap
                             ->orderByRaw($direction === 'asc' ? 'institution IS NOT NULL' : 'institution IS NULL')
                             ->orderBy('institution', $direction);
                     });
+
+                return $query;
             },
             accepted_args: 5
         );
