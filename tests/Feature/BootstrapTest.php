@@ -110,7 +110,7 @@ class BootstrapTest extends TestCase
 
         $this->assertStringNotContainsString('select `name` from `wptests_institutions` where `id` = `column_name`', $query->toSql());
 
-        apply_filters('pressbooks_append_institution_to_query', $query, $columnToCompare);
+        $query = apply_filters('pressbooks_append_institution_to_query', $query, $columnToCompare);
 
         $this->assertStringContainsString('select `name` from `wptests_institutions` where `id` = `column_name`', $query->toSql());
     }
@@ -130,7 +130,7 @@ class BootstrapTest extends TestCase
 
         $this->assertEmpty($query->getBindings());
 
-        apply_filters('pressbooks_append_institution_to_query', $query, $columnToCompare, $searchValue);
+        $query = apply_filters('pressbooks_append_institution_to_query', $query, $columnToCompare, $searchValue);
 
         $this->assertStringContainsString('exists (select 1 from `wptests_institutions` where `id` = `column_name` and `name` like ?)', $query->toSql());
 
@@ -154,7 +154,7 @@ class BootstrapTest extends TestCase
 
         $this->assertStringNotContainsString('order by institution IS NOT NULL, `institution` asc', $query->toSql());
 
-        apply_filters('pressbooks_append_institution_to_query', $query, $columnToCompare, '', $sort, $direction);
+        $query = apply_filters('pressbooks_append_institution_to_query', $query, $columnToCompare, '', $sort, $direction);
 
         $this->assertStringContainsString('order by institution IS NOT NULL, `institution` asc', $query->toSql());
     }
@@ -174,7 +174,7 @@ class BootstrapTest extends TestCase
 
         $this->assertStringNotContainsString('order by institution IS NULL, `institution` desc', $query->toSql());
 
-        apply_filters('pressbooks_append_institution_to_query', $query, $columnToCompare, '', $sort, $direction);
+        $query = apply_filters('pressbooks_append_institution_to_query', $query, $columnToCompare, '', $sort, $direction);
 
         $this->assertStringContainsString('order by institution IS NULL, `institution` desc', $query->toSql());
     }
@@ -194,7 +194,7 @@ class BootstrapTest extends TestCase
 
         $this->assertStringNotContainsString('order by', $query->toSql());
 
-        apply_filters('pressbooks_append_institution_to_query', $query, $columnToCompare, '', $sort, $direction);
+        $query = apply_filters('pressbooks_append_institution_to_query', $query, $columnToCompare, '', $sort, $direction);
 
         $this->assertStringNotContainsString('order by', $query->toSql());
     }

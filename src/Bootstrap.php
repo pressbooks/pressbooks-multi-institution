@@ -101,7 +101,7 @@ final class Bootstrap
 
         add_filter(
             hook_name: 'pressbooks_append_institution_to_query',
-            callback: function (EloquentBuilder $query, string $columnToCompare, string $search = '', string $order = '', string $direction = '') {
+            callback: function (EloquentBuilder $query, string $columnToCompare, string $search = '', string $order = '', string $direction = ''): EloquentBuilder {
                 $query
                     ->addSelect([
                         'institution' => Institution::query()
