@@ -11,6 +11,7 @@ use PressbooksMultiInstitution\Services\InstitutionStatsService;
 use PressbooksMultiInstitution\Services\MenuManager;
 use PressbooksMultiInstitution\Services\PermissionsManager;
 use PressbooksMultiInstitution\Views\BookList;
+use PressbooksMultiInstitution\Views\WpUserList;
 use PressbooksMultiInstitution\Views\UserList;
 
 /**
@@ -40,6 +41,7 @@ final class Bootstrap
 
         Container::getInstance()->singleton(BookList::class, fn () => new BookList(app('db')));
         Container::getInstance()->singleton(UserList::class, fn () => new UserList(app('db')));
+        Container::getInstance()->singleton(WpUserList::class, fn () => new WpUserList);
     }
 
     private function registerActions(): void

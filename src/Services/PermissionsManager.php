@@ -9,8 +9,10 @@ use PressbooksMultiInstitution\Models\InstitutionUser;
 use PressbooksMultiInstitution\Views\BookList;
 use PressbooksMultiInstitution\Views\UserList;
 
+use PressbooksMultiInstitution\Views\WpUserList;
+
 use function Pressbooks\Admin\NetworkManagers\_restricted_users;
-use function PressbooksMultiInstitution\Support\get_allowed_book_pages;
+use function PressbooksMultiInstitution\Support\get_restricted_book_pages;
 use function PressbooksMultiInstitution\Support\get_allowed_pages;
 use function PressbooksMultiInstitution\Support\get_institution_books;
 use function PressbooksMultiInstitution\Support\get_institution_by_manager;
@@ -39,6 +41,7 @@ class PermissionsManager
         Container::get(TableViews::class)->init();
         Container::get(BookList::class)->init();
         Container::get(UserList::class)->init();
+        Container::get(WpUserList::class)->init();
 
         do_action('pb_institutional_filters_created', $institution, $institutionalManagers, $institutionalUsers);
     }
@@ -65,7 +68,7 @@ class PermissionsManager
          */
 
         add_filter('can_edit_network', function ($canEdit) use ($allowedBooks) {
-            if (is_network_admin() && !in_array($_REQUEST['id'], $allowedBooks)) {
+            if (is_network_admin() && isset($_REQUEST['id']) && !in_array($_REQUEST['id'], $allowedBooks)) {
                 $canEdit = false;
             }
             return $canEdit;
@@ -157,7 +160,7 @@ class PermissionsManager
         global $pagenow;
 
         $allowedPages = get_allowed_pages();
-        $bookPages = get_allowed_book_pages();
+        $restrictedBookPages = get_restricted_book_pages();
 
         $isAccessAllowed = false;
 
@@ -181,18 +184,21 @@ class PermissionsManager
         // Check if the current page is a book page and if the user has access to it
         $userBooks = array_slice(array_keys(get_blogs_of_user(get_current_user_id())), 1); // remove the main site
 
-        if ((in_array($currentBlogId, $userBooks) || in_array($currentBlogId, $allowedBooks)) && !in_array($pagenow, $bookPages)) {
+        if (
+            (in_array($currentBlogId, $userBooks) || in_array($currentBlogId, $allowedBooks)) &&
+            !in_array($pagenow, $restrictedBookPages)
+        ) {
             $isAccessAllowed = true;
         }
 
         $institutionalUsers = apply_filters('pb_institutional_users', []);
 
         if ($currentPageParam === 'pb_network_analytics_userlist' || $pagenow === 'users.php' || $pagenow === 'user-edit.php') {
-            if (isset($_REQUEST['user_id']) && in_array($_REQUEST['user_id'], $institutionalUsers)) {
-                $isAccessAllowed = true;
-            }
+            $isAccessAllowed = true;
 
-            if (isset($_REQUEST['id']) && !in_array($_REQUEST['id'], $institutionalUsers)) {
+            $userId = $_REQUEST['id'] ?? $_REQUEST['user_id'] ?? null;
+
+            if ($userId && ! in_array($userId, $institutionalUsers)) {
                 $isAccessAllowed = false;
             }
         }
