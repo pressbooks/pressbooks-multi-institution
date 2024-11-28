@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-11-27T19:25:24+00:00\n"
+"POT-Creation-Date: 2024-11-28T18:16:38+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: pressbooks-multi-institution\n"
@@ -84,27 +84,27 @@ msgid_plural "Users updated."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Controllers/InstitutionsController.php:101
+#: src/Controllers/InstitutionsController.php:103
 msgid "Action completed."
 msgstr ""
 
-#: src/Controllers/InstitutionsController.php:126
+#: src/Controllers/InstitutionsController.php:128
 msgid "The form is invalid."
 msgstr ""
 
-#: src/Controllers/InstitutionsController.php:172
+#: src/Controllers/InstitutionsController.php:174
 msgid "Institution has been added."
 msgstr ""
 
-#: src/Controllers/InstitutionsController.php:173
+#: src/Controllers/InstitutionsController.php:175
 msgid "Institution has been updated."
 msgstr ""
 
-#: src/Controllers/InstitutionsController.php:200
+#: src/Controllers/InstitutionsController.php:202
 msgid "The name field is required."
 msgstr ""
 
-#: src/Controllers/InstitutionsController.php:210
+#: src/Controllers/InstitutionsController.php:212
 msgid "The book limit field should be numeric."
 msgstr ""
 
