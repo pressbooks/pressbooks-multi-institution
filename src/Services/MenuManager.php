@@ -75,6 +75,8 @@ class MenuManager
                 echo app(AssignBooksController::class)->index();
             }
         );
+
+        do_action('pressbooks_multi_institution_add_menu', $this->slug);
     }
 
     /**

@@ -94,6 +94,8 @@ class InstitutionsController extends BaseController
             default => null,
         };
 
+        do_action('pressbooks_multi_institution_deleted_institution', $items);
+
         apply_filters('pb_institutional_after_delete', [], $institutionalManagerIds);
 
         return [

@@ -2,11 +2,14 @@
 
 namespace PressbooksMultiInstitution;
 
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Query\Builder;
 use Kucrut\Vite;
 use Pressbooks\Container;
 use PressbooksMultiInstitution\Actions\AssignBookToInstitution;
 use PressbooksMultiInstitution\Actions\AssignUserToInstitution;
 use PressbooksMultiInstitution\Actions\InstitutionalManagerDashboard;
+use PressbooksMultiInstitution\Models\Institution;
 use PressbooksMultiInstitution\Services\InstitutionStatsService;
 use PressbooksMultiInstitution\Services\MenuManager;
 use PressbooksMultiInstitution\Services\PermissionsManager;
@@ -40,6 +43,8 @@ final class Bootstrap
 
         Container::getInstance()->singleton(BookList::class, fn () => new BookList(app('db')));
         Container::getInstance()->singleton(UserList::class, fn () => new UserList(app('db')));
+
+        $this->registerInstitutionHooks();
     }
 
     private function registerActions(): void
@@ -68,6 +73,59 @@ final class Bootstrap
         app('Blade')->addNamespace(
             'PressbooksMultiInstitution',
             dirname(__DIR__) . '/resources/views'
+        );
+    }
+
+    private function registerInstitutionHooks(): void
+    {
+        add_filter(
+            hook_name: 'pressbooks_get_institution_by_id',
+            callback: function (mixed $default, string|int $id) {
+                $institution = Institution::query()->find($id);
+
+                return $institution?->id ?? $default;
+            },
+            accepted_args: 2
+        );
+
+        add_filter(
+            hook_name: 'pressbooks_get_institution_dropdown',
+            callback: function (array $default) {
+                return Institution::query()
+                    ->orderBy('name')
+                    ->pluck('name', 'id')
+                    ->prepend(__('Unassigned', 'pressbooks-multi-institution'), 0)
+                    ->toArray();
+            },
+        );
+
+        add_filter(
+            hook_name: 'pressbooks_append_institution_to_query',
+            callback: function (EloquentBuilder $query, string $columnToCompare, string $search = '', string $order = '', string $direction = ''): EloquentBuilder {
+                $query
+                    ->addSelect([
+                        'institution' => Institution::query()
+                            ->select('name')
+                            ->whereColumn('id', '=', $columnToCompare)
+                    ])
+                    ->when($search, function (EloquentBuilder $query, string $value) use ($columnToCompare) {
+                        $query->orWhereExists(function (Builder $query) use ($value, $columnToCompare) {
+                            $query
+                                ->selectRaw(1)
+                                ->from('institutions')
+                                ->whereColumn('id', '=', $columnToCompare)
+                                ->where('name', 'like', "%{$value}%");
+                        });
+                    })
+                    ->when($order === 'institution', function (EloquentBuilder $query) use ($direction) {
+                        $query
+                            ->orderByRaw($direction === 'asc' ? 'institution IS NOT NULL' : 'institution IS NULL')
+                            ->orderBy('institution', $direction);
+                    });
+
+                return $query;
+            },
+            accepted_args: 5
         );
     }
 
