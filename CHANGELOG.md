@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.0.5...1.1.0) (2024-11-28)
+
+
+### Features
+
+* support platform assignment ([efb9f0e](https://github.com/pressbooks/pressbooks-multi-institution/commit/efb9f0ed2e5849e77db354fc1972008c4548e4b0))
+
 ## [1.0.5](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.0.4...1.0.5) (2024-08-27)
 
 
