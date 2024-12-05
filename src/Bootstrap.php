@@ -81,7 +81,7 @@ final class Bootstrap
     {
         add_filter(
             hook_name: 'pressbooks_get_institution_id',
-            callback: fn (int $userId) => InstitutionUser::query()->isManager($userId)->value('institution_id') ?? 0
+            callback: fn (int $userId) => InstitutionUser::query()->where('user_id', $userId)->value('institution_id') ?? 0
         );
 
         add_filter(

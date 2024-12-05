@@ -13,6 +13,16 @@ class BootstrapTest extends TestCase
     /**
      * @test
      */
+    public function it_registers_get_institution_id_hook(): void
+    {
+        global $wp_filter;
+
+        $this->assertArrayHasKey('pressbooks_get_institution_id', $wp_filter);
+    }
+
+    /**
+     * @test
+     */
     public function it_registers_get_institution_dropdown_hook(): void
     {
         global $wp_filter;
@@ -39,6 +49,38 @@ class BootstrapTest extends TestCase
         global $wp_filter;
 
         $this->assertArrayHasKey('pressbooks_append_institution_to_query', $wp_filter);
+    }
+
+    /**
+     * @test
+     */
+    public function it_retrieves_the_institution_id_for_the_given_user(): void
+    {
+        $userId = $this->newUser();
+
+        $institution = $this->createInstitution();
+
+        $institution->users()->create([
+            'user_id' => $userId,
+        ]);
+
+        $id = apply_filters('pressbooks_get_institution_id', $userId);
+
+        $this->assertEquals($institution->id, $id);
+    }
+
+    /**
+     * @test
+     */
+    public function it_returns_zero_when_user_is_not_associated(): void
+    {
+        $userId = $this->newUser();
+
+        $institution = $this->createInstitution();
+
+        $id = apply_filters('pressbooks_get_institution_id', $userId);
+
+        $this->assertEquals(0, $id);
     }
 
     /**
