@@ -50,7 +50,7 @@ function get_institution_books(): array
 function get_allowed_pages(): array
 {
     return [
-        'admin.php' => ['pb_network_analytics_booklist', 'pb_network_analytics_userlist', 'pb_network_analytics_admin', 'pb_cloner','delete'],
+        'admin.php' => ['pb_network_analytics_booklist', 'pb_network_analytics_userlist', 'pb_network_analytics_admin', 'pb_cloner','delete','pb_lti_stats'],
         'sites.php' => ['confirm', 'delete', 'pb_network_analytics_booklist', 'pb_network_analytics_userlist', 'pb_network_analytics_admin', 'pb_cloner','activateblog','deactivateblog', 'deleteblog'],
         'index.php' => ['', 'book_dashboard', 'pb_institutional_manager', 'pb_home_page', 'pb_catalog','pb_network_page'],
         'tools.php',
