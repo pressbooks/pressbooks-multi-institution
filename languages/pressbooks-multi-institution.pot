@@ -2,14 +2,14 @@
 # This file is distributed under the GPL v3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Pressbooks Shared Network 1.0.5\n"
+"Project-Id-Version: Pressbooks Shared Network 1.1.0\n"
 "Report-Msgid-Bugs-To: https://github.com/pressbooks/pressbooks-multi-institution/issues\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-11-28T18:16:38+00:00\n"
+"POT-Creation-Date: 2024-12-11T16:13:45+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: pressbooks-multi-institution\n"
@@ -39,7 +39,7 @@ msgstr ""
 msgid "https://pressbooks.org"
 msgstr ""
 
-#: src/Bootstrap.php:97
+#: src/Bootstrap.php:103
 #: src/Traits/OverridesBulkActions.php:14
 #: src/Views/AssignUsersTable.php:74
 #: src/Views/BaseInstitutionList.php:108
@@ -50,7 +50,7 @@ msgstr ""
 msgid "Unassigned"
 msgstr ""
 
-#: src/Bootstrap.php:138
+#: src/Bootstrap.php:144
 msgid "Are you sure you want to delete the selected institutions?"
 msgstr ""
 

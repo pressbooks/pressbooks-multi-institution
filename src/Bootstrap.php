@@ -10,6 +10,7 @@ use PressbooksMultiInstitution\Actions\AssignBookToInstitution;
 use PressbooksMultiInstitution\Actions\AssignUserToInstitution;
 use PressbooksMultiInstitution\Actions\InstitutionalManagerDashboard;
 use PressbooksMultiInstitution\Models\Institution;
+use PressbooksMultiInstitution\Models\InstitutionUser;
 use PressbooksMultiInstitution\Services\InstitutionStatsService;
 use PressbooksMultiInstitution\Services\MenuManager;
 use PressbooksMultiInstitution\Services\PermissionsManager;
@@ -78,6 +79,11 @@ final class Bootstrap
 
     private function registerInstitutionHooks(): void
     {
+        add_filter(
+            hook_name: 'pressbooks_get_institution_id',
+            callback: fn (int $userId) => InstitutionUser::query()->where('user_id', $userId)->value('institution_id') ?? 0
+        );
+
         add_filter(
             hook_name: 'pressbooks_get_institution_by_id',
             callback: function (mixed $default, string|int $id) {
