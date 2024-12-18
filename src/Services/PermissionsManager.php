@@ -42,13 +42,13 @@ class PermissionsManager
 
         do_action('pb_institutional_filters_created', $institution, $institutionalManagers, $institutionalUsers);
 
-        // Hide the edit link on the front end for institutional managers
+        // Hide the edit link on root site pages for institutional managers
         add_filter('edit_post_link', function ($link) use ($institution) {
-            // If the user is a regular super admin, return the link
-            if ($institution === 0) {
-                return $link;
-            }
-            return '';
+            $currentBlogId = get_current_blog_id();
+            if ($currentBlogId === 1 && $institution !== 0) {
+				return '';
+			}
+			else return $link;
         });
     }
 
