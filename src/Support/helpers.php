@@ -69,7 +69,8 @@ function get_allowed_pages(): array
         'users.php',
         'export-personal-data.php',
         'erase-personal-data.php',
-        'options-privacy.php'
+        'options-privacy.php',
+        'site-new.php'
     ];
 }
 

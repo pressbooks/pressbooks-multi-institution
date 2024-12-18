@@ -197,6 +197,11 @@ class PermissionsManager
             }
         }
 
+        // Prevent institutional managers from editing pages on the root site
+        if ($currentBlogId === 1 && ($pagenow === 'edit.php' || $pagenow === 'post.php')) {
+            $isAccessAllowed = false;
+        }
+
         return $isAccessAllowed;
     }
 }
