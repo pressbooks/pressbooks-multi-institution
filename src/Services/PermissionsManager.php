@@ -46,9 +46,10 @@ class PermissionsManager
         add_filter('edit_post_link', function ($link) use ($institution) {
             $currentBlogId = get_current_blog_id();
             if ($currentBlogId === 1 && $institution !== 0) {
-				return '';
-			}
-			else return $link;
+                return '';
+            } else {
+                return $link;
+            }
         });
     }
 
