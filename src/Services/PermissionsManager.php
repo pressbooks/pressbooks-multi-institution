@@ -41,6 +41,15 @@ class PermissionsManager
         Container::get(UserList::class)->init();
 
         do_action('pb_institutional_filters_created', $institution, $institutionalManagers, $institutionalUsers);
+
+        // Hide the edit link on the front end for institutional managers
+        add_filter('edit_post_link', function ($link) use ($institution) {
+            // If the user is a regular super admin, return the link
+            if ($institution === 0) {
+                return $link;
+            }
+            return '';
+        });
     }
 
     public function handlePagesPermissions($institution, $institutionalManagers, $institutionalUsers): void
@@ -195,6 +204,11 @@ class PermissionsManager
             if (isset($_REQUEST['id']) && !in_array($_REQUEST['id'], $institutionalUsers)) {
                 $isAccessAllowed = false;
             }
+        }
+
+        // Prevent institutional managers from editing pages on the root site
+        if ($currentBlogId === 1 && ($pagenow === 'edit.php' || $pagenow === 'post.php')) {
+            $isAccessAllowed = false;
         }
 
         return $isAccessAllowed;
