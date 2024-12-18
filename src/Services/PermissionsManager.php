@@ -41,6 +41,15 @@ class PermissionsManager
         Container::get(UserList::class)->init();
 
         do_action('pb_institutional_filters_created', $institution, $institutionalManagers, $institutionalUsers);
+
+        // Hide the edit link on the front end for institutional managers
+        add_filter('edit_post_link', function ($link) use ($institution) {
+            // If the user is a regular super admin, return the link
+            if ($institution === 0) {
+                return $link;
+            }
+            return '';
+        });
     }
 
     public function handlePagesPermissions($institution, $institutionalManagers, $institutionalUsers): void
