@@ -40,7 +40,6 @@ class BootstrapTest extends TestCase
         $this->assertArrayHasKey('pressbooks_get_institution_by_id', $wp_filter);
     }
 
-
     /**
      * @test
      */
@@ -64,7 +63,7 @@ class BootstrapTest extends TestCase
             'user_id' => $userId,
         ]);
 
-        $id = apply_filters('pressbooks_get_institution_id', $userId);
+        $id = apply_filters('pressbooks_get_institution_id', false, $userId);
 
         $this->assertEquals($institution->id, $id);
     }
@@ -78,7 +77,7 @@ class BootstrapTest extends TestCase
 
         $institution = $this->createInstitution();
 
-        $id = apply_filters('pressbooks_get_institution_id', $userId);
+        $id = apply_filters('pressbooks_get_institution_id', false, $userId);
 
         $this->assertEquals(0, $id);
     }
