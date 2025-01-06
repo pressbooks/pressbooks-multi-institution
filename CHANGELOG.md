@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.2.0](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.1.0...1.2.0) (2025-01-06)
+
+
+### Features
+
+* hook to fetch institution id for a given user ([021e8ee](https://github.com/pressbooks/pressbooks-multi-institution/commit/021e8ee81aa23e61a50f1f317b520d5ddef35a03))
+
+
+### Bug Fixes
+
+* add default value parameter to hook ([#224](https://github.com/pressbooks/pressbooks-multi-institution/issues/224)) ([c8e5c68](https://github.com/pressbooks/pressbooks-multi-institution/commit/c8e5c68e70343adb583aa9af88e4d2facebf89fa))
+* only hide edit link on root site pages ([#220](https://github.com/pressbooks/pressbooks-multi-institution/issues/220)) ([4677227](https://github.com/pressbooks/pressbooks-multi-institution/commit/46772276398a92709f2a6e6c2ed9d498b37d50ae))
+* update permissions for institutional managers ([#219](https://github.com/pressbooks/pressbooks-multi-institution/issues/219)) ([7159fd6](https://github.com/pressbooks/pressbooks-multi-institution/commit/7159fd60013fefb077a427a7c3a8d3550be658a2))
+
 ## [1.1.0](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.0.5...1.1.0) (2024-11-28)
 
 
