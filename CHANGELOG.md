@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.2.0...1.3.0) (2025-02-11)
+
+
+### Features
+
+* add permissions hook ([#229](https://github.com/pressbooks/pressbooks-multi-institution/issues/229)) ([e5c548b](https://github.com/pressbooks/pressbooks-multi-institution/commit/e5c548b1e27bfbe589f8863d1ee2944318e76e4f))
+
 ## [1.2.0](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.1.0...1.2.0) (2025-01-06)
 
 
