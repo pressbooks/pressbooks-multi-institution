@@ -108,15 +108,15 @@ final class Bootstrap
 
         add_filter(
             hook_name: 'pressbooks_append_institution_to_query',
-            callback: function (EloquentBuilder $query, string $columnToCompare, string $search = '', string $order = '', string $direction = ''): EloquentBuilder {
+            callback: function (Builder|EloquentBuilder $query, string $columnToCompare, string $search = '', string $order = '', string $direction = ''): Builder|EloquentBuilder {
                 $query
                     ->addSelect([
                         'institution' => Institution::query()
                             ->select('name')
                             ->whereColumn('id', '=', $columnToCompare)
                     ])
-                    ->when($search, function (EloquentBuilder $query, string $value) use ($columnToCompare) {
-                        $query->orWhereExists(function (Builder $query) use ($value, $columnToCompare) {
+                    ->when($search, function (Builder|EloquentBuilder $query, string $value) use ($columnToCompare) {
+                        $query->orWhereExists(function (Builder|EloquentBuilder $query) use ($value, $columnToCompare) {
                             $query
                                 ->selectRaw(1)
                                 ->from('institutions')
@@ -124,7 +124,7 @@ final class Bootstrap
                                 ->where('name', 'like', "%{$value}%");
                         });
                     })
-                    ->when($order === 'institution', function (EloquentBuilder $query) use ($direction) {
+                    ->when($order === 'institution', function (Builder|EloquentBuilder $query) use ($direction) {
                         $query
                             ->orderByRaw($direction === 'asc' ? 'institution IS NOT NULL' : 'institution IS NULL')
                             ->orderBy('institution', $direction);
