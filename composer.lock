@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "54b0ddb1392c910107014647de6b9d37",
+    "content-hash": "84ad7285d9e4a7c4df275ba51fc035e4",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -434,16 +434,16 @@
         },
         {
             "name": "kucrut/vite-for-wp",
-            "version": "v0.10.0",
+            "version": "v0.11.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kucrut/vite-for-wp.git",
-                "reference": "b582254a7e4f6976c0798717c83d75eba093810f"
+                "reference": "277f738c87bf4ed664de2236b661b607647b3939"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kucrut/vite-for-wp/zipball/b582254a7e4f6976c0798717c83d75eba093810f",
-                "reference": "b582254a7e4f6976c0798717c83d75eba093810f",
+                "url": "https://api.github.com/repos/kucrut/vite-for-wp/zipball/277f738c87bf4ed664de2236b661b607647b3939",
+                "reference": "277f738c87bf4ed664de2236b661b607647b3939",
                 "shasum": ""
             },
             "require-dev": {
@@ -467,9 +467,9 @@
             "description": "Vite integration for WordPress plugins and themes development.",
             "support": {
                 "issues": "https://github.com/kucrut/vite-for-wp/issues",
-                "source": "https://github.com/kucrut/vite-for-wp/tree/v0.10.0"
+                "source": "https://github.com/kucrut/vite-for-wp/tree/v0.11.2"
             },
-            "time": "2024-12-18T07:15:27+00:00"
+            "time": "2025-03-11T17:46:59+00:00"
         },
         {
             "name": "nesbot/carbon",
