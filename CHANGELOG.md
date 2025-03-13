@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.3.1](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.3.0...1.3.1) (2025-03-13)
+
+
+### Chores
+
+* bump php version and sync vite ([#244](https://github.com/pressbooks/pressbooks-multi-institution/issues/244)) ([7dba38e](https://github.com/pressbooks/pressbooks-multi-institution/commit/7dba38e1790585761d2b83b4c643a6f7f4abd9a6))
+* **deps-dev:** bump @kucrut/vite-for-wp ([f18315f](https://github.com/pressbooks/pressbooks-multi-institution/commit/f18315fee228b5a725f9341c1dad9139bcee050e))
+* **deps-dev:** bump @kucrut/vite-for-wp from 0.10.0 to 0.11.2 in the npm-dev-dependencies group ([#238](https://github.com/pressbooks/pressbooks-multi-institution/issues/238)) ([f18315f](https://github.com/pressbooks/pressbooks-multi-institution/commit/f18315fee228b5a725f9341c1dad9139bcee050e))
+* **deps:** bump kucrut/vite-for-wp from 0.10.0 to 0.11.2 in the composer-dependencies group ([#237](https://github.com/pressbooks/pressbooks-multi-institution/issues/237)) ([66c2123](https://github.com/pressbooks/pressbooks-multi-institution/commit/66c21233ebb30f596fb0ddf41f7ec4817efcfbfe))
+* **deps:** bump kucrut/vite-for-wp in the composer-dependencies group ([66c2123](https://github.com/pressbooks/pressbooks-multi-institution/commit/66c21233ebb30f596fb0ddf41f7ec4817efcfbfe))
+* **dev:** release 1.3.1 ([#240](https://github.com/pressbooks/pressbooks-multi-institution/issues/240)) ([21c6768](https://github.com/pressbooks/pressbooks-multi-institution/commit/21c67686f4f9fbd59f00d5bf6632116e2db2bc7f))
+* **dev:** release 1.3.2 ([#242](https://github.com/pressbooks/pressbooks-multi-institution/issues/242)) ([e3ef732](https://github.com/pressbooks/pressbooks-multi-institution/commit/e3ef7327ff161fda5ef3fae5d65abc4095a1d58b))
+* improve release metadata ([#239](https://github.com/pressbooks/pressbooks-multi-institution/issues/239)) ([ef6505a](https://github.com/pressbooks/pressbooks-multi-institution/commit/ef6505ab5b6c9f4204dc608b833fbaabe7f0a117))
+* revert vite ([#241](https://github.com/pressbooks/pressbooks-multi-institution/issues/241)) ([dc49051](https://github.com/pressbooks/pressbooks-multi-institution/commit/dc490519cfebd7847ba3cd9cce239c233c6eab81))
+
 ## [1.3.2](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.3.1...1.3.2) (2025-03-13)
 
 
