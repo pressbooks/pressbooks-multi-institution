@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "84ad7285d9e4a7c4df275ba51fc035e4",
+    "content-hash": "b33710f1fe996368e502b819faac9c70",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -434,16 +434,16 @@
         },
         {
             "name": "kucrut/vite-for-wp",
-            "version": "v0.11.2",
+            "version": "v0.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kucrut/vite-for-wp.git",
-                "reference": "277f738c87bf4ed664de2236b661b607647b3939"
+                "reference": "287eb8e8f9583fd7fdaeaf6bb81b930ec095e9e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kucrut/vite-for-wp/zipball/277f738c87bf4ed664de2236b661b607647b3939",
-                "reference": "277f738c87bf4ed664de2236b661b607647b3939",
+                "url": "https://api.github.com/repos/kucrut/vite-for-wp/zipball/287eb8e8f9583fd7fdaeaf6bb81b930ec095e9e0",
+                "reference": "287eb8e8f9583fd7fdaeaf6bb81b930ec095e9e0",
                 "shasum": ""
             },
             "require-dev": {
@@ -467,9 +467,9 @@
             "description": "Vite integration for WordPress plugins and themes development.",
             "support": {
                 "issues": "https://github.com/kucrut/vite-for-wp/issues",
-                "source": "https://github.com/kucrut/vite-for-wp/tree/v0.11.2"
+                "source": "https://github.com/kucrut/vite-for-wp/tree/v0.11.0"
             },
-            "time": "2025-03-11T17:46:59+00:00"
+            "time": "2025-03-10T17:58:20+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -3074,12 +3074,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.1"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
 }
