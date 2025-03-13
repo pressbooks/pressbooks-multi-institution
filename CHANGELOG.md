@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.2](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.3.1...1.3.2) (2025-03-13)
+
+
+### Chores
+
+* revert vite ([#241](https://github.com/pressbooks/pressbooks-multi-institution/issues/241)) ([dc49051](https://github.com/pressbooks/pressbooks-multi-institution/commit/dc490519cfebd7847ba3cd9cce239c233c6eab81))
+
 ## [1.3.1](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.3.0...1.3.1) (2025-03-13)
 
 
