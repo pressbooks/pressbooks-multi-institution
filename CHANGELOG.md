@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.3.1](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.3.0...1.3.1) (2025-03-13)
+
+
+### Chores
+
+* **deps-dev:** bump @kucrut/vite-for-wp ([f18315f](https://github.com/pressbooks/pressbooks-multi-institution/commit/f18315fee228b5a725f9341c1dad9139bcee050e))
+* **deps-dev:** bump @kucrut/vite-for-wp from 0.10.0 to 0.11.2 in the npm-dev-dependencies group ([#238](https://github.com/pressbooks/pressbooks-multi-institution/issues/238)) ([f18315f](https://github.com/pressbooks/pressbooks-multi-institution/commit/f18315fee228b5a725f9341c1dad9139bcee050e))
+* **deps:** bump kucrut/vite-for-wp from 0.10.0 to 0.11.2 in the composer-dependencies group ([#237](https://github.com/pressbooks/pressbooks-multi-institution/issues/237)) ([66c2123](https://github.com/pressbooks/pressbooks-multi-institution/commit/66c21233ebb30f596fb0ddf41f7ec4817efcfbfe))
+* **deps:** bump kucrut/vite-for-wp in the composer-dependencies group ([66c2123](https://github.com/pressbooks/pressbooks-multi-institution/commit/66c21233ebb30f596fb0ddf41f7ec4817efcfbfe))
+* improve release metadata ([#239](https://github.com/pressbooks/pressbooks-multi-institution/issues/239)) ([ef6505a](https://github.com/pressbooks/pressbooks-multi-institution/commit/ef6505ab5b6c9f4204dc608b833fbaabe7f0a117))
+
 ## [1.3.0](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.2.0...1.3.0) (2025-02-11)
 
 
