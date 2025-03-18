@@ -43,6 +43,16 @@ class BootstrapTest extends TestCase
     /**
      * @test
      */
+    public function it_registers_search_by_institution_hook(): void
+    {
+        global $wp_filter;
+
+        $this->assertArrayHasKey('pressbooks_search_by_institution', $wp_filter);
+    }
+
+    /**
+     * @test
+     */
     public function it_registers_append_institution_to_query_hook(): void
     {
         global $wp_filter;
@@ -159,7 +169,7 @@ class BootstrapTest extends TestCase
     /**
      * @test
      */
-    public function it_appends_exists_clause_when_searching(): void
+    public function it_adds_exist_clause_to_query(): void
     {
         $query = Institution::query();
 
@@ -171,12 +181,36 @@ class BootstrapTest extends TestCase
 
         $this->assertEmpty($query->getBindings());
 
-        $query = apply_filters('pressbooks_append_institution_to_query', $query, $columnToCompare, $searchValue);
+        $query = apply_filters('pressbooks_search_by_institution', $query, $searchValue, $columnToCompare);
 
-        $this->assertStringContainsString('exists (select 1 from `wptests_institutions` where `id` = `column_name` and `name` like ?)', $query->toSql());
+        $this->assertStringContainsString('where exists (select 1 from `wptests_institutions` where `id` = `column_name` and `name` like ?)', $query->toSql());
 
         $this->assertEquals([
             '%foo%'
+        ], $query->getBindings());
+    }
+
+    /**
+     * @test
+     */
+    public function it_adds_exist_clause_to_nested_queries(): void
+    {
+        $columnToCompare = 'column_name';
+
+        $searchValue = 'foo';
+
+        $query = Institution::query()
+            ->where(function ($query) use ($searchValue, $columnToCompare) {
+                $query->where('name', 'like', "%$searchValue%");
+
+                apply_filters('pressbooks_search_by_institution', $query, $searchValue, $columnToCompare);
+            });
+
+        $this->assertStringContainsString('or exists (select 1 from `wptests_institutions` where `id` = `column_name` and `name` like ?)', $query->toSql());
+
+        $this->assertEquals([
+            '%foo%',
+            '%foo%',
         ], $query->getBindings());
     }
 
@@ -195,7 +229,7 @@ class BootstrapTest extends TestCase
 
         $this->assertStringNotContainsString('order by institution IS NOT NULL, `institution` asc', $query->toSql());
 
-        $query = apply_filters('pressbooks_append_institution_to_query', $query, $columnToCompare, '', $sort, $direction);
+        $query = apply_filters('pressbooks_append_institution_to_query', $query, $columnToCompare, $sort, $direction);
 
         $this->assertStringContainsString('order by institution IS NOT NULL, `institution` asc', $query->toSql());
     }
@@ -215,7 +249,7 @@ class BootstrapTest extends TestCase
 
         $this->assertStringNotContainsString('order by institution IS NULL, `institution` desc', $query->toSql());
 
-        $query = apply_filters('pressbooks_append_institution_to_query', $query, $columnToCompare, '', $sort, $direction);
+        $query = apply_filters('pressbooks_append_institution_to_query', $query, $columnToCompare, $sort, $direction);
 
         $this->assertStringContainsString('order by institution IS NULL, `institution` desc', $query->toSql());
     }
@@ -235,7 +269,7 @@ class BootstrapTest extends TestCase
 
         $this->assertStringNotContainsString('order by', $query->toSql());
 
-        $query = apply_filters('pressbooks_append_institution_to_query', $query, $columnToCompare, '', $sort, $direction);
+        $query = apply_filters('pressbooks_append_institution_to_query', $query, $columnToCompare, $sort, $direction);
 
         $this->assertStringNotContainsString('order by', $query->toSql());
     }

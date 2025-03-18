@@ -107,23 +107,30 @@ final class Bootstrap
         );
 
         add_filter(
+            hook_name: 'pressbooks_search_by_institution',
+            callback: function (Builder|EloquentBuilder $query, string $search, string $columnToCompare): Builder|EloquentBuilder {
+                $query->orWhereExists(function (Builder|EloquentBuilder $query) use ($search, $columnToCompare) {
+                    $query
+                        ->selectRaw(1)
+                        ->from('institutions')
+                        ->whereColumn('id', '=', $columnToCompare)
+                        ->where('name', 'like', "%{$search}%");
+                });
+
+                return $query;
+            },
+            accepted_args: 3
+        );
+
+        add_filter(
             hook_name: 'pressbooks_append_institution_to_query',
-            callback: function (Builder|EloquentBuilder $query, string $columnToCompare, string $search = '', string $order = '', string $direction = ''): Builder|EloquentBuilder {
+            callback: function (Builder|EloquentBuilder $query, string $columnToCompare, string $order = '', string $direction = ''): Builder|EloquentBuilder {
                 $query
                     ->addSelect([
                         'institution' => Institution::query()
                             ->select('name')
                             ->whereColumn('id', '=', $columnToCompare)
                     ])
-                    ->when($search, function (Builder|EloquentBuilder $query, string $value) use ($columnToCompare) {
-                        $query->whereExists(function (Builder|EloquentBuilder $query) use ($value, $columnToCompare) {
-                            $query
-                                ->selectRaw(1)
-                                ->from('institutions')
-                                ->whereColumn('id', '=', $columnToCompare)
-                                ->where('name', 'like', "%{$value}%");
-                        });
-                    })
                     ->when($order === 'institution', function (Builder|EloquentBuilder $query) use ($direction) {
                         $query
                             ->orderByRaw($direction === 'asc' ? 'institution IS NOT NULL' : 'institution IS NULL')
@@ -132,7 +139,7 @@ final class Bootstrap
 
                 return $query;
             },
-            accepted_args: 5
+            accepted_args: 4
         );
     }
 
