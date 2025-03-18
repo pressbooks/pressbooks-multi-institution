@@ -116,7 +116,7 @@ final class Bootstrap
                             ->whereColumn('id', '=', $columnToCompare)
                     ])
                     ->when($search, function (Builder|EloquentBuilder $query, string $value) use ($columnToCompare) {
-                        $query->orWhereExists(function (Builder|EloquentBuilder $query) use ($value, $columnToCompare) {
+                        $query->whereExists(function (Builder|EloquentBuilder $query) use ($value, $columnToCompare) {
                             $query
                                 ->selectRaw(1)
                                 ->from('institutions')
