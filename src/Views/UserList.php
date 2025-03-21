@@ -55,7 +55,7 @@ class UserList extends BaseInstitutionList
         return $columns;
     }
 
-    public function appendAdditionalColumnsToQuery(): string
+    public function appendAdditionalColumnsToQuery(string $select): string
     {
         $prefix = $this->db
             ->getDatabaseManager()
@@ -75,7 +75,7 @@ class UserList extends BaseInstitutionList
             ->join('institutions_users', 'institutions.id', '=', 'institutions_users.institution_id')
             ->whereRaw("{$prefix}institutions_users.user_id = us.id")->limit(1);
 
-        return "({$idSubQuery->toSql()}) as institution_id, ({$nameSubQuery->toSql()}) as institution";
+        return $select . ", ({$idSubQuery->toSql()}) as institution_id, ({$nameSubQuery->toSql()}) as institution";
     }
 
 }

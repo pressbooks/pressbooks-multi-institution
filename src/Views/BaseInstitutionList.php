@@ -32,7 +32,7 @@ abstract class BaseInstitutionList
         ];
     }
 
-    public function appendAdditionalColumnsToQuery(): string
+    public function appendAdditionalColumnsToQuery(string $select): string
     {
         $prefix = $this->db
             ->getDatabaseManager()
@@ -50,7 +50,7 @@ abstract class BaseInstitutionList
             ->join('institutions_blogs', 'institutions.id', '=', 'institutions_blogs.institution_id')
             ->whereRaw("{$prefix}institutions_blogs.blog_id = b.blog_id");
 
-        return "({$idSubQuery->toSql()}) as institution_id, ({$nameSubQuery->toSql()}) as institution";
+        return $select . ", ({$idSubQuery->toSql()}) as institution_id, ({$nameSubQuery->toSql()}) as institution";
     }
 
     public function appendAdditionalWhereClausesToQuery(string $where): string

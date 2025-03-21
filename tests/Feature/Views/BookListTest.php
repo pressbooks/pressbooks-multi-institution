@@ -129,7 +129,7 @@ class BookListTest extends TestCase
     {
         Container::get(BookList::class)->init();
 
-        $expected = '(select `wptests_institutions`.`id` from `wptests_institutions` inner join `wptests_institutions_blogs` on `wptests_institutions`.`id` = `wptests_institutions_blogs`.`institution_id` where wptests_institutions_blogs.blog_id = b.blog_id) as institution_id, (select `wptests_institutions`.`name` from `wptests_institutions` inner join `wptests_institutions_blogs` on `wptests_institutions`.`id` = `wptests_institutions_blogs`.`institution_id` where wptests_institutions_blogs.blog_id = b.blog_id) as institution';
+        $expected = ', (select `wptests_institutions`.`id` from `wptests_institutions` inner join `wptests_institutions_blogs` on `wptests_institutions`.`id` = `wptests_institutions_blogs`.`institution_id` where wptests_institutions_blogs.blog_id = b.blog_id) as institution_id, (select `wptests_institutions`.`name` from `wptests_institutions` inner join `wptests_institutions_blogs` on `wptests_institutions`.`id` = `wptests_institutions_blogs`.`institution_id` where wptests_institutions_blogs.blog_id = b.blog_id) as institution';
 
         $this->assertEquals($expected, apply_filters('pb_network_analytics_book_list_select_clause', ''));
     }
