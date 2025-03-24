@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.3.2](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.3.1...1.3.2) (2025-03-24)
+
+
+### Bug Fixes
+
+* append select in analytics users and books list instead of overriding ([87fa474](https://github.com/pressbooks/pressbooks-multi-institution/commit/87fa4744561399c094bbb54fd5a1a373c961617f))
+* append select in analytics users and books list instead of overriding them ([#251](https://github.com/pressbooks/pressbooks-multi-institution/issues/251)) ([87fa474](https://github.com/pressbooks/pressbooks-multi-institution/commit/87fa4744561399c094bbb54fd5a1a373c961617f))
+* split query hooks ([#236](https://github.com/pressbooks/pressbooks-multi-institution/issues/236)) ([0b667c6](https://github.com/pressbooks/pressbooks-multi-institution/commit/0b667c62b9ba39976ea2db13c21fe1d291634a07))
+
 ## [1.3.1](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.3.0...1.3.1) (2025-03-13)
 
 
