@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Query\Builder;
 use Kucrut\Vite;
 use Pressbooks\Container;
+use PressbooksMix\Assets;
 use PressbooksMultiInstitution\Actions\AssignBookToInstitution;
 use PressbooksMultiInstitution\Actions\AssignUserToInstitution;
 use PressbooksMultiInstitution\Actions\InstitutionalManagerDashboard;
@@ -39,7 +40,7 @@ final class Bootstrap
     {
         $this->registerActions();
         $this->registerBlade();
-        $this->enqueueScripts();
+        $this->enqueueAssets();
         $this->loadTranslations();
 
         Container::getInstance()->singleton(BookList::class, fn () => new BookList(app('db')));
@@ -143,7 +144,7 @@ final class Bootstrap
         );
     }
 
-    private function enqueueScripts(): void
+    private function enqueueAssets(): void
     {
         add_action('admin_enqueue_scripts', function ($page) {
             $context = [
@@ -166,6 +167,10 @@ final class Bootstrap
             );
 
             wp_localize_script('pressbooks-multi-institution', 'context', $context[$page] ?? []);
+
+            $assets = new Assets('pressbooks', 'plugin');
+            wp_enqueue_style('pb-table', $assets->getPath('styles/pressbooks-table.css'));
+            wp_enqueue_script('pressbooks-table', $assets->getPath('scripts/pressbooks-table.js'));
         });
     }
 

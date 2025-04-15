@@ -6,6 +6,7 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Capsule\Manager;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Str;
+use Pressbooks\Admin\PressbooksTable;
 use PressbooksMultiInstitution\Traits\OverridesBulkActions;
 use WP_List_Table;
 
@@ -15,6 +16,7 @@ use function Pressbooks\Sanitize\sanitize_string;
 class AssignBooksTable extends WP_List_Table
 {
     use OverridesBulkActions;
+    use PressbooksTable;
 
     protected int $paginationSize = 50;
 
