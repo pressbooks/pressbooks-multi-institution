@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.3.3](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.3.2...1.3.3) (2025-04-15)
+
+
+### Chores
+
+* **deps-dev:** bump @kucrut/vite-for-wp ([1e84f59](https://github.com/pressbooks/pressbooks-multi-institution/commit/1e84f5944442c89c622172a6e630ff1e6ec19df3))
+* **deps-dev:** bump @kucrut/vite-for-wp from 0.11.2 to 0.11.4 in the npm-dev-dependencies group ([#249](https://github.com/pressbooks/pressbooks-multi-institution/issues/249)) ([1e84f59](https://github.com/pressbooks/pressbooks-multi-institution/commit/1e84f5944442c89c622172a6e630ff1e6ec19df3))
+* **deps-dev:** bump laravel/pint ([722aa05](https://github.com/pressbooks/pressbooks-multi-institution/commit/722aa05a1fac655b6de2f7f97c00a6d8aead4065))
+* **deps-dev:** bump laravel/pint from 1.21.1 to 1.21.2 in the composer-dev-dependencies group ([#248](https://github.com/pressbooks/pressbooks-multi-institution/issues/248)) ([722aa05](https://github.com/pressbooks/pressbooks-multi-institution/commit/722aa05a1fac655b6de2f7f97c00a6d8aead4065))
+* **deps-dev:** bump vite from 6.2.1 to 6.2.3 in the npm_and_yarn group ([#252](https://github.com/pressbooks/pressbooks-multi-institution/issues/252)) ([12cfbb3](https://github.com/pressbooks/pressbooks-multi-institution/commit/12cfbb31812739a40b41f838f741dbdd67a0ddfb))
+* **deps:** bump kucrut/vite-for-wp from 0.11.2 to 0.11.4 in the composer-dependencies group ([#247](https://github.com/pressbooks/pressbooks-multi-institution/issues/247)) ([c3dac52](https://github.com/pressbooks/pressbooks-multi-institution/commit/c3dac528352c753938df1865aecf67b33b9a5676))
+* **deps:** bump kucrut/vite-for-wp in the composer-dependencies group ([c3dac52](https://github.com/pressbooks/pressbooks-multi-institution/commit/c3dac528352c753938df1865aecf67b33b9a5676))
+
 ## [1.3.2](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.3.1...1.3.2) (2025-03-24)
 
 
