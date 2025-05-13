@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.3.3...1.4.0) (2025-04-24)
+
+
+### Features
+
+* add pressbooks table for assign books and users tables ([#254](https://github.com/pressbooks/pressbooks-multi-institution/issues/254)) ([e7f3610](https://github.com/pressbooks/pressbooks-multi-institution/commit/e7f36107e78fd3a52e0a8aace89ce8003154e5ca))
+
 ## [1.3.3](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.3.2...1.3.3) (2025-04-15)
 
 
