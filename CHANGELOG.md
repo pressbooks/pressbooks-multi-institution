@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.4.1](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.4.0...1.4.1) (2025-05-29)
+
+
+### Chores
+
+* **deps-dev:** bump laravel/pint ([3927796](https://github.com/pressbooks/pressbooks-multi-institution/commit/3927796eccc34c00c3c9dbf22b5362f79aed6204))
+* **deps-dev:** bump laravel/pint from 1.21.2 to 1.22.0 in the composer-dev-dependencies group ([#255](https://github.com/pressbooks/pressbooks-multi-institution/issues/255)) ([3927796](https://github.com/pressbooks/pressbooks-multi-institution/commit/3927796eccc34c00c3c9dbf22b5362f79aed6204))
+* **deps:** bump @pressbooks/multiselect from 2.4.0 to 2.4.1 in the npm-dependencies group ([#260](https://github.com/pressbooks/pressbooks-multi-institution/issues/260)) ([174eeb2](https://github.com/pressbooks/pressbooks-multi-institution/commit/174eeb20ee4d8c84fa51921afa55c302534e2c6e))
+* **deps:** bump @pressbooks/multiselect in the npm-dependencies group ([174eeb2](https://github.com/pressbooks/pressbooks-multi-institution/commit/174eeb20ee4d8c84fa51921afa55c302534e2c6e))
+* revert pressbooks table changes ([#261](https://github.com/pressbooks/pressbooks-multi-institution/issues/261)) ([3bfb4b3](https://github.com/pressbooks/pressbooks-multi-institution/commit/3bfb4b3f149257f90fa9fa399da9631cdcd4dc5c))
+
 ## [1.4.0](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.3.3...1.4.0) (2025-04-24)
 
 
