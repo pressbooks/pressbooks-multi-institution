@@ -3,14 +3,12 @@
 namespace PressbooksMultiInstitution\Views;
 
 use Illuminate\Database\Query\Builder;
-use Pressbooks\Admin\PressbooksTable;
 use PressbooksMultiInstitution\Traits\OverridesBulkActions;
 use WP_List_Table;
 
 class AssignUsersTable extends WP_List_Table
 {
     use OverridesBulkActions;
-    use PressbooksTable;
 
     protected int $paginationSize = 50;
 
