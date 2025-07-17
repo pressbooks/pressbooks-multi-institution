@@ -16,6 +16,7 @@ class InstitutionalManagerDashboard extends Dashboard
         add_action('admin_menu', [$this, 'removeDefaultPage']);
         add_action('admin_menu', [$this, 'addNewPage']);
         add_action('admin_init', [$this, 'superAdminSafeRedirect'], 1);
+        $this->fetchUpdates();
     }
 
     public function render(): void
@@ -28,7 +29,11 @@ class InstitutionalManagerDashboard extends Dashboard
                 'institution_name' => apply_filters('pb_institution', [])['name'],
                 'total_books' => count(apply_filters('pb_institutional_books', [])),
                 'total_users' => count(apply_filters('pb_institutional_users', [])),
-                'network_analytics_active' => is_plugin_active('pressbooks-network-analytics/pressbooks-network-analytics.php')
+                'network_analytics_active' => is_plugin_active('pressbooks-network-analytics/pressbooks-network-analytics.php'),
+                'updates' => [
+                    'text' => $this->recentUpdates['content'] ?? '',
+                    'url' => isset($this->recentUpdates['post_id']) ? "{$this->recentUpdates['domain']}?p={$this->recentUpdates['post_id']}" : null,
+                ],
             ]
         );
     }
