@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.4.2](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.4.1...1.4.2) (2025-07-17)
+
+
+### Bug Fixes
+
+* pot workflow ([#265](https://github.com/pressbooks/pressbooks-multi-institution/issues/265)) ([715318a](https://github.com/pressbooks/pressbooks-multi-institution/commit/715318a8f4333941bf0399e005353d80371e7494))
+* release notes dashboard display ([#267](https://github.com/pressbooks/pressbooks-multi-institution/issues/267)) ([667f97c](https://github.com/pressbooks/pressbooks-multi-institution/commit/667f97c838c3da29cca9a3db126ec714ad70d28e))
+
+
+### Chores
+
+* **i18n:** update languages for project pressbooks-multi-institution ([#268](https://github.com/pressbooks/pressbooks-multi-institution/issues/268)) ([f35bcd0](https://github.com/pressbooks/pressbooks-multi-institution/commit/f35bcd0e89e78e0697b7a579dc483ecc3c06442c))
+
 ## [1.4.1](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.4.0...1.4.1) (2025-05-29)
 
 
