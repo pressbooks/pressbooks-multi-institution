@@ -12,7 +12,6 @@ class InstitutionalManagerDashboard extends Dashboard
 
     public function hooks(): void
     {
-        parent::hooks();
         add_action('load-index.php', [$this, 'redirect'], 1001);
         add_action('admin_menu', [$this, 'removeDefaultPage']);
         add_action('admin_menu', [$this, 'addNewPage']);
