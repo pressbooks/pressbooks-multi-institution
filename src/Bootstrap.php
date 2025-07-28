@@ -161,7 +161,7 @@ final class Bootstrap
 
             Vite\enqueue_asset(
                 WP_PLUGIN_DIR . '/pressbooks-multi-institution/dist',
-                'node_modules/@pressbooks/multiselect/pressbooks-multiselect.js',
+                'node_modules/@pressbooks/select/pressbooks-select.js',
                 ['handle' => 'pressbooks-multi-select'],
             );
 
