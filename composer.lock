@@ -434,16 +434,16 @@
         },
         {
             "name": "kucrut/vite-for-wp",
-            "version": "v0.11.4",
+            "version": "v0.11.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kucrut/vite-for-wp.git",
-                "reference": "16310742c0ea5c5e6f1694c071feba5f06590f3e"
+                "reference": "69b3b14b94afddc14769d06658bb017f24f97244"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kucrut/vite-for-wp/zipball/16310742c0ea5c5e6f1694c071feba5f06590f3e",
-                "reference": "16310742c0ea5c5e6f1694c071feba5f06590f3e",
+                "url": "https://api.github.com/repos/kucrut/vite-for-wp/zipball/69b3b14b94afddc14769d06658bb017f24f97244",
+                "reference": "69b3b14b94afddc14769d06658bb017f24f97244",
                 "shasum": ""
             },
             "require-dev": {
@@ -467,9 +467,9 @@
             "description": "Vite integration for WordPress plugins and themes development.",
             "support": {
                 "issues": "https://github.com/kucrut/vite-for-wp/issues",
-                "source": "https://github.com/kucrut/vite-for-wp/tree/v0.11.4"
+                "source": "https://github.com/kucrut/vite-for-wp/tree/v0.11.6"
             },
-            "time": "2025-03-14T16:19:29+00:00"
+            "time": "2025-05-21T05:42:46+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -3074,12 +3074,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
 }
