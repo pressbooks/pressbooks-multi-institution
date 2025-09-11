@@ -180,7 +180,7 @@
 					</p>
 				</th>
 				<td class="institutional-managers-component">
-					<pressbooks-multiselect
+					<pressbooks-select
 						max="3"
 						@if(! $institution->allowsInstitutionalManagers() && ! $isSuperAdmin)
 							disabled
@@ -215,7 +215,7 @@
 								@endisset
 							@endforeach
 						</select>
-					</pressbooks-multiselect>
+					</pressbooks-select>
 				</td>
 			</tr>
 

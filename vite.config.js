@@ -5,7 +5,7 @@ export default {
 			{
 				input: {
 					app: 'resources/assets/js/pressbooks-multi-institution.js',
-					multiselect: 'node_modules/@pressbooks/multiselect/pressbooks-multiselect.js',
+					multiselect: 'node_modules/@pressbooks/select/pressbooks-select.js',
 				},
 				outDir: 'dist'
 			}
