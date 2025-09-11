@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.4.3](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.4.2...1.4.3) (2025-09-02)
+
+
+### Chores
+
+* bump dependencies ([4c53bfc](https://github.com/pressbooks/pressbooks-multi-institution/commit/4c53bfcff56362ced1cd8ed78f191048c974319f))
+* bump vite-for-wp ([#272](https://github.com/pressbooks/pressbooks-multi-institution/issues/272)) ([4c53bfc](https://github.com/pressbooks/pressbooks-multi-institution/commit/4c53bfcff56362ced1cd8ed78f191048c974319f))
+
 ## [1.4.2](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.4.1...1.4.2) (2025-07-17)
 
 
