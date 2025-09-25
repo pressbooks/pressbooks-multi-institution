@@ -15,7 +15,7 @@ class UserList extends BaseInstitutionList
         add_filter('pb_network_analytics_user_list_select_clause', [$this, 'appendAdditionalColumnsToQuery']);
         add_filter('pb_network_analytics_user_list_where_clause', [$this, 'appendAdditionalWhereClausesToQuery']);
         add_filter('pb_network_analytics_user_list_filter', [$this, 'addFilters']);
-        add_filter('pb_network_analytics_user_list_fields', [$this, 'filterInstitutionListItems']);
+        add_filter('pb_network_analytics_user_list_fields', [$this, 'filterInstitutionListItems'], 2, 10);
     }
     public function getCustomTexts(array $texts): array
     {
