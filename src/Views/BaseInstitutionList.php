@@ -101,14 +101,22 @@ abstract class BaseInstitutionList
         return $where;
     }
 
-    public function filterInstitutionListItems($bookList): array
+    public function filterInstitutionListItems(array $list, array $sorters): array
     {
-        return array_map(function (\stdClass $item) {
+        $list = array_map(function (\stdClass $item) {
             unset($item->institution_id);
             $item->institution = $item->institution ?? __('Unassigned', 'pressbooks-multi-institution');
             return $item;
-        }, $bookList);
+        }, $list);
+
+        if (! empty($sorters)) {
+            $list = wp_list_sort($list, $sorters);
+        }
+
+        return $list;
     }
+
     abstract public function addColumns(array $columns): array;
+
     abstract public function getCustomTexts(array $texts): array;
 }
