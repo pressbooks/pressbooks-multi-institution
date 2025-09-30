@@ -48,9 +48,12 @@ abstract class BaseInstitutionList
             ->table('institutions')
             ->select('institutions.name')
             ->join('institutions_blogs', 'institutions.id', '=', 'institutions_blogs.institution_id')
-            ->whereRaw("{$prefix}institutions_blogs.blog_id = b.blog_id");
+            ->whereRaw("{$prefix}institutions_blogs.blog_id = b.blog_id")
+            ->limit(1);
 
-        return $select . ", ({$idSubQuery->toSql()}) as institution_id, ({$nameSubQuery->toSql()}) as institution";
+        $unassigned = $this->db->getConnection()->getPdo()->quote(__('Unassigned', 'pressbooks-multi-institution'));
+
+        return $select . ", ({$idSubQuery->toSql()}) as institution_id" . ", (COALESCE(({$nameSubQuery->toSql()}), {$unassigned})) as institution";
     }
 
     public function appendAdditionalWhereClausesToQuery(string $where): string
