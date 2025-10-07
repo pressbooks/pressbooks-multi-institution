@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.5.0](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.4.3...1.5.0) (2025-09-30)
+
+
+### Features
+
+* replace pressbooks multi-select by pressbooks select lib ([#270](https://github.com/pressbooks/pressbooks-multi-institution/issues/270)) ([db950c5](https://github.com/pressbooks/pressbooks-multi-institution/commit/db950c52dfb8817323ad7544dcc27690d19f2fb0))
+
+
+### Bug Fixes
+
+* respect sorters for ordering users & books list ([#279](https://github.com/pressbooks/pressbooks-multi-institution/issues/279)) ([cec1f8d](https://github.com/pressbooks/pressbooks-multi-institution/commit/cec1f8d20426b158df9e74461dac4446f2086ce2))
+* sort elements by institution column ([cec1f8d](https://github.com/pressbooks/pressbooks-multi-institution/commit/cec1f8d20426b158df9e74461dac4446f2086ce2))
+* unnasigned sorting in books list ([#281](https://github.com/pressbooks/pressbooks-multi-institution/issues/281)) ([0fc7283](https://github.com/pressbooks/pressbooks-multi-institution/commit/0fc7283e23eedb73393f2d30ce1f4de15532f85a))
+
+
+### Chores
+
+* **deps:** bump @pressbooks/select from 1.0.1 to 1.0.2 in the npm-dependencies group ([#277](https://github.com/pressbooks/pressbooks-multi-institution/issues/277)) ([eb2f688](https://github.com/pressbooks/pressbooks-multi-institution/commit/eb2f688ff4df7e4f122edda6e67ac15dbcd02f6c))
+* **deps:** bump @pressbooks/select in the npm-dependencies group ([eb2f688](https://github.com/pressbooks/pressbooks-multi-institution/commit/eb2f688ff4df7e4f122edda6e67ac15dbcd02f6c))
+
 ## [1.4.3](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.4.2...1.4.3) (2025-09-02)
 
 
