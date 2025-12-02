@@ -3,6 +3,7 @@
 namespace PressbooksMultiInstitution\Actions;
 
 use Pressbooks\Admin\Dashboard\Dashboard;
+use Pressbooks\Container;
 
 use function PressbooksMultiInstitution\Support\get_institution_by_manager;
 
@@ -16,12 +17,15 @@ class InstitutionalManagerDashboard extends Dashboard
         add_action('admin_menu', [$this, 'removeDefaultPage']);
         add_action('admin_menu', [$this, 'addNewPage']);
         add_action('admin_init', [$this, 'superAdminSafeRedirect'], 1);
-        $this->fetchUpdates();
     }
 
     public function render(): void
     {
-        echo app('Blade')->render(
+        $blade = Container::get('Blade');
+
+        $updates = $this->fetchUpdates();
+
+        echo $blade->render(
             'PressbooksMultiInstitution::dashboard.institutional',
             [
                 'network_name' => get_bloginfo('name'),
@@ -31,8 +35,8 @@ class InstitutionalManagerDashboard extends Dashboard
                 'total_users' => count(apply_filters('pb_institutional_users', [])),
                 'network_analytics_active' => is_plugin_active('pressbooks-network-analytics/pressbooks-network-analytics.php'),
                 'updates' => [
-                    'text' => $this->recentUpdates['content'] ?? '',
-                    'url' => isset($this->recentUpdates['post_id']) ? "{$this->recentUpdates['domain']}?p={$this->recentUpdates['post_id']}" : null,
+                    'text' => $updates['content'] ?? '',
+                    'url' => isset($updates['post_id']) ? "{$updates['domain']}?p={$updates['post_id']}" : null,
                 ],
             ]
         );
