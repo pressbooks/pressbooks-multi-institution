@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.6.0](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.5.0...1.6.0) (2025-12-02)
+
+
+### Features
+
+* remove po workflow and tx files ([#283](https://github.com/pressbooks/pressbooks-multi-institution/issues/283)) ([91ca19c](https://github.com/pressbooks/pressbooks-multi-institution/commit/91ca19c0d2174cd749771ccfe6e81df530e9e57c))
+
+
+### Bug Fixes
+
+* fetch updates only when needed ([#286](https://github.com/pressbooks/pressbooks-multi-institution/issues/286)) ([ac05559](https://github.com/pressbooks/pressbooks-multi-institution/commit/ac0555954286d053f222668f127fed4c2542044d))
+
+
+### Chores
+
+* **deps-dev:** bump the composer-dev-dependencies group across 1 directory with 2 updates ([#271](https://github.com/pressbooks/pressbooks-multi-institution/issues/271)) ([9abec89](https://github.com/pressbooks/pressbooks-multi-institution/commit/9abec8984758d64a2c7c996318748fbc934a3964))
+* translations update from Pressbooks Weblate ([#282](https://github.com/pressbooks/pressbooks-multi-institution/issues/282)) ([0977fd7](https://github.com/pressbooks/pressbooks-multi-institution/commit/0977fd73384533edf065f19e3d1253b9c8e9922b))
+
 ## [1.5.0](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.4.3...1.5.0) (2025-09-30)
 
 
