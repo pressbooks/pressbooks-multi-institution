@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.1](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.6.0...1.6.1) (2025-12-02)
+
+
+### Bug Fixes
+
+* build scripts ([#287](https://github.com/pressbooks/pressbooks-multi-institution/issues/287)) ([adb384a](https://github.com/pressbooks/pressbooks-multi-institution/commit/adb384a2d2e040ef2f5bd0b7f7b117668886a28d))
+
 ## [1.6.0](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.5.0...1.6.0) (2025-12-02)
 
 
