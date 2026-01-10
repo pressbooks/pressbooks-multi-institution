@@ -4,8 +4,9 @@ namespace PressbooksMultiInstitution;
 
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Query\Builder;
-use Kucrut\Vite;
 use Pressbooks\Container;
+use PressbooksFrontendTools\Assets;
+use PressbooksFrontendTools\AssetType;
 use PressbooksMultiInstitution\Actions\AssignBookToInstitution;
 use PressbooksMultiInstitution\Actions\AssignUserToInstitution;
 use PressbooksMultiInstitution\Actions\InstitutionalManagerDashboard;
@@ -153,17 +154,9 @@ final class Bootstrap
                 ],
             ];
 
-            Vite\enqueue_asset(
-                WP_PLUGIN_DIR . '/pressbooks-multi-institution/dist',
-                'resources/assets/js/pressbooks-multi-institution.js',
-                ['handle' => 'pressbooks-multi-institution']
-            );
-
-            Vite\enqueue_asset(
-                WP_PLUGIN_DIR . '/pressbooks-multi-institution/dist',
-                'node_modules/@pressbooks/select/pressbooks-select.js',
-                ['handle' => 'pressbooks-multi-select'],
-            );
+            $assets = new Assets('pressbooks-multi-institution', AssetType::PLUGIN);
+            $assets->enqueue('resources/assets/js/pressbooks-multi-institution.js', 'pressbooks-multi-institution');
+            $assets->enqueue('node_modules/@pressbooks/select/pressbooks-select.js', 'pressbooks-multi-select');
 
             wp_localize_script('pressbooks-multi-institution', 'context', $context[$page] ?? []);
         });

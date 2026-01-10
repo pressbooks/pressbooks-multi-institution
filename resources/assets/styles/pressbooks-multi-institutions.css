@@ -1,5 +1,5 @@
 :root {
-	--odd-row-bg-color: #FFFFFF;
+	--odd-row-bg-color: #FFF;
 	--even-row-bg-color: #F6F7F7;
 	--totals-row-bg-color: #dedede;
 	--border-color: #e5e5e5;
@@ -16,6 +16,7 @@ table.institutions {
 			&:nth-child(odd) {
 				background-color: var(--odd-row-bg-color);
 			}
+
 			&:nth-child(even) {
 				background-color: var(--even-row-bg-color);
 			}
@@ -65,7 +66,7 @@ table.users, table.assign-books {
 }
 
 h1.institutions-totals-heading {
-	margin: 20px 0 20px;
+	margin: 20px 0;
 }
 
 #pressbooks-multi-institution-assign-table {
@@ -157,7 +158,7 @@ body.institutions_page_pb_multi_institutions {
 }
 
 .pb-institution-welcome-content p {
-	margin: 4rem 0 0 0 !important;
+	margin: 4rem 0 0 !important;
 }
 
 .pb-dashboard-content i.dashicons-before {
@@ -169,6 +170,7 @@ form {
 		th {
 			width: 260px;
 		}
+
 		th, td {
 			vertical-align: top;
 			padding-top: 10px;
@@ -181,6 +183,7 @@ form {
 	}
 }
 
+/* stylelint-disable selector-id-pattern -- WordPress list table column IDs */
 th#book_limit, th#users {
 	width: var(--pb-count-td-width);
 }
@@ -188,3 +191,4 @@ th#book_limit, th#users {
 th#buy_in {
 	width: 65px;
 }
+/* stylelint-enable selector-id-pattern */

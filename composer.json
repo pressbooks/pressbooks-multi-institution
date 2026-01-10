@@ -37,7 +37,7 @@
   },
   "require": {
     "php": "^8.2",
-    "kucrut/vite-for-wp": "^0.11.0",
+    "pressbooks/frontend-tools": "^1.0.0",
     "illuminate/pagination": "^8.83"
   },
   "require-dev": {
