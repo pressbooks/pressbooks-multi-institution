@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.2](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.6.1...1.6.2) (2026-01-20)
+
+
+### Chores
+
+* **i18n:** update translations and revert transifex setup ([#293](https://github.com/pressbooks/pressbooks-multi-institution/issues/293)) ([da0c50f](https://github.com/pressbooks/pressbooks-multi-institution/commit/da0c50f243ba6af5553c2de98e0114d4b62b871c))
+
 ## [1.6.1](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.6.0...1.6.1) (2025-12-02)
 
 
