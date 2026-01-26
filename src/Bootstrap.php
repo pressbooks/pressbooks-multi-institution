@@ -48,7 +48,7 @@ final class Bootstrap
 
         $this->registerInstitutionHooks();
 
-        (app(ContentCheckerBooksScanTable::class))->register();
+        app(ContentCheckerBooksScanTable::class)->register();
     }
 
     private function registerActions(): void
