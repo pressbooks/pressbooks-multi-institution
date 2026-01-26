@@ -17,10 +17,10 @@ class ContentCheckerBooksScanTable
     public function addInstitutionColumn(array $columns): array
     {
         $injected = ['institution' => __('Institution', 'pressbooks-multi-institution')];
-        
+
         $prev_columns = array_slice($columns, 0, array_search('blog_title', array_keys($columns)) + 1, true);
         $next_columns = array_slice($columns, array_search('blog_title', array_keys($columns)) + 1, null, true);
-        
+
         return array_merge($prev_columns, $injected, $next_columns);
     }
 
