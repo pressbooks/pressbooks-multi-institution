@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.7.0](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.6.2...1.7.0) (2026-02-05)
+
+
+### Features
+
+* add hooks for broken link checker ([#295](https://github.com/pressbooks/pressbooks-multi-institution/issues/295)) ([2fd11a5](https://github.com/pressbooks/pressbooks-multi-institution/commit/2fd11a5a77556df06e589fa118613eb1086b399a))
+
+
+### Bug Fixes
+
+* join with blog table instead of checker reports one ([#297](https://github.com/pressbooks/pressbooks-multi-institution/issues/297)) ([d925ff5](https://github.com/pressbooks/pressbooks-multi-institution/commit/d925ff512cedae26ff0c3324990cec395089a7ed))
+
 ## [1.6.2](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.6.1...1.6.2) (2026-01-20)
 
 
