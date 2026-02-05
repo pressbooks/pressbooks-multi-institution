@@ -47,7 +47,7 @@ class ContentCheckerBooksScanTable
         $institutionId = get_institution_by_manager();
 
         return $query
-            ->leftJoin('institutions_blogs', 'institutions_blogs.blog_id', '=', 'pressbooks_content_checker_reports.blog_id')
+            ->leftJoin('institutions_blogs', 'institutions_blogs.blog_id', '=', 'blogs.blog_id')
             ->leftJoin('institutions', 'institutions.id', '=', 'institutions_blogs.institution_id')
             ->selectRaw('MAX(' . $wpdb->prefix . 'institutions.name) AS institution')
             ->when($institutionId !== 0, function ($q) use ($institutionId) {
