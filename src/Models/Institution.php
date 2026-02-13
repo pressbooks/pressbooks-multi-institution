@@ -95,7 +95,7 @@ class Institution extends Model
                 do_action('pressbooks_institutional_manager_added', $userId, $this->id);
             }
         }
-        
+
         foreach ($detach as $userId) {
             do_action('pressbooks_institutional_manager_removed', $userId, $this->id);
         }
