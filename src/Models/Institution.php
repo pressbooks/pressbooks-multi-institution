@@ -89,7 +89,16 @@ class Institution extends Model
             ]);
         }
 
-        apply_filters('pb_institutional_after_save', $ids, $detach);
+        // Fire actions for each manager added/removed
+        foreach ($ids as $userId) {
+            if (!in_array($userId, $managers)) {
+                do_action('pressbooks_institutional_manager_added', $userId, $this->id);
+            }
+        }
+        
+        foreach ($detach as $userId) {
+            do_action('pressbooks_institutional_manager_removed', $userId, $this->id);
+        }
 
         return $this;
     }
