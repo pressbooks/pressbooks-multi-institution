@@ -23,10 +23,14 @@ class TestCase extends WP_UnitTestCase
         /** @var Manager $db */
         $db = app('db');
 
+        // Delete tables with foreign key constraints first
+        $db->table('institution_users')->delete();
+        $db->table('institutions_blogs')->delete();
+
+        // Then delete the referenced tables
+        $db->table('institutions')->delete();
         $db->table('users')->where('user_login', '<>', 'admin')->delete();
         $db->table('blogs')->where('blog_id', '<>', get_main_site_id())->delete();
-        $db->table('institutions')->delete();
-        $db->table('institution_users')->delete();
 
         Migration::rollback();
     }
