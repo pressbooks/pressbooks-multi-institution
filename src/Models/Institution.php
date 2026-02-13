@@ -89,6 +89,8 @@ class Institution extends Model
             ]);
         }
 
+        apply_filters('pb_institutional_after_save', $ids, $detach);
+
         // Fire actions for each manager added/removed
         foreach ($ids as $userId) {
             if (!in_array($userId, $managers)) {
