@@ -14,8 +14,19 @@ return new class implements MigrationInterface {
         }
 
         $connection = app('db')->connection();
+        $prefix = $connection->getTablePrefix();
 
-        $table = $connection->getTablePrefix() . 'institutions_blogs';
+        // Only proceed if wp_blogs.blog_id is already unsigned (WP 6.9+).
+        $blogsColumn = $connection->selectOne(
+            "SELECT COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = ? AND COLUMN_NAME = 'blog_id'",
+            [$prefix . 'blogs']
+        );
+
+        if (! $blogsColumn || ! str_contains(strtolower($blogsColumn->COLUMN_TYPE), 'unsigned')) {
+            return;
+        }
+
+        $table = $prefix . 'institutions_blogs';
 
         $column = $connection->selectOne(
             "SELECT COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = ? AND COLUMN_NAME = 'blog_id'",
@@ -29,12 +40,12 @@ return new class implements MigrationInterface {
         $connection->statement("ALTER TABLE `{$table}` DROP FOREIGN KEY `institutions_blogs_blog_id_foreign`");
         $connection->statement("ALTER TABLE `{$table}` MODIFY `blog_id` BIGINT UNSIGNED NOT NULL");
         $connection->statement(
-            "ALTER TABLE `{$table}` ADD CONSTRAINT `institutions_blogs_blog_id_foreign` FOREIGN KEY (`blog_id`) REFERENCES `{$connection->getTablePrefix()}blogs` (`blog_id`) ON DELETE CASCADE"
+            "ALTER TABLE `{$table}` ADD CONSTRAINT `institutions_blogs_blog_id_foreign` FOREIGN KEY (`blog_id`) REFERENCES `{$prefix}blogs` (`blog_id`) ON DELETE CASCADE"
         );
     }
 
     public function down(): void
     {
-        // Intentionally left empty - no need to revert to signed bigint
+        // No need to revert, as the change is non-destructive and compatible with both signed and unsigned blog_id.
     }
 };
