@@ -15,7 +15,7 @@ return new class implements MigrationInterface {
         }
         $schema->create('institutions_blogs', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('blog_id');
+            $table->unsignedBigInteger('blog_id');
             $table->unsignedBigInteger('institution_id');
 
             $table->foreign('blog_id')
