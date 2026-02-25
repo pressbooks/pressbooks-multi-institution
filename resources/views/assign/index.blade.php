@@ -60,6 +60,8 @@
 			</ul>
 		</div>
 
-		{!! $table->display() !!}
+		<div class="pb-list-table-responsive" style="--pb-list-table-min-width: {{ $table_min_width }}">
+			{!! $table->display() !!}
+		</div>
 	</form>
 </div>
