@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.7.1](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.7.0...1.7.1) (2026-02-25)
+
+
+### Bug Fixes
+
+* unsigned migration ([#302](https://github.com/pressbooks/pressbooks-multi-institution/issues/302)) ([55846f8](https://github.com/pressbooks/pressbooks-multi-institution/commit/55846f81c89d7323e4dbf0c565d9c44d136b1d81))
+* WP 6.9 compat ([#299](https://github.com/pressbooks/pressbooks-multi-institution/issues/299)) ([2d907c7](https://github.com/pressbooks/pressbooks-multi-institution/commit/2d907c70fdfe7d1cbbd51709c0ecd90338c37fd2))
+
 ## [1.7.0](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.6.2...1.7.0) (2026-02-05)
 
 
