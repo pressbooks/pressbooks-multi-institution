@@ -84,6 +84,24 @@ h1.institutions-totals-heading {
 		}
 	}
 
+	.assign-users {
+		.column-username {
+			min-width: 8rem;
+		}
+
+		.column-name {
+			min-width: 10rem;
+		}
+
+		.column-email {
+			min-width: 12rem;
+		}
+
+		.column-institution {
+			min-width: 8rem;
+		}
+	}
+
 	.wp-list-table td {
 		border-bottom: 1px solid var(--border-color);
 	}
