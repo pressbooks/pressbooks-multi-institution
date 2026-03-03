@@ -71,9 +71,34 @@ h1.institutions-totals-heading {
 #pressbooks-multi-institution-assign-table {
 	.assign-books {
 		.column-cover {
-			min-width: 50px;
+			width: 3rem;
+			min-width: 3rem;
 			text-align: center;
-			width: 5%;
+
+			img {
+				display: block;
+				margin: 0 auto;
+				max-width: 100%;
+				height: auto;
+			}
+		}
+	}
+
+	.assign-users {
+		.column-username {
+			min-width: 8rem;
+		}
+
+		.column-name {
+			min-width: 10rem;
+		}
+
+		.column-email {
+			min-width: 12rem;
+		}
+
+		.column-institution {
+			min-width: 8rem;
 		}
 	}
 

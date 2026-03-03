@@ -40,6 +40,7 @@ class AssignUsersController extends BaseController
             'params' => collect($filters)
                 ->flatMap(fn (string $filter, string $key) => [$key => sanitize_text_field($_REQUEST[$key] ?? $filter)])
                 ->toArray(),
+            'table_min_width' => '600px',
         ]);
     }
 
