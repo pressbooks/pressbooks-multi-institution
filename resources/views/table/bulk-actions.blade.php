@@ -1,5 +1,5 @@
 <label for="bulk-action-selector-{{ esc_attr($which) }}" class="screen-reader-text">
-	{{ __('Select bulk action') }}
+	{{ __('Select bulk action', 'pressbooks-multi-institution') }}
 </label>
 <select name="action{{ $two }}" id="bulk-action-selector-{{ esc_attr($which) }}">
 	<option value="-1">{{ __('- Set Institution -', 'pressbooks-multi-institution') }}</option>

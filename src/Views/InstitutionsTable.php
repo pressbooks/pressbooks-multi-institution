@@ -61,8 +61,8 @@ class InstitutionsTable extends WP_List_Table
             '<a href="%s" aria-label="%s">%s</a>',
             $edit_url,
             /* translators: %s: post title */
-            esc_attr(sprintf(__('Edit &#8220;%s&#8221;'), $item['name'])),
-            __('Edit')
+            esc_attr(sprintf(__('Edit &#8220;%s&#8221;', 'pressbooks-multi-institution'), $item['name'])),
+            __('Edit', 'pressbooks-multi-institution')
         );
 
         $delete_url = network_admin_url(
@@ -76,8 +76,8 @@ class InstitutionsTable extends WP_List_Table
             '<a href="%s" class="submitdelete" aria-label="%s" ' . $onclick . '>%s</a>',
             $delete_url,
             /* translators: %s: post title */
-            esc_attr(sprintf(__('Move &#8220;%s&#8221; to the Trash'), $item['name'])),
-            _x('Delete', 'verb')
+            esc_attr(sprintf(__('Move &#8220;%s&#8221; to the Trash', 'pressbooks-multi-institution'), $item['name'])),
+            _x('Delete', 'verb', 'pressbooks-multi-institution')
         );
 
         return sprintf(
@@ -93,7 +93,7 @@ class InstitutionsTable extends WP_List_Table
         return app('Blade')->render('PressbooksMultiInstitution::table.checkbox', [
             'name' => 'ID',
             'value' => $item['ID'],
-            'label' => sprintf(__('Select %s'), $item['name']),
+            'label' => sprintf(__('Select %s', 'pressbooks-multi-institution'), $item['name']),
         ]);
     }
 
