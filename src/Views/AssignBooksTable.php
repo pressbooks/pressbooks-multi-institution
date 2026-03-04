@@ -59,7 +59,7 @@ class AssignBooksTable extends WP_List_Table
     {
         return app('Blade')->render('PressbooksMultiInstitution::table.cover', [
             'url' => empty($item->cover) ? default_cover_url() : $item->cover,
-            'alt_text' => sprintf(__('%s&#8217;s cover', 'pressbooks-multi-institution'), $item->title),
+            'alt_text' => sprintf(__("%s's cover", 'pressbooks-multi-institution'), $item->title),
         ]);
     }
 
