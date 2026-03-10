@@ -10,6 +10,7 @@ use PressbooksFrontendTools\AssetType;
 use PressbooksMultiInstitution\Actions\AssignBookToInstitution;
 use PressbooksMultiInstitution\Actions\AssignUserToInstitution;
 use PressbooksMultiInstitution\Actions\InstitutionalManagerDashboard;
+use PressbooksMultiInstitution\Integrations\ContentCheckerBooksScanTable;
 use PressbooksMultiInstitution\Models\Institution;
 use PressbooksMultiInstitution\Models\InstitutionUser;
 use PressbooksMultiInstitution\Services\InstitutionStatsService;
@@ -47,6 +48,8 @@ final class Bootstrap
         Container::getInstance()->singleton(UserList::class, fn () => new UserList(app('db')));
 
         $this->registerInstitutionHooks();
+
+        app(ContentCheckerBooksScanTable::class)->register();
     }
 
     private function registerActions(): void

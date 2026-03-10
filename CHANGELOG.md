@@ -1,5 +1,32 @@
 # Changelog
 
+## [1.7.1](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.7.0...1.7.1) (2026-02-25)
+
+
+### Bug Fixes
+
+* unsigned migration ([#302](https://github.com/pressbooks/pressbooks-multi-institution/issues/302)) ([55846f8](https://github.com/pressbooks/pressbooks-multi-institution/commit/55846f81c89d7323e4dbf0c565d9c44d136b1d81))
+* WP 6.9 compat ([#299](https://github.com/pressbooks/pressbooks-multi-institution/issues/299)) ([2d907c7](https://github.com/pressbooks/pressbooks-multi-institution/commit/2d907c70fdfe7d1cbbd51709c0ecd90338c37fd2))
+
+## [1.7.0](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.6.2...1.7.0) (2026-02-05)
+
+
+### Features
+
+* add hooks for broken link checker ([#295](https://github.com/pressbooks/pressbooks-multi-institution/issues/295)) ([2fd11a5](https://github.com/pressbooks/pressbooks-multi-institution/commit/2fd11a5a77556df06e589fa118613eb1086b399a))
+
+
+### Bug Fixes
+
+* join with blog table instead of checker reports one ([#297](https://github.com/pressbooks/pressbooks-multi-institution/issues/297)) ([d925ff5](https://github.com/pressbooks/pressbooks-multi-institution/commit/d925ff512cedae26ff0c3324990cec395089a7ed))
+
+## [1.6.2](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.6.1...1.6.2) (2026-01-20)
+
+
+### Chores
+
+* **i18n:** update translations and revert transifex setup ([#293](https://github.com/pressbooks/pressbooks-multi-institution/issues/293)) ([da0c50f](https://github.com/pressbooks/pressbooks-multi-institution/commit/da0c50f243ba6af5553c2de98e0114d4b62b871c))
+
 ## [1.6.1](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.6.0...1.6.1) (2025-12-02)
 
 

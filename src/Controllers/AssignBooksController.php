@@ -41,6 +41,7 @@ class AssignBooksController extends BaseController
                 ->toArray(),
             'result' => $result,
             'table' => $this->table,
+            'table_min_width' => '760px',
         ]);
     }
 

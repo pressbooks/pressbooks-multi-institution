@@ -26,6 +26,11 @@ class AssignBooksTable extends WP_List_Table
         ]);
     }
 
+    protected function get_table_classes(): array
+    {
+        return ['widefat', 'striped', 'table-view-list', 'pb-table', $this->_args['plural']];
+    }
+
     public function get_columns(): array
     {
         return [
