@@ -143,7 +143,7 @@
 							/>
 						</template>
 						<div>
-							<button class="button" type="button" @click="addNew">{{ __('Add New') }}<span class="screen-reader-text"> {{ __('domain', 'pressbooks-multi-institution')}}</span></button>
+							<button class="button" type="button" @click="addNew">{{ __('Add New', 'pressbooks-multi-institution') }}<span class="screen-reader-text"> {{ __('domain', 'pressbooks-multi-institution')}}</span></button>
 						</div>
 					</div>
 				</td>
@@ -186,7 +186,7 @@
 							disabled
 						@endif
 					>
-						<label class="screen-reader-text">Institutional Managers</label>
+						<label class="screen-reader-text">{{ __( 'Institutional Managers', 'pressbooks-multi-institution' ) }}</label>
 						<select
 							id="managers"
 							name="managers[]"
@@ -266,6 +266,6 @@
 			@endif
 		</table>
 
-		{!! get_submit_button($institution->exists ? __('Save Changes', 'pressbooks-multi-institution') : __('Add Institution')) !!}
+		{!! get_submit_button($institution->exists ? __('Save Changes', 'pressbooks-multi-institution') : __('Add Institution', 'pressbooks-multi-institution')) !!}
 	</form>
 </div>

@@ -51,7 +51,7 @@ class AssignBooksTable extends WP_List_Table
         return app('Blade')->render('PressbooksMultiInstitution::table.checkbox', [
             'name' => 'id',
             'value' => $item->id,
-            'label' => sprintf(__('Select %s'), $item->title),
+            'label' => sprintf(__('Select %s', 'pressbooks-multi-institution'), $item->title),
         ]);
     }
 
@@ -59,7 +59,7 @@ class AssignBooksTable extends WP_List_Table
     {
         return app('Blade')->render('PressbooksMultiInstitution::table.cover', [
             'url' => empty($item->cover) ? default_cover_url() : $item->cover,
-            'alt_text' => "{$item->title}'s cover",
+            'alt_text' => sprintf(__("%s's cover", 'pressbooks-multi-institution'), $item->title),
         ]);
     }
 

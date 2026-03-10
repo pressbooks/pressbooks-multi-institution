@@ -14,6 +14,7 @@
  * Requires PHP: 8.1
  * Pressbooks tested up to: 6.16.0
  * Text Domain: pressbooks-multi-institution
+ * Domain Path: /languages
  * License: GPL v3 or later
  * Network: True
  */
