@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-03-10T15:39:36+00:00\n"
+"POT-Creation-Date: 2026-03-11T18:01:49+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pressbooks-multi-institution\n"
@@ -39,7 +39,7 @@ msgstr ""
 msgid "https://pressbooks.org"
 msgstr ""
 
-#: src/Bootstrap.php:107
+#: src/Bootstrap.php:108
 #: src/Traits/OverridesBulkActions.php:14
 #: src/Views/AssignUsersTable.php:79
 #: src/Views/BaseInstitutionList.php:54
@@ -51,7 +51,7 @@ msgstr ""
 msgid "Unassigned"
 msgstr ""
 
-#: src/Bootstrap.php:155
+#: src/Bootstrap.php:156
 msgid "Are you sure you want to delete the selected institutions?"
 msgstr ""
 
