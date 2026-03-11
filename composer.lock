@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6fbd906c52e617b59574063dc0314062",
+    "content-hash": "78a51d8356484983daf3f792db945994",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -433,16 +433,16 @@
         },
         {
             "name": "kucrut/vite-for-wp",
-            "version": "v0.11.6",
+            "version": "v0.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kucrut/vite-for-wp.git",
-                "reference": "69b3b14b94afddc14769d06658bb017f24f97244"
+                "reference": "45ec51bbaedbc4e7335db3b3d4a4923962634fea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kucrut/vite-for-wp/zipball/69b3b14b94afddc14769d06658bb017f24f97244",
-                "reference": "69b3b14b94afddc14769d06658bb017f24f97244",
+                "url": "https://api.github.com/repos/kucrut/vite-for-wp/zipball/45ec51bbaedbc4e7335db3b3d4a4923962634fea",
+                "reference": "45ec51bbaedbc4e7335db3b3d4a4923962634fea",
                 "shasum": ""
             },
             "require-dev": {
@@ -466,9 +466,9 @@
             "description": "Vite integration for WordPress plugins and themes development.",
             "support": {
                 "issues": "https://github.com/kucrut/vite-for-wp/issues",
-                "source": "https://github.com/kucrut/vite-for-wp/tree/v0.11.6"
+                "source": "https://github.com/kucrut/vite-for-wp/tree/v0.12.0"
             },
-            "time": "2025-05-21T05:42:46+00:00"
+            "time": "2025-06-26T03:15:40+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -576,6 +576,52 @@
                 }
             ],
             "time": "2025-01-08T20:10:23+00:00"
+        },
+        {
+            "name": "pressbooks/frontend-tools",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pressbooks/frontend-tools.git",
+                "reference": "4d69c650715526793b5da5ebdd9175392fb5b7ac"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pressbooks/frontend-tools/zipball/4d69c650715526793b5da5ebdd9175392fb5b7ac",
+                "reference": "4d69c650715526793b5da5ebdd9175392fb5b7ac",
+                "shasum": ""
+            },
+            "require": {
+                "kucrut/vite-for-wp": "^0.12.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PressbooksFrontendTools\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pressbooks (Book Oven Inc.)",
+                    "email": "code@pressbooks.com"
+                },
+                {
+                    "name": "Oscar Arzola",
+                    "email": "os@pressbooks.com"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/pressbooks/frontend-tools/issues",
+                "source": "https://github.com/pressbooks/frontend-tools/tree/1.0.0"
+            },
+            "time": "2025-11-19T19:57:02+00:00"
         },
         {
             "name": "psr/clock",
@@ -962,16 +1008,16 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v6.4.32",
+            "version": "v6.4.34",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "d6cc8e2fdd484f2f41d25938b0e8e3915de3cfbc"
+                "reference": "d07d117db41341511671b0a1a2be48f2772189ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/d6cc8e2fdd484f2f41d25938b0e8e3915de3cfbc",
-                "reference": "d6cc8e2fdd484f2f41d25938b0e8e3915de3cfbc",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/d07d117db41341511671b0a1a2be48f2772189ce",
+                "reference": "d07d117db41341511671b0a1a2be48f2772189ce",
                 "shasum": ""
             },
             "require": {
@@ -1037,7 +1083,7 @@
             "description": "Provides tools to internationalize your application",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/translation/tree/v6.4.32"
+                "source": "https://github.com/symfony/translation/tree/v6.4.34"
             },
             "funding": [
                 {
@@ -1057,7 +1103,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-01-12T19:15:33+00:00"
+            "time": "2026-02-16T20:44:03+00:00"
         },
         {
             "name": "symfony/translation-contracts",

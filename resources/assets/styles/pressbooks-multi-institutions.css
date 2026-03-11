@@ -1,215 +1,225 @@
 :root {
-	--odd-row-bg-color: #FFFFFF;
-	--even-row-bg-color: #F6F7F7;
-	--totals-row-bg-color: #dedede;
-	--border-color: #e5e5e5;
-	--totals-row-border-color: #C3C4C7;
-	--pb-count-td-width: 10%;
-	--pb-error-color: #d4002d;
-	--pb-invalid-field-background-color: #fab;
-	--table-text-color: #333;
+  --odd-row-bg-color: #fff;
+  --even-row-bg-color: #f6f7f7;
+  --totals-row-bg-color: #dedede;
+  --border-color: #e5e5e5;
+  --totals-row-border-color: #c3c4c7;
+  --pb-count-td-width: 10%;
+  --pb-error-color: #d4002d;
+  --pb-invalid-field-background-color: #fab;
+  --table-text-color: #333;
 }
 
 table.institutions {
-	#the-list {
-		tr:not(.totals-row) {
-			&:nth-child(odd) {
-				background-color: var(--odd-row-bg-color);
-			}
-			&:nth-child(even) {
-				background-color: var(--even-row-bg-color);
-			}
-		}
+  #the-list {
+    tr:not(.totals-row) {
+      &:nth-child(odd) {
+        background-color: var(--odd-row-bg-color);
+      }
 
-		tr {
-			td, th {
-				border-bottom: 1px solid var(--border-color);
-				color: var(--table-text-color);
-			}
+      &:nth-child(even) {
+        background-color: var(--even-row-bg-color);
+      }
+    }
 
-			td {
-				margin: 0 0 10px;
-			}
-		}
+    tr {
+      td,
+      th {
+        border-bottom: 1px solid var(--border-color);
+        color: var(--table-text-color);
+      }
 
-		.row-title {
-			font-size: 13px !important;
-		}
+      td {
+        margin: 0 0 10px;
+      }
+    }
 
-		.totals-row {
-			background-color: var(--totals-row-bg-color) !important;
+    .row-title {
+      font-size: 13px !important;
+    }
 
-			td, th {
-				border-bottom: 1px solid var(--totals-row-border-color);
-			}
-		}
-	}
+    .totals-row {
+      background-color: var(--totals-row-bg-color) !important;
+
+      td,
+      th {
+        border-bottom: 1px solid var(--totals-row-border-color);
+      }
+    }
+  }
 }
 
-table.users, table.assign-books {
-	tr {
-		td, th {
-			border-bottom: 1px solid var(--border-color);
-		}
+table.users,
+table.assign-books {
+  tr {
+    td,
+    th {
+      border-bottom: 1px solid var(--border-color);
+    }
 
-		td {
-			margin: 0 0 10px;
-		}
-	}
+    td {
+      margin: 0 0 10px;
+    }
+  }
 }
 
 @media screen and (min-width: 59.975rem) {
-	table.institutions-totals-table {
-		width: 50%;
-	}
+  table.institutions-totals-table {
+    width: 50%;
+  }
 }
 
 h1.institutions-totals-heading {
-	margin: 20px 0 20px;
+  margin: 20px 0;
 }
 
 #pressbooks-multi-institution-assign-table {
-	.assign-books {
-		.column-cover {
-			width: 3rem;
-			min-width: 3rem;
-			text-align: center;
+  .assign-books {
+    .column-cover {
+      width: 3rem;
+      min-width: 3rem;
+      text-align: center;
 
-			img {
-				display: block;
-				margin: 0 auto;
-				max-width: 100%;
-				height: auto;
-			}
-		}
-	}
+      img {
+        display: block;
+        margin: 0 auto;
+        max-width: 100%;
+        height: auto;
+      }
+    }
+  }
 
-	.assign-users {
-		.column-username {
-			min-width: 8rem;
-		}
+  .assign-users {
+    .column-username {
+      min-width: 8rem;
+    }
 
-		.column-name {
-			min-width: 10rem;
-		}
+    .column-name {
+      min-width: 10rem;
+    }
 
-		.column-email {
-			min-width: 12rem;
-		}
+    .column-email {
+      min-width: 12rem;
+    }
 
-		.column-institution {
-			min-width: 8rem;
-		}
-	}
+    .column-institution {
+      min-width: 8rem;
+    }
+  }
 
-	.wp-list-table td {
-		border-bottom: 1px solid var(--border-color);
-	}
+  .wp-list-table td {
+    border-bottom: 1px solid var(--border-color);
+  }
 }
 
 .striped {
-	.totals-row {
-		.text-right {
-			padding-left: 40px;
-		}
-	}
+  .totals-row {
+    .text-right {
+      padding-left: 40px;
+    }
+  }
 }
 
 body.institutions_page_pb_multi_institutions {
-	.filtering {
-		display: flex;
-		gap: 10px;
-		margin-top: 10px;
+  .filtering {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
 
-		ul {
-			margin: 0;
-			padding-top: 5px;
-		}
+    ul {
+      margin: 0;
+      padding-top: 5px;
+    }
 
-		a {
-			height: 30px;
-		}
-	}
+    a {
+      height: 30px;
+    }
+  }
 }
 
 .institutions_page_pb_multi_institution_form {
-	--pb-input-width: 25em;
-	--pb-selected-options-flex-direction: column;
+  --pb-input-width: 25em;
+  --pb-selected-options-flex-direction: column;
 
-	.error {
-		.error-list {
-			margin: 0.5rem 0;
-		}
+  .error {
+    .error-list {
+      margin: 0.5rem 0;
+    }
 
-		li {
-			margin: 0.5rem 0;
-		}
+    li {
+      margin: 0.5rem 0;
+    }
 
-		.padding {
-			padding: 0 2px;
-		}
+    .padding {
+      padding: 0 2px;
+    }
 
-		.invalid {
-			margin: .2rem 0 0 1rem;
-		}
+    .invalid {
+      margin: 0.2rem 0 0 1rem;
+    }
 
-		.red {
-			color: var(--pb-error-color);
-		}
-	}
+    .red {
+      color: var(--pb-error-color);
+    }
+  }
 
-	[aria-invalid] {
-		background-color: var(--pb-invalid-field-background-color);
-	}
+  [aria-invalid] {
+    background-color: var(--pb-invalid-field-background-color);
+  }
 
-	.description {
-		font-weight: normal;
-	}
+  .description {
+    font-weight: normal;
+  }
 
-	.form-table {
-		td {
-			select[hidden] {
-				display: none;
-			}
-		}
-	}
+  .form-table {
+    td {
+      select[hidden] {
+        display: none;
+      }
+    }
+  }
 
-	.multiple-text-input {
-		display: grid;
-		grid-template-columns: 1fr;
-		gap: .5rem;
-	}
+  .multiple-text-input {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
 }
 
 .pb-institution-welcome-content p {
-	margin: 4rem 0 0 0 !important;
+  margin: 4rem 0 0 !important;
 }
 
 .pb-dashboard-content i.dashicons-before {
-	margin-right: 4px !important;
+  margin-right: 4px !important;
 }
 
 form {
-	.form-table.institution {
-		th {
-			width: 260px;
-		}
-		th, td {
-			vertical-align: top;
-			padding-top: 10px;
-		}
+  .form-table.institution {
+    th {
+      width: 260px;
+    }
 
-		.institutional-managers-component {
-			margin-top: -15px;
-			display: flex;
-		}
-	}
+    th,
+    td {
+      vertical-align: top;
+      padding-top: 10px;
+    }
+
+    .institutional-managers-component {
+      margin-top: -15px;
+      display: flex;
+    }
+  }
 }
 
-th#book_limit, th#users {
-	width: var(--pb-count-td-width);
+/* stylelint-disable selector-id-pattern -- WordPress list table column IDs */
+th#book_limit,
+th#users {
+  width: var(--pb-count-td-width);
 }
 
 th#buy_in {
-	width: 65px;
+  width: 65px;
 }
+/* stylelint-enable selector-id-pattern */

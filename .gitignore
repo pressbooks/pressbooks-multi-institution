@@ -10,3 +10,4 @@ LICENSE
 .DS_Store
 .swp
 *.log
+assets/dist/vite-dev-server.json
