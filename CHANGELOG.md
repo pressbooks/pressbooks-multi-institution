@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.8.0](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.7.1...1.8.0) (2026-03-12)
+
+
+### Features
+
+* new build tools ([#291](https://github.com/pressbooks/pressbooks-multi-institution/issues/291)) ([908f343](https://github.com/pressbooks/pressbooks-multi-institution/commit/908f34328c65dcfa166066397b8f8437a35be06a))
+
+
+### Bug Fixes
+
+* improve table styles ([#301](https://github.com/pressbooks/pressbooks-multi-institution/issues/301)) ([8125806](https://github.com/pressbooks/pressbooks-multi-institution/commit/8125806cbebe3e1f1ef840afebeb5d70f15cd9cb))
+
+
+### Chores
+
+* **i18n:** update POT file for translations ([#306](https://github.com/pressbooks/pressbooks-multi-institution/issues/306)) ([1dcb791](https://github.com/pressbooks/pressbooks-multi-institution/commit/1dcb791fdd093287e4c140edcd448371e6f12648))
+* **l10n:** migrate from Transifex to Crowdin ([#305](https://github.com/pressbooks/pressbooks-multi-institution/issues/305)) ([a2fa72d](https://github.com/pressbooks/pressbooks-multi-institution/commit/a2fa72df110c45bcca9a4f0fca503e3be3ce4d7e))
+
 ## [1.7.1](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.7.0...1.7.1) (2026-02-25)
 
 
