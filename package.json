@@ -1,12 +1,16 @@
 {
   "name": "@pressbooks/pressbooks-multi-institution",
   "description": "Tools for managing Pressbooks networks shared by multiple institutions",
-  "main": "resources/assets/js/pressbooks-multi-institution.js",
+  "type": "module",
   "scripts": {
-    "build": "vite build",
-    "dev": "vite"
+    "build": "pressbooks-build-tools build",
+    "watch": "pressbooks-build-tools dev",
+    "lint:scripts": "pressbooks-build-tools lint:scripts 'resources/assets/js/**/*.js'",
+    "lint:styles": "pressbooks-build-tools lint:styles 'resources/assets/styles/**/*.css'",
+    "fix:scripts": "pressbooks-build-tools fix:scripts 'resources/assets/js/**/*.js'",
+    "fix:styles": "pressbooks-build-tools fix:styles 'resources/assets/styles/**/*.css'",
+    "lint": "npm run lint:scripts && npm run lint:styles"
   },
-	"type": "module",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/pressbooks/pressbooks-multi-institution.git"
@@ -21,11 +25,16 @@
   },
   "homepage": "https://github.com/pressbooks/pressbooks--multi-institution#readme",
   "devDependencies": {
-    "@kucrut/vite-for-wp": "^0.11.0",
-    "cross-env": "^7.0.3",
+    "pressbooks-build-tools": "^6.0.0",
     "postcss-nesting": "^12.1.4"
   },
   "dependencies": {
-		"@pressbooks/select": "1.0.2"
-	}
+    "@pressbooks/select": "1.0.2"
+  },
+  "eslintConfig": {
+    "extends": "./node_modules/pressbooks-build-tools/config/eslint.cjs"
+  },
+  "stylelint": {
+    "extends": "./node_modules/pressbooks-build-tools/config/stylelint.js"
+  }
 }

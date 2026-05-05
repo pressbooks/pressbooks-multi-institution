@@ -13,9 +13,22 @@ return new class implements MigrationInterface {
         if ($schema->hasTable('institutions_blogs')) {
             return;
         }
-        $schema->create('institutions_blogs', function (Blueprint $table) {
+
+        $connection = app('db')->connection();
+        $prefix = $connection->getTablePrefix();
+        $blogsColumn = $connection->selectOne(
+            "SELECT COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = ? AND COLUMN_NAME = 'blog_id'",
+            [$prefix . 'blogs']
+        );
+        $blogIdIsUnsigned = $blogsColumn && str_contains(strtolower($blogsColumn->COLUMN_TYPE), 'unsigned');
+
+        $schema->create('institutions_blogs', function (Blueprint $table) use ($blogIdIsUnsigned) {
             $table->id();
-            $table->bigInteger('blog_id');
+            if ($blogIdIsUnsigned) {
+                $table->unsignedBigInteger('blog_id');
+            } else {
+                $table->bigInteger('blog_id');
+            }
             $table->unsignedBigInteger('institution_id');
 
             $table->foreign('blog_id')
