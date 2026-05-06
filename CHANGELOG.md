@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.9.0](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.8.0...1.9.0) (2026-05-05)
+
+
+### Features
+
+* add actions for manager addition and removal ([#298](https://github.com/pressbooks/pressbooks-multi-institution/issues/298)) ([df02966](https://github.com/pressbooks/pressbooks-multi-institution/commit/df02966a09645ac1609873c9eb7c20e56099f198))
+
+
+### Chores
+
+* **l10n:** update languages ([#312](https://github.com/pressbooks/pressbooks-multi-institution/issues/312)) ([561629a](https://github.com/pressbooks/pressbooks-multi-institution/commit/561629accf721da21ec5198cbc6a64b0b81ba8e6))
+
 ## [1.8.0](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.7.1...1.8.0) (2026-03-12)
 
 
