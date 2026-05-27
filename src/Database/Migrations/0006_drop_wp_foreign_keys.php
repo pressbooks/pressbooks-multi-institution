@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Database\Schema\Builder;
 use PressbooksMultiInstitution\Interfaces\MigrationInterface;
 
 return new class implements MigrationInterface {
