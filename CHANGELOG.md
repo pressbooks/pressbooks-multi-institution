@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.9.1](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.9.0...1.9.1) (2026-05-28)
+
+
+### Bug Fixes
+
+* drop wp foreign key constraints ([#331](https://github.com/pressbooks/pressbooks-multi-institution/issues/331)) ([db05ec8](https://github.com/pressbooks/pressbooks-multi-institution/commit/db05ec8ce46951d99e9f99a48b46357799a9d347))
+
+
+### Chores
+
+* **i18n:** update POT file for translations ([#315](https://github.com/pressbooks/pressbooks-multi-institution/issues/315)) ([77558b3](https://github.com/pressbooks/pressbooks-multi-institution/commit/77558b3a2342eeabab3b7ac41166d86a853c0df6))
+* **l10n:** update languages ([#317](https://github.com/pressbooks/pressbooks-multi-institution/issues/317)) ([e0db501](https://github.com/pressbooks/pressbooks-multi-institution/commit/e0db50135377d62ac259c27847f3dc3c18a459ee))
+
 ## [1.9.0](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.8.0...1.9.0) (2026-05-05)
 
 
