@@ -100,6 +100,29 @@ class MigrationTest extends WP_UnitTestCase
     /**
      * @test
      */
+    public function it_does_not_create_foreign_keys_to_wordpress_tables(): void
+    {
+        Migration::migrate();
+
+        $connection = app('db')->connection();
+        $prefix = $connection->getTablePrefix();
+
+        $wpFks = $connection->select(
+            "SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME IN (?, ?) AND CONSTRAINT_TYPE = 'FOREIGN KEY'",
+            [$prefix . 'institutions_blogs', $prefix . 'institutions_users']
+        );
+
+        $wpFkNames = array_map(fn ($row) => $row->CONSTRAINT_NAME, $wpFks);
+
+        $this->assertNotContains('institutions_blogs_blog_id_foreign', $wpFkNames);
+        $this->assertNotContains('institutions_users_user_id_foreign', $wpFkNames);
+
+        Migration::rollback();
+    }
+
+    /**
+     * @test
+     */
     public function it_drops_tables_upon_rollback(): void
     {
         Migration::migrate();
