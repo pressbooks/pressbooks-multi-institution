@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.10.0](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.9.1...1.10.0) (2026-07-16)
+
+
+### Features
+
+* remove illuminate dependency already required in pressbooks/pressbooks ([#349](https://github.com/pressbooks/pressbooks-multi-institution/issues/349)) ([07c1025](https://github.com/pressbooks/pressbooks-multi-institution/commit/07c10252aec94afc073bfc4aec99b3d01a6aa87f))
+
+
+### Chores
+
+* downgrade dependencies for PHP 8.3 compat ([#352](https://github.com/pressbooks/pressbooks-multi-institution/issues/352)) ([16ffc36](https://github.com/pressbooks/pressbooks-multi-institution/commit/16ffc362a949735a8ccb76cc85a4e4396fe29ba7))
+
 ## [1.9.1](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.9.0...1.9.1) (2026-05-28)
 
 
