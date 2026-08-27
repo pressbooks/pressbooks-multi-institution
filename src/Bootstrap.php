@@ -18,6 +18,7 @@ use PressbooksMultiInstitution\Services\MenuManager;
 use PressbooksMultiInstitution\Services\PermissionsManager;
 use PressbooksMultiInstitution\Views\BookList;
 use PressbooksMultiInstitution\Views\UserList;
+use PressbooksMultiInstitution\Views\WpBookList;
 
 /**
  * Class Bootstrap
@@ -45,6 +46,7 @@ final class Bootstrap
         $this->loadTranslations();
 
         Container::getInstance()->singleton(BookList::class, fn () => new BookList(app('db')));
+        Container::getInstance()->singleton(WpBookList::class, fn () => new WpBookList);
         Container::getInstance()->singleton(UserList::class, fn () => new UserList(app('db')));
 
         $this->registerInstitutionHooks();
