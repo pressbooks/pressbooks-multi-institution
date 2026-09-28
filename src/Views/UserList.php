@@ -26,7 +26,7 @@ class UserList extends BaseInstitutionList
 
         $institution = Institution::query()
             ->where('id', $institutionId)
-            ->withCount('users')
+            ->withCount('activeUsers')
             ->first();
 
         return [
@@ -35,10 +35,10 @@ class UserList extends BaseInstitutionList
                 _n(
                     'There is %s user assigned to %s.',
                     'There are %s users assigned to %s.',
-                    $institution->users_count,
+                    $institution->active_users_count,
                     'pressbooks-multi-institution'
                 ),
-                $institution->users_count,
+                $institution->active_users_count,
                 $institution->name
             ),
         ];
