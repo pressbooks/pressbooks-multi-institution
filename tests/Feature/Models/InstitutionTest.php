@@ -25,9 +25,8 @@ class InstitutionTest extends TestCase
         $deletedUserId = $this->newUser(['user_login' => 'deleted-user', 'user_email' => 'deleted@fake.test']);
         $spamUserId = $this->newUser(['user_login' => 'spam-user', 'user_email' => 'spam@fake.test']);
 
-        global $wpdb;
-        $wpdb->update($wpdb->users, ['deleted' => 1], ['ID' => $deletedUserId]);
-        $wpdb->update($wpdb->users, ['spam' => 1], ['ID' => $spamUserId]);
+        $this->markUserAs($deletedUserId, ['deleted' => 1]);
+        $this->markUserAs($spamUserId, ['spam' => 1]);
 
         InstitutionUser::query()->create(['user_id' => $activeUserId, 'institution_id' => $institution->id]);
         InstitutionUser::query()->create(['user_id' => $deletedUserId, 'institution_id' => $institution->id]);
@@ -47,9 +46,8 @@ class InstitutionTest extends TestCase
         $deletedUserId = $this->newUser(['user_login' => 'deleted-user', 'user_email' => 'deleted@fake.test']);
         $spamUserId = $this->newUser(['user_login' => 'spam-user', 'user_email' => 'spam@fake.test']);
 
-        global $wpdb;
-        $wpdb->update($wpdb->users, ['deleted' => 1], ['ID' => $deletedUserId]);
-        $wpdb->update($wpdb->users, ['spam' => 1], ['ID' => $spamUserId]);
+        $this->markUserAs($deletedUserId, ['deleted' => 1]);
+        $this->markUserAs($spamUserId, ['spam' => 1]);
 
         InstitutionUser::query()->create(['user_id' => $activeUserId, 'institution_id' => $institution->id]);
         InstitutionUser::query()->create(['user_id' => $deletedUserId, 'institution_id' => $institution->id]);

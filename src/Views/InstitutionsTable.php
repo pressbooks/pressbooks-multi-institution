@@ -66,7 +66,7 @@ class InstitutionsTable extends WP_List_Table
         );
 
         $delete_url = network_admin_url(
-            sprintf('/admin.php?page=%s&action=%s&ID[]=%s', $_REQUEST['page'], 'delete', $item['ID'])
+            sprintf('/admin.php?page=%s&action=%s&ID[]=%s', $_REQUEST['page'] ?? 'pb_multi_institutions', 'delete', $item['ID'])
         );
         $delete_url = esc_url(add_query_arg('_wpnonce', wp_create_nonce('bulk-institutions'), $delete_url));
 
