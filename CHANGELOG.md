@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.1](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.10.0...1.10.1) (2026-09-29)
+
+
+### Bug Fixes
+
+* institution user count includes deleted/spam accounts ([#376](https://github.com/pressbooks/pressbooks-multi-institution/issues/376)) ([c8951ab](https://github.com/pressbooks/pressbooks-multi-institution/commit/c8951ab1833d27318e921cd4046d6b840f52511d))
+
 ## [1.10.0](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.9.1...1.10.0) (2026-07-16)
 
 
