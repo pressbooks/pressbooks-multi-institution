@@ -66,7 +66,7 @@ class InstitutionsTable extends WP_List_Table
         );
 
         $delete_url = network_admin_url(
-            sprintf('/admin.php?page=%s&action=%s&ID[]=%s', $_REQUEST['page'], 'delete', $item['ID'])
+            sprintf('/admin.php?page=%s&action=%s&ID[]=%s', $_REQUEST['page'] ?? 'pb_multi_institutions', 'delete', $item['ID'])
         );
         $delete_url = esc_url(add_query_arg('_wpnonce', wp_create_nonce('bulk-institutions'), $delete_url));
 
@@ -164,7 +164,7 @@ class InstitutionsTable extends WP_List_Table
 
         // Retrieve the paginated data using Eloquent
         $institutions = Institution::query()
-            ->withCount('books', 'users')
+            ->withCount('books', 'activeUsers')
             ->with([
                 'domains',
                 'managers' => function (HasMany $query) {
@@ -201,7 +201,7 @@ class InstitutionsTable extends WP_List_Table
                 'buy_in' => $institution->buy_in,
                 'managers' => $institution->managers,
                 'book_limit' => $bookLimit,
-                'users' => $institution->users_count,
+                'users' => $institution->active_users_count,
             ];
         })->toArray();
 

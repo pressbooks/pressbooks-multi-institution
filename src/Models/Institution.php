@@ -41,6 +41,25 @@ class Institution extends Model
         return $this->hasMany(InstitutionUser::class, 'institution_id', 'id');
     }
 
+    /**
+     * Same as users(), but excludes accounts that have been marked as
+     * deleted or spam on the network. Deleting/marking a user as spam does
+     * not remove their row from institutions_users, so users() alone
+     * overcounts compared to lists that only show active accounts (e.g.
+     * the Network Analytics user list).
+     *
+     * @see https://github.com/pressbooks/pressbooks-multi-institution/issues/364
+     */
+    public function activeUsers(): HasMany
+    {
+        return $this->users()->whereIn('user_id', function ($query) {
+            $query->select('ID')
+                ->from('users')
+                ->where('deleted', 0)
+                ->where('spam', 0);
+        });
+    }
+
     public function managers(): HasMany
     {
         return $this->users()->where('manager', true);

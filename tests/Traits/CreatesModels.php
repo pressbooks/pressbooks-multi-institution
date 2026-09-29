@@ -29,6 +29,22 @@ trait CreatesModels
         return $user;
     }
 
+    /**
+     * Institution/InstitutionUser queries run on a separate Eloquent DB
+     * connection, so a plain $wpdb->update() isn't visible to them until
+     * committed. Wrap it the same way newUser() does.
+     */
+    protected function markUserAs(int $userId, array $properties): void
+    {
+        global $wpdb;
+
+        $wpdb->query('START TRANSACTION');
+
+        $wpdb->update($wpdb->users, $properties, ['ID' => $userId]);
+
+        $wpdb->query('COMMIT');
+    }
+
     protected function newSuperAdmin(array $properties = []): int
     {
         return tap($this->newUser($properties), function (int $id) {
