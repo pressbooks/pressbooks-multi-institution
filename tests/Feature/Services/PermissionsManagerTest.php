@@ -141,6 +141,90 @@ class PermissionsManagerTest extends TestCase
         $this->assertNotFalse(apply_filters('pb_institution', false));
         $this->assertTrue(has_filter('pb_institutional_users'));
     }
+
+    /**
+     * Sets up a restricted institutional manager without persisting site options,
+     * so no test state leaks into other tests.
+     */
+    private function setUpInstitutionalManager(): int
+    {
+        $institution = $this->createInstitution();
+        $managerId = $this->newUser();
+
+        $institution->users()->create([
+            'user_id' => $managerId,
+            'manager' => true,
+        ]);
+
+        $login = get_user_by('ID', $managerId)->user_login;
+
+        add_filter('pre_site_option_site_admins', fn () => [$login]);
+        add_filter('pre_site_option_pressbooks_network_managers', fn () => [$managerId]);
+
+        wp_set_current_user($managerId);
+
+        (new PermissionsManager)->setupFilters();
+
+        return $managerId;
+    }
+
+    /**
+     * @test
+     */
+    public function it_allows_admin_post_requests_on_the_main_site_for_institutional_managers(): void
+    {
+        $this->setUpInstitutionalManager();
+
+        set_current_screen('wp-admin/admin-post.php');
+
+        global $pagenow;
+        $pagenow = 'admin-post.php';
+        $_GET['action'] = 'pb_gdocs_callback';
+
+        $deniedWith = false;
+
+        ob_start();
+        try {
+            do_action('admin_init');
+        } catch (\WPDieException $e) {
+            $deniedWith = $e->getMessage();
+        } finally {
+            ob_end_clean();
+        }
+
+        $this->assertFalse(
+            $deniedWith,
+            "Institutional managers must be able to reach admin-post.php on the main site, but access was denied with: {$deniedWith}"
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function it_restricts_admin_post_requests_for_books_outside_the_institution(): void
+    {
+        $this->setUpInstitutionalManager();
+
+        $this->runWithoutFilter('pb_new_blog', fn () => $this->newBook());
+
+        set_current_screen('wp-admin/admin-post.php');
+
+        global $pagenow;
+        $pagenow = 'admin-post.php';
+        $_GET['action'] = 'pb_gdocs_callback';
+
+        ob_start();
+        try {
+            do_action('admin_init');
+            $this->fail('Access to admin-post.php on a book outside the institution should be denied.');
+        } catch (\WPDieException $e) {
+            $this->assertStringContainsString('not allowed to access this page', $e->getMessage());
+        } finally {
+            restore_current_blog();
+            ob_end_clean();
+        }
+    }
+
     /**
      * @test
      */

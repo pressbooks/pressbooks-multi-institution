@@ -56,6 +56,7 @@ function get_allowed_pages(): array
         'tools.php',
         'users.php' => ['deleteuser','dodelete','user_bulk_new','pb_network_analytics_userlist'],
         'admin-ajax.php',
+        'admin-post.php',
         'options-general.php',
         'profile.php' => [''],
         'post-new.php',
