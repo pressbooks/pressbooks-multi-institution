@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.2](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.10.1...1.10.2) (2026-09-30)
+
+
+### Bug Fixes
+
+* allow admin-post requests for institutional managers ([#378](https://github.com/pressbooks/pressbooks-multi-institution/issues/378)) ([a30536f](https://github.com/pressbooks/pressbooks-multi-institution/commit/a30536ffb3b914bbc9b4a0acd1366ec7fe173d37))
+
 ## [1.10.1](https://github.com/pressbooks/pressbooks-multi-institution/compare/1.10.0...1.10.1) (2026-09-29)
 
 
