@@ -9,6 +9,8 @@ use PressbooksMultiInstitution\Models\InstitutionUser;
 use PressbooksMultiInstitution\Views\BookList;
 use PressbooksMultiInstitution\Views\UserList;
 
+use PressbooksMultiInstitution\Views\WpBookList;
+
 use function Pressbooks\Admin\NetworkManagers\_restricted_users;
 use function PressbooksMultiInstitution\Support\get_allowed_book_pages;
 use function PressbooksMultiInstitution\Support\get_allowed_pages;
@@ -38,6 +40,7 @@ class PermissionsManager
 
         Container::get(TableViews::class)->init();
         Container::get(BookList::class)->init();
+        Container::get(WpBookList::class)->init();
         Container::get(UserList::class)->init();
 
         do_action('pb_institutional_filters_created', $institution, $institutionalManagers, $institutionalUsers);
